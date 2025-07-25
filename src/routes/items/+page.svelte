@@ -177,7 +177,7 @@
   <div style="margin: 1em 0;">
     <button on:click={prevPage} disabled={page === 1}>Prev</button>
     <span>Page {page}</span>
-    <button on:click={nextPage}>Next</button>
+    <button on:click={nextPage} disabled={items.length < perPage}>Next</button>
   </div>
 {/if}
 

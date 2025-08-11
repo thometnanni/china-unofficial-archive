@@ -1,21 +1,25 @@
 import { writable } from "svelte/store";
+import { browser } from "$app/environment";
 
 function getDefaultLang() {
-  const saved =
-    typeof localStorage !== "undefined" && localStorage.getItem("lang");
-  if (saved) return saved;
-  const browserLang = typeof navigator !== "undefined" && navigator.language;
-  if (browserLang?.startsWith("zh")) return "zh";
+  if (browser) {
+    // console.log(navigator, navigator.language);
+    const saved = localStorage.getItem("lang");
+    if (saved) return saved;
+
+    const browserLang = navigator.language;
+    if (browserLang?.startsWith("zh")) return "zh";
+  }
   return "en";
 }
 
 export const lang = writable(getDefaultLang());
 
-lang.subscribe((value) => {
-  if (typeof localStorage !== "undefined") {
+if (browser) {
+  lang.subscribe((value) => {
     localStorage.setItem("lang", value);
-  }
-});
+  });
+}
 
 export const translations = {
   en: {

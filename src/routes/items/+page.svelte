@@ -34,6 +34,7 @@
   let page = 1;
   let perPage = 40;
   let search = "";
+  let ready = false;
   $: currentLang = $lang;
 
   filterConfigs.forEach((f) => {
@@ -57,20 +58,15 @@
           const label_zh =
             titles.find((ti) => ti["@language"] === "zh")?.["@value"] ||
             label_en;
-          return {
-            key: id,
-            label_en,
-            label_zh,
-          };
+          return { key: id, label_en, label_zh };
         });
       } else {
         const allItems = await fetchAllItemsForProperty(f.prop);
-        let values = new Set();
+        const values = new Set();
         for (const item of allItems) {
           (item[f.prop] || []).forEach((val) => {
-            if (val.type === "literal" && val["@value"]) {
+            if (val.type === "literal" && val["@value"])
               values.add(val["@value"]);
-            }
           });
         }
         filterOptions[f.prop] = Array.from(values)
@@ -83,19 +79,11 @@
       }
     }
     filterOptions = { ...filterOptions };
-    await loadItems();
+    ready = true;
   });
 
   function handleFilterChange(e) {
-    selectedFilters = {
-      ...selectedFilters,
-      [e.detail.prop]: e.detail.value,
-    };
-    page = 1;
-  }
-
-  function handleSearch(e) {
-    search = e.detail;
+    selectedFilters = { ...selectedFilters, [e.detail.prop]: e.detail.value };
     page = 1;
   }
 
@@ -106,7 +94,6 @@
   function nextPage() {
     page += 1;
   }
-
   function prevPage() {
     page = Math.max(1, page - 1);
   }
@@ -121,10 +108,13 @@
       .filter(Boolean);
   }
 
-  $: loadTrigger = JSON.stringify([selectedFilters, search, page]);
-  $: if (loadTrigger) loadItems();
+  $: loadTrigger = JSON.stringify([selectedFilters, search, page, ready]);
+  $: if (ready && loadTrigger) loadItems();
+
+  let requestId = 0;
 
   async function loadItems() {
+    const myId = ++requestId;
     loading = true;
     items = [];
     try {
@@ -135,11 +125,14 @@
         perPage,
         filterConfigs,
       });
+      if (myId !== requestId) return;
       items = data;
-    } catch (e) {
+    } catch {
+      if (myId !== requestId) return;
       items = [];
+    } finally {
+      if (myId === requestId) loading = false;
     }
-    loading = false;
   }
 </script>
 
@@ -148,7 +141,8 @@
   <button on:click={switchLang}>{t("switch_to_ch", $lang)}</button>
 </header>
 
-<Search lang={currentLang} bind:value={search} on:search={handleSearch} />
+<!-- Keep only one of these mechanisms. Here we keep binding and remove on:search -->
+<Search lang={currentLang} bind:value={search} />
 
 <div style="display: flex; gap: 1em; margin-bottom: 1em;">
   {#each filterConfigs as f}

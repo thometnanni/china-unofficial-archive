@@ -2,12 +2,6 @@
   export let value = "";
   export let lang;
   import { t } from "$lib/lang.js";
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
-
-  function handleInput(e) {
-    dispatch("search", e.target.value);
-  }
 </script>
 
 <input
@@ -15,7 +9,6 @@
   class="search-input"
   bind:value
   placeholder={t("search_placeholder", lang)}
-  on:input={handleInput}
 />
 
 <style>

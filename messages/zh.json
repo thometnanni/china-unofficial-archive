@@ -1,0 +1,16 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"title": "民间档案馆",
+	"switch_to_ch": "Switch to English",
+	"all": "全部",
+	"creator": "创作者",
+	"era": "时代",
+	"type": "类型",
+	"theme": "主题",
+	"search_placeholder": "搜索全部字段...",
+	"loading": "加载中...",
+	"no_results": "未找到结果。",
+	"view_details": "查看详情",
+	"untitled": "(无标题)",
+	"no_description": "暂无描述。"
+}

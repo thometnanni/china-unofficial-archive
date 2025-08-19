@@ -1,0 +1,16 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"title": "China Unofficial Archive",
+	"switch_to_ch": "切换中文",
+	"all": "All",
+	"creator": "Creator",
+	"era": "Era",
+	"type": "Type",
+	"theme": "Theme",
+	"search_placeholder": "Search all fields...",
+	"loading": "Loading...",
+	"no_results": "No results found.",
+	"view_details": "View details",
+	"untitled": "(Untitled)",
+	"no_description": "No description available."
+}

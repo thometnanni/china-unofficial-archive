@@ -11,6 +11,7 @@
 	import Card from '$lib/components/Card.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import Filters from '$lib/components/Filters.svelte';
+	import Zoom from '$lib/components/wrappers/zoom.svelte';
 
 	let filterConfigs = [
 		{ prop: 'dcterms:type', labelKey: 'type', isResource: true, templateId: 9 },
@@ -157,11 +158,15 @@
 {:else if items.length === 0}
 	<p>{m.no_results()}</p>
 {:else}
-	<div class="index-list">
-		{#each items as item (item['o:id'])}
-			<Card {item} />
-		{/each}
-	</div>
+	<Zoom>
+		{#snippet children(zoom)}
+			<div class="index-list">
+				{#each items as item (item['o:id'])}
+					<Card {item} {zoom} />
+				{/each}
+			</div>
+		{/snippet}
+	</Zoom>
 	<div style="margin: 1em 0;">
 		<button onclick={prevPage} disabled={page === 1}>Prev</button>
 		<span>Page {page}</span>
@@ -182,5 +187,8 @@
 		overflow: hidden;
 		box-shadow: 0 1px 8px #eee;
 		background: #fff;
+
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>

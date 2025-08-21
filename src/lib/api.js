@@ -1,4 +1,6 @@
-const BASE_URL = 'https://minjian-danganguan.org/api';
+import * as env from '$env/static/public';
+
+const BASE_URL = env.PUBLIC_OMEKA_API ?? 'https://minjian-danganguan.org/api';
 
 export function buildItemsUrl({
 	filters = [],

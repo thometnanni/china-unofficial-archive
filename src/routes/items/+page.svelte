@@ -14,9 +14,9 @@
 	import Zoom from '$lib/components/wrappers/zoom.svelte';
 
 	let filterConfigs = [
-		{ prop: 'dcterms:type', labelKey: 'type', isResource: true, templateId: 9 },
+		{ prop: 'curation:category', labelKey: 'type', isResource: true, templateId: 9 },
 		{
-			prop: 'dcterms:subject',
+			prop: 'curation:theme',
 			labelKey: 'theme',
 			isResource: true,
 			templateId: 10
@@ -26,6 +26,12 @@
 			labelKey: 'creator',
 			isResource: true,
 			templateId: 3
+		},
+		{
+			prop: 'dcterms:coverage',
+			labelKey: 'era',
+			isResource: true,
+			templateId: 7
 		}
 	];
 

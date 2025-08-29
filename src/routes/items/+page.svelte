@@ -144,7 +144,6 @@
 	</div>
 </header>
 
-<!-- Keep only one of these mechanisms. Here we keep binding and remove on:search -->
 <Search bind:value={search} />
 
 <div style="display: flex; gap: 1em; margin-bottom: 1em;">
@@ -168,7 +167,7 @@
 		{#snippet children(zoom)}
 			<div class="index-list">
 				{#each items as item (item['o:id'])}
-					<Card {item} {zoom} />
+					<Card {item} {zoom} {search} />
 				{/each}
 			</div>
 		{/snippet}

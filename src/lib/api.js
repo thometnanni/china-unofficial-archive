@@ -11,37 +11,26 @@ export function buildItemsUrl({
 }) {
 	let url = `${BASE_URL}/items?page=${page}&per_page=${perPage}`;
 	filters.forEach((f, i) => {
-		const config = filterConfigs.find((cfg) => cfg.prop === f.prop);
-		const type = config && config.isResource ? 'res' : 'eq';
-		url += `&property[${i}][property]=${
-			f.prop
-		}&property[${i}][type]=${type}&property[${i}][text]=${encodeURIComponent(f.value)}`;
+		const cfg = filterConfigs.find((c) => c.prop === f.prop);
+		const type = cfg?.isResource ? 'res' : 'eq';
+		url += `&property[${i}][property]=${f.prop}&property[${i}][type]=${type}&property[${i}][text]=${encodeURIComponent(f.value)}`;
 	});
-	if (search) {
-		const idx = filters.length;
-		url += `&property[${idx}][property]=dcterms:title&property[${idx}][type]=in&property[${idx}][text]=${encodeURIComponent(
-			search
-		)}`;
-	}
+
+	const q = (search ?? '').trim();
+	if (q) url += `&fulltext_search=${encodeURIComponent(q)}`;
+
 	return url;
 }
 
-export async function fetchItemsQuery({
-	filters = [],
-	search = '',
-	page = 1,
-	perPage = 40,
-	filterConfigs = []
-}) {
-	const url = buildItemsUrl({ filters, search, page, perPage, filterConfigs });
-	const res = await fetch(url);
+export async function fetchItemsQuery(args) {
+	const res = await fetch(buildItemsUrl(args));
 	if (!res.ok) throw new Error('Failed to fetch items');
-	return await res.json();
+	return res.json();
 }
 
 export async function getResourcesByTemplate(templateId, perPage = 100) {
-	let resources = [];
-	let page = 1;
+	let out = [],
+		page = 1;
 	while (true) {
 		const res = await fetch(
 			`${BASE_URL}/items?resource_template_id=${templateId}&page=${page}&per_page=${perPage}`
@@ -49,30 +38,30 @@ export async function getResourcesByTemplate(templateId, perPage = 100) {
 		if (!res.ok) throw new Error(`Failed to fetch resources for template ${templateId}`);
 		const data = await res.json();
 		if (!Array.isArray(data) || data.length === 0) break;
-		resources = [...resources, ...data];
+		out.push(...data);
 		if (data.length < perPage) break;
 		page++;
 	}
-	return resources;
+	return out;
 }
 
-export async function fetchAllItemsForProperty(prop, maxPages = 10, perPage = 100) {
-	let items = [];
-	let page = 1;
+export async function fetchAllItemsForProperty(_prop, maxPages = 10, perPage = 100) {
+	let out = [],
+		page = 1;
 	while (page <= maxPages) {
 		const res = await fetch(`${BASE_URL}/items?page=${page}&per_page=${perPage}`);
 		if (!res.ok) break;
 		const data = await res.json();
 		if (!Array.isArray(data) || data.length === 0) break;
-		items = [...items, ...data];
+		out.push(...data);
 		if (data.length < perPage) break;
 		page++;
 	}
-	return items;
+	return out;
 }
 
 export async function getItem(id) {
 	const res = await fetch(`${BASE_URL}/items/${id}`);
 	if (!res.ok) throw new Error(`Item ${id} not found`);
-	return await res.json();
+	return res.json();
 }

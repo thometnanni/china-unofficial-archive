@@ -2,7 +2,7 @@
 	import { m } from '$lib/paraglide/messages.js';
 	import { getLocale } from '$lib/paraglide/runtime';
 
-	const { item } = $props();
+	const { item, zoom } = $props();
 
 	let lang = $derived.by(getLocale);
 
@@ -26,12 +26,14 @@
 </script>
 
 <a class="card" href={`/items/${itemId}`}>
-	{#if thumbUrl}
+	{#if thumbUrl && zoom >= 2}
 		<img class="thumb" src={thumbUrl} alt="thumbnail" />
 	{/if}
 	<div class="content">
 		<div class="title">{title}</div>
-		<div class="desc">{desc}</div>
+		{#if zoom >= 3}
+			<div class="desc">{desc}</div>
+		{/if}
 	</div>
 </a>
 

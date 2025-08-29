@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
+		"dev-host": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
@@ -33,6 +34,8 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
-		"@inlang/paraglide-js": "^2.0.0"
+		"@inlang/paraglide-js": "^2.0.0",
+		"d3-selection": "^3.0.0",
+		"d3-zoom": "^3.0.0"
 	}
 }

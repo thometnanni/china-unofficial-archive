@@ -27,7 +27,7 @@
 	});
 </script>
 
-<a class="card" href={`/items/${itemId}`}>
+<a class="card" href={`https://minjian-danganguan.org/s/china-unofficial/item/${itemId}`}>
 	{#if thumbUrl && zoom >= 2}
 		<img class="thumb" src={thumbUrl} alt="thumbnail" />
 	{/if}
@@ -91,7 +91,6 @@
 		margin-top: 0.25rem;
 		font-size: 0.95em;
 		line-height: 1.35;
-		color: #444;
 		white-space: pre-wrap;
 	}
 	mark {

@@ -6,7 +6,8 @@
 		fetchItemsQuery,
 		getResourcesByTemplate,
 		fetchAllItemsForProperty,
-		buildItemsUrl
+		buildItemsUrl,
+		fetchFilters
 	} from '$lib/api.js';
 	import Card from '$lib/components/Card.svelte';
 	import Search from '$lib/components/Search.svelte';
@@ -32,6 +33,11 @@
 			labelKey: 'era',
 			isResource: true,
 			templateId: 7
+		},
+		{
+			prop: 'dcterms:date',
+			labelKey: 'published',
+			searchType: 'sw'
 		}
 	];
 
@@ -50,7 +56,7 @@
 	});
 
 	onMount(async () => {
-		for (const f of filterConfigs) {
+		for (const f of filterConfigs.filter(({ prop }) => prop !== 'dcterms:date')) {
 			if (f.isResource) {
 				const resources = await getResourcesByTemplate(f.templateId);
 				filterOptions[f.prop] = resources.map((r) => {
@@ -82,7 +88,15 @@
 					}));
 			}
 		}
-		filterOptions = { ...filterOptions };
+		const years = await fetchFilters().then(({ years }) =>
+			Object.entries(years).map(([year, count]) => ({
+				key: year,
+				label_en: `${year} (${count})`,
+				label_zh: `${year} (${count})`
+			}))
+		);
+		filterOptions = { ...filterOptions, 'dcterms:date': years };
+		console.log(filterOptions);
 		ready = true;
 	});
 

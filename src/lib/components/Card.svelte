@@ -16,6 +16,7 @@
 			item['dcterms:description']?.[0]?.['@value'] ||
 			m.no_description()
 	);
+
 	let thumbUrl = $derived(
 		item.thumbnail_display_urls?.medium || item.thumbnail_display_urls?.large || ''
 	);
@@ -27,6 +28,7 @@
 	});
 </script>
 
+<!-- {zoom} -->
 <a class="card" href={`https://minjian-danganguan.org/s/china-unofficial/item/${itemId}`}>
 	{#if thumbUrl && zoom >= 2}
 		<img class="thumb" src={thumbUrl} alt="thumbnail" />
@@ -35,6 +37,8 @@
 		<div class="title">{title}</div>
 
 		{#if zoom >= 3}
+			<div class="desc">{desc}</div>
+
 			{#if snip.snippets.length}
 				{#each snip.snippets as parts}
 					<div class="snippet">
@@ -43,7 +47,6 @@
 						{/each}
 					</div>
 				{/each}
-				<div class="desc">{desc}</div>
 			{/if}
 		{/if}
 	</div>

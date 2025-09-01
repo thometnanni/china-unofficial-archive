@@ -18,10 +18,10 @@
 				.on('zoom', (event) => {
 					scale = event.transform.k;
 				})
-				.filter(({ type, ctrlKey, shiftKey, touches }) => {
+				.filter(({ type, ctrlKey, shiftKey, altKey, touches }) => {
 					switch (type) {
 						case 'wheel':
-							return ctrlKey || shiftKey;
+							return ctrlKey || shiftKey || altKey;
 						case 'touchmove':
 						case 'touchstart':
 							return event.touches.length === 2;

@@ -9,7 +9,7 @@
 	export let options = [];
 	export let selected = 'All';
 
-	export let sortMode = 'stroke'; // 'pinyin' | 'stroke'
+	export let sortMode = 'pinyin'; // 'pinyin' | 'stroke'
 
 	const dispatch = createEventDispatcher();
 	function handleChange(e) {

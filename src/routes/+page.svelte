@@ -1,2 +1,5 @@
-<a href="/items">Items</a>
-<br />
+<script>
+	import Splash from '$lib/components/Splash.svelte';
+</script>
+
+<Splash />

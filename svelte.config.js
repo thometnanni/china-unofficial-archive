@@ -5,7 +5,12 @@ import adapter from '@sveltejs/adapter-auto';
 const config = {
 	kit: { adapter: adapter() },
 	preprocess: [mdsvex()],
-	extensions: ['.svelte', '.svx']
+	extensions: ['.svelte', '.svx'],
+	compilerOptions: {
+		experimental: {
+			async: true
+		}
+	}
 };
 
 export default config;

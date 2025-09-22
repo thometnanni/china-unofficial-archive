@@ -1,3 +1,46 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+@theme {
+	--font-sans-en: Helvetica, Arial, sans-serif;
+	--font-sans-zh: Noto Sans SC, Helvetica, Arial, sans-serif;
+}
+
+:root:lang(en) body,
+.en {
+	font-family: var(--font-sans-en);
+}
+
+:root:lang(zh) body,
+.zh {
+	font-family: var(--font-sans-zh);
+}
+
+@font-face {
+	font-family: 'Noto Sans SC';
+	font-style: normal;
+	font-weight: 100;
+	src: url('/fonts/noto-sans-sc-chinese-simplified-100-normal.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans SC';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/noto-sans-sc-chinese-simplified-400-normal.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans SC';
+	font-style: normal;
+	font-weight: 600;
+	src: url('/fonts/noto-sans-sc-chinese-simplified-600-normal.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans SC';
+	font-style: normal;
+	font-weight: 800;
+	src: url('/fonts/noto-sans-sc-chinese-simplified-800-normal.ttf') format('truetype');
+}

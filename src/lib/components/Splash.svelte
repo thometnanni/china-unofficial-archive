@@ -21,7 +21,7 @@
 			const naturalW = node.naturalWidth;
 			const naturalH = node.naturalHeight;
 
-			const scale = rnd(0.2, 0.4);
+			const scale = rnd(0.2, 0.6);
 
 			const maxW = parent.clientWidth * scale;
 			const maxH = parent.clientHeight * scale;
@@ -67,7 +67,7 @@
 </script>
 
 <section
-	class="relative flex h-[80vh] w-svw flex-col items-center justify-end overflow-hidden bg-black p-5"
+	class="relative flex h-[80vh] w-svw flex-col items-center justify-end overflow-hidden bg-brand-cream p-1"
 >
 	<div class="absolute inset-0">
 		{#each splashImages as src, i}
@@ -89,26 +89,30 @@
 	</div>
 
 	<h2
-		class="absolute top-8 left-6 z-10 bg-gray-100 px-1 font-medium whitespace-nowrap text-black sm:left-10 md:left-16"
+		class="zh absolute top-4 left-4 z-10 bg-gray-100 px-2 text-2xl font-medium text-black sm:left-6 md:left-8"
 	>
 		{m.slogan(null, { locale: 'zh' })}
 	</h2>
 
 	<h2
-		class="absolute right-6 bottom-24 z-10 bg-gray-100 px-1 font-medium whitespace-nowrap text-black sm:right-10 md:right-16"
+		class="en absolute right-4 bottom-20 z-10 bg-gray-100 px-2 text-2xl font-medium text-black sm:right-6 md:right-8"
 	>
 		{m.slogan(null, { locale: 'en' })}
 	</h2>
 
-	<div class="z-20 flex gap-4">
+	<div class="z-20 mb-4 flex gap-4">
 		<button
-			class="bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
-			onclick={() => setLocale('zh')}>{m.enter(null, { locale: 'zh' })}</button
+			class="zh bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
+			onclick={() => setLocale('zh')}
 		>
+			{m.enter(null, { locale: 'zh' })}
+		</button>
 		<button
-			class="bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
-			onclick={() => setLocale('en')}>{m.enter(null, { locale: 'en' })}</button
+			class="en bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
+			onclick={() => setLocale('en')}
 		>
+			{m.enter(null, { locale: 'en' })}
+		</button>
 	</div>
 </section>
 
@@ -118,7 +122,7 @@
 		object-fit: cover;
 		object-position: center;
 		opacity: 0;
-		animation: fade 20s linear infinite;
+		animation: fade 10s linear infinite;
 		/* filter: grayscale(100%); */
 		animation-delay: calc(var(--i) * 2s - 3s);
 	}

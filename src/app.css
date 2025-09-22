@@ -13,12 +13,12 @@
 	--color-brand-grayblue: #c3c8d1;
 	--color-brand-blue: #7f9dd8;
 	--color-brand-green-100: #c3d1c4;
-	--color-brand-green-200: #afd7d5;
+	--color-brand-green-200: #bdd1cf;
 	--color-brand-teal: #5da9c3;
 	--color-brand-gold: #eab160;
-	--color-brand-yellow: #fff200;
 	--color-brand-purple: #9773b0;
 	--color-brand-cream: #ecebd9;
+	--color-brand-yellow: #fff200;
 }
 
 html {
@@ -33,6 +33,10 @@ html {
 :root:lang(zh) body,
 .zh {
 	font-family: var(--font-sans-zh);
+}
+
+img {
+	filter: grayscale(100%);
 }
 
 @font-face {

@@ -2,6 +2,7 @@
 	import Featured from '$lib/components/Featured.svelte';
 	import MenuBar from '$lib/components/MenuBar.svelte';
 	import Splash from '$lib/components/Splash.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 </script>
 
 <Splash />
@@ -13,3 +14,5 @@
 		<p>loading...</p>
 	{/snippet}
 </svelte:boundary>
+
+<Footer />

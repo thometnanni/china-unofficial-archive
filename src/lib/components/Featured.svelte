@@ -1,33 +1,34 @@
 <script>
 	import { query } from '$lib/api';
 	import { m } from '$lib/paraglide/messages';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import Card from '$lib/components/Card.svelte';
+	import NewsletterPanel from '$lib/components/NewsletterPanel.svelte';
 
 	const featured = await query('featured');
-
 	const newsletters = await query('newsletters');
 </script>
 
-<div class="flex">
-	<section class="featured flex-2">
-		{#each featured as item}
-			<div>
-				<img src={item.thumbnail} width="100" alt="cover of {item.title}" />
-				<h4>{item.type}</h4>
-				<h3>{item.title}</h3>
+<section class="grid w-svw gap-2 lg:grid-cols-[1fr_320px]">
+	<div class="space-y-4 p-2">
+		<div class="columns-1 gap-2 [column-fill:balance] sm:columns-2 lg:columns-4">
+			<div class="mb-4 break-inside-avoid">
+				<a
+					href="/archive"
+					class="block h-full bg-brand-green-200 p-4 hover:bg-brand-black hover:text-brand-white"
+				>
+					<h2 class="text-4xl leading-tight font-medium">{m.explore_archive()}</h2>
+				</a>
 			</div>
-		{/each}
-	</section>
-	<section class="newsletters flex-1">
-		{#each newsletters.items as item}
-			<a href={item.url}>
-				<img src={item.image} width="50" alt="cover of {item.title}" />
-				<h4>{new Date(item.date).toLocaleDateString()}</h4>
-				<h3>{item.title}</h3>
-			</a>
-		{/each}
-	</section>
-</div>
 
-<style>
-</style>
+			{#each featured as item, i}
+				<div class="mb-4 break-inside-avoid">
+					<Card {item} {i} />
+				</div>
+			{/each}
+		</div>
+	</div>
+
+	<aside class="lg:sticky lg:top-4">
+		<NewsletterPanel items={newsletters.items} />
+	</aside>
+</section>

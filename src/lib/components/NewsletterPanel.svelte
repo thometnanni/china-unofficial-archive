@@ -1,5 +1,5 @@
 <script>
-	export let items = [];
+	let { items = [] } = $props();
 </script>
 
 <section class="bg-brand-yellow p-3 text-black">

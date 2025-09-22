@@ -1,11 +1,10 @@
 <script>
 	import { inkFilter } from '$lib/filter.js';
-	export let item;
-	export let i = 0;
+	let { item, i = 0 } = $props();
 	const odd = i % 2 === 1;
 </script>
 
-<a href={'items/' + item.id} class="block h-full w-full">
+<a href={'archive/' + item.id} class="block h-full w-full">
 	<div class="relative h-full">
 		{#if item.thumbnail}
 			<img

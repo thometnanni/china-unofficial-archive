@@ -12,11 +12,10 @@
 	<div class="space-y-4 p-2">
 		<div class="columns-1 gap-2 [column-fill:balance] sm:columns-2 lg:columns-4">
 			<div class="mb-4 break-inside-avoid">
-				<a
-					href="/archive"
-					class="block h-full bg-brand-green-200 p-4 hover:bg-brand-black hover:text-brand-white"
-				>
-					<h2 class="text-4xl leading-tight font-medium">{m.explore_archive()}</h2>
+				<a href="/archive" class="block h-full bg-brand-green-200 p-4 hover:bg-brand-black">
+					<h2 class="text-4xl leading-tight font-medium">
+						<span class="inline bg-white px-1">{m.explore_archive()}</span>
+					</h2>
 				</a>
 			</div>
 

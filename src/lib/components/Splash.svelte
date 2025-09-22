@@ -1,7 +1,6 @@
 <script>
 	import { m } from '$lib/paraglide/messages';
-	import { setLocale } from '$lib/paraglide/runtime';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { localizeHref, setLocale } from '$lib/paraglide/runtime';
 </script>
 
 <section class="flex h-[calc(90svh-100px)] w-svw flex-col items-center justify-around bg-gray-100">
@@ -11,15 +10,13 @@
 	</div>
 
 	<div class="flex gap-4">
-		<a
-			href={localizeHref('', { locale: 'zh' })}
+		<button
 			class="bg-gray-100 px-4 py-2 hover:bg-black hover:text-white"
-			>{m.enter(null, { locale: 'zh' })}</a
+			onclick={() => setLocale('zh')}>{m.enter(null, { locale: 'zh' })}</button
 		>
-		<a
-			href={localizeHref('', { locale: 'en' })}
+		<button
 			class="bg-gray-100 px-4 py-2 hover:bg-black hover:text-white"
-			>{m.enter(null, { locale: 'en' })}</a
+			onclick={() => setLocale('en')}>{m.enter(null, { locale: 'en' })}</button
 		>
 	</div>
 </section>

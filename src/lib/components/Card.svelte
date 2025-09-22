@@ -1,10 +1,11 @@
 <script>
 	import { inkFilter } from '$lib/filter.js';
+	import { localizeHref } from '$lib/paraglide/runtime';
 	let { item, i = 0 } = $props();
 	const odd = i % 2 === 1;
 </script>
 
-<a href={'archive/' + item.id} class="block h-full w-full">
+<a href={localizeHref('/archive/' + item.id)} class="block h-full w-full">
 	<div class="relative h-full">
 		{#if item.thumbnail}
 			<img

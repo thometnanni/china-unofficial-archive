@@ -1,8 +1,9 @@
 <script>
 	import { query } from '$lib/api';
 	import { m } from '$lib/paraglide/messages';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { localizeHref, setLocale } from '$lib/paraglide/runtime';
 	import { onMount } from 'svelte';
+	import { inkFilter } from '$lib/filter.js';
 
 	let splashImages = [];
 	onMount(async () => {
@@ -20,7 +21,7 @@
 			const naturalW = node.naturalWidth;
 			const naturalH = node.naturalHeight;
 
-			const scale = rnd(0.2, 0.9);
+			const scale = rnd(0.2, 0.4);
 
 			const maxW = parent.clientWidth * scale;
 			const maxH = parent.clientHeight * scale;
@@ -70,7 +71,20 @@
 >
 	<div class="absolute inset-0">
 		{#each splashImages as src, i}
-			<img {src} alt="" use:rescale class="tile" style="--i:{i}" />
+			<img
+				{src}
+				alt="splash"
+				crossorigin="anonymous"
+				use:rescale
+				use:inkFilter={{
+					ink: '#000',
+					paper: '#faf8f0',
+					bandAmp: 15,
+					noise: 20
+				}}
+				class="tile"
+				style="--i:{i}"
+			/>
 		{/each}
 	</div>
 
@@ -87,12 +101,14 @@
 	</h2>
 
 	<div class="z-20 flex gap-4">
-		<button class="bg-gray-100 px-1 hover:bg-black hover:text-white">
-			{m.enter(null, { locale: 'zh' })}
-		</button>
-		<button class="bg-gray-100 px-1 hover:bg-black hover:text-white">
-			{m.enter(null, { locale: 'en' })}
-		</button>
+		<button
+			class="bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
+			onclick={() => setLocale('zh')}>{m.enter(null, { locale: 'zh' })}</button
+		>
+		<button
+			class="bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
+			onclick={() => setLocale('en')}>{m.enter(null, { locale: 'en' })}</button
+		>
 	</div>
 </section>
 
@@ -102,8 +118,8 @@
 		object-fit: cover;
 		object-position: center;
 		opacity: 0;
-		animation: fade 10s linear infinite;
-		filter: grayscale(100%);
+		animation: fade 20s linear infinite;
+		/* filter: grayscale(100%); */
 		animation-delay: calc(var(--i) * 2s - 3s);
 	}
 

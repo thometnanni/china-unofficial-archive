@@ -1,29 +1,23 @@
 <script>
-	import { onMount } from 'svelte';
-	import { getItem } from '$lib/api';
+	import Items from '$lib/components/Items.svelte';
+	import MenuBar from '$lib/components/MenuBar.svelte';
+	import Search from '$lib/components/Search.svelte';
+
 	import { page } from '$app/stores';
-
-	let item = $state();
-	let loading = $state(true);
-
+	import Item from '$lib/components/Item.svelte';
 	let id = $derived($page.params.id);
 
-	onMount(async () => {
-		try {
-			item = await getItem(id);
-		} catch (e) {
-			console.error(e);
-		} finally {
-			loading = false;
-		}
-	});
+	let search = $state('');
 </script>
 
-{#if loading}
-	<p>Loading item…</p>
-{:else if item}
-	<h1>{item['o:title']}</h1>
-	<pre>{JSON.stringify(item, null, 2)}</pre>
-{:else}
-	<p>Item not found.</p>
-{/if}
+<MenuBar />
+<svelte:boundary>
+	<Search bind:value={search} />
+	<section class="grid w-svw gap-2 lg:grid-cols-[320px_1fr]">
+		<Item {id} />
+		<Items />
+	</section>
+	{#snippet pending()}
+		<p>loading...</p>
+	{/snippet}
+</svelte:boundary>

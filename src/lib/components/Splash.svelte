@@ -1,63 +1,70 @@
 <script>
 	import { query } from '$lib/api';
 	import { m } from '$lib/paraglide/messages';
-	import { localizeHref, setLocale } from '$lib/paraglide/runtime';
-	import { onMount } from 'svelte';
+	import { setLocale } from '$lib/paraglide/runtime';
+	import { onMount, tick } from 'svelte';
 	import { inkFilter } from '$lib/filter.js';
+	import { browser } from '$app/environment';
 
 	let splashImages = [];
+	let splashEl;
+
+	const scrollBelowSplash = async () => {
+		await tick();
+		const h = splashEl?.offsetHeight ?? 0;
+		if (h > 0) window.scrollTo({ top: h, behavior: 'smooth' });
+	};
+
+	function currentLocaleFromPath() {
+		if (!browser) return '';
+		const seg = location.pathname.split('/')[1] || '';
+		return seg;
+	}
+
+	function changeLang(next) {
+		const cur = currentLocaleFromPath();
+		if (browser && cur === next) {
+			scrollBelowSplash();
+			return;
+		}
+		if (browser) sessionStorage.setItem('scrollTo', 'menu');
+		setLocale(next);
+	}
+
 	onMount(async () => {
 		const images = await query('splash-images');
 		splashImages = [...images].sort(() => Math.random() - 0.5);
+
+		if (!browser) return;
+		if (sessionStorage.getItem('scrollTo') === 'menu') {
+			sessionStorage.removeItem('scrollTo');
+			scrollBelowSplash();
+		}
 	});
 
 	function rescale(node) {
 		const rnd = (min, max) => min + Math.random() * (max - min);
-
 		const apply = () => {
-			const parent = node.parentElement;
-			if (!parent) return;
-
-			const naturalW = node.naturalWidth;
-			const naturalH = node.naturalHeight;
-
+			const p = node.parentElement;
+			if (!p) return;
+			const r = node.naturalWidth / node.naturalHeight || 1;
 			const scale = rnd(0.4, 0.8);
-
-			const maxW = parent.clientWidth * scale;
-			const maxH = parent.clientHeight * scale;
-			const ratio = naturalW / naturalH;
-
-			let w, h;
-			if (maxW / ratio <= maxH) {
-				w = maxW;
-				h = maxW / ratio;
-			} else {
-				h = maxH;
-				w = maxH * ratio;
-			}
-
+			const maxW = p.clientWidth * scale,
+				maxH = p.clientHeight * scale;
+			const w = Math.min(maxW, maxH * r),
+				h = w / r;
 			node.style.width = w + 'px';
 			node.style.height = h + 'px';
-
-			const maxX = parent.clientWidth - w - 10;
-			const maxY = parent.clientHeight - h - 10;
-			const x = rnd(0, Math.max(10, maxX));
-			const y = rnd(0, Math.max(10, maxY));
-
+			const x = rnd(0, Math.max(10, p.clientWidth - w - 10));
+			const y = rnd(0, Math.max(10, p.clientHeight - h - 10));
 			node.style.left = x + 'px';
 			node.style.top = y + 'px';
 			node.style.position = 'absolute';
 			node.style.zIndex = String(1 + ((Math.random() * 3) | 0));
 		};
-
-		if (node.complete) {
-			apply();
-		} else {
-			node.addEventListener('load', apply, { once: true });
-		}
-
+		if (node.complete) apply();
+		else node.addEventListener('load', apply, { once: true });
 		node.addEventListener('animationiteration', apply);
-
 		return {
 			destroy() {
 				node.removeEventListener('animationiteration', apply);
@@ -67,6 +74,7 @@
 </script>
 
 <section
+	bind:this={splashEl}
 	class="relative flex h-[80vh] w-svw flex-col items-center justify-end overflow-hidden bg-brand-cream p-1"
 >
 	<div class="absolute inset-0">
@@ -76,13 +84,8 @@
 				alt="splash"
 				crossorigin="anonymous"
 				use:rescale
-				use:inkFilter={{
-					ink: '#000',
-					paper: '#faf8f0',
-					bandAmp: 15,
-					noise: 20
-				}}
-				class="tile"
+				use:inkFilter={{ ink: '#9773b0', paper: '#faf8f0', bandAmp: 15, noise: 20 }}
+				class="tile dither"
 				style="--i:{i}"
 			/>
 		{/each}
@@ -102,14 +105,14 @@
 
 	<div class="z-20 mb-4 flex gap-4">
 		<button
-			class="zh bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
-			onclick={() => setLocale('zh')}
+			class="zh bg-gray-100 px-4 py-1 hover:cursor-pointer hover:bg-black hover:text-white"
+			on:click={() => changeLang('zh')}
 		>
 			{m.enter(null, { locale: 'zh' })}
 		</button>
 		<button
-			class="en bg-gray-100 px-4 py-1 hover:bg-black hover:text-white"
-			onclick={() => setLocale('en')}
+			class="en bg-gray-100 px-4 py-1 hover:cursor-pointer hover:bg-black hover:text-white"
+			on:click={() => changeLang('en')}
 		>
 			{m.enter(null, { locale: 'en' })}
 		</button>
@@ -123,11 +126,9 @@
 		object-position: center;
 		opacity: 0;
 		animation: fade 10s linear infinite;
-		/* filter: grayscale(100%); */
 		mix-blend-mode: multiply;
 		animation-delay: calc(var(--i) * 1.5s);
 	}
-
 	@keyframes fade {
 		0% {
 			opacity: 0;

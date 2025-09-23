@@ -11,7 +11,9 @@
 <svelte:boundary>
 	<Featured />
 	{#snippet pending()}
-		<p>loading...</p>
+		<section class="h-100">
+			<!-- <p>Loading...</p> -->
+		</section>
 	{/snippet}
 </svelte:boundary>
 

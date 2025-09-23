@@ -3,7 +3,7 @@
 	const repeats = 5;
 </script>
 
-<section class="w-svw border-t border-b bg-white text-black">
+<section class="sticky top-0 z-10 w-svw border-t border-b bg-white text-black">
 	<div class="mx-auto flex items-center justify-between px-1">
 		<div class="mr-2 text-lg leading-none text-black select-none" aria-hidden="true">
 			<svg

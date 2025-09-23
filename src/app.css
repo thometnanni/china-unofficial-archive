@@ -23,6 +23,28 @@
 
 html {
 	text-rendering: geometricPrecision;
+
+	/* --color-brand-gray-50: #f3f3f3;
+	--color-brand-gray-100: #c6c6c6;
+	--color-brand-black: #000000;
+	--color-brand-white: #ffffff;
+	--color-brand-grayblue: #c3c8d1;
+	--color-brand-blue: #7f9dd8;
+	--color-brand-green-100: #c3d1c4;
+	--color-brand-green-200: #bdd1cf;
+	--color-brand-teal: #5da9c3;
+	--color-brand-gold: #eab160;
+	--color-brand-purple: #9773b0;
+	--color-brand-cream: #ecebd9;
+	--color-brand-yellow: #fff200; */
+}
+
+:root {
+	--lh-tight: 1.1;
+}
+
+:root:lang(zh) {
+	--lh-tight: 1.4;
 }
 
 :root:lang(en) body,
@@ -35,8 +57,12 @@ html {
 	font-family: var(--font-sans-zh);
 }
 
-img {
+img:not(.dither) {
 	filter: grayscale(100%);
+}
+
+::selection {
+	color: var(--color-brand-teal);
 }
 
 @font-face {

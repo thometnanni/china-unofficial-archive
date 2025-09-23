@@ -22,7 +22,7 @@
 		<div class="absolute inset-x-0 bottom-0">
 			<div class={odd ? 'ml-0' : 'ml-4'}>
 				{#if item.type}
-					<span class="block text-xs leading-[1.1] tracking-wide uppercase">
+					<span class="block text-xs leading-[var(--lh-tight)] tracking-wide uppercase">
 						<span class="bg-brand-gold px-1">{item.type}</span>
 					</span>
 				{/if}
@@ -30,7 +30,7 @@
 
 			<div class={odd ? 'ml-4' : 'ml-0'}>
 				{#if item.title}
-					<h3 class="m-0 text-base leading-[1.1] font-medium text-black sm:text-lg">
+					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium text-black sm:text-lg">
 						<span class="bg-brand-gold box-decoration-clone px-1">
 							{item.title}
 						</span>

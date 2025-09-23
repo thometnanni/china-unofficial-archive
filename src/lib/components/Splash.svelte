@@ -21,7 +21,7 @@
 			const naturalW = node.naturalWidth;
 			const naturalH = node.naturalHeight;
 
-			const scale = rnd(0.2, 0.6);
+			const scale = rnd(0.4, 0.8);
 
 			const maxW = parent.clientWidth * scale;
 			const maxH = parent.clientHeight * scale;
@@ -41,8 +41,8 @@
 
 			const maxX = parent.clientWidth - w - 10;
 			const maxY = parent.clientHeight - h - 10;
-			const x = rnd(10, Math.max(10, maxX));
-			const y = rnd(10, Math.max(10, maxY));
+			const x = rnd(0, Math.max(10, maxX));
+			const y = rnd(0, Math.max(10, maxY));
 
 			node.style.left = x + 'px';
 			node.style.top = y + 'px';
@@ -125,7 +125,7 @@
 		animation: fade 10s linear infinite;
 		/* filter: grayscale(100%); */
 		mix-blend-mode: multiply;
-		animation-delay: calc(var(--i) * 2s - 3s);
+		animation-delay: calc(var(--i) * 1.5s);
 	}
 
 	@keyframes fade {

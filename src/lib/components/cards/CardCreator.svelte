@@ -26,14 +26,6 @@
 				class={`row-span-2 flex items-end ${odd ? 'col-start-1 text-right' : 'col-start-3 text-left'}`}
 			>
 				<div class="w-full">
-					<div class={odd ? 'ml-0' : 'ml-2'}>
-						{#if item.type}
-							<span class="block text-xs leading-[var(--lh-tight)] tracking-wide uppercase">
-								<span class="bg-white px-1">{item.type}</span>
-							</span>
-						{/if}
-					</div>
-
 					<div class={odd ? 'ml-4' : 'ml-0'}>
 						{#if item.title}
 							<h3

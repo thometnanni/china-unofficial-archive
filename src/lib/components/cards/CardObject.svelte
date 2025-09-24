@@ -24,7 +24,9 @@
 			<div class={odd ? 'ml-0' : 'ml-4'}>
 				{#if item.type}
 					<span class="block text-xs leading-[var(--lh-tight)] tracking-wide uppercase">
-						<span class="bg-brand-cream px-1">{item.type}</span>
+						<span class="bg-brand-cream px-1">
+							{item.objectType?.map(({ title }) => title).join(', ')}
+						</span>
 					</span>
 				{/if}
 			</div>

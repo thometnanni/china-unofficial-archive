@@ -92,13 +92,13 @@
 	</div>
 
 	<h2
-		class="zh absolute top-4 left-4 z-10 bg-gray-100 px-2 text-2xl font-medium text-black sm:left-6 md:left-2"
+		class="zh absolute top-4 left-4 z-10 bg-gray-100 px-2 text-3xl font-medium text-black sm:left-6 md:left-2"
 	>
 		{m.slogan(null, { locale: 'zh' })}
 	</h2>
 
 	<h2
-		class="en absolute right-4 bottom-20 z-10 bg-gray-100 px-2 text-2xl font-medium text-black sm:right-6 md:right-2"
+		class="en absolute right-4 bottom-20 z-10 bg-gray-100 px-2 text-3xl font-medium text-black sm:right-6 md:right-2"
 	>
 		{m.slogan(null, { locale: 'en' })}
 	</h2>

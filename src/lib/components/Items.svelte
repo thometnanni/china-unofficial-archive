@@ -7,11 +7,9 @@
 </script>
 
 <div class="space-y-4 p-2">
-	<div class="columns-1 gap-2 [column-fill:balance] sm:columns-2 lg:columns-4">
+	<div class="grid auto-rows-[10rem] grid-cols-5 gap-2 sm:grid-cols-6 lg:grid-cols-8">
 		{#each items as item, i}
-			<div class="mb-4 break-inside-avoid">
-				<Card {item} {i} />
-			</div>
+			<Card {item} {i} />
 		{/each}
 	</div>
 </div>

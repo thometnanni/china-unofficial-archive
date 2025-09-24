@@ -3,7 +3,7 @@
 	import { m } from '$lib/paraglide/messages.js';
 	import Card from './Card.svelte';
 
-	const items = $state(await query('items'));
+	const { items } = $props();
 </script>
 
 <div class="space-y-4 p-2">

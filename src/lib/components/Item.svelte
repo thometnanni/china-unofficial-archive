@@ -4,9 +4,7 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { creator } from 'd3-selection';
 
-	const { id } = $props();
-
-	const item = $derived(await query(`item/${id}`));
+	const { item } = $props();
 </script>
 
 <section class="flex flex-col gap-4 p-2">

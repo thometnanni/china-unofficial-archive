@@ -75,7 +75,7 @@
 
 <section
 	bind:this={splashEl}
-	class="relative flex h-[80vh] w-svw flex-col items-center justify-end overflow-hidden bg-brand-cream p-1"
+	class="relative flex h-[80vh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
 >
 	<div class="absolute inset-0">
 		{#each splashImages as src, i}

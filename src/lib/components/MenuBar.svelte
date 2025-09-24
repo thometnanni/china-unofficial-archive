@@ -17,10 +17,10 @@
 	}
 </script>
 
-<section class="sticky top-0 z-10 w-svw border-t border-b bg-white text-black">
+<section class="sticky top-0 z-10 w-svw border-b bg-white text-black">
 	<div class="mx-auto flex items-center justify-between px-1">
 		<div class="mr-2 text-lg leading-none text-black select-none" aria-hidden="true">
-			<svg
+			<!-- <svg
 				width="18"
 				height="18"
 				viewBox="0 0 24 24"
@@ -33,11 +33,12 @@
 				shape-rendering="geometricPrecision"
 			>
 				<path d="M4 6h16M4 12h16M4 18h16" />
-			</svg>
+			</svg> -->
+			MENU
 		</div>
 
 		<div
-			class="relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent_0,black_24px,black_calc(100%_-_24px),transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0,black_24px,black_calc(100%_-_24px),transparent_100%)]"
+			class=" relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent_0,black_24px,black_calc(100%_-_24px),transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0,black_24px,black_calc(100%_-_24px),transparent_100%)] hover:bg-brand-yellow"
 		>
 			<a href="/">
 				<div

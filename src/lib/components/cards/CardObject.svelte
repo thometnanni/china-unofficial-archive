@@ -7,9 +7,9 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	class="card col-span-2 row-span-1 block h-full w-full hover:bg-brand-cream"
+	class="card col-span-2 row-span-1 block h-full w-full hover:bg-brand-cream bg-black"
 >
-	<div class="relative h-full">
+	<div class="relative h-full p-1">
 		{#if item.thumbnail}
 			<img
 				src={item.thumbnail}
@@ -21,23 +21,23 @@
 		{/if}
 
 		<div class="absolute inset-x-0 bottom-0 p-1">
-			<div class={odd ? 'ml-0' : 'ml-4'}>
-				{#if item.type}
+			{#if item.type}
+				<div class={odd ? 'ml-0' : 'ml-4'}>
 					<span class="block text-xs leading-[var(--lh-tight)] tracking-wide uppercase">
 						<span class="bg-brand-cream px-1">
 							{item.objectType?.map(({ title }) => title).join(', ')}
 						</span>
 					</span>
-				{/if}
-			</div>
+				</div>
+			{/if}
 
-			<div class={odd ? 'ml-4' : 'ml-0'}>
-				{#if item.title}
+			{#if item.title}
+				<div class={odd ? 'ml-4' : 'ml-0'}>
 					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium text-black sm:text-lg">
 						<span class="bg-brand-cream box-decoration-clone px-1">{item.title}</span>
 					</h3>
-				{/if}
-			</div>
+				</div>
+			{/if}
 		</div>
 	</div>
 </a>

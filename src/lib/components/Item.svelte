@@ -13,6 +13,9 @@
 	<h2 class="text-2xl">{item.title}</h2>
 	<h3 class="text-xl">{item.titleAlt}</h3>
 	<p>
+		{item.published}
+	</p>
+	<p>
 		{#each item.creator as creator}
 			<a class="bg-gray-200 px-2 py-1" href={localizeHref(`/archive/${creator.id}`)}
 				>{creator.title}</a

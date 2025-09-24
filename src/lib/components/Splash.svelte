@@ -41,52 +41,21 @@
 			scrollBelowSplash();
 		}
 	});
-
-	function rescale(node) {
-		const rnd = (min, max) => min + Math.random() * (max - min);
-		const apply = () => {
-			const p = node.parentElement;
-			if (!p) return;
-			const r = node.naturalWidth / node.naturalHeight || 1;
-			const scale = rnd(0.4, 0.8);
-			const maxW = p.clientWidth * scale,
-				maxH = p.clientHeight * scale;
-			const w = Math.min(maxW, maxH * r),
-				h = w / r;
-			node.style.width = w + 'px';
-			node.style.height = h + 'px';
-			const x = rnd(0, Math.max(10, p.clientWidth - w - 10));
-			const y = rnd(0, Math.max(10, p.clientHeight - h - 10));
-			node.style.left = x + 'px';
-			node.style.top = y + 'px';
-			node.style.position = 'absolute';
-			node.style.zIndex = String(1 + ((Math.random() * 3) | 0));
-		};
-		if (node.complete) apply();
-		else node.addEventListener('load', apply, { once: true });
-		node.addEventListener('animationiteration', apply);
-		return {
-			destroy() {
-				node.removeEventListener('animationiteration', apply);
-			}
-		};
-	}
 </script>
 
 <section
 	bind:this={splashEl}
 	class="relative flex h-[80vh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
 >
-	<div class="absolute inset-0">
+	<div class="pointer-events-none absolute inset-0">
 		{#each splashImages as src, i}
 			<img
 				{src}
 				alt="splash"
 				crossorigin="anonymous"
-				use:rescale
-				use:inkFilter={{ ink: '#9773b0', paper: '#faf8f0', bandAmp: 15, noise: 20 }}
+				use:inkFilter={{ ink: '#9773b0', paper: '#ecebd9', bandAmp: 15, noise: 20 }}
 				class="tile dither"
-				style="--i:{i}"
+				style="--i:{i}; --count:{splashImages.length}"
 			/>
 		{/each}
 	</div>
@@ -122,18 +91,26 @@
 <style>
 	.tile {
 		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
 		object-fit: cover;
 		object-position: center;
+
 		opacity: 0;
-		animation: fade 10s linear infinite;
-		mix-blend-mode: multiply;
-		animation-delay: calc(var(--i) * 1.5s);
+		transition: opacity 10s ease;
+		animation: fade calc(var(--count) * 6s) linear infinite;
+		animation-delay: calc(var(--i) * 6s);
 	}
+
 	@keyframes fade {
 		0% {
 			opacity: 0;
 		}
-		50% {
+		10% {
+			opacity: 1;
+		}
+		80% {
 			opacity: 1;
 		}
 		100% {

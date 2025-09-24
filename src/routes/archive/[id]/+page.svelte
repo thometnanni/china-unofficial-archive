@@ -14,7 +14,9 @@
 <svelte:boundary>
 	<Search bind:value={search} />
 	<section class="grid w-svw gap-2 lg:grid-cols-[320px_1fr]">
-		<Item {id} />
+		{#if id != null}
+			<Item {id} />
+		{/if}
 		<Items />
 	</section>
 	{#snippet pending()}

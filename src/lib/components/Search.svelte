@@ -5,7 +5,7 @@
 
 <section id="search">
 	<div class="visible">
-		<input type="text" class="w-full" bind:value placeholder={m.search_placeholder()} />
+		<input type="text" class="w-full border-transparent" bind:value placeholder={m.search_placeholder()} />
 	</div>
 	<div class="hidden">
 		<select>

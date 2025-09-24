@@ -108,13 +108,13 @@
 			class="zh bg-gray-100 px-4 py-1 hover:cursor-pointer hover:bg-black hover:text-white"
 			on:click={() => changeLang('zh')}
 		>
-			{m.enter(null, { locale: 'zh' })}
+			{m.lang(null, { locale: 'zh' })}
 		</button>
 		<button
 			class="en bg-gray-100 px-4 py-1 hover:cursor-pointer hover:bg-black hover:text-white"
 			on:click={() => changeLang('en')}
 		>
-			{m.enter(null, { locale: 'en' })}
+			{m.lang(null, { locale: 'en' })}
 		</button>
 	</div>
 </section>

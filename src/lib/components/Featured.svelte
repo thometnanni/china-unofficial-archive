@@ -15,9 +15,9 @@
 			<div class="mb-4 break-inside-avoid">
 				<a
 					href={localizeHref('/archive/')}
-					class="block h-full bg-brand-green-200 p-4 hover:bg-brand-black"
+					class="block h-50  bg-brand-green-200 hover:bg-brand-black"
 				>
-					<h2 class="text-4xl leading-none font-medium">
+					<h2 class="text-5xl leading-none font-medium">
 						<span class="inline bg-white px-1">{m.explore_archive()}</span>
 					</h2>
 				</a>

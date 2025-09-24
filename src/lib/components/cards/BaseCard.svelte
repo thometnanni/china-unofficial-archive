@@ -5,7 +5,10 @@
 	const odd = i % 2 === 1;
 </script>
 
-<a href={localizeHref('/archive/' + item.id)} class={`${span} card block h-full w-full`}>
+<a
+	href={localizeHref('/archive/' + item.id)}
+	class={`${span} card block h-full w-full hover:bg-black`}
+>
 	<div class="relative h-full overflow-hidden">
 		{#if item.thumbnail}
 			<img

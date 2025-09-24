@@ -8,10 +8,12 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	class={`${hasImage ? 'card col-span-3 row-span-2 ' : 'card col-span-2 row-span-1'} block h-full w-full p-1`}
+	class={`${hasImage ? 'card col-span-3 row-span-2 ' : 'card col-span-2 row-span-1 '} block h-full w-full p-1`}
 >
 	{#if hasImage}
-		<div class="relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden bg-brand-grayblue p-1">
+		<div
+			class="relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden bg-brand-grayblue p-1 hover:bg-brand-cream"
+		>
 			<img
 				src={item.thumbnail}
 				alt={item.title}

@@ -57,9 +57,9 @@ html {
 	font-family: var(--font-sans-zh);
 }
 
-.card img {
+.card img.dither {
 	mix-blend-mode: lighten;
-}
+}p
 
 img:not(.dither) {
 	filter: grayscale(100%);

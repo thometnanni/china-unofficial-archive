@@ -6,7 +6,7 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	class="col-span-2 row-span-1 flex h-fit w-full items-end bg-brand-blue p-1"
+	class="col-span-2 row-span-1 flex h-fit w-full items-end bg-brand-blue p-1 hover:bg-brand-cream"
 >
 	<div class="w-full text-left">
 		<div class={odd ? 'ml-0' : 'ml-0'}>

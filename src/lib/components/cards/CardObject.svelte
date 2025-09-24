@@ -7,7 +7,7 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	class="card col-span-2 row-span-1 block h-full w-full"
+	class="card col-span-2 row-span-1 block h-full w-full hover:bg-brand-cream"
 >
 	<div class="relative h-full">
 		{#if item.thumbnail}

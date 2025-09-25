@@ -12,7 +12,7 @@
 >
 	{#if hasImage}
 		<div
-			class="relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden bg-brand-grayblue p-1 hover:bg-brand-cream"
+			class="person relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden p-1 hover:bg-brand-cream"
 		>
 			<img
 				src={item.thumbnail}

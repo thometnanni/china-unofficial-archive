@@ -7,7 +7,6 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	
 	class={`${span} card block h-full w-full hover:bg-black`}
 >
 	<div class="relative h-full overflow-hidden">
@@ -32,7 +31,7 @@
 
 			<div class={odd ? 'ml-4' : 'ml-0'}>
 				{#if item.title}
-					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium text-black sm:text-lg">
+					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium text-black">
 						<span class="bg-brand-gold box-decoration-clone px-1">{item.title}</span>
 					</h3>
 				{/if}

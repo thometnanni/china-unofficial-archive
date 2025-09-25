@@ -8,7 +8,6 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	
 	class={`${hasImage ? 'card col-span-3 row-span-2 ' : 'card col-span-2 row-span-1 '} block h-full w-full p-1`}
 >
 	{#if hasImage}
@@ -30,7 +29,7 @@
 					<div class={odd ? 'ml-4' : 'ml-0'}>
 						{#if item.title}
 							<h3
-								class="m-0 text-base leading-[var(--lh-tight)] font-medium break-words text-black sm:text-lg"
+								class="m-0 text-base leading-[var(--lh-tight)] font-medium break-words text-black"
 							>
 								<span class="bg-white box-decoration-clone px-1">{item.title}</span>
 							</h3>
@@ -44,14 +43,12 @@
 			<div class="w-full">
 				{#if item.type}
 					<span class="block text-xs leading-[var(--lh-tight)] tracking-wide uppercase">
-						<span class="bg-brand-teal px-1">{item.type}</span>
+						<span class="creator px-1">{item.type}</span>
 					</span>
 				{/if}
 				{#if item.title}
-					<h3
-						class="m-0 text-base leading-[var(--lh-tight)] font-medium break-words text-black sm:text-lg"
-					>
-						<span class="bg-brand-teal box-decoration-clone px-1">{item.title}</span>
+					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium break-words text-black">
+						<span class="creator box-decoration-clone px-1">{item.title}</span>
 					</h3>
 				{/if}
 			</div>

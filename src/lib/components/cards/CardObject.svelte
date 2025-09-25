@@ -7,8 +7,7 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	
-	class="card col-span-2 row-span-2 block h-full w-full bg-black hover:bg-brand-cream"
+	class="card col-span-2 row-span-1 block h-full w-full bg-black hover:bg-brand-cream"
 >
 	<div class="relative h-full p-1">
 		{#if item.thumbnail}
@@ -34,7 +33,7 @@
 
 			{#if item.title}
 				<div class={odd ? 'ml-4' : 'ml-0'}>
-					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium text-black sm:text-lg">
+					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium text-black">
 						<span class="bg-brand-cream box-decoration-clone px-1">{item.title}</span>
 					</h3>
 				</div>

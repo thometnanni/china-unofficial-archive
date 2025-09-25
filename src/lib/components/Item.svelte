@@ -17,7 +17,7 @@
 				src={item.thumbnail}
 				alt=""
 				crossorigin="anonymous"
-				class="block max-h-60 w-full object-cover"
+				class="block max-h-40 w-full object-cover"
 				use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
 			/>
 		</div>
@@ -46,7 +46,7 @@
 	<p class="text-xs">
 		{#each [...(item.theme ?? []), ...(item.era ?? [])] as theme}
 			<a
-				class="mr-1 {item.type} bg-gray-200 box-decoration-clone px-1"
+				class="filter mr-1 {item.type} box-decoration-clone px-1"
 				href={localizeHref(`/archive/${theme.id}`)}
 			>
 				{theme.title}

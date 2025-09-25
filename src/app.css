@@ -25,24 +25,6 @@ html {
 	text-rendering: geometricPrecision;
 }
 
-.creator,
-.person {
-	background-color: var(--color-brand-grayblue);
-	color: var(--color-black);
-}
-
-.theme,
-.filter {
-	background-color: var(--color-brand-blue);
-	color: var(--color-brand-black);
-}
-
-.era,
-.filter {
-	background-color: var(--color-brand-green-100);
-	color: var(--color-brand-black);
-}
-
 .object {
 	background-color: var(--color-brand-cream);
 	color: var(--color-brand-black);
@@ -50,6 +32,23 @@ html {
 
 .default {
 	background-color: var(--color-brand-gray-50);
+}
+
+.creator,
+.person {
+	background-color: var(--color-brand-blue);
+	color: var(--color-black);
+}
+
+.theme,
+.filter {
+	background-color: var(--color-brand-green-100);
+	color: var(--color-brand-black);
+}
+
+.era {
+	background-color: var(--color-brand-grayblue);
+	color: var(--color-brand-black);
 }
 
 :root {

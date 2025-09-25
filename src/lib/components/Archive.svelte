@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	import Items from '$lib/components/Items.svelte';
 	import { page } from '$app/stores';
 
@@ -22,34 +21,31 @@
 	// 	items = item.items;
 	// });
 	let item = $state(null);
-	let items = $state(null);
+	let items = $state([]);
 
 	async function fetchData() {
 		item = null;
-		items = null;
+		items = [];
+
+		const resp = await query(id == null ? 'items' : `items/${id}`);
+
 		if (id == null) {
-			items = await query('items');
+			items = Array.isArray(resp) ? resp : (resp?.items ?? []);
 		} else {
-			const resp = await query(`items/${id}`);
-			item = resp;
+			item = resp ?? null;
 			items = resp?.items ?? [];
 		}
 	}
 
-	onMount(fetchData);
-
-	$effect(() => {
-		id;
-		fetchData();
-	});
+	$effect(fetchData);
 </script>
 
 <section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[520px_1fr]`}">
-	{#if item?.id}
+	{#if item}
 		<Item {item} />
 	{/if}
-	{#if items}
-		<Items items={items.items} />
+	{#if items.length}
+		<Items {items} />
 	{:else}
 		<div class="h-40"></div>
 	{/if}

@@ -8,7 +8,7 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	data-sveltekit-reload
+	
 	class={`${hasImage ? 'card col-span-3 row-span-2 ' : 'card col-span-2 row-span-1 '} block h-full w-full p-1`}
 >
 	{#if hasImage}

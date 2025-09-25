@@ -45,11 +45,11 @@
 </script>
 
 <section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[520px_1fr]`}">
-	{#if item?.id != null}
+	{#if item?.id}
 		<Item {item} />
 	{/if}
-	{#if items != null}
-		<Items {items} />
+	{#if items}
+		<Items items={items.items} />
 	{:else}
 		<div class="h-40"></div>
 	{/if}

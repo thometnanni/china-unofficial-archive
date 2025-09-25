@@ -23,20 +23,33 @@
 
 html {
 	text-rendering: geometricPrecision;
+}
 
-	/* --color-brand-gray-50: #f3f3f3;
-	--color-brand-gray-100: #c6c6c6;
-	--color-brand-black: #000000;
-	--color-brand-white: #ffffff;
-	--color-brand-grayblue: #c3c8d1;
-	--color-brand-blue: #7f9dd8;
-	--color-brand-green-100: #c3d1c4;
-	--color-brand-green-200: #bdd1cf;
-	--color-brand-teal: #5da9c3;
-	--color-brand-gold: #eab160;
-	--color-brand-purple: #9773b0;
-	--color-brand-cream: #ecebd9;
-	--color-brand-yellow: #fff200; */
+.creator,
+.person {
+	background-color: var(--color-brand-blue);
+	color: var(--color-black);
+}
+
+.theme,
+.filter {
+	background-color: var(--color-brand-gold);
+	color: var(--color-brand-black);
+}
+
+.era,
+.filter {
+	background-color: var(--color-brand-green-100);
+	color: var(--color-brand-black);
+}
+
+.object {
+	background-color: var(--color-brand-cream);
+	color: var(--color-brand-black);
+}
+
+.default {
+	background-color: var(--color-brand-gray-50);
 }
 
 :root {
@@ -66,7 +79,8 @@ img:not(.dither) {
 }
 
 ::selection {
-	color: var(--color-brand-teal);
+	background-color: var(--color-brand-yellow);
+	color: var(--color-black);
 }
 
 @font-face {

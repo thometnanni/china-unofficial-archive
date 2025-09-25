@@ -7,18 +7,20 @@
 	import { creator } from 'd3-selection';
 
 	const { item } = $props();
-	// console.log(item);
+	console.log(item);
 </script>
 
 <section class="flex flex-col gap-4 p-2">
 	{#if item.thumbnail}
-		<img
-			src={item.thumbnail}
-			alt=""
-			crossorigin="anonymous"
-			class="object-fit max-h-100"
-			use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
-		/>
+		<div class="{item.type} card">
+			<img
+				src={item.thumbnail}
+				alt=""
+				crossorigin="anonymous"
+				class="block max-h-60 w-full object-cover"
+				use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
+			/>
+		</div>
 	{/if}
 
 	<h2 class="text-2xl">{item.title}</h2>
@@ -28,7 +30,7 @@
 	</p>
 	<p>
 		{#each item.creator as creator}
-			<a class="bg-gray-200 px-2 py-1" href={localizeHref(`/archive/${creator.id}`)}
+			<a class="person bg-gray-200 px-2 py-1" href={localizeHref(`/archive/${creator.id}`)}
 				>{creator.title}</a
 			>
 		{/each}
@@ -36,7 +38,7 @@
 	<p>
 		{#each item.objectType as objectType}
 			<a
-				class="bg-gray-200 box-decoration-clone px-2 py-1"
+				class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1"
 				href={localizeHref(`/archive/${objectType.id}`)}>{objectType.title}</a
 			>
 		{/each}
@@ -44,7 +46,7 @@
 	<p class="text-xs">
 		{#each [...(item.theme ?? []), ...(item.era ?? [])] as theme}
 			<a
-				class="mr-1 bg-gray-200 box-decoration-clone px-1"
+				class="mr-1 {item.type} bg-gray-200 box-decoration-clone px-1"
 				href={localizeHref(`/archive/${theme.id}`)}
 			>
 				{theme.title}

@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import Items from '$lib/components/Items.svelte';
 	import { page } from '$app/stores';
 
@@ -23,13 +24,15 @@
 	let item = $state(null);
 	let items = $state([]);
 
-	async function fetchData() {
+	async function fetchData(cur) {
 		item = null;
-		items = [];
+		items = null;
 
-		const resp = await query(id == null ? 'items' : `items/${id}`);
+		const resp = await query(cur == null ? 'items' : `items/${cur}`);
 
-		if (id == null) {
+		if (cur !== id) return;
+
+		if (cur == null) {
 			items = Array.isArray(resp) ? resp : (resp?.items ?? []);
 		} else {
 			item = resp ?? null;
@@ -37,16 +40,19 @@
 		}
 	}
 
-	$effect(fetchData);
+	onMount(() => fetchData(id));
+
+	$effect(() => {
+		id;
+		fetchData(id);
+	});
 </script>
 
-<section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[520px_1fr]`}">
-	{#if item}
+<section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[320px_1fr]`}">
+	{#if item?.id != null}
 		<Item {item} />
 	{/if}
-	{#if items.length}
+	{#if items != null}
 		<Items {items} />
-	{:else}
-		<div class="h-40"></div>
 	{/if}
 </section>

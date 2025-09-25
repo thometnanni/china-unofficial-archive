@@ -12,10 +12,10 @@
 </script>
 
 <MenuBar />
-<svelte:boundary>
+<!-- <svelte:boundary> -->
 	<Search bind:value={search} />
 	<Archive />
-	{#snippet pending()}
+	<!-- {#snippet pending()}
 		<p>loading...</p>
 	{/snippet}
-</svelte:boundary>
+</svelte:boundary> -->

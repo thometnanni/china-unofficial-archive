@@ -45,7 +45,7 @@
 
 <section
 	bind:this={splashEl}
-	class="relative flex h-[80vh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
+	class="relative flex h-[90vh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
 >
 	<div class="pointer-events-none absolute inset-0">
 		{#each splashImages as src, i}
@@ -98,7 +98,7 @@
 		object-position: center;
 
 		opacity: 0;
-		transition: opacity 10s ease;
+		transition: opacity 20s ease;
 		animation: fade calc(var(--count) * 6s) linear infinite;
 		animation-delay: calc(var(--i) * 6s);
 	}
@@ -107,10 +107,10 @@
 		0% {
 			opacity: 0;
 		}
-		10% {
+		20% {
 			opacity: 1;
 		}
-		80% {
+		95% {
 			opacity: 1;
 		}
 		100% {

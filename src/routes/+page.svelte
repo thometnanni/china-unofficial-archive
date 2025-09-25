@@ -8,13 +8,13 @@
 <Splash />
 <MenuBar />
 
-<svelte:boundary>
-	<Featured />
-	{#snippet pending()}
+<!-- <svelte:boundary> -->
+<Featured />
+<!-- {#snippet pending()}
 		<section class="h-200">
-			<!-- <p>Loading...</p> -->
+			<p>Loading...</p>
 		</section>
 	{/snippet}
-</svelte:boundary>
+</svelte:boundary> -->
 
 <Footer />

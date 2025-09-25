@@ -27,13 +27,13 @@ html {
 
 .creator,
 .person {
-	background-color: var(--color-brand-blue);
+	background-color: var(--color-brand-grayblue);
 	color: var(--color-black);
 }
 
 .theme,
 .filter {
-	background-color: var(--color-brand-gold);
+	background-color: var(--color-brand-blue);
 	color: var(--color-brand-black);
 }
 

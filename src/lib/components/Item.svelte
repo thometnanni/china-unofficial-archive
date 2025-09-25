@@ -1,13 +1,26 @@
 <script>
 	import { query } from '$lib/api';
+	import { inkFilter } from '$lib/filter.js';
+
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { creator } from 'd3-selection';
 
 	const { item } = $props();
+	// console.log(item);
 </script>
 
 <section class="flex flex-col gap-4 p-2">
+	{#if item.thumbnail}
+		<img
+			src={item.thumbnail}
+			alt=""
+			crossorigin="anonymous"
+			class="object-fit max-h-100"
+			use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
+		/>
+	{/if}
+
 	<h2 class="text-2xl">{item.title}</h2>
 	<h3 class="text-xl">{item.titleAlt}</h3>
 	<p>

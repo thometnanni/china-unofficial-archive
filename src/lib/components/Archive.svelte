@@ -44,7 +44,7 @@
 	});
 </script>
 
-<section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[320px_1fr]`}">
+<section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[520px_1fr]`}">
 	{#if item?.id != null}
 		<Item {item} />
 	{/if}

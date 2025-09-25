@@ -48,16 +48,18 @@
 	class="relative flex h-[90vh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
 >
 	<div class="pointer-events-none absolute inset-0">
-		{#each splashImages as src, i}
-			<img
-				{src}
-				alt="splash"
-				crossorigin="anonymous"
-				use:inkFilter={{ ink: '#9773b0', paper: '#ecebd9', bandAmp: 15, noise: 20 }}
-				class="tile dither"
-				style="--i:{i}; --count:{splashImages.length}"
-			/>
-		{/each}
+		{#if splashImages.length > 0}
+			{#each splashImages as src, i}
+				<img
+					{src}
+					alt="splash"
+					crossorigin="anonymous"
+					use:inkFilter={{ ink: '#9773b0', paper: '#ecebd9', bandAmp: 10, noise: 10 }}
+					class="tile dither"
+					style="--i:{i}; --count:{splashImages.length}"
+				/>
+			{/each}
+		{/if}
 	</div>
 
 	<h2
@@ -98,16 +100,16 @@
 		object-position: center;
 
 		opacity: 0;
-		transition: opacity 20s ease;
+		transition: opacity 3s ease;
 		animation: fade calc(var(--count) * 6s) linear infinite;
-		animation-delay: calc(var(--i) * 6s);
+		animation-delay: calc(var(--i) * 6s + 1s);
 	}
 
 	@keyframes fade {
 		0% {
 			opacity: 0;
 		}
-		20% {
+		5% {
 			opacity: 1;
 		}
 		95% {

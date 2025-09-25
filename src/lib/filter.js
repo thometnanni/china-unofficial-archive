@@ -1,6 +1,6 @@
 export function inkFilter(node, options = {}) {
 	const defaults = {
-		thr: 83,
+		thr: 120,
 		noise: 20,
 		ink: [0, 0, 0],
 		paper: [244, 244, 244],
@@ -57,42 +57,92 @@ export function inkFilter(node, options = {}) {
 		return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v) * s;
 	};
 
-	function apply() {
+	async function apply() {
 		const { thr, noise, ink, paper, bandAmp, bandPeriod, jitterMax } = settings;
-		const w = node.naturalWidth,
-			h = node.naturalHeight;
-		if (!w || !h) return;
+
+		if (!node.complete)
+			await new Promise((r) => {
+				const ok = () => {
+					cleanup();
+					r();
+				};
+				const cleanup = () => {
+					node.removeEventListener('load', ok);
+					node.removeEventListener('error', ok);
+				};
+				node.addEventListener('load', ok, { once: true });
+				node.addEventListener('error', ok, { once: true });
+			});
+		try {
+			await node.decode();
+		} catch {}
+		await new Promise((r) => requestAnimationFrame(r));
+
+		const rect = node.getBoundingClientRect();
+		const dwCss = Math.max(1, Math.round(rect.width));
+		const dhCss = Math.max(1, Math.round(rect.height));
+		const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+		const cw = dwCss * dpr;
+		const ch = dhCss * dpr;
+
+		const sw = node.naturalWidth || 1;
+		const sh = node.naturalHeight || 1;
+
+		const fit = (getComputedStyle(node).objectFit || 'cover').toLowerCase();
+
+		function destRect(sw, sh, cw, ch, fit) {
+			if (fit === 'fill') return { dx: 0, dy: 0, dw: cw, dh: ch };
+			if (fit === 'none') {
+				const dw = Math.min(sw, cw),
+					dh = Math.min(sh, ch);
+				return { dx: (cw - dw) / 2, dy: (ch - dh) / 2, dw, dh };
+			}
+
+			const scaleContain = Math.min(cw / sw, ch / sh);
+			const scaleCover = Math.max(cw / sw, ch / sh);
+			let scale =
+				fit === 'contain' ? scaleContain : fit === 'cover' ? scaleCover : Math.min(1, scaleContain);
+			const dw = sw * scale,
+				dh = sh * scale;
+			return { dx: (cw - dw) / 2, dy: (ch - dh) / 2, dw, dh };
+		}
+
+		const { dx, dy, dw, dh } = destRect(sw, sh, cw, ch, fit);
 
 		const canvas = document.createElement('canvas');
-		const ctx = canvas.getContext('2d');
-		canvas.width = w;
-		canvas.height = h;
-		ctx.drawImage(node, 0, 0);
+		const ctx = canvas.getContext('2d', { willReadFrequently: true });
+		canvas.width = cw;
+		canvas.height = ch;
 
-		const src = ctx.getImageData(0, 0, w, h);
-		const dst = ctx.createImageData(w, h);
+		ctx.fillStyle = `rgb(${paper[0]},${paper[1]},${paper[2]})`;
+		ctx.fillRect(0, 0, cw, ch);
+
+		ctx.drawImage(node, 0, 0, sw, sh, dx, dy, dw, dh);
+
+		const src = ctx.getImageData(0, 0, cw, ch);
+		const dst = ctx.createImageData(cw, ch);
 		const sdata = src.data,
 			ddata = dst.data;
 
-		const rowShift = new Int8Array(h);
-		for (let y = 0; y < h; y++)
+		const rowShift = new Int8Array(ch);
+		for (let y = 0; y < ch; y++)
 			rowShift[y] = ((Math.random() * (2 * jitterMax + 1)) | 0) - jitterMax;
 
-		for (let y = 0; y < h; y++) {
+		for (let y = 0; y < ch; y++) {
 			const band = bandAmp * Math.sin((2 * Math.PI * y) / bandPeriod) + (Math.random() - 0.5) * 2;
-			const dx = rowShift[y];
-			for (let x = 0; x < w; x++) {
-				const sx = x - dx;
+			const dxShift = rowShift[y];
+			for (let x = 0; x < cw; x++) {
+				const sx = x - dxShift;
 				let v;
-				if (sx < 0 || sx >= w) {
+				if (sx < 0 || sx >= cw) {
 					v = 255;
 				} else {
-					const si = (y * w + sx) * 4;
+					const si = (y * cw + sx) * 4;
 					v = (sdata[si] + sdata[si + 1] + sdata[si + 2]) / 3;
 				}
 				v = Math.max(0, Math.min(255, v + band + gauss(noise)));
 				const isInk = v < thr;
-				const di = (y * w + x) * 4;
+				const di = (y * cw + x) * 4;
 				ddata[di] = isInk ? ink[0] : paper[0];
 				ddata[di + 1] = isInk ? ink[1] : paper[1];
 				ddata[di + 2] = isInk ? ink[2] : paper[2];

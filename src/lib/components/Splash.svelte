@@ -54,7 +54,7 @@
 					{src}
 					alt="splash"
 					crossorigin="anonymous"
-					use:inkFilter={{ ink: '#9773b0', paper: '#ecebd9', bandAmp: 10, noise: 10 }}
+					use:inkFilter={{ ink: '#9773b0', paper: '#ecebd9', thr: 80, bandAmp: 10, noise: 20 }}
 					class="tile dither"
 					style="--i:{i}; --count:{splashImages.length}"
 				/>

@@ -7,6 +7,7 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
+	data-sveltekit-reload
 	class={`${span} card block h-full w-full hover:bg-black`}
 >
 	<div class="relative h-full overflow-hidden">

@@ -5,6 +5,7 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
+	data-sveltekit-reload
 	class="col-span-2 row-span-1 flex h-full w-full items-end bg-brand-blue p-1 hover:bg-black"
 >
 	<div class="h-full w-full text-left">

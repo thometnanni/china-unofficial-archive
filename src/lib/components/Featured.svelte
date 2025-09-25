@@ -14,7 +14,6 @@
 		const newsletters = await query('newsletters');
 		featuredList = Array.isArray(featured) ? featured : (featured?.items ?? []);
 		newsletterList = Array.isArray(newsletters) ? newsletters : (newsletters?.items ?? []);
-		console.log('[Featured] hydrated on client — items:', featuredList.length);
 	});
 </script>
 

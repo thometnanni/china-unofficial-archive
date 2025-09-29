@@ -47,7 +47,7 @@
 					class="inline-flex [animation:marquee_100s_linear_infinite] will-change-[transform] hover:[animation-play-state:paused]"
 				>
 					{#each Array(2) as _}
-						<div class="inline-flex items-center gap-1 px-1 text-xs">
+						<div class="inline-flex items-center gap-1 px-1 text-xl">
 							{#each Array(repeats) as __}
 								<span class="zh whitespace-nowrap">{m.title(null, { locale: 'zh' })}</span>
 								<span>–</span>

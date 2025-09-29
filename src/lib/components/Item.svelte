@@ -7,7 +7,6 @@
 	import { creator } from 'd3-selection';
 
 	const { item } = $props();
-	console.log(item);
 </script>
 
 <section class="flex flex-col gap-4 p-2">

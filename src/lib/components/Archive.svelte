@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import Items from '$lib/components/Items.svelte';
+	import Preview from '$lib/components/Preview.svelte';
 	import { page } from '$app/stores';
 
 	import Item from '$lib/components/Item.svelte';
@@ -48,12 +49,14 @@
 	});
 </script>
 
-
 <section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[640px_1fr]`}">
 	{#if item?.id != null}
 		<Item {item} />
 	{/if}
-	{#if items != null}
+	{#if items != null && items.length > 0}
 		<Items {items} />
+	{/if}
+	{#if item?.media?.[0]?.type === 'application/pdf'}
+		<Preview media={item?.media[0]} />
 	{/if}
 </section>

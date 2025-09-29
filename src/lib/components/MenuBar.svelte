@@ -1,12 +1,14 @@
 <script>
 	import { m } from '$lib/paraglide/messages';
-	import { setLocale } from '$lib/paraglide/runtime';
+	import { setLocale, localizeHref } from '$lib/paraglide/runtime';
 	const repeats = 5;
-	let open = false;
+	let openLang = false;
+	let openMenu = false;
 
-	function clickOutside(node) {
+	function clickOutside(node, param) {
 		const handle = (e) => {
-			if (!node.contains(e.target)) open = false;
+			if (!node.contains(e.target)) openLang = false;
+			if (!node.contains(e.target)) openMenu = false;
 		};
 		document.addEventListener('mousedown', handle);
 		return {
@@ -19,7 +21,7 @@
 
 <section class="sticky top-0 z-10 w-svw border-b bg-white text-black">
 	<div class="mx-auto flex items-center justify-between px-1">
-		<div class="mr-2 text-lg leading-none text-black select-none" aria-hidden="true">
+		<div class="mr-2 text-lg text-black select-none" aria-hidden="true">
 			<!-- <svg
 				width="18"
 				height="18"
@@ -34,9 +36,42 @@
 			>
 				<path d="M4 6h16M4 12h16M4 18h16" />
 			</svg> -->
-			<button class="cursor-pointer uppercase">
+			<button class="cursor-pointer uppercase" on:click={() => (openMenu = !openMenu)}>
 				{m.menu()}
 			</button>
+			{#if openMenu}
+				<div
+					use:clickOutside
+					role="menu"
+					class="absolute left-0 flex flex-col items-start text-2xl"
+				>
+					<a
+						href={localizeHref('/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						Home
+					</a>
+					<a
+						href={localizeHref('/archive/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						Explore
+					</a>
+					<a
+						href={localizeHref('/about/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						About
+					</a>
+
+					<a
+						href={localizeHref('/contact/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						Contacts
+					</a>
+				</div>
+			{/if}
 		</div>
 
 		<div
@@ -62,7 +97,7 @@
 			</a>
 		</div>
 
-		<div class="ml-2 hidden items-center gap-2 leading-none sm:flex">
+		<div class="ml-2 hidden items-center gap-2 sm:flex">
 			<span aria-hidden="true">
 				<svg
 					width="18"
@@ -84,8 +119,8 @@
 					type="button"
 					class="cursor-pointer rounded p-1 hover:bg-gray-100 focus:ring-2 focus:ring-black/30 focus:outline-none"
 					aria-haspopup="menu"
-					aria-expanded={open}
-					on:click={() => (open = !open)}
+					aria-expanded={openLang}
+					on:click={() => (openLang = !openLang)}
 					aria-label="Change language"
 				>
 					<svg
@@ -107,7 +142,7 @@
 					</svg>
 				</button>
 
-				{#if open}
+				{#if openLang}
 					<div
 						use:clickOutside
 						role="menu"
@@ -118,7 +153,7 @@
 							class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
 							on:click={() => {
 								setLocale('zh');
-								open = false;
+								openLang = false;
 							}}
 						>
 							{m.lang(null, { locale: 'zh' })}
@@ -129,7 +164,7 @@
 							class="relative cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-gray-800 focus:bg-gray-800"
 							on:click={() => {
 								setLocale('en');
-								open = false;
+								openLang = false;
 							}}
 						>
 							{m.lang(null, { locale: 'en' })}

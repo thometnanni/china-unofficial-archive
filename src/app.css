@@ -26,8 +26,7 @@ html {
 }
 
 .object {
-	background-color: var(--color-brand-cream);
-	color: var(--color-brand-black);
+	background-color: var(--color-black);
 }
 
 .default {
@@ -51,6 +50,12 @@ html {
 	color: var(--color-brand-black);
 }
 
+.card .era:hover,
+.card.filter:hover,
+.card .person:hover,
+.card.object:hover {
+	background-color: var(--color-brand-gray-100);
+}
 :root {
 	--lh-tight: 1.1;
 }
@@ -73,9 +78,9 @@ html {
 	mix-blend-mode: lighten;
 }
 
-img:not(.dither) {
+/* img:not(.dither) {
 	filter: grayscale(100%);
-}
+} */
 
 ::selection {
 	background-color: var(--color-brand-yellow);

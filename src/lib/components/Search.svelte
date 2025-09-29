@@ -4,7 +4,7 @@
 	import { m } from '$lib/paraglide/messages.js';
 </script>
 
-<section id="search" class="mt-10 border-b">
+<section id="search" class="mt-10 border-b sticky top-8 z-2">
 	<div class="visible">
 		<input
 			type="text"

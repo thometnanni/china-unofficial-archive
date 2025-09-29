@@ -6,7 +6,7 @@
 <a
 	href={localizeHref('/archive/' + item.id)}
 	
-	class="col-span-2 row-span-1 flex h-full w-full items-end filter p-1 hover:bg-black"
+	class="col-span-2 row-span-1 flex h-full w-full items-end card filter p-1 "
 >
 	<div class="h-full w-full text-left">
 		{#if item.title}

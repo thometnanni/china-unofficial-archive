@@ -11,13 +11,13 @@
 </script>
 
 <section class="flex flex-col gap-4 p-2">
-	{#if item.thumbnail}
+	{#if item.thumbnail && item.type == 'creator'}
 		<div class="{item.type} card">
 			<img
 				src={item.thumbnail}
 				alt=""
 				crossorigin="anonymous"
-				class="block max-h-40 w-full object-cover"
+				class="block max-h-80 w-full object-cover"
 				use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
 			/>
 		</div>
@@ -38,7 +38,7 @@
 	<p>
 		{#each item.objectType as objectType}
 			<a
-				class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1"
+				class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1 text-white"
 				href={localizeHref(`/archive/${objectType.id}`)}>{objectType.title}</a
 			>
 		{/each}
@@ -46,7 +46,7 @@
 	<p class="text-xs">
 		{#each [...(item.theme ?? []), ...(item.era ?? [])] as theme}
 			<a
-				class="filter mr-1 {item.type} box-decoration-clone px-1"
+				class="mr-1 filter {item.type} box-decoration-clone px-1"
 				href={localizeHref(`/archive/${theme.id}`)}
 			>
 				{theme.title}

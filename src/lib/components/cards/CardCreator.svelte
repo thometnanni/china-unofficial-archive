@@ -11,9 +11,7 @@
 	class={`${hasImage ? 'card col-span-3 row-span-2 ' : 'card col-span-2 row-span-1 '} block h-full w-full p-1`}
 >
 	{#if hasImage}
-		<div
-			class="person relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden p-1 hover:bg-brand-cream"
-		>
+		<div class="person relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden p-1">
 			<img
 				src={item.thumbnail}
 				alt={item.title}

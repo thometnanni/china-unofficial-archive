@@ -5,6 +5,7 @@
 	import { onMount, tick } from 'svelte';
 	import { inkFilter } from '$lib/filter.js';
 	import { browser } from '$app/environment';
+	import Logo from '$lib/components/Logo.svelte';
 
 	let splashImages = [];
 	let splashEl;
@@ -45,7 +46,7 @@
 
 <section
 	bind:this={splashEl}
-	class="relative flex h-[90vh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
+	class="relative flex h-[100dvh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
 >
 	<div class="pointer-events-none absolute inset-0">
 		{#if splashImages.length > 0}
@@ -62,16 +63,20 @@
 		{/if}
 	</div>
 
-	<h2
-		class="zh absolute top-4 left-4 z-10 bg-gray-100 px-2 text-3xl font-medium text-black sm:left-6 md:left-2"
-	>
-		{m.slogan(null, { locale: 'zh' })}
+	<div class="absolute top-4 right-4 w-[200px] max-w-[220px] bg-gray-100">
+		<Logo />
+	</div>
+
+	<h2 class="zh absolute top-60 left-4 z-10 max-w-[640px] px-2 indent-10 text-4xl text-black">
+		<span class=" bg-gray-100">
+			{m.slogan(null, { locale: 'zh' })}
+		</span>
 	</h2>
 
-	<h2
-		class="en absolute right-4 bottom-20 z-10 bg-gray-100 px-2 text-3xl font-medium text-black sm:right-6 md:right-2"
-	>
-		{m.slogan(null, { locale: 'en' })}
+	<h2 class="en absolute right-4 bottom-62 z-10 max-w-[640px] px-2 indent-10 text-4xl text-black">
+		<span class=" bg-gray-100">
+			{m.slogan(null, { locale: 'en' })}
+		</span>
 	</h2>
 
 	<div class="z-20 mb-4 flex gap-4">
@@ -98,7 +103,6 @@
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
-
 		opacity: 0;
 		transition: opacity 3s ease;
 		animation: fade calc(var(--count) * 6s) linear infinite;

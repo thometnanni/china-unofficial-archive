@@ -1,5 +1,6 @@
 <script>
 	import { m } from '$lib/paraglide/messages';
+	import Logo from '$lib/components/Logo.svelte';
 </script>
 
 <article class="flex min-h-[200px] flex-col bg-black text-white">
@@ -9,7 +10,7 @@
 		</p>
 	</div>
 
-	<div class="mt-auto max-w-[800px] p-2">
-		<p>© China Unofficial Archives</p>
+	<div class="max-w-[200px] mt-10 mb-5">
+		<Logo textColor={'#fff'} />
 	</div>
 </article>

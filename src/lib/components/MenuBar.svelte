@@ -20,7 +20,7 @@
 	}
 </script>
 
-<section class="sticky top-0 z-10 w-svw border-b bg-white text-black">
+<section class="sticky top-0 z-100 w-svw border-b bg-white text-black">
 	<div class="relative flex items-start justify-between px-1">
 		<div class="mr-2 bg-white text-xl text-black select-none" aria-hidden="true">
 			<p class="cursor-pointer uppercase" on:click={() => (openMenu = !openMenu)}>
@@ -30,27 +30,51 @@
 				<div
 					use:clickOutside
 					role="menu"
-					class="absolute left-0 flex flex-col items-start text-xl"
-				></div>
+					class="absolute left-0 flex flex-col items-start text-2xl"
+				>
+					<a
+						href={localizeHref('/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						Home
+					</a>
+					<a
+						href={localizeHref('/archive/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						Explore
+					</a>
+					<a
+						href={localizeHref('/about/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						About
+					</a>
+
+					<a
+						href={localizeHref('/contact/')}
+						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+					>
+						Contacts
+					</a>
+				</div>
 			{/if}
 		</div>
 
-		<div
-			class="pointer-events-none absolute inset-x-0 z-0 min-w-0 flex-1 overflow-hidden text-center hover:bg-white"
-		>
-			<a href="/" class="inline-block">
-				<div class="inline-flex items-center">
+		<div class="absolute inset-x-0 min-w-0 flex-1 overflow-hidden text-center">
+			<div class="inline-flex items-center">
+				<a href="/" class="z-120 inline-block">
 					<div
 						class="flex w-[130px] max-w-[130px] items-center gap-1 bg-white px-1 text-xl
-						       sm:w-[300px] sm:max-w-[300px] sm:border-b"
+						       sm:w-[260px] sm:max-w-[260px]"
 					>
 						<Logo textColor="#000" showSubtitle={false} />
 					</div>
-				</div>
-			</a>
+				</a>
+			</div>
 		</div>
 
-		<div class="z-10 ml-2 flex items-center gap-2 bg-white text-xl">
+		<div class="z-100 ml-2 flex items-center gap-2 bg-white text-xl">
 			<span aria-hidden="true">
 				<svg
 					width="1rem"
@@ -100,7 +124,7 @@
 					<div
 						use:clickOutside
 						role="langmenu"
-						class="absolute right-0 z-20 flex flex-col items-end text-xl"
+						class="absolute right-0 z-100 flex flex-col items-end text-xl"
 					>
 						<button
 							role="menuitem"

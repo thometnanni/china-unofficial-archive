@@ -1,6 +1,5 @@
 <script>
 	import { query } from '$lib/api';
-	import { inkFilter } from '$lib/filter.js';
 
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
@@ -17,7 +16,6 @@
 				alt=""
 				crossorigin="anonymous"
 				class="block max-h-80 w-full object-cover"
-				use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
 			/>
 		</div>
 	{/if}

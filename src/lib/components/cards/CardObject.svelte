@@ -1,23 +1,17 @@
 <script>
-	import { inkFilter } from '$lib/filter.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
+	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	let { item, i = 0 } = $props();
 	const odd = i % 2 === 1;
 </script>
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	class="card col-span-2 row-span-1 block h-full w-full bg-black object"
+	class="card object col-span-2 row-span-1 block h-full w-full bg-black"
 >
 	<div class="relative h-full p-1">
 		{#if item.thumbnail}
-			<img
-				src={item.thumbnail}
-				alt={item.title}
-				class="h-full w-full object-cover"
-				crossorigin="anonymous"
-				use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
-			/>
+			<ImageFilter src={item.thumbnail} alt={item.title} color="#560067" />
 		{/if}
 
 		<div class="absolute inset-x-0 bottom-0 p-1">

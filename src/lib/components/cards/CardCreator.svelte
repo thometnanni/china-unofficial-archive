@@ -1,6 +1,6 @@
 <script>
-	import { inkFilter } from '$lib/filter.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
+	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	let { item, i = 0 } = $props();
 	const odd = i % 2 === 1;
 	const hasImage = Boolean(item?.thumbnail);
@@ -12,13 +12,7 @@
 >
 	{#if hasImage}
 		<div class="person relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden p-1">
-			<img
-				src={item.thumbnail}
-				alt={item.title}
-				class={`row-span-2 h-full w-full object-cover ${odd ? 'col-span-2 col-start-2' : 'col-span-2 col-start-1'}`}
-				crossorigin="anonymous"
-				use:inkFilter={{ ink: '#000', paper: '#fff', bandAmp: 15, noise: 20 }}
-			/>
+			<ImageFilter src={item.thumbnail} alt={item.title} />
 
 			<div
 				class={`row-span-2 flex items-end ${odd ? 'col-start-1 text-right' : 'col-start-3 text-left'}`}

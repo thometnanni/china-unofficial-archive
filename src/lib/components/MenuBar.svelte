@@ -1,5 +1,6 @@
 <script>
 	import { m } from '$lib/paraglide/messages';
+	import Logo from '$lib/components/Logo.svelte';
 	import { setLocale, localizeHref } from '$lib/paraglide/runtime';
 	const repeats = 5;
 	let openLang = false;
@@ -20,22 +21,8 @@
 </script>
 
 <section class="sticky top-0 z-10 w-svw border-b bg-white text-black">
-	<div class="mx-auto flex items-center justify-between px-1">
-		<div class="mr-2 text-2xl text-black select-none" aria-hidden="true">
-			<!-- <svg
-				width="18"
-				height="18"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="1.5"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				vector-effect="non-scaling-stroke"
-				shape-rendering="geometricPrecision"
-			>
-				<path d="M4 6h16M4 12h16M4 18h16" />
-			</svg> -->
+	<div class="relative flex items-start justify-between px-1">
+		<div class="mr-2 bg-white text-xl text-black select-none" aria-hidden="true">
 			<p class="cursor-pointer uppercase" on:click={() => (openMenu = !openMenu)}>
 				{m.menu()}
 			</p>
@@ -43,58 +30,31 @@
 				<div
 					use:clickOutside
 					role="menu"
-					class="absolute left-0 flex flex-col items-start text-2xl"
-				>
-					<a
-						href={localizeHref('/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						Home
-					</a>
-					<a
-						href={localizeHref('/archive/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						Explore
-					</a>
-					<a
-						href={localizeHref('/about/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						About
-					</a>
-
-					<a
-						href={localizeHref('/contact/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						Contacts
-					</a>
-				</div>
+					class="absolute left-0 flex flex-col items-start text-xl"
+				></div>
 			{/if}
 		</div>
 
 		<div
-			class=" relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent_0,black_24px,black_calc(100%_-_24px),transparent_100%)] text-center [-webkit-mask-image:linear-gradient(90deg,transparent_0,black_24px,black_calc(100%_-_24px),transparent_100%)] hover:bg-brand-gray-50"
+			class="pointer-events-none absolute inset-x-0 z-0 min-w-0 flex-1 overflow-hidden text-center hover:bg-white"
 		>
-			<a href="/">
-				<div class="inline-flex">
-					<div class="items-center gap-1 px-1 text-2xl">
-						<span class="en whitespace-nowrap">{m.title(null, { locale: 'en' })}</span>
-						<span>–</span>
-						<span class="en whitespace-nowrap">{m.title(null, { locale: 'zh' })}</span>
-						<span>–</span>
-						<span class="zh whitespace-nowrap">{m.title(null, { locale: 'zh-py' })}</span>
+			<a href="/" class="inline-block">
+				<div class="inline-flex items-center">
+					<div
+						class="flex w-[130px] max-w-[130px] items-center gap-1 bg-white px-1 text-xl
+						       sm:w-[300px] sm:max-w-[300px] sm:border-b"
+					>
+						<Logo textColor="#000" showSubtitle={false} />
 					</div>
-				</div></a
-			>
+				</div>
+			</a>
 		</div>
 
-		<div class="ml-2 hidden items-center gap-2 text-2xl sm:flex">
+		<div class="z-10 ml-2 flex items-center gap-2 bg-white text-xl">
 			<span aria-hidden="true">
 				<svg
-					width="18"
-					height="18"
+					width="1rem"
+					height="1rem"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -107,7 +67,8 @@
 					<path d="M7 3h10a2 2 0 0 1 2 2v16l-7-4-7 4V5a2 2 0 0 1 2-2Z" />
 				</svg>
 			</span>
-			<span aria-hidden="true">
+
+			<span>
 				<button
 					type="button"
 					class="cursor-pointer rounded p-1 hover:bg-gray-100 focus:ring-2 focus:ring-black/30 focus:outline-none"
@@ -117,8 +78,8 @@
 					aria-label="Change language"
 				>
 					<svg
-						width="18"
-						height="18"
+						width="1rem"
+						height="1rem"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
@@ -139,7 +100,7 @@
 					<div
 						use:clickOutside
 						role="langmenu"
-						class="absolute right-0 flex flex-col items-end text-2xl"
+						class="absolute right-0 z-20 flex flex-col items-end text-xl"
 					>
 						<button
 							role="menuitem"
@@ -151,10 +112,9 @@
 						>
 							{m.lang(null, { locale: 'zh' })}
 						</button>
-
 						<button
-							role="langmenu"
-							class="relative cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-gray-800 focus:bg-gray-800"
+							role="menuitem"
+							class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
 							on:click={() => {
 								setLocale('en');
 								openLang = false;

@@ -4,6 +4,8 @@
 
 	let canvas = $state();
 
+	let width = $state(500);
+
 	if (browser) {
 		// Lazy import to prevent SSR from choking
 		import('pdfjs-dist').then(async (mod) => {
@@ -31,7 +33,12 @@
 
 	async function renderPage(pdfDoc) {
 		const page = await pdfDoc.getPage(1);
-		const viewport = page.getViewport({ scale: 1 });
+		// const viewport = page.getViewport({ scale: window.devicePixelRatio ?? 1 });
+		const { width: docWidth } = page.getViewport({ scale: 1 });
+
+		const ratio = width / docWidth;
+
+		const viewport = page.getViewport({ scale: (window.devicePixelRatio ?? 1) * ratio });
 		const ctx = canvas.getContext('2d');
 
 		canvas.width = viewport.width;
@@ -41,4 +48,4 @@
 	}
 </script>
 
-<canvas bind:this={canvas}></canvas>
+<canvas class="w-full" bind:this={canvas} bind:clientWidth={width}></canvas>

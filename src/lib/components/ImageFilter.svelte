@@ -1,9 +1,9 @@
 <script>
 	import noise from '$lib/assets/noise.png';
-	const { src, alt, color } = $props();
+	const { src, alt = '' } = $props();
 </script>
 
-<div class="col-span-2 row-span-2 h-full w-full overflow-hidden" style="background-color: {color}">
+<div class="h-full overflow-hidden bg-card-primary">
 	<div class="container h-full">
 		<div class="filters">
 			<div class="noise" style="background-image: url({noise})"></div>
@@ -46,6 +46,11 @@
 		}
 
 		img {
+			background: white;
+			height: 100%;
+			width: 100%;
+			object-fit: contain;
+			object-position: top left;
 			display: block;
 			filter: grayscale() contrast(1.5) brightness(0.5);
 		}

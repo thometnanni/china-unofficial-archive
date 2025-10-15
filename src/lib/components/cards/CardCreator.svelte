@@ -7,14 +7,19 @@
 </script>
 
 <a
-	href={localizeHref('/archive/' + item.id)}
-	class={`${hasImage ? 'card col-span-3 row-span-2 ' : 'card col-span-2 row-span-1 '} block h-full w-full p-1`}
+	href={localizeHref(`/archive/${item.id}`)}
+	class="card col-span-4 row-span-4 border border-card-primary"
 >
-	{#if hasImage}
-		<div class="person relative grid h-full grid-cols-3 grid-rows-2 overflow-hidden p-1">
-			<ImageFilter src={item.thumbnail} alt={item.title} />
+	<div class="relative h-full p-1">
+		<ImageFilter src={item.thumbnail} color="var(--color-card-primary)" />
+		<h3 class="absolute right-[calc(var(--spacing)_*_-4)] bottom-4 text-right text-xl text-balance">
+			<span class="border border-card-primary bg-white box-decoration-clone px-1">
+				{item.title}
+			</span>
+		</h3>
+		<!-- <img src={item.thumbnail} alt={item.title} /> -->
 
-			<div
+		<!-- <div
 				class={`row-span-2 flex items-end ${odd ? 'col-start-1 text-right' : 'col-start-3 text-left'}`}
 			>
 				<div class="w-full">
@@ -28,22 +33,14 @@
 						{/if}
 					</div>
 				</div>
-			</div>
-		</div>
-	{:else}
-		<div class="flex h-full items-end bg-white p-3">
-			<div class="w-full">
-				{#if item.type}
-					<span class="block text-xs leading-[var(--lh-tight)] tracking-wide uppercase">
-						<span class="creator px-1">{item.type}</span>
-					</span>
-				{/if}
-				{#if item.title}
-					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium break-words text-black">
-						<span class="creator box-decoration-clone px-1">{item.title}</span>
-					</h3>
-				{/if}
-			</div>
-		</div>
-	{/if}
+			</div> -->
+	</div>
 </a>
+
+<style>
+	.card {
+		--color-card-primary: var(--color-type-creator);
+
+		/* Add these styles */
+	}
+</style>

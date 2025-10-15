@@ -6,8 +6,10 @@
 	const { items } = $props();
 </script>
 
-<div class="space-y-4 p-2">
-	<div class="grid auto-rows-[10rem] grid-cols-5 gap-2 sm:grid-cols-6 lg:grid-cols-10">
+<div class="items space-y-4 p-8">
+	<div
+		class="grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(auto-fit,minmax(var(--grid-cell-size),1fr))] gap-8"
+	>
 		{#each items as item, i}
 			<Card {item} {i} />
 		{/each}
@@ -15,4 +17,7 @@
 </div>
 
 <style>
+	.items {
+		--grid-cell-size: 60px;
+	}
 </style>

@@ -7,31 +7,45 @@
 
 <a
 	href={localizeHref('/archive/' + item.id)}
-	class="card object col-span-2 row-span-1 block h-full w-full bg-black"
+	class="card col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
 >
-	<div class="relative h-full p-1">
-		{#if item.thumbnail}
-			<ImageFilter src={item.thumbnail} alt={item.title} color="#560067" />
-		{/if}
+	<div class="col-[1/3] row-[1/4] border border-card-primary">
+		<div class="relative h-full p-1">
+			<ImageFilter src={item.thumbnail} alt={item.title} />
 
-		<div class="absolute inset-x-0 bottom-0 p-1">
-			{#if item.type}
-				<div class={odd ? 'ml-0' : 'ml-4'}>
-					<span class="block text-xs leading-[var(--lh-tight)] tracking-wide uppercase">
-						<span class="bg-brand-cream px-1">
-							{item.objectType?.map(({ title }) => title).join(', ')}
-						</span>
-					</span>
-				</div>
-			{/if}
-
-			{#if item.title}
-				<div class={odd ? 'ml-4' : 'ml-0'}>
-					<h3 class="m-0 text-base leading-[var(--lh-tight)] font-medium text-black">
-						<span class="bg-brand-cream box-decoration-clone px-1">{item.title}</span>
-					</h3>
+			{#if item.objectType}
+				<div class="absolute top-1 left-[calc(var(--spacing)_*_-4)] text-balance">
+					{#each item.objectType as objectType}
+						<h4>
+							<span class="border border-card-primary bg-white box-decoration-clone px-1">
+								{objectType.title}
+							</span>
+						</h4>
+					{/each}
 				</div>
 			{/if}
 		</div>
 	</div>
+	{#if item.title}
+		<div class="z-10 col-[2/4] row-[1/4] flex items-end">
+			<h3 class="mb-2 ml-4 leading-[var(--lh-tight)] text-balance text-black">
+				<span class="border border-card-primary bg-white box-decoration-clone px-1">
+					{item.title}
+				</span>
+			</h3>
+		</div>
+		<div class="z-10 col-[2/4] row-[1/4] flex items-end">
+			<h3 class="mb-2 ml-4 leading-[var(--lh-tight)] text-balance text-black">
+				<span class="border-r border-l border-card-primary bg-white box-decoration-clone px-1">
+					{item.title}
+				</span>
+			</h3>
+		</div>
+	{/if}
 </a>
+
+<style>
+	.card {
+		--color-card-primary: var(--color-type-object);
+	}
+</style>

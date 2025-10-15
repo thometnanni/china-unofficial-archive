@@ -23,16 +23,21 @@
 	--color-brand-purple: #9773b0;
 	--color-brand-cream: #ecebd9;
 	--color-brand-yellow: #fff200;
+
+	--color-type-default: var(--color-brand-green-200);
+	--color-type-object: var(--color-brand-purple);
+	--color-type-creator: var(--color-brand-blue);
+	--color-type-era: var(--color-brand-grayblue);
+
+	--color-card-primary: var(--color-type-default);
+	--color-card-secondary: var(--color-brand-black);
 }
 
 :root {
 	font-family: var(--font-sans);
-	--lh-tight: 1.1;
-}
-html {
+	--lh-tight: 1.3;
 	text-rendering: geometricPrecision;
 }
-
 :lang(zh) {
 	--lh-tight: 1.4;
 	--font-sans: var(--font-sans-zh);
@@ -44,38 +49,6 @@ h3,
 h4,
 h5 {
 	font-weight: 400;
-}
-
-.object {
-	background-color: var(--color-brand-black);
-}
-
-.default {
-	background-color: var(--color-brand-gray-50);
-}
-
-.creator,
-.person {
-	background-color: var(--color-brand-blue);
-	color: var(--color-brand-black);
-}
-
-.theme,
-.filter {
-	background-color: var(--color-brand-green-100);
-	color: var(--color-brand-black);
-}
-
-.era {
-	background-color: var(--color-brand-grayblue);
-	color: var(--color-brand-black);
-}
-
-.card .era:hover,
-.card.filter:hover,
-.card .person:hover,
-.card.object:hover {
-	background-color: var(--color-brand-gray-100);
 }
 
 ::selection {

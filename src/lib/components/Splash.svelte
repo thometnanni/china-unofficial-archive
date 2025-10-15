@@ -67,14 +67,22 @@
 		<Logo />
 	</div>
 
-	<h2 class="zh absolute top-60 left-4 z-10 max-w-[640px] px-2 indent-10 text-4xl text-black">
-		<span class=" bg-gray-100">
+	<h2
+		class="zh z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10
+         text-3xl text-black sm:absolute
+         sm:top-60 sm:left-4 sm:mt-0 sm:text-4xl"
+	>
+		<span class="bg-gray-100">
 			{m.slogan(null, { locale: 'zh' })}
 		</span>
 	</h2>
 
-	<h2 class="en absolute right-4 bottom-62 z-10 max-w-[640px] px-2 indent-10 text-4xl text-black">
-		<span class=" bg-gray-100">
+	<h2
+		class="en z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left
+         indent-10 text-3xl text-black sm:absolute sm:right-4
+         sm:bottom-62 sm:mt-0 sm:mb-0 sm:text-left sm:text-4xl"
+	>
+		<span class="bg-gray-100">
 			{m.slogan(null, { locale: 'en' })}
 		</span>
 	</h2>

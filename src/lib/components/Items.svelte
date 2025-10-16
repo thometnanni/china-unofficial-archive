@@ -18,6 +18,6 @@
 
 <style>
 	.items {
-		--grid-cell-size: 60px;
+		--grid-cell-size: 65px;
 	}
 </style>

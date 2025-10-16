@@ -22,7 +22,7 @@
 
 <section class="sticky top-0 z-100 w-svw border-b bg-white text-black">
 	<div class="relative flex items-start justify-between px-1">
-		<div class="mr-2 bg-white text-xl text-black select-none" aria-hidden="true">
+		<div class="z-200 mr-2 bg-white text-xl text-black select-none" aria-hidden="true">
 			<p class="cursor-pointer uppercase" on:click={() => (openMenu = !openMenu)}>
 				{m.menu()}
 			</p>
@@ -63,7 +63,7 @@
 
 		<div class="absolute inset-x-0 min-w-0 flex-1 overflow-hidden text-center">
 			<div class="inline-flex items-center">
-				<a href="/" class="z-120 inline-block">
+				<a href="/" class="z-100 inline-block">
 					<div
 						class="flex w-[130px] max-w-[130px] items-center gap-1 bg-white px-1 text-xl
 						       sm:w-[260px] sm:max-w-[260px]"
@@ -74,7 +74,7 @@
 			</div>
 		</div>
 
-		<div class="z-100 ml-2 flex items-center gap-2 bg-white text-xl">
+		<div class="z-200 ml-2 flex items-center gap-2 bg-white text-xl">
 			<span aria-hidden="true">
 				<svg
 					width="1rem"

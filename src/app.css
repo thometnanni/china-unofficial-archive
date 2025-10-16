@@ -39,7 +39,7 @@
 	text-rendering: geometricPrecision;
 }
 :lang(zh) {
-	--lh-tight: 1.4;
+	--lh-tight: 1.3;
 	--font-sans: var(--font-sans-zh);
 }
 

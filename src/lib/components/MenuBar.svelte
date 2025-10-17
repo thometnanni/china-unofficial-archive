@@ -66,10 +66,10 @@
 
 		<div class="pointer-events-none absolute inset-x-0 min-w-0 flex-1 overflow-hidden text-center">
 			<div class="pointer-events-auto inline-flex items-center">
-				<a href="/" class="z-100 inline-block">
+				<a href="/" class="relative z-100 inline-block">
 					<div
-						class="flex w-[130px] max-w-[130px] items-center gap-1 bg-white px-1 text-xl
-				       sm:w-[260px] sm:max-w-[260px]"
+						class="custom-border flex w-[260px] max-w-[260px] items-center gap-1 bg-white px-1
+		       text-xl sm:w-[260px] sm:max-w-[260px]"
 					>
 						<Logo textColor="#000" showSubtitle={false} />
 						<!-- <RotatingNames /> -->
@@ -158,6 +158,25 @@
 </section>
 
 <style>
+	.custom-border::before,
+	.custom-border::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		width: 50%;
+		height: 47%;
+		border-bottom: 1px solid black;
+		pointer-events: none;
+	}
+	.custom-border::before {
+		left: 0;
+		border-left: 1px solid black;
+	}
+	.custom-border::after {
+		right: 0;
+		border-right: 1px solid black;
+	}
+
 	:global {
 		@keyframes marquee {
 			from {

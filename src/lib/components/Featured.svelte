@@ -27,7 +27,7 @@
 					href={localizeHref('/archive/')}
 					class="col-span-4 row-span-3 bg-brand-green-200 hover:bg-brand-black"
 				>
-					<h2 class="text-5xl leading-none font-medium">
+					<h2 class="text-5xl leading-tight font-medium">
 						<span class="inline bg-white px-1">{m.explore_archive()}</span>
 					</h2>
 				</a>

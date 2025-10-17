@@ -19,5 +19,9 @@
 	"explore_archive": "Explore the Archive",
 	"claim": "This site is dedicated to making accessible the key documents, films, blogs, and publications of a movement of Chinese people seeking to reclaim their country's history. Unlike official government or university archives, the China Unofficial Archives is open, free, and accessible to anyone from any walk of life. The site is fully bilingual in Chinese and English, the international language of scholarship.",
 	"lang": "en",
-	"menu": "menu"
+	"menu": "menu",
+	"nav_home": "Home",
+	"nav_explore": "Explore",
+	"nav_about": "About",
+	"nav_resources": "Resources"
 }

@@ -37,26 +37,28 @@
 						href={localizeHref('/')}
 						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
 					>
-						Home
+						{m.nav_home()}
 					</a>
+
 					<a
 						href={localizeHref('/archive/')}
 						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
 					>
-						Explore
+						{m.nav_explore()}
 					</a>
+
 					<a
 						href={localizeHref('/about/')}
 						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
 					>
-						About
+						{m.nav_about()}
 					</a>
 
 					<a
-						href={localizeHref('/contact/')}
+						href={localizeHref('/resources/')}
 						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
 					>
-						Contacts
+						{m.nav_resources()}
 					</a>
 				</div>
 			{/if}

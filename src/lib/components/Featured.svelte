@@ -5,6 +5,7 @@
 	import Card from '$lib/components/Card.svelte';
 	import NewsletterPanel from '$lib/components/NewsletterPanel.svelte';
 	import FeaturedNews from '$lib/components/FeaturedNews.svelte';
+	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
 
 	let featuredList = [];
@@ -26,12 +27,11 @@
 			>
 				{#each featuredList as item, i}
 					{#if i == 0}
-						<a
-							href={localizeHref('/archive/')}
-							class="col-span-4 row-span-2 border-1 bg-brand-green-200 hover:bg-brand-black"
-						>
-							<h2 class="p-2 text-3xl leading-tight font-medium">
-								<span class=" inline bg-white">{m.explore_archive()}</span>
+						<a href={localizeHref('/archive/')} class="col-span-4 row-span-1">
+							<h2 class="p-2 text-3xl leading-tight font-medium hover:bg-brand-black">
+								<TextOutlined class="mb-1 ">
+									{m.explore_archive()}
+								</TextOutlined>
 							</h2>
 						</a>
 					{/if}

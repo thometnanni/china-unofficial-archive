@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { getLocale } from '$lib/paraglide/runtime';
+	import TextOutlined from '$lib/components/TextOutlined.svelte';
 
 	let { slug = 'news', site = 'main', base = 'https://minjian-danganguan.org' } = $props();
 
@@ -44,23 +45,21 @@
 
 {#if call?.header}
 	{#if call?.button_link}
-		<a
-			href={call.button_link}
-			class="col-span-4 row-span-3 block border-1 bg-brand-grayblue p-1 hover:bg-brand-black"
-		>
-			<h3 class="p-2 text-2xl leading-tight font-medium">
-				<span class=" inline bg-white">
+		<a href={call.button_link} class="col-span-4 row-span-auto block p-1">
+			<h3 class="p-2 text-2xl leading-tight font-medium hover:bg-brand-black">
+				<TextOutlined class="mb-1 ">
 					{call.header}
-				</span>
+				</TextOutlined>
+
 				{#if call?.subheader}<p class="mt-2">{call.subheader}</p>{/if}
 			</h3></a
 		>
 	{:else}
 		<div class="col-span-3 row-span-2 block border-1 bg-brand-grayblue p-1">
 			<h3 class="p-2 text-2xl leading-tight font-medium">
-				<span class=" inline bg-white">
+				<TextOutlined class="mb-1">
 					{call.header}
-				</span>
+				</TextOutlined>
 			</h3>
 			{#if call?.subheader}<p class="mt-2">{call.subheader}</p>{/if}
 		</div>

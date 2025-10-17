@@ -20,6 +20,9 @@
 		position: relative;
 		mix-blend-mode: screen;
 		filter: contrast(10);
+		/* background: var(--paper);
+		color: var(--ink); */
+		image-rendering: pixelated;
 
 		div {
 			position: absolute;
@@ -29,13 +32,13 @@
 		}
 
 		.noise {
-			background-size: 50%;
-			filter: brightness(0.6);
+			background-size: 10%;
+			filter: brightness(0.5);
 			mix-blend-mode: color-dodge;
 		}
 
 		.waves {
-			background: linear-gradient(45deg, black 0%, white 25%, black 50%, white 75%, black 100%);
+			background: linear-gradient(0deg, black 0%, white 25%, black 50%, white 75%, black 100%);
 			background-size: 100px 100px;
 			opacity: 0.2;
 			mix-blend-mode: screen;

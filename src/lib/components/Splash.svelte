@@ -112,14 +112,9 @@
 		object-fit: cover;
 		object-position: center;
 		opacity: 0;
-		animation-name: fade;
-		animation-duration: calc(var(--count) * 6s);
-		animation-timing-function: linear;
-		animation-iteration-count: infinite;
-		animation-delay: calc(-6s * var(--i));
-		animation-fill-mode: both;
-		will-change: opacity;
-		backface-visibility: hidden;
+		transition: opacity 3s ease;
+		animation: fade calc(var(--count) * 6s) linear infinite;
+		animation-delay: calc(var(--i) * 6s + 1s);
 	}
 
 	@keyframes fade {

@@ -65,7 +65,7 @@
 		<h1 class="text-3xl font-bold">404</h1>
 	</section>
 {:else}
-	<section class="mx-auto prose px-4 py-8">
+	<section class="mx-auto prose px-10 py-8">
 		<h1 class="mb-4">{title}</h1>
 		<article>{@html html}</article>
 	</section>

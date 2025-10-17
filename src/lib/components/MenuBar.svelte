@@ -1,6 +1,7 @@
 <script>
 	import { m } from '$lib/paraglide/messages';
 	import Logo from '$lib/components/Logo.svelte';
+	import RotatingNames from '$lib/components/RotatingNames.svelte';
 	import { setLocale, localizeHref } from '$lib/paraglide/runtime';
 	const repeats = 5;
 	let openLang = false;
@@ -69,6 +70,7 @@
 						       sm:w-[260px] sm:max-w-[260px]"
 					>
 						<Logo textColor="#000" showSubtitle={false} />
+						<!-- <RotatingNames /> -->
 					</div>
 				</a>
 			</div>

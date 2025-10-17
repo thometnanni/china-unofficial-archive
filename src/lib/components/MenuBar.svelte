@@ -64,12 +64,12 @@
 			{/if}
 		</div>
 
-		<div class="absolute inset-x-0 min-w-0 flex-1 overflow-hidden text-center">
-			<div class="inline-flex items-center">
+		<div class="pointer-events-none absolute inset-x-0 min-w-0 flex-1 overflow-hidden text-center">
+			<div class="pointer-events-auto inline-flex items-center">
 				<a href="/" class="z-100 inline-block">
 					<div
 						class="flex w-[130px] max-w-[130px] items-center gap-1 bg-white px-1 text-xl
-						       sm:w-[260px] sm:max-w-[260px]"
+				       sm:w-[260px] sm:max-w-[260px]"
 					>
 						<Logo textColor="#000" showSubtitle={false} />
 						<!-- <RotatingNames /> -->

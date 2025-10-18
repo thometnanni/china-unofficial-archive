@@ -1,6 +1,7 @@
 <script>
 	import { m } from '$lib/paraglide/messages';
 	import Logo from '$lib/components/Logo.svelte';
+	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import RotatingNames from '$lib/components/RotatingNames.svelte';
 	import { setLocale, localizeHref } from '$lib/paraglide/runtime';
 	const repeats = 5;
@@ -33,32 +34,27 @@
 					role="menu"
 					class="absolute left-0 flex flex-col items-start text-2xl"
 				>
-					<a
-						href={localizeHref('/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						{m.nav_home()}
+					<a href={localizeHref('/')} class="">
+						<TextOutlined>
+							{m.nav_home()}
+						</TextOutlined>
+					</a>
+					<a href={localizeHref('/archive/')} class="">
+						<TextOutlined>
+							{m.nav_explore()}
+						</TextOutlined>
 					</a>
 
-					<a
-						href={localizeHref('/archive/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						{m.nav_explore()}
+					<a href={localizeHref('/about/')} class="">
+						<TextOutlined>
+							{m.nav_about()}
+						</TextOutlined>
 					</a>
 
-					<a
-						href={localizeHref('/about/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						{m.nav_about()}
-					</a>
-
-					<a
-						href={localizeHref('/resources/')}
-						class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
-					>
-						{m.nav_resources()}
+					<a href={localizeHref('/resources/')} class="">
+						<TextOutlined>
+							{m.nav_resources()}
+						</TextOutlined>
 					</a>
 				</div>
 			{/if}
@@ -132,23 +128,27 @@
 					>
 						<button
 							role="menuitem"
-							class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+							class="cursor-pointer"
 							on:click={() => {
 								setLocale('zh');
 								openLang = false;
 							}}
 						>
-							{m.lang(null, { locale: 'zh' })}
+							<TextOutlined>
+								{m.lang(null, { locale: 'zh' })}
+							</TextOutlined>
 						</button>
 						<button
 							role="menuitem"
-							class="cursor-pointer bg-black px-4 py-2 text-white transition hover:bg-white hover:text-black focus:bg-white"
+							class="cursor-pointer"
 							on:click={() => {
 								setLocale('en');
 								openLang = false;
 							}}
 						>
-							{m.lang(null, { locale: 'en' })}
+							<TextOutlined>
+								{m.lang(null, { locale: 'en' })}
+							</TextOutlined>
 						</button>
 					</div>
 				{/if}

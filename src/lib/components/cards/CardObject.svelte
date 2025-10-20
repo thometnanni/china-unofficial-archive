@@ -1,15 +1,10 @@
 <script>
-	import { localizeHref } from '$lib/paraglide/runtime';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import TextOutlined from '../TextOutlined.svelte';
-	let { item, i = 0 } = $props();
-	const odd = i % 2 === 1;
+	let { item, href } = $props();
 </script>
 
-<a
-	href={localizeHref('/archive/' + item.id)}
-	class="card col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
->
+<a {href} class="card col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8">
 	<div class="col-[1/3] row-[1/4] border border-card-primary">
 		<div class="relative h-full p-1">
 			<ImageFilter src={item.thumbnail} alt={item.title} />

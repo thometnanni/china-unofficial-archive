@@ -7,4 +7,4 @@
 </script>
 
 <MenuBar />
-<StaticPage {slug} site="main" base="https://minjian-danganguan.org" />
+<StaticPage {slug} />

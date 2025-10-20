@@ -3,7 +3,7 @@
 	const { src, alt = '' } = $props();
 </script>
 
-<div class="h-full overflow-hidden bg-card-primary">
+<div class="block h-full w-full overflow-hidden bg-card-primary">
 	<div class="container h-full">
 		<div class="filters">
 			<div class="noise" style="background-image: url({noise})"></div>
@@ -20,8 +20,7 @@
 		position: relative;
 		mix-blend-mode: screen;
 		filter: contrast(10);
-		/* background: var(--paper);
-		color: var(--ink); */
+		max-width: none;
 		image-rendering: pixelated;
 
 		div {

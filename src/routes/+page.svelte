@@ -5,8 +5,8 @@
 	import Footer from '$lib/components/Footer.svelte';
 </script>
 
-<Splash />
 <MenuBar />
+<Splash />
 
 <!-- <svelte:boundary> -->
 <Featured />

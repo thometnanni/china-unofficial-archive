@@ -1,6 +1,6 @@
 <script>
 	import { m } from '$lib/paraglide/messages';
-	import Logo from '$lib/components/Logo.svelte';
+	// import Logo from '$lib/components/Logo.svelte';
 </script>
 
 <article class="flex min-h-[200px] flex-col bg-black text-white">
@@ -11,6 +11,6 @@
 	</div>
 
 	<div class="max-w-[200px] mt-10 mb-5">
-		<Logo textColor={'#fff'} />
+		<!-- <Logo textColor={'#fff'} /> -->
 	</div>
 </article>

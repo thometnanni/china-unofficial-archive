@@ -2,6 +2,9 @@
 	import { onMount } from 'svelte';
 	import { getLocale } from '$lib/paraglide/runtime';
 
+
+	BASE_URL_OMEKA
+
 	let { slug, site = 'main', base = 'https://minjian-danganguan.org' } = $props();
 
 	let title = $state('');

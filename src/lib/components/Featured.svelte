@@ -21,7 +21,7 @@
 
 <section class="items grid min-h-200 w-svw gap-2 lg:grid-cols-[1fr_320px]">
 	{#if featuredList.length > 0}
-		<div class="p-5 pt-10">
+		<div class="p-5">
 			<div
 				class="grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(auto-fit,minmax(var(--grid-cell-size),1fr))] gap-8"
 			>

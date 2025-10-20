@@ -1,7 +1,7 @@
 <script>
 	import { query } from '$lib/api';
 	import { m } from '$lib/paraglide/messages';
-	import { setLocale } from '$lib/paraglide/runtime';
+	import { setLocale, getLocale } from '$lib/paraglide/runtime';
 	import { onMount, tick } from 'svelte';
 	import { inkFilter } from '$lib/filter.js';
 	import { browser } from '$app/environment';
@@ -11,6 +11,7 @@
 
 	let splashImages = [];
 	let splashEl;
+	let lang = $derived(getLocale());
 
 	const scrollBelowSplash = async () => {
 		await tick();
@@ -73,27 +74,33 @@
 		<Logo />
 	</div>
 
-	<h2
-		class="zh z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10
-         text-3xl text-black sm:absolute
-         sm:top-60 sm:left-4 sm:mt-0 sm:text-4xl"
-	>
-		<span class="bg-gray-100">
-			<TextOutlined>
-				{m.slogan(null, { locale: 'zh' })}
-			</TextOutlined>
-		</span>
-	</h2>
-
-	<h2
-		class="en z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left
-         indent-10 text-3xl text-black sm:absolute sm:right-4
-         sm:bottom-62 sm:mt-0 sm:mb-0 sm:text-left sm:text-4xl"
-	>
-		<TextOutlined>
-			{m.slogan(null, { locale: 'en' })}
-		</TextOutlined>
-	</h2>
+	{#if lang === 'zh'}
+		<h2
+			class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
+		>
+			<span class="bg-gray-100">
+				<TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined>
+			</span>
+		</h2>
+		<h2
+			class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
+		>
+			<TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined>
+		</h2>
+	{:else}
+		<h2
+			class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
+		>
+			<span class="bg-gray-100">
+				<TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined>
+			</span>
+		</h2>
+		<h2
+			class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
+		>
+			<TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined>
+		</h2>
+	{/if}
 
 	<div class="z-20 mb-4 flex gap-4">
 		<button

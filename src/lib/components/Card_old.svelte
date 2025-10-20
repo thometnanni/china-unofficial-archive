@@ -5,7 +5,7 @@
 
 	const { item, zoom, search = '' } = $props();
 
-	let lang = $derived(getLocale());
+let lang = $derived(getLocale());
 	let title = $derived(
 		item['dcterms:title']?.find((ti) => ti['@language'] === lang)?.['@value'] ||
 			item['o:title'] ||

@@ -78,7 +78,7 @@
 	</div>
 </section>
 
-<section class="fixed top-2 right-2 z-[210] text-black">
+<section class="fixed top-2 right-2 z-[210] text-2xl text-black">
 	<div class="flex items-center gap-2">
 		<button class="cursor-pointer" on:click={() => setLocale('zh')}>
 			<TextOutlined>{m.lang(null, { locale: 'zh' })}</TextOutlined>

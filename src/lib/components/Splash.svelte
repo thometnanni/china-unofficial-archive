@@ -6,6 +6,8 @@
 	import { inkFilter } from '$lib/filter.js';
 	import { browser } from '$app/environment';
 	import Logo from '$lib/components/Logo.svelte';
+	import TextOutlined from '$lib/components/TextOutlined.svelte';
+	// import ImageFilter from '$lib/components/ImageFilter.svelte';
 
 	let splashImages = [];
 	let splashEl;
@@ -48,7 +50,7 @@
 	bind:this={splashEl}
 	class="relative flex h-[100dvh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cream p-1"
 >
-	<div class="pointer-events-none absolute inset-0">
+	<div class="pointer-events-none absolute -inset-1">
 		{#if splashImages.length > 0}
 			{#each splashImages as src, i}
 				<img
@@ -59,6 +61,10 @@
 					class="tile dither"
 					style="--i:{i}; --count:{splashImages.length}"
 				/>
+
+				<!-- <div class="tile dither" style="--i:{i}; --count:{splashImages.length}">
+					<ImageFilter class="block h-full w-full" {src} />
+				</div> -->
 			{/each}
 		{/if}
 	</div>
@@ -73,7 +79,9 @@
          sm:top-60 sm:left-4 sm:mt-0 sm:text-4xl"
 	>
 		<span class="bg-gray-100">
-			{m.slogan(null, { locale: 'zh' })}
+			<TextOutlined>
+				{m.slogan(null, { locale: 'zh' })}
+			</TextOutlined>
 		</span>
 	</h2>
 
@@ -82,9 +90,9 @@
          indent-10 text-3xl text-black sm:absolute sm:right-4
          sm:bottom-62 sm:mt-0 sm:mb-0 sm:text-left sm:text-4xl"
 	>
-		<span class="bg-gray-100">
+		<TextOutlined>
 			{m.slogan(null, { locale: 'en' })}
-		</span>
+		</TextOutlined>
 	</h2>
 
 	<div class="z-20 mb-4 flex gap-4">
@@ -109,14 +117,18 @@
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
-		object-position: center;
 		opacity: 0;
 		transition: opacity 3s ease;
 		animation: fade calc(var(--count) * 6s) linear infinite;
 		animation-delay: calc(var(--i) * 6s + 1s);
 	}
-
+	.tile :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		display: block;
+	}
 	@keyframes fade {
 		0% {
 			opacity: 0;

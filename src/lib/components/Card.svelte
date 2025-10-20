@@ -7,7 +7,7 @@
 	let { item, i = 0 } = $props();
 
 	let href = $derived(`/archive/${item.id}`);
-	let as = $derived.by(() => {
+	let CardComponent = $derived.by(() => {
 		switch (item.type) {
 			case 'creator':
 				return CardCreator;
@@ -19,4 +19,4 @@
 	});
 </script>
 
-<svelte:element this={as} {item} {href}></svelte:element>
+<CardComponent {item} {href}></CardComponent>

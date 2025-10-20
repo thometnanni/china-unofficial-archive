@@ -32,7 +32,7 @@
 				<div
 					use:clickOutside
 					role="menu"
-					class="absolute left-0 flex flex-col items-start text-2xl"
+					class="absolute left-0 flex flex-col items-start text-3xl"
 				>
 					<a href={localizeHref('/')} class="">
 						<TextOutlined>
@@ -124,7 +124,7 @@
 					<div
 						use:clickOutside
 						role="langmenu"
-						class="absolute right-0 z-100 flex flex-col items-end text-xl"
+						class="absolute right-0 z-100 flex flex-col items-end text-3xl"
 					>
 						<button
 							role="menuitem"

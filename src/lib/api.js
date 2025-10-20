@@ -1,8 +1,8 @@
 import * as env from '$env/static/public';
 import { getLocale } from './paraglide/runtime';
 
-const BASE_URL_OMEKA = env.PUBLIC_OMEKA_API ?? 'https://minjian-danganguan.org/api';
-const BASE_URL = env.PUBLIC_API ?? 'https://minjian-danganguan.org/fast-api';
+export const BASE_URL_OMEKA = env.PUBLIC_OMEKA_API ?? 'https://minjian-danganguan.org/api';
+export const BASE_URL = env.PUBLIC_API ?? 'https://minjian-danganguan.org/fast-api';
 
 export function buildItemsUrl({
 	filters = [],

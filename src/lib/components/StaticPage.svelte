@@ -1,17 +1,16 @@
 <script>
 	import { onMount } from 'svelte';
 	import { getLocale } from '$lib/paraglide/runtime';
+	import { BASE_URL_OMEKA } from '$lib/api';
 
-
-	BASE_URL_OMEKA
-
-	let { slug, site = 'main', base = 'https://minjian-danganguan.org' } = $props();
+	let { slug, site = 'china-unofficial-new' } = $props();
 
 	let title = $state('');
 	let html = $state('');
 	let notFound = $state(false);
 
 	let lang = $derived(getLocale());
+	// let apiSlug = $derived(() => `${slug}-${lang}`);
 	let apiSlug = $derived(`${slug}-${lang}`);
 
 	let reqId = 0;
@@ -23,7 +22,7 @@
 		controller = new AbortController();
 		notFound = false;
 
-		const url = new URL(`${base}/api/site_pages`);
+		const url = new URL(`${BASE_URL_OMEKA}/site_pages`);
 		url.searchParams.set('site', site);
 		url.searchParams.set('slug', apiSlug);
 
@@ -33,7 +32,6 @@
 		} catch (e) {
 			return;
 		}
-
 		if (myId !== reqId) return;
 
 		if (!res.ok) {
@@ -58,7 +56,6 @@
 	$effect(() => {
 		apiSlug;
 		site;
-		base;
 		load();
 	});
 </script>

@@ -101,7 +101,7 @@
 
 <div class="relative max-h-[100dvh] overflow-y-auto" bind:this={scroller}>
 	{#if isLoading}
-		<div class="absolute inset-0 z-10 flex h-full items-center justify-center bg-gray-200">
+		<div class="absolute inset-0 flex h-full items-center justify-center bg-gray-200">
 			<span class="text-2xl">{loadProgress}%</span>
 		</div>
 	{/if}

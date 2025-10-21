@@ -70,10 +70,17 @@
 		{/if}
 	</div>
 
-	{#each lang === 'zh' ? ['zh', 'en'] : ['en', 'zh'] as l}
-		{#if l === 'zh'}
+	<div class="flex flex-col-reverse sm:flex-col">
+		{#if lang === 'zh'}
 			<h2
-				class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-4xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
+				class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
+			>
+				<span class="bg-gray-100">
+					<TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined>
+				</span>
+			</h2>
+			<h2
+				class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
 			>
 				<TextOutlined>
 					唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span>
@@ -81,14 +88,21 @@
 			</h2>
 		{:else}
 			<h2
-				class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-4xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
+				class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
 			>
 				<span class="bg-gray-100">
-					<TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined>
+					<TextOutlined>
+						唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span>
+					</TextOutlined>
 				</span>
 			</h2>
+			<h2
+				class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
+			>
+				<TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined>
+			</h2>
 		{/if}
-	{/each}
+	</div>
 
 	<div class="z-20 mb-4 flex gap-4">
 		<!-- <button

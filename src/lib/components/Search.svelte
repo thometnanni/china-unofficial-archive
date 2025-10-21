@@ -17,7 +17,19 @@
 			.flat();
 	});
 
-	let filteredFilters = $state(null);
+	let filteredFilters = $derived.by(() => {
+		if (!value) return null;
+
+		return Object.entries(filters)
+			.map(([type, values]) =>
+				values
+					.filter((filter) => new RegExp(value).test(filter.title ?? filter.value))
+					.map((v) => ({ ...v, type }))
+			)
+			.flat()
+			.slice(0, 20)
+			.sort((a, b) => b.count - a.count);
+	});
 
 	let suggestedFilters = $derived(filteredFilters ?? fallbackFilters);
 
@@ -52,8 +64,6 @@
 		}
 		goto(url, { replaceState: true });
 	}
-
-	$effect(() => console.log(suggestedFilters));
 </script>
 
 <section id="search" class="sticky top-7 z-2 mt-10 border-b bg-white">
@@ -65,7 +75,7 @@
 				bind:value
 				placeholder={m.search_placeholder()}
 			/>
-			<button type="submit" class="rounded-r bg-blue-500 px-4 py-2 text-white"> Search </button>
+			<button type="submit" class=" bg-blue-500 px-4 py-2 text-white"> 🔎 </button>
 		</form>
 	</div>
 	<div class="m-4 hidden">
@@ -87,9 +97,9 @@
 				display: block;
 			}
 		}
-		/* 
+
 		.hidden {
 			display: block;
-		} */
+		}
 	}
 </style>

@@ -4,9 +4,13 @@
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import { setLocale, localizeHref } from '$lib/paraglide/runtime';
+	import { page } from '$app/stores';
 
-	let openMenu = false;
-	let isCollapsed = false;
+	let openMenu = $state(false);
+	let isCollapsed = $state(false);
+	const pages = ['/archive', '/creators'];
+	
+	let showSpace = $derived(pages.some((p) => $page.route.id.startsWith(p)));
 
 	function clickOutside(node) {
 		const handle = (e) => {
@@ -23,10 +27,7 @@
 	function bindScroll() {
 		const update = () => {
 			isCollapsed = window.scrollY > 20;
-			if (isCollapsed) {
-				openMenu = false;
-				isCollapsed = true;
-			}
+			if (isCollapsed) openMenu = false;
 		};
 		update();
 		window.addEventListener('scroll', update, { passive: true });
@@ -34,7 +35,6 @@
 	}
 
 	let unbind = null;
-
 	onMount(() => {
 		unbind = bindScroll();
 	});
@@ -43,7 +43,10 @@
 	});
 </script>
 
-<div class="h-[200px]"></div>
+{#if showSpace}
+	<div class="h-[250px]"></div>
+{/if}
+
 <section class="fixed top-0 left-0 z-[200] text-black">
 	<div class="w-[200px] p-1">
 		<div class="border-1 bg-white">
@@ -70,7 +73,6 @@
 			</button>
 			{#if openMenu}
 				<div use:clickOutside role="menu" class="absolute flex flex-col text-2xl">
-					<!-- <a href={localizeHref('/')}><TextOutlined>{m.nav_home()}</TextOutlined></a> -->
 					<a href={localizeHref('/about/')}><TextOutlined>{m.nav_about()}</TextOutlined></a>
 					<a href={localizeHref('/resources/')}><TextOutlined>{m.nav_resources()}</TextOutlined></a>
 				</div>

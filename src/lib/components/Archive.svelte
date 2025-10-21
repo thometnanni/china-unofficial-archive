@@ -9,7 +9,11 @@
 
 	let id = $derived($page.params.id);
 
-	let item = $derived(await query(id == null ? 'items' : `items/${id}`));
+	let pageQuery = $derived($page.query);
+
+	let item = $derived(
+		await query(id == null ? `items${$page.url.search}` : `items/${id}${$page.url.search}`)
+	);
 	let items = $derived(item.items);
 </script>
 

@@ -76,5 +76,8 @@ export async function fetchFilters() {
 
 export async function query(path) {
 	const lang = getLocale();
-	return await fetch(`${BASE_URL}/${path}?lang=${lang}`).then((d) => d.json());
+	const url = new URL(`${BASE_URL}/${path}`);
+	url.searchParams.set('lang', lang);
+
+	return await fetch(url).then((d) => d.json());
 }

@@ -45,9 +45,9 @@
 
 {#if call?.header}
 	{#if call?.button_link}
-		<a href={call.button_link} class="col-span-4 row-span-auto block p-1">
-			<h3 class="p-2 text-2xl leading-tight font-medium hover:bg-brand-black">
-				<TextOutlined class="mb-1 ">
+		<a href={call.button_link} class="row-span-auto col-span-4 block p-1">
+			<h3 class="custom-outline text-2xl font-medium">
+				<TextOutlined>
 					{call.header}
 				</TextOutlined>
 
@@ -55,8 +55,8 @@
 			</h3></a
 		>
 	{:else}
-		<div class="col-span-3 row-span-2 block border-1 bg-brand-grayblue p-1">
-			<h3 class="p-2 text-2xl leading-tight font-medium">
+		<div class="col-span-3 row-span-2 block border-1 p-1">
+			<h3 class="custom-outline text-2xl font-medium">
 				<TextOutlined class="mb-1">
 					{call.header}
 				</TextOutlined>
@@ -65,3 +65,17 @@
 		</div>
 	{/if}
 {/if}
+
+<style>
+	.custom-outline {
+		cursor: pointer;
+		--lh-tight: 1.28;
+		--color-outlined-border: var(--color-black);
+		--color-outlined-bg: var(--color-white);
+
+		&:hover {
+			--color-outlined-bg: var(--color-black);
+			--color-outlined-text: var(--color-white);
+		}
+	}
+</style>

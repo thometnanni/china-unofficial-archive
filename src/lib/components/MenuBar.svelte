@@ -3,14 +3,15 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import { onMount, onDestroy } from 'svelte';
-	import { setLocale, localizeHref } from '$lib/paraglide/runtime';
+	import { setLocale, localizeHref, getLocale } from '$lib/paraglide/runtime';
 	import { page } from '$app/stores';
 
 	let openMenu = $state(false);
 	let isCollapsed = $state(false);
 	const pages = ['/archive', '/creators'];
-	
+
 	let showSpace = $derived(pages.some((p) => $page.route.id.startsWith(p)));
+	let lang = $derived(getLocale());
 
 	function clickOutside(node) {
 		const handle = (e) => {
@@ -54,13 +55,13 @@
 		</div>
 
 		{#if !isCollapsed || openMenu}
-			<div class="text-2xl">
+			<div class="custom-outline text-2xl">
 				<a href={localizeHref('/archive/')}>
 					<TextOutlined>{m.nav_explore()}</TextOutlined>
 				</a>
 			</div>
 
-			<div class="text-2xl">
+			<div class="custom-outline text-2xl">
 				<a href={localizeHref('/creators/')}>
 					<TextOutlined>{m.nav_creators()}</TextOutlined>
 				</a>
@@ -68,13 +69,25 @@
 		{/if}
 
 		<div>
-			<button class="cursor-pointer text-2xl" on:click={() => (openMenu = !openMenu)}>
-				<TextOutlined>⋯</TextOutlined>
-			</button>
+			<div
+				class="custom-outline text-2xl"
+				class:open={openMenu}
+				class:closed={!openMenu}
+				class:notCollapsed={!isCollapsed}
+			>
+				<button onclick={() => (openMenu = !openMenu)}>
+					<TextOutlined>⋯</TextOutlined>
+				</button>
+			</div>
+
 			{#if openMenu}
 				<div use:clickOutside role="menu" class="absolute flex flex-col text-2xl">
-					<a href={localizeHref('/about/')}><TextOutlined>{m.nav_about()}</TextOutlined></a>
-					<a href={localizeHref('/resources/')}><TextOutlined>{m.nav_resources()}</TextOutlined></a>
+					<a class="custom-outline" href={localizeHref('/about/')}
+						><TextOutlined>{m.nav_about()}</TextOutlined></a
+					>
+					<a class="custom-outline" href={localizeHref('/resources/')}
+						><TextOutlined>{m.nav_resources()}</TextOutlined></a
+					>
 				</div>
 			{/if}
 		</div>
@@ -83,17 +96,56 @@
 
 <section class="fixed top-2 right-2 z-[210] text-2xl text-black">
 	<div class="flex items-center gap-2">
-		<button class="cursor-pointer" on:click={() => setLocale('zh')}>
+		<button
+			class="custom-outline {lang === 'zh' ? 'is-active' : ''}"
+			onclick={() => setLocale('zh')}
+		>
 			<TextOutlined>{m.lang(null, { locale: 'zh' })}</TextOutlined>
 		</button>
-		<button class="cursor-pointer" on:click={() => setLocale('en')}>
+		<button
+			class="custom-outline {lang === 'en' ? 'is-active' : ''}"
+			onclick={() => setLocale('en')}
+		>
 			<TextOutlined>{m.lang(null, { locale: 'en' })}</TextOutlined>
 		</button>
 	</div>
 </section>
 
 <style>
-	section {
-		--color-card-primary: var(--color-brand-black);
+	.custom-outline {
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		box-sizing: border-box;
+		--lh-tight: 1.28;
+		--color-outlined-border: var(--color-black);
+		--color-outlined-bg: var(--color-white);
+
+		&.is-active {
+			--color-outlined-bg: var(--color-black);
+			--color-outlined-text: var(--color-white);
+		}
+
+		&:hover {
+			--color-outlined-bg: var(--color-black);
+			--color-outlined-text: var(--color-white);
+		}
+
+		button {
+			margin-top: 0;
+			cursor: pointer;
+		}
+
+		&.open button {
+			margin-top: 1px;
+		}
+
+		&.closed button {
+			margin-top: 0;
+		}
+
+		&.notCollapsed button {
+			margin-top: 1px;
+		}
 	}
 </style>

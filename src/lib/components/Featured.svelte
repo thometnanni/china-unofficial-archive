@@ -34,7 +34,7 @@
 				{/each}
 
 				<a href={localizeHref('/archive/')} class="col-span-4 row-span-1">
-					<h2 class="p-2 text-3xl leading-tight font-medium hover:bg-brand-black">
+					<h2 class="custom-outline p-2 text-3xl leading-tight font-medium">
 						<TextOutlined class="mb-1 ">
 							{m.explore_archive()}
 						</TextOutlined>
@@ -52,6 +52,17 @@
 </section>
 
 <style>
+	.custom-outline {
+		cursor: pointer;
+		--color-outlined-border: var(--color-black);
+		--color-outlined-bg: var(--color-white);
+
+		&:hover {
+			--color-outlined-bg: var(--color-black);
+			--color-outlined-text: var(--color-white);
+		}
+	}
+
 	.items {
 		--grid-cell-size: 65px;
 	}

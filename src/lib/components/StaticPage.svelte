@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { BASE_URL_OMEKA } from '$lib/api';
+	import { query } from '$lib/api';
 
 	let { slug, site = 'china-unofficial-new' } = $props();
 
@@ -58,15 +59,54 @@
 		site;
 		load();
 	});
+
+	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	let splashImages = $derived([]);
+
+	onMount(async () => {
+		const images = await query('splash-images');
+		splashImages = [...images].sort(() => Math.random() - 0.5);
+	});
 </script>
 
-{#if notFound}
-	<section class="py-10 text-center">
-		<h1 class="text-3xl font-bold">404</h1>
-	</section>
-{:else}
-	<section class="mx-auto prose px-10 py-8">
-		<h1 class="mb-4">{title}</h1>
-		<article>{@html html}</article>
-	</section>
-{/if}
+<main>
+	<div class="tile">
+		<ImageFilter src={splashImages[0]} color="var(--color-brand-primary)" />
+	</div>
+
+	{#if notFound}
+		<section class="py-10 text-center">
+			<h1 class="text-3xl font-bold">404</h1>
+		</section>
+	{:else}
+		<section class="mx-auto prose px-10 py-8">
+			<h1 class="mb-4">{title}</h1>
+			<article>{@html html}</article>
+		</section>
+	{/if}
+</main>
+
+<style>
+	.tile {
+		position: fixed;
+		z-index: -100;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		--color-card-primary: var(--color-brand-purple);
+		background-color: var(--color-brand-cream);
+	}
+
+	.tile :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		display: block;
+	}
+
+	section {
+		background-color: white;
+		max-width: 800px;
+	}
+</style>

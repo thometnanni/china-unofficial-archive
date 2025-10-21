@@ -11,11 +11,15 @@
 
 	let filters = await query('filters');
 
-	let suggestedFilters = $derived.by(() => {
+	let fallbackFilters = $derived.by(() => {
 		return Object.entries(filters)
 			.map(([type, values]) => values.slice(0, 3).map((v) => ({ ...v, type })))
 			.flat();
 	});
+
+	let filteredFilters = $state(null);
+
+	let suggestedFilters = $derived(filteredFilters ?? fallbackFilters);
 
 	function applyFilter(filter) {
 		const url = new URL($page.url);
@@ -30,11 +34,21 @@
 		} else {
 			filterSet.add(newParam);
 		}
-		console.log(filterSet);
 		if (filterSet.size > 0) {
 			url.searchParams.set(filter.type, Array.from(filterSet).join(','));
 		} else {
 			url.searchParams.delete(filter.type);
+		}
+		goto(url, { replaceState: true });
+	}
+
+	function submitSearch(e) {
+		e.preventDefault();
+		const url = new URL($page.url);
+		if (value) {
+			url.searchParams.set('search', value);
+		} else {
+			url.searchParams.delete('search');
 		}
 		goto(url, { replaceState: true });
 	}
@@ -44,12 +58,15 @@
 
 <section id="search" class="sticky top-7 z-2 mt-10 border-b bg-white">
 	<div class="visible">
-		<input
-			type="text"
-			class="w-full border-transparent"
-			bind:value
-			placeholder={m.search_placeholder()}
-		/>
+		<form onsubmit={submitSearch} class="flex">
+			<input
+				type="text"
+				class="w-full border-transparent"
+				bind:value
+				placeholder={m.search_placeholder()}
+			/>
+			<button type="submit" class="rounded-r bg-blue-500 px-4 py-2 text-white"> Search </button>
+		</form>
 	</div>
 	<div class="m-4 hidden">
 		<div class="flex flex-wrap gap-1 gap-y-1.5">

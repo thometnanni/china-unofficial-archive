@@ -33,6 +33,7 @@
 			pdfjsLib.GlobalWorkerOptions.workerSrc = '/workers/pdf.worker.js';
 		});
 	});
+
 	$effect(async () => {
 		if (!pdfjsLib || !media?.url) return;
 		isLoading = true;
@@ -160,9 +161,9 @@
 	}
 </script>
 
-<div class="h-full min-h-[80vh] overflow-scroll bg-gray-200">
+<div class="h-full min-h-[80vh] overflow-scroll bg-white">
 	{#if isLoading}
-		<div class="flex h-full items-center justify-center">
+		<div class="flex h-full min-h-[80vh] items-center justify-center">
 			<span class="text-2xl">{loadProgress}%</span>
 		</div>
 	{/if}

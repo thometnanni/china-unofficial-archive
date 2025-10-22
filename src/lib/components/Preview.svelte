@@ -54,7 +54,10 @@
 			canvas: null,
 			width: 0,
 			inView: false,
-			token: null
+			token: null,
+			ar: 0,
+			ph: 1,
+			node: null
 		}));
 		isLoading = false;
 	});
@@ -72,9 +75,14 @@
 		const token = Symbol();
 		p.token = token;
 		p.rendering = true;
-		// console.log('start', p.index);
 		try {
 			const page = await pdfDoc.getPage(p.index);
+			if (!p.ar) {
+				const base = page.getViewport({ scale: 1 });
+				p.ar = base.width / base.height;
+				const cw = p.width || p.node?.clientWidth || 0;
+				if (cw) p.ph = Math.round(cw / p.ar);
+			}
 			if (p.token !== token || (!force && !p.inView)) {
 				page.cleanup();
 				throw new Error('stale');
@@ -87,15 +95,9 @@
 			p.canvas.height = viewport.height;
 			await page.render({ canvasContext: ctx, viewport }).promise;
 			page.cleanup();
-			if (p.token === token && p.inView) {
-				p.ready = true;
-				// console.log('done', p.index);
-			}
-		} catch (e) {
-			if (!e || e.message !== 'stale') {
-				p.error = true;
-				// console.log('error', p.index, e);
-			}
+			if (p.token === token && (force || p.inView)) p.ready = true;
+		} catch {
+			p.error = true;
 		} finally {
 			p.rendering = false;
 		}
@@ -122,8 +124,9 @@
 					}
 				}
 			},
-			{ root: null, rootMargin: '0px', threshold: thresholds }
+			{ root: null, rootMargin: '300px 0px', threshold: thresholds }
 		);
+
 		i.observe(node);
 		return {
 			destroy() {
@@ -137,10 +140,10 @@
 			const w = node.clientWidth;
 			if (w && Math.abs(w - p.width) > 2) {
 				p.width = w;
+				if (p.ar) p.ph = Math.round(w / p.ar);
 				if (p.inView) {
 					p.ready = false;
 					enqueue(() => renderPage(p, 1));
-					// console.log('rerender', p.index);
 				}
 			}
 		});
@@ -151,24 +154,25 @@
 			}
 		};
 	}
+	function init(node, p) {
+		p.node = node;
+		return { destroy() {} };
+	}
 </script>
 
-<div class="h-full overflow-scroll bg-gray-200">
+<div class="h-full min-h-[80vh] overflow-scroll bg-gray-200">
 	{#if isLoading}
 		<div class="flex h-full items-center justify-center">
 			<span class="text-2xl">{loadProgress}%</span>
 		</div>
 	{/if}
 	{#each pages as p (p.index)}
-		<div use:io={p} use:ro={p}>
+		<div use:io={p} use:ro={p} use:init={p} bind:this={p.node} bind:clientWidth={p.width}>
 			{#if !p.ready && !p.error}
-				<div style="aspect-ratio:3/4"></div>
+				<div style="width:100%;height:{p.ph}px"></div>
 			{/if}
 			{#if !p.error}
-				<canvas
-					bind:this={p.canvas}
-					bind:clientWidth={p.width}
-					style="width:100%;display:{p.ready ? 'block' : 'none'}"
+				<canvas bind:this={p.canvas} style="width:100%;display:{p.ready ? 'block' : 'none'}"
 				></canvas>
 			{/if}
 		</div>

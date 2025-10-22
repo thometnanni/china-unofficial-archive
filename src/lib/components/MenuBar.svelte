@@ -50,18 +50,18 @@
 
 <section class="fixed top-0 left-0 z-[200] text-black">
 	<div class="w-[200px] p-1">
-		<div class="border-1 bg-white">
+		<div class="mb-1 border-1 bg-white">
 			<a href="/"><Logo textColor="#000" showSubtitle={true} /></a>
 		</div>
 
 		{#if !isCollapsed || openMenu}
-			<div class="custom-outline text-2xl">
+			<div class="custom-outline mb-1 text-2xl">
 				<a href={localizeHref('/archive/')}>
 					<TextOutlined>{m.nav_explore()}</TextOutlined>
 				</a>
 			</div>
 
-			<div class="custom-outline text-2xl">
+			<div class="custom-outline mb-1 text-2xl">
 				<a href={localizeHref('/creators/')}>
 					<TextOutlined>{m.nav_creators()}</TextOutlined>
 				</a>
@@ -69,12 +69,7 @@
 		{/if}
 
 		<div>
-			<div
-				class="custom-outline text-2xl"
-				class:open={openMenu}
-				class:closed={!openMenu}
-				class:notCollapsed={!isCollapsed}
-			>
+			<div class="custom-outline mb-1 text-2xl">
 				<button onclick={() => (openMenu = !openMenu)}>
 					<TextOutlined>⋯</TextOutlined>
 				</button>
@@ -82,10 +77,10 @@
 
 			{#if openMenu}
 				<div use:clickOutside role="menu" class="absolute flex flex-col text-2xl">
-					<a class="custom-outline" href={localizeHref('/about/')}
+					<a class="custom-outline mb-1" href={localizeHref('/about/')}
 						><TextOutlined>{m.nav_about()}</TextOutlined></a
 					>
-					<a class="custom-outline" href={localizeHref('/resources/')}
+					<a class="custom-outline mb-1" href={localizeHref('/resources/')}
 						><TextOutlined>{m.nav_resources()}</TextOutlined></a
 					>
 				</div>
@@ -134,18 +129,6 @@
 		button {
 			margin-top: 0;
 			cursor: pointer;
-		}
-
-		&.open button {
-			margin-top: 1px;
-		}
-
-		&.closed button {
-			margin-top: 0;
-		}
-
-		&.notCollapsed button {
-			margin-top: 1px;
 		}
 	}
 </style>

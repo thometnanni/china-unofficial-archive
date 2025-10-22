@@ -23,14 +23,12 @@
 		<Item {item} />
 	{/if}
 
-	{#if items?.length > 0}
+	{#if item.type == 'object'}
+		<MediaPreview {medias} {item} initialIndex={0} />
+	{:else}
 		<div>
 			<Search bind:value={search} itemFilters={item.filters} />
 			<Items {items} />
 		</div>
-	{/if}
-
-	{#if item?.type !== 'creator'}
-		<MediaPreview {medias} {item} initialIndex={0} />
 	{/if}
 </section>

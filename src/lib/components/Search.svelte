@@ -23,7 +23,7 @@
 		return Object.entries(filters)
 			.map(([type, values]) =>
 				values
-					.filter((filter) => new RegExp(value).test(filter.title ?? filter.value))
+					.filter((filter) => new RegExp(value, 'i').test(filter.title ?? filter.value))
 					.map((v) => ({ ...v, type }))
 			)
 			.flat()

@@ -23,5 +23,9 @@
 	"nav_about": "关于",
 	"nav_resources": "资源",
 	"nav_creators": "创作者",
-	"creator": "创作者"
+	"creator": "创作者",
+	"pdf": "文件",
+	"youtube": "视频",
+	"video": "视频",
+	"image": "图片"
 }

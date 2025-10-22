@@ -26,5 +26,9 @@
 	"nav_creators": "Creators",
 	"objects": "Objects",
 	"creators": "Creators",
-	"creator": "Creator"
+	"creator": "Creator",
+	"pdf": "PDF",
+	"youtube": "YouTube",
+	"video": "Video",
+	"image": "Image"
 }

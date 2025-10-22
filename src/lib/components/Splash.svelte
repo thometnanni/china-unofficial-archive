@@ -64,7 +64,7 @@
 				/> -->
 
 				<div class="tile dither" style="--i:{i}; --count:{splashImages.length}">
-					<ImageFilter {src} color="var(--color-brand-primary)" />
+					<ImageFilter {src} color="var(--color-brand-primary)" fit="cover" />
 				</div>
 			{/each}
 		{/if}
@@ -138,13 +138,14 @@
 		background-color: var(--color-brand-cream);
 	}
 
-	.tile :global(img) {
+	/* .tile :global(img) {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
 		display: block;
-	}
+	} */
+	 
 	@keyframes fade {
 		0% {
 			opacity: 1;

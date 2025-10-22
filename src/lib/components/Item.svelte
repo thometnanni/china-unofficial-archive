@@ -6,6 +6,7 @@
 	import { creator } from 'd3-selection';
 
 	const { item } = $props();
+	console.log(item.description);
 </script>
 
 <section class="flex flex-col gap-4 p-2">
@@ -35,7 +36,7 @@
 	<p>
 		{#each item.objectType as objectType}
 			<a
-				class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1 text-white"
+				class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1 text-black"
 				href={localizeHref(`/archive/${objectType.id}`)}>{objectType.title}</a
 			>
 		{/each}
@@ -50,7 +51,7 @@
 			</a>
 		{/each}
 	</p>
-	<div>
+	<div class="whitespace-pre-wrap">
 		{@html item.description}
 	</div>
 </section>

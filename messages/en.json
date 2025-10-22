@@ -3,7 +3,6 @@
 	"title": "China Unofficial Archives",
 	"switch_to_ch": "切换中文",
 	"all": "All",
-	"creator": "Creator",
 	"era": "Era",
 	"type": "Type",
 	"theme": "Theme",
@@ -24,5 +23,8 @@
 	"nav_explore": "Explore",
 	"nav_about": "About",
 	"nav_resources": "Resources",
-	"nav_creators": "Creators"
+	"nav_creators": "Creators",
+	"objects": "Objects",
+	"creators": "Creators",
+	"creator": "Creator"
 }

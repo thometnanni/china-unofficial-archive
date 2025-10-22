@@ -13,7 +13,7 @@
 	// let showSpace = $derived(pages.some((p) => $page.route.id.startsWith(p)));
 
 	let showSpace = $derived($page.route.id !== '/');
-	
+
 	let lang = $derived(getLocale());
 
 	function clickOutside(node) {
@@ -59,13 +59,13 @@
 
 		{#if !isCollapsed || openMenu}
 			<div class="custom-outline mb-1 text-2xl">
-				<a href={localizeHref('/archive/')}>
+				<a data-sveltekit-reload href={localizeHref('/archive?view=all')}>
 					<TextOutlined>{m.nav_explore()}</TextOutlined>
 				</a>
 			</div>
 
 			<div class="custom-outline mb-1 text-2xl">
-				<a href={localizeHref('/creators/')}>
+				<a data-sveltekit-reload href={localizeHref('/archive?view=creator')}>
 					<TextOutlined>{m.nav_creators()}</TextOutlined>
 				</a>
 			</div>

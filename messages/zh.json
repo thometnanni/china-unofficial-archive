@@ -3,7 +3,6 @@
 	"title": "民间档案馆",
 	"switch_to_ch": "Switch to English",
 	"all": "全部",
-	"creator": "创作者",
 	"era": "时代",
 	"type": "类型",
 	"theme": "主题",
@@ -23,5 +22,6 @@
 	"nav_explore": "探索",
 	"nav_about": "关于",
 	"nav_resources": "资源",
-	"nav_creators": "创作者"
+	"nav_creators": "创作者",
+	"creator": "创作者"
 }

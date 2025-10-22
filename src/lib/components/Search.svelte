@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import { m } from '$lib/paraglide/messages.js';
 
-	let { value } = $props();
+	let { value, itemFilters } = $props();
 
 	import SearchTag from './SearchTag.svelte';
 	import TextOutlined from './TextOutlined.svelte';
@@ -13,7 +13,15 @@
 
 	let fallbackFilters = $derived.by(() => {
 		return Object.entries(filters)
-			.map(([type, values]) => values.slice(0, 3).map((v) => ({ ...v, type })))
+			.map(([type, values]) =>
+				values
+					.filter((filter) => {
+						if (itemFilters == null) return true;
+						return itemFilters[type][filter.id ?? filter.value] != null;
+					})
+					.slice(0, 3)
+					.map((v) => ({ ...v, type }))
+			)
 			.flat();
 	});
 
@@ -23,7 +31,12 @@
 		return Object.entries(filters)
 			.map(([type, values]) =>
 				values
-					.filter((filter) => new RegExp(value, 'i').test(filter.title ?? filter.value))
+					.filter((filter) => {
+						return (
+							(itemFilters == null || itemFilters[type][filter.id ?? filter.value] != null) &&
+							new RegExp(value, 'i').test(filter.title ?? filter.value)
+						);
+					})
 					.map((v) => ({ ...v, type }))
 			)
 			.flat()

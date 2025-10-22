@@ -25,7 +25,7 @@
 
 	{#if items?.length > 0}
 		<div>
-			<Search bind:value={search} />
+			<Search bind:value={search} itemFilters={item.filters} />
 			<Items {items} />
 		</div>
 	{/if}

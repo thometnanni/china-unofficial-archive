@@ -8,9 +8,12 @@
 
 	let openMenu = $state(false);
 	let isCollapsed = $state(false);
-	const pages = ['/archive', '/creators'];
+	// const pages = ['/archive', '/creators', ];
 
-	let showSpace = $derived(pages.some((p) => $page.route.id.startsWith(p)));
+	// let showSpace = $derived(pages.some((p) => $page.route.id.startsWith(p)));
+
+	let showSpace = $derived($page.route.id !== '/');
+	
 	let lang = $derived(getLocale());
 
 	function clickOutside(node) {

@@ -6,6 +6,7 @@
 
 	import Item from '$lib/components/Item.svelte';
 	import { query } from '$lib/api';
+	import Search from './Search.svelte';
 
 	let id = $derived($page.params.id);
 
@@ -15,6 +16,8 @@
 		await query(id == null ? `items${$page.url.search}` : `items/${id}${$page.url.search}`)
 	);
 	let items = $derived(item.items);
+
+	let search = $state('');
 </script>
 
 <section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[640px_1fr]`}">
@@ -22,7 +25,10 @@
 		<Item {item} />
 	{/if}
 	{#if items != null && items.length > 0}
-		<Items {items} />
+		<div>
+			<Search bind:value={search} />
+			<Items {items} />
+		</div>
 	{/if}
 	{#if item?.media?.[0]?.type === 'application/pdf'}
 		<Preview media={item?.media[0]} />

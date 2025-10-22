@@ -66,7 +66,7 @@
 	}
 </script>
 
-<section id="search" class="sticky top-7 z-2 mt-10 border-b bg-white">
+<section id="search" class="sticky top-0 z-2 mt-10 border-b bg-white">
 	<div class="visible">
 		<form onsubmit={submitSearch} class="flex">
 			<input

@@ -11,6 +11,8 @@
 
 	let filters = await query('filters');
 
+	let searchInput;
+
 	let fallbackFilters = $derived.by(() => {
 		return Object.entries(filters)
 			.map(([type, values]) =>
@@ -64,7 +66,12 @@
 		} else {
 			url.searchParams.delete(filter.type);
 		}
+
 		goto(url, { replaceState: true });
+
+		setTimeout(() => {
+			searchInput?.focus();
+		}, 0);
 	}
 
 	function submitSearch(e) {
@@ -77,12 +84,56 @@
 		}
 		goto(url, { replaceState: true });
 	}
+
+	function resetSearch() {
+		const url = new URL($page.url);
+		url.searchParams.delete('search');
+		goto(url, { replaceState: true });
+	}
+
+	let activeFilters = $derived.by(() => {
+		const activeFilters = Object.entries(filters)
+			.map(([type, typedFilters]) => {
+				const searchParam = $page.url.searchParams.get(type);
+				if (searchParam == null) return [];
+				const active = decodeURIComponent(searchParam)
+					.split(',')
+					.map((value) => {
+						const filter = filters[type].find((f) => f.id == value || f.value == value);
+						if (filter == null) return [];
+						return { ...filter, type };
+					});
+
+				return active;
+			})
+			.flat();
+		console.log($page.url.search, JSON.stringify(activeFilters, null, 2));
+		return activeFilters;
+	});
+
+	let activeSearch = $derived.by(() => {
+		const searchParam = $page.url.searchParams.get('search');
+		if (searchParam == null) return;
+		const active = decodeURIComponent(searchParam);
+		return active;
+	});
 </script>
 
 <section id="search" class="sticky top-0 z-2 mt-10 border-b bg-white">
-	<div class="visible">
-		<form onsubmit={submitSearch} class="flex">
+	<div class="search-box visible m-4 flex gap-1">
+		{#each activeFilters as filter}
+			<button onclick={() => applyFilter(filter)}>
+				<SearchTag item={filter} close></SearchTag>
+			</button>
+		{/each}
+		{#if activeSearch}
+			<button onclick={resetSearch}>
+				<SearchTag item={{ title: activeSearch, type: 'search' }} close></SearchTag>
+			</button>
+		{/if}
+		<form onsubmit={submitSearch} class="flex flex-1">
 			<input
+				bind:this={searchInput}
 				type="text"
 				class="w-full border-transparent"
 				bind:value
@@ -105,6 +156,16 @@
 
 <style>
 	#search {
+		.search-box {
+			&:focus-within {
+				outline: 1px solid blue;
+
+				input {
+					outline: none;
+					box-shadow: none;
+				}
+			}
+		}
 		&:focus-within {
 			.hidden {
 				display: block;
@@ -112,7 +173,7 @@
 		}
 
 		.hidden {
-			display: block;
+			/* display: block; */
 		}
 	}
 </style>

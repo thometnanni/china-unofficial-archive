@@ -1,5 +1,6 @@
 <script>
 	import { browser } from '$app/environment';
+	import { tick } from 'svelte';
 	let pdfjsLib = $state();
 	let pdfDoc = $state();
 	let pages = $state([]);
@@ -57,15 +58,24 @@
 		}));
 		isLoading = false;
 	});
-	async function renderPage(p, ratio = 0) {
-		if (!pdfDoc || !p.canvas || p.rendering || p.ready || !p.inView || ratio < 0.6) return;
+	$effect(async () => {
+		if (!pdfDoc || pages.length === 0) return;
+		await tick();
+		if (!pages[0].ready) {
+			pages[0].inView = true;
+			enqueue(() => renderPage(pages[0], 1, true));
+		}
+	});
+	async function renderPage(p, ratio = 0, force = false) {
+		if (!pdfDoc || !p.canvas || p.rendering || p.ready || (!force && (!p.inView || ratio < 0.6)))
+			return;
 		const token = Symbol();
 		p.token = token;
 		p.rendering = true;
 		// console.log('start', p.index);
 		try {
 			const page = await pdfDoc.getPage(p.index);
-			if (p.token !== token || !p.inView) {
+			if (p.token !== token || (!force && !p.inView)) {
 				page.cleanup();
 				throw new Error('stale');
 			}
@@ -96,7 +106,6 @@
 		p.ready = false;
 		p.canvas.width = 0;
 		p.canvas.height = 0;
-		// console.log('unload', p.index);
 	}
 	function io(node, p) {
 		const thresholds = [0, 0.1, 0.25, 0.5, 0.6, 0.75, 1];
@@ -131,7 +140,7 @@
 				if (p.inView) {
 					p.ready = false;
 					enqueue(() => renderPage(p, 1));
-					console.log('rerender', p.index);
+					// console.log('rerender', p.index);
 				}
 			}
 		});
@@ -144,7 +153,7 @@
 	}
 </script>
 
-<div class="bg-gray-200">
+<div class="h-full overflow-scroll bg-gray-200">
 	{#if isLoading}
 		<div class="flex h-full items-center justify-center">
 			<span class="text-2xl">{loadProgress}%</span>

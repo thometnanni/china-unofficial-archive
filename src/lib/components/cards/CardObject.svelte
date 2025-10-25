@@ -1,8 +1,11 @@
 <script>
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	import { derived } from 'svelte/store';
 	import TextOutlined from '../TextOutlined.svelte';
 	let { item, href } = $props();
 	let isPortrait = $state(true);
+
+	let isOdd = $derived(Boolean(+item.id % 2));
 
 	function onRatio(e) {
 		isPortrait = e.detail.isPortrait;
@@ -16,7 +19,7 @@
 		} border border-card-primary`}
 	>
 		<div class="relative h-full p-1">
-			<ImageFilter src={item.thumbnail} alt={item.title} on:ratio={onRatio} fit="contain" />
+			<ImageFilter src={item.thumbnail} alt={item.title} on:ratio={onRatio} fit="contain" {isOdd} />
 
 			{#if item.objectType}
 				<div class="absolute top-1 left-[calc(var(--spacing)_*_-4)] text-balance">

@@ -2,7 +2,7 @@
 	import noise from '$lib/assets/noise.png';
 	import { createEventDispatcher } from 'svelte';
 
-	const { src, alt = '', fit = 'contain' } = $props();
+	const { src, alt = '', fit = 'contain', isOdd = false } = $props();
 	const dispatch = createEventDispatcher();
 
 	function onImgLoad(e) {
@@ -20,7 +20,12 @@
 			<div class="waves"></div>
 		</div>
 		{#if src}
-			<img {src} {alt} onload={onImgLoad} style={`object-fit:${fit}`} />
+			<img
+				{src}
+				{alt}
+				onload={onImgLoad}
+				style={`object-fit:${fit}; object-position:${isOdd ? 'bottom right' : 'top left'}`}
+			/>
 		{/if}
 	</div>
 </div>
@@ -54,10 +59,9 @@
 		mix-blend-mode: screen;
 	}
 	img {
-		background: white;
+		background-color: white;
 		height: 100%;
 		width: 100%;
-		object-position: top left;
 		display: block;
 		filter: grayscale() contrast(1.5) brightness(0.5);
 	}

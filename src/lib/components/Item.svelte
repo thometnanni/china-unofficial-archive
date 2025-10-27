@@ -11,7 +11,7 @@
 	console.log(item.description);
 </script>
 
-<section class="item-container flex flex-col gap-4 p-2">
+<section class="flex flex-col gap-4 p-2">
 	{#if item.thumbnail && item.type == 'creator'}
 		<div class="{item.type} card max-h-[200px] w-fit border">
 			<img
@@ -66,7 +66,7 @@
 			</a>
 		{/each}
 	</div>
-	<div class="text-xl whitespace-pre-wrap">
+	<div class="item-container  text-xl whitespace-pre-wrap">
 		{@html item.description}
 	</div>
 </section>

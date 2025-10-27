@@ -45,7 +45,7 @@
 		z-index: 1;
 	}
 	.noise {
-		background-size: 25%;
+		background-size: 64px;
 		filter: brightness(0.5);
 		mix-blend-mode: color-dodge;
 	}

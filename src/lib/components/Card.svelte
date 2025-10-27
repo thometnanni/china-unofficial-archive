@@ -8,6 +8,7 @@
 
 	let href = $derived(`/archive/${item.id}`);
 	let CardComponent = $derived.by(() => {
+		if (item.objectType != null) return CardObject;
 		switch (item.type) {
 			case 'creator':
 				return CardCreator;

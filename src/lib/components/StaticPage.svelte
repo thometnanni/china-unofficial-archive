@@ -71,7 +71,7 @@
 
 <main>
 	<div class="tile">
-		<ImageFilter src={splashImages[0]} color="var(--color-brand-primary)" />
+		<ImageFilter src={splashImages[0]} color="var(--color-brand-primary)"  fit="cover" />
 	</div>
 
 	{#if notFound}

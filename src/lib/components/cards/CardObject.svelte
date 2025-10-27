@@ -73,12 +73,6 @@
 	.card[data-type='newsletter'] {
 		--color-card-primary: var(--color-type-object-newsletter);
 	}
-	.card[data-type='video'] {
-		--color-card-primary: var(--color-type-object-video);
-	}
-	.card[data-type='film'] {
-		--color-card-primary: var(--color-type-object-video);
-	}
 	.card[data-type='film and video'] {
 		--color-card-primary: var(--color-type-object-video);
 	}

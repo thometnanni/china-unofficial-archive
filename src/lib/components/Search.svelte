@@ -139,7 +139,7 @@
 				bind:value
 				placeholder={m.search_placeholder()}
 			/>
-			<button type="submit" class=" bg-blue-500 px-4 py-2 text-white"> → </button>
+			<button type="submit" class=" bg-black px-3 py-1 text-white hover:bg-gray-300 hover:text-black"> → </button>
 		</form>
 	</div>
 	<div class="m-4 hidden">

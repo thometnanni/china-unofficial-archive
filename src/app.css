@@ -24,20 +24,19 @@
 	--color-brand-cream: #ecebd9;
 	--color-brand-yellow: #fff200;
 
-	--color-type-creator: var(--color-brand-blue);
+	--color-type-creator: #b875d3;
 
-	--color-type-default: var(--color-brand-green-200);
+	--color-type-default: #575572;
 
-	--color-type-object: var(--color-orange-400);
+	--color-type-object: #5f58b4;
 
-	--color-type-object-book: var(--color-red-200);
-	--color-type-object-video: var(--color-red-300);
-	--color-type-object-film: var(--color-red-300);
-	--color-type-object-article: var(--color-red-400);
-	--color-type-object-periodical: var(--color-red-400);
-	--color-type-object-newsletter: var(--color-red-600);
-	--color-type-object-official: var(--color-red-500);
-	--color-type-object-other: var(--color-red-500);
+	--color-type-object-book: #3f86d1;
+	--color-type-object-video: #47bfcd;
+	--color-type-object-periodical: #35b195;
+	--color-type-object-newsletter: #9a2987;
+	--color-type-object-article: var(--color-type-object);
+	--color-type-object-official: var(--color-type-object);
+	--color-type-object-other: var(--color-type-object);
 
 	--color-type-era: var(--color-type-default);
 	--color-card-primary: var(--color-type-default);

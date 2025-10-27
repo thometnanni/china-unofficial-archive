@@ -24,11 +24,22 @@
 	--color-brand-cream: #ecebd9;
 	--color-brand-yellow: #fff200;
 
-	--color-type-default: var(--color-brand-green-200);
-	--color-type-object: var(--color-brand-purple);
 	--color-type-creator: var(--color-brand-blue);
-	--color-type-era: var(--color-brand-grayblue);
 
+	--color-type-default: var(--color-brand-green-200);
+
+	--color-type-object: var(--color-orange-400);
+
+	--color-type-object-book: var(--color-red-200);
+	--color-type-object-video: var(--color-red-300);
+	--color-type-object-film: var(--color-red-300);
+	--color-type-object-article: var(--color-red-400);
+	--color-type-object-periodical: var(--color-red-400);
+	--color-type-object-newsletter: var(--color-red-600);
+	--color-type-object-official: var(--color-red-500);
+	--color-type-object-other: var(--color-red-500);
+
+	--color-type-era: var(--color-type-default);
 	--color-card-primary: var(--color-type-default);
 	--color-card-secondary: var(--color-brand-black);
 }

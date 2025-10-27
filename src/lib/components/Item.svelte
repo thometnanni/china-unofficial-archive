@@ -11,22 +11,22 @@
 	console.log(item.description);
 </script>
 
-<section class="flex flex-col gap-4 p-2">
+<section class="item-container flex flex-col gap-4 p-2">
 	{#if item.thumbnail && item.type == 'creator'}
 		<div class="{item.type} card max-h-[200px] w-fit border">
-			<!-- <img
+			<img
 				src={item.thumbnail}
 				alt=""
 				crossorigin="anonymous"
 				class="object-fit block max-h-[200px] border"
-			/> -->
+			/>
 
-			<ImageFilter
+			<!-- <ImageFilter
 				src={item.thumbnail}
 				alt={item.title}
 				color="var(--color-brand-primary)"
 				fit="contain"
-			/>
+			/> -->
 		</div>
 	{/if}
 
@@ -74,5 +74,9 @@
 <style>
 	.card {
 		--color-card-primary: var(--color-type-creator);
+	}
+
+	:global(.item-container a) {
+		text-decoration: underline;
 	}
 </style>

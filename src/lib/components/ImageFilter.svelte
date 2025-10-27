@@ -2,7 +2,7 @@
 	import noise from '$lib/assets/noise.png';
 	import { createEventDispatcher } from 'svelte';
 
-	const { src, alt = '', fit = 'contain', isOdd = false } = $props();
+	const { src, alt = '', fit = 'contain', objectPosition = 'center center' } = $props();
 	const dispatch = createEventDispatcher();
 
 	function onImgLoad(e) {
@@ -24,7 +24,7 @@
 				{src}
 				{alt}
 				onload={onImgLoad}
-				style={`object-fit:${fit}; object-position:${isOdd ? 'bottom right' : 'top left'}`}
+				style={`object-fit:${fit}; object-position:${objectPosition}`}
 			/>
 		{/if}
 	</div>

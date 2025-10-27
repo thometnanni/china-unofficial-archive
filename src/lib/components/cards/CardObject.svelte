@@ -5,7 +5,7 @@
 	let { item, href } = $props();
 	let isPortrait = $state(true);
 
-	let isOdd = $derived(Boolean(+item.id % 2));
+	// let isOdd = $derived(Boolean(+item.id % 2));
 
 	function onRatio(e) {
 		isPortrait = e.detail.isPortrait;
@@ -19,7 +19,13 @@
 		} border border-card-primary`}
 	>
 		<div class="relative h-full p-1">
-			<ImageFilter src={item.thumbnail} alt={item.title} on:ratio={onRatio} fit="contain" {isOdd} />
+			<ImageFilter
+				src={item.thumbnail}
+				alt={item.title}
+				on:ratio={onRatio}
+				fit="cover"
+				objectPosition="center center"
+			/>
 
 			{#if item.objectType}
 				<div class="absolute top-1 left-[calc(var(--spacing)_*_-4)] text-balance">

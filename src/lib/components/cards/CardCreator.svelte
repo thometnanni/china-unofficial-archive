@@ -4,12 +4,12 @@
 	let { item, href } = $props();
 	const hasImage = Boolean(item?.thumbnail);
 
-	let isOdd = $derived(Boolean(item.id % 2));
+	// let isOdd = $derived(Boolean(item.id % 2));
 </script>
 
 <a {href} class="card col-span-4 row-span-4 border border-card-primary">
 	<div class="relative h-full p-1">
-		<ImageFilter src={item.thumbnail} color="var(--color-card-primary)" {isOdd} />
+		<ImageFilter src={item.thumbnail} color="var(--color-card-primary)" fit="cover" objectPosition="center 35%" />
 		<TextOutlined
 			as="h3"
 			class="absolute right-[calc(var(--spacing)_*_-4)] bottom-4 text-right text-xl"

@@ -11,7 +11,7 @@
 		isPortrait = e.detail.isPortrait;
 	}
 	const dataType = $derived(
-		String(item?.objectType?.[0]?.title || '')
+		String(item?.objectType?.[0]?.id || '')
 			.toLowerCase()
 			.trim()
 	);
@@ -61,19 +61,19 @@
 	.card {
 		--color-card-primary: var(--color-type-object);
 	}
-	.card[data-type='book'] {
+	.card[data-type='4186'] {
 		--color-card-primary: var(--color-type-object-book);
 	}
-	.card[data-type='article'] {
+	.card[data-type='4187'] {
 		--color-card-primary: var(--color-type-object-article);
 	}
-	.card[data-type='periodical'] {
+	.card[data-type='4184'] {
 		--color-card-primary: var(--color-type-object-periodical);
 	}
-	.card[data-type='newsletter'] {
+	.card[data-type='4185'] {
 		--color-card-primary: var(--color-type-object-newsletter);
 	}
-	.card[data-type='film and video'] {
+	.card[data-type='4190'] {
 		--color-card-primary: var(--color-type-object-video);
 	}
 </style>

@@ -2,6 +2,7 @@
 	import Items from '$lib/components/Items.svelte';
 	import MenuBar from '$lib/components/MenuBar.svelte';
 	import Search from '$lib/components/Search.svelte';
+	import { m } from '$lib/paraglide/messages';
 
 	import { page } from '$app/stores';
 	import Item from '$lib/components/Item.svelte';
@@ -15,6 +16,6 @@
 <svelte:boundary>
 	<Archive />
 	{#snippet pending()}
-		<p>loading...</p>
+		<p>{m.loading()}</p>
 	{/snippet}
 </svelte:boundary>

@@ -2,6 +2,7 @@
 	import { m } from '$lib/paraglide/messages';
 	import Logo from '$lib/components/Logo.svelte';
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
+	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import { setLocale, localizeHref, getLocale } from '$lib/paraglide/runtime';
 	import { page } from '$app/stores';
@@ -48,7 +49,12 @@
 </script>
 
 {#if showSpace}
-	<div class="h-[250px]"></div>
+	<div class="pointer-events-none h-[250px]" style="--color-card-primary: var(--color-brand-purple);">
+		<ImageFilter
+			src="https://minjian-danganguan.org/files/asset/4f98be9d60f19c57bfdb72cf569dd136bb775c8c.png"
+			fit="cover"
+		/>
+	</div>
 {/if}
 
 <section class="fixed top-0 left-0 z-[200] text-black">

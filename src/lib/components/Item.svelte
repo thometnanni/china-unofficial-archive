@@ -8,6 +8,7 @@
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 
 	const { item } = $props();
+	console.log(item)
 </script>
 
 <section class="flex flex-col gap-4 p-2">

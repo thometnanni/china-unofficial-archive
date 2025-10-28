@@ -119,7 +119,7 @@
 	});
 </script>
 
-<section id="search" class="sticky top-0 z-2 mt-10 border-b bg-white">
+<section id="search" class="sticky top-0 z-2 mt-2 border-b bg-white">
 	<div class="search-box visible m-4 flex gap-1">
 		{#each activeFilters as filter}
 			<button onclick={() => applyFilter(filter)}>
@@ -139,10 +139,15 @@
 				bind:value
 				placeholder={m.search_placeholder()}
 			/>
-			<button type="submit" class=" bg-black px-3 py-1 text-white hover:bg-gray-300 hover:text-black"> → </button>
+			<button
+				type="submit"
+				class=" bg-black px-3 py-1 text-white hover:bg-gray-300 hover:text-black"
+			>
+				→
+			</button>
 		</form>
 	</div>
-	<div class="m-4 hidden">
+	<div class="m-4">
 		<div class="flex flex-wrap gap-1 gap-y-1.5">
 			{#each suggestedFilters as filter}
 				<button onclick={() => applyFilter(filter)}>

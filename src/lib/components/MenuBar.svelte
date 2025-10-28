@@ -14,6 +14,7 @@
 	// let showSpace = $derived(pages.some((p) => $page.route.id.startsWith(p)));
 
 	let showSpace = $derived($page.route.id !== '/');
+	let showBg = $derived($page.params.slug !== 'about' && $page.params.slug !== 'resources');
 
 	let lang = $derived(getLocale());
 
@@ -49,11 +50,16 @@
 </script>
 
 {#if showSpace}
-	<div class="pointer-events-none h-[250px]" style="--color-card-primary: var(--color-brand-purple);">
-		<ImageFilter
-			src="https://minjian-danganguan.org/files/asset/4f98be9d60f19c57bfdb72cf569dd136bb775c8c.png"
-			fit="cover"
-		/>
+	<div
+		class="pointer-events-none h-[250px]"
+		style="--color-card-primary: var(--color-brand-purple);"
+	>
+		{#if showBg}
+			<ImageFilter
+				src="https://minjian-danganguan.org/files/asset/4f98be9d60f19c57bfdb72cf569dd136bb775c8c.png"
+				fit="cover"
+			/>
+		{/if}
 	</div>
 {/if}
 

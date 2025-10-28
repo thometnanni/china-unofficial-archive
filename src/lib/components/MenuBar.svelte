@@ -51,7 +51,7 @@
 
 {#if showSpace}
 	<div
-		class="pointer-events-none h-[250px]"
+		class="pointer-events-none h-[250px] border-b"
 		style="--color-card-primary: var(--color-brand-purple);"
 	>
 		{#if showBg}

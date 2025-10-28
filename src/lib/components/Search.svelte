@@ -185,7 +185,7 @@
 	#search {
 		.search-box {
 			&:focus-within {
-				outline: 1px solid black;
+				/* outline: 1px solid black; */
 
 				input {
 					outline: none;

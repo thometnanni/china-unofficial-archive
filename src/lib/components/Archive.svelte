@@ -24,6 +24,10 @@
 	);
 
 	$effect(() => {
+		if (id != null && !$page.url.searchParams.has('view')) typeView = 'all';
+	});
+
+	$effect(() => {
 		if (!browser) return;
 		const url = new URL(window.location.href);
 		const current = url.searchParams.get('view') || 'all';
@@ -44,10 +48,12 @@
 		<MediaPreview {medias} {item} initialIndex={0} />
 	{:else}
 		<div>
-			<div>
-				<Search bind:value={search} itemFilters={item.filters} />
-				<TypeFilter bind:value={typeView} />
-			</div>
+			{#if items?.length > 2}
+				<div>
+					<Search bind:value={search} itemFilters={item.filters} />
+					<TypeFilter bind:value={typeView} />
+				</div>
+			{/if}
 			<Items items={filteredItems} />
 		</div>
 	{/if}

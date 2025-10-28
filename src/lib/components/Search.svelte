@@ -119,10 +119,10 @@
 	});
 </script>
 
-<section id="search" class="sticky top-0 z-2 mt-2 border-b bg-white">
-	<div class="search-box visible m-4 flex gap-1">
+<section id="search" class="sticky top-0 z-2 border-b bg-white">
+	<div class="search-box visible m-1 flex gap-1">
 		{#each activeFilters as filter}
-			<button onclick={() => applyFilter(filter)}>
+			<button class="mx-1" onclick={() => applyFilter(filter)}>
 				<SearchTag item={filter} close></SearchTag>
 			</button>
 		{/each}
@@ -132,6 +132,34 @@
 			</button>
 		{/if}
 		<form onsubmit={submitSearch} class="flex flex-1">
+			<button type="submit" class=" hover:text-black">
+				<svg
+					id="icon"
+					xmlns="http://www.w3.org/2000/svg"
+					width="22"
+					height="22"
+					viewBox="0 0 32 32"
+				>
+					<defs>
+						<style>
+							.cls-1 {
+								fill: none;
+							}
+						</style>
+					</defs>
+					<path
+						d="M29,27.5859l-7.5521-7.5521a11.0177,11.0177,0,1,0-1.4141,1.4141L27.5859,29ZM4,13a9,9,0,1,1,9,9A9.01,9.01,0,0,1,4,13Z"
+						transform="translate(0 0)"
+					/>
+					<rect
+						id="_Transparent_Rectangle_"
+						data-name="&lt;Transparent Rectangle&gt;"
+						class="cls-1"
+						width="32"
+						height="32"
+					/>
+				</svg>
+			</button>
 			<input
 				bind:this={searchInput}
 				type="text"
@@ -139,15 +167,9 @@
 				bind:value
 				placeholder={m.search_placeholder()}
 			/>
-			<button
-				type="submit"
-				class=" bg-black px-3 py-1 text-white hover:bg-gray-300 hover:text-black"
-			>
-				→
-			</button>
 		</form>
 	</div>
-	<div class="m-4">
+	<div class="m-2">
 		<div class="flex flex-wrap gap-1 gap-y-1.5">
 			{#each suggestedFilters as filter}
 				<button onclick={() => applyFilter(filter)}>
@@ -163,7 +185,7 @@
 	#search {
 		.search-box {
 			&:focus-within {
-				outline: 1px solid blue;
+				outline: 1px solid black;
 
 				input {
 					outline: none;

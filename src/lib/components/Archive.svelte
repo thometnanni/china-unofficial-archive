@@ -37,6 +37,12 @@
 			history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
 		}
 	});
+
+	let hasActiveFilters = $derived(
+		Object.values(item?.filters ?? {}).some(
+			(category) => Object.values(category).reduce((sum, count) => sum + count, 0) > 0
+		)
+	);
 </script>
 
 <section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[640px_1fr]`}">
@@ -48,7 +54,7 @@
 		<MediaPreview {medias} {item} initialIndex={0} />
 	{:else}
 		<div>
-			{#if items?.length > 2}
+			{#if items?.length > 2 || hasActiveFilters}
 				<div>
 					<Search bind:value={search} itemFilters={item.filters} />
 					<TypeFilter bind:value={typeView} />

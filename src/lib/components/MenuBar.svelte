@@ -102,7 +102,7 @@
 							<TextOutlined>{m.nav_creators()}</TextOutlined>
 						</a>
 						<a class="customOutline" href={localizeHref('/newsletters/')}>
-							<TextOutlined>{m.nav_newsletters ? m.nav_newsletters() : 'newsletters'}</TextOutlined>
+							<TextOutlined>{m.nav_newsletter() ? m.nav_newsletters() : 'newsletters'}</TextOutlined>
 						</a>
 						<!-- <a class="customOutline" href={localizeHref('/exhibits/')}>
 							<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>

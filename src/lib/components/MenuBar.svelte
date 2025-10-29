@@ -9,13 +9,8 @@
 
 	let openMenu = $state(false);
 	let isCollapsed = $state(false);
-	// const pages = ['/archive', '/creators', ];
-
-	// let showSpace = $derived(pages.some((p) => $page.route.id.startsWith(p)));
-
 	let showSpace = $derived($page.route.id !== '/');
 	let showBg = $derived($page.params.slug !== 'about' && $page.params.slug !== 'resources');
-
 	let lang = $derived(getLocale());
 
 	function clickOutside(node) {
@@ -69,42 +64,63 @@
 			<a href="/"><Logo textColor="#000" showSubtitle={true} /></a>
 		</div>
 
-		{#if !isCollapsed || openMenu}
-			<div class="custom-outline mb-1 text-2xl">
+		{#if !isCollapsed}
+			<div class="customOutline mb-1 text-xl">
 				<a data-sveltekit-reload href={localizeHref('/archive?view=all')}>
 					<TextOutlined>{m.nav_explore()}</TextOutlined>
 				</a>
 			</div>
-
-			<div class="custom-outline mb-1 text-2xl">
+			<div class="customOutline mb-1 text-xl">
 				<a data-sveltekit-reload href={localizeHref('/archive?view=creator')}>
 					<TextOutlined>{m.nav_creators()}</TextOutlined>
 				</a>
 			</div>
-		{/if}
-
-		<div>
-			<div class="custom-outline mb-1 text-2xl">
-				<button onclick={() => (openMenu = !openMenu)}>
-					<TextOutlined>⋯</TextOutlined>
-				</button>
+			<div class="customOutline mb-1 text-xl">
+				<a data-sveltekit-reload href="https://chinaunofficialarchives.substack.com/">
+					<TextOutlined>{m.nav_newsletter()}</TextOutlined>
+				</a>
 			</div>
-
-			{#if openMenu}
-				<div use:clickOutside role="menu" class="absolute flex flex-col text-2xl">
-					<a class="custom-outline mb-1" href={localizeHref('/about/')}
-						><TextOutlined>{m.nav_about()}</TextOutlined></a
-					>
-					<a class="custom-outline mb-1" href={localizeHref('/resources/')}
-						><TextOutlined>{m.nav_resources()}</TextOutlined></a
-					>
+			<!-- <div class="customOutline mb-1 text-xl">
+				<a data-sveltekit-reload href={localizeHref('/exhibits/')}>
+					<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>
+				</a>
+			</div> -->
+		{:else}
+			<div class="relative">
+				<div class="customOutline mb-1 text-xl">
+					<button onclick={() => (openMenu = !openMenu)}>
+						<TextOutlined>⋯</TextOutlined>
+					</button>
 				</div>
-			{/if}
-		</div>
+
+				{#if openMenu}
+					<div use:clickOutside role="menu" class="menuPanel">
+						<a class="customOutline" href={localizeHref('/archive?view=all')}>
+							<TextOutlined>{m.nav_explore()}</TextOutlined>
+						</a>
+						<a class="customOutline" href={localizeHref('/archive?view=creator')}>
+							<TextOutlined>{m.nav_creators()}</TextOutlined>
+						</a>
+						<a class="customOutline" href={localizeHref('/newsletters/')}>
+							<TextOutlined>{m.nav_newsletters ? m.nav_newsletters() : 'newsletters'}</TextOutlined>
+						</a>
+						<!-- <a class="customOutline" href={localizeHref('/exhibits/')}>
+							<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>
+						</a> -->
+						<a class="customOutline" href={localizeHref('/about/')}>
+							<TextOutlined>{m.nav_about()}</TextOutlined>
+						</a>
+						<a class="customOutline" href={localizeHref('/resources/')}>
+							<TextOutlined>{m.nav_resources()}</TextOutlined>
+						</a>
+					</div>
+				{/if}
+			</div>
+		{/if}
 	</div>
 </section>
 
-<section class="fixed top-2 right-2 z-[210] text-2xl text-black">
+<section class="fixed top-2 right-2 z-[210] text-xl text-black">
 	<div class="flex items-center gap-2">
 		<button
 			class="custom-outline {lang === 'zh' ? 'is-active' : ''}"
@@ -122,7 +138,7 @@
 </section>
 
 <style>
-	.custom-outline {
+	.customOutline {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
@@ -135,15 +151,23 @@
 			--color-outlined-bg: var(--color-black);
 			--color-outlined-text: var(--color-white);
 		}
-
 		&:hover {
 			--color-outlined-bg: var(--color-black);
 			--color-outlined-text: var(--color-white);
 		}
-
-		button {
+		& button {
 			margin-top: 0;
 			cursor: pointer;
 		}
+	}
+
+	.menuPanel {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		z-index: 220;
 	}
 </style>

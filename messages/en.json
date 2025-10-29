@@ -32,5 +32,7 @@
 	"video": "Video",
 	"image": "Image",
 	"featured": "Highlights from the Collection",
-	"new": "New in the Archive"
+	"new": "New in the Archive",
+	"nav_newsletter": "Newsletters",
+	"nav_contact": "Contact"
 }

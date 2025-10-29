@@ -41,7 +41,7 @@
 
 <section
 	bind:this={splashEl}
-	class="relative flex h-[85dvh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1"
+	class="relative flex h-[600px] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1 sm:h-[85dvh]"
 >
 	<div class="pointer-events-none absolute -inset-1">
 		{#if splashImages.length > 0}

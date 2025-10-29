@@ -44,8 +44,8 @@
 	.container {
 		position: relative;
 		mix-blend-mode: screen;
-		filter: contrast(10);
-		image-rendering: pixelated;
+		filter: contrast(5);
+		/* image-rendering: pixelated; */
 		max-width: unset;
 		transition: all 0.4s ease;
 	}
@@ -82,7 +82,7 @@
 		height: 100%;
 		width: 100%;
 		display: block;
-		filter: grayscale() contrast(1.5) brightness(0.6);
+		filter: grayscale() contrast(1.5) brightness(0.7);
 	}
 
 	.original {

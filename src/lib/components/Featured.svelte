@@ -30,8 +30,7 @@
 	});
 </script>
 
-<section class="items grid items-start min-h-200 w-svw gap-2 lg:grid-cols-[1fr_320px]">
-
+<section class="items grid min-h-200 w-svw items-start gap-2 lg:grid-cols-[1fr_320px]">
 	{#if featuredList.length > 0}
 		<div class="p-5">
 			<div
@@ -40,7 +39,7 @@
 				{#each [...recentItems] as item, i}
 					{#if i == 0}
 						<h2
-							class="custom-outline pointer-events-none col-span-4 row-span-1 p-2 text-3xl leading-[var(--lh-tight)] font-medium"
+							class="custom-outline pointer-events-none col-span-4 row-span-1 text-3xl leading-[var(--lh-tight)] font-medium"
 						>
 							<TextOutlined class="mb-1 ">{m.new()}</TextOutlined>
 						</h2>
@@ -51,7 +50,7 @@
 				{#each [...featuredList] as item, i}
 					{#if i == 0}
 						<h2
-							class="custom-outline pointer-events-none col-span-4 row-span-1 p-2 text-3xl leading-[var(--lh-tight)] font-medium"
+							class="custom-outline pointer-events-none col-span-4 row-span-1 text-3xl leading-[var(--lh-tight)] font-medium"
 						>
 							<TextOutlined class="mb-1 ">{m.featured()}</TextOutlined>
 						</h2>

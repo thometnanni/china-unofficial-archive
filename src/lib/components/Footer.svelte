@@ -9,7 +9,7 @@
 		<li><a class="text-2xl" href={localizeHref('/about/')}>{m.nav_about()}</a></li>
 		<li><a class="text-2xl" href={localizeHref('/resources/')}>{m.nav_resources()}</a></li>
 		<li>
-			<a class="text-2xl" href={localizeHref('/contact/')}
+			<a class="text-2xl" href={'mailto:minjiandanganguan@gmail.com'}
 				>{m.nav_contact ? m.nav_contact() : 'contact'}</a
 			>
 		</li>

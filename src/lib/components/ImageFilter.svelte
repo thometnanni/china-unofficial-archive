@@ -82,7 +82,7 @@
 		height: 100%;
 		width: 100%;
 		display: block;
-		filter: grayscale() contrast(1.5) brightness(0.7);
+		filter: grayscale() contrast(1.5) brightness(0.5);
 	}
 
 	.original {

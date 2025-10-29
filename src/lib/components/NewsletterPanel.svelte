@@ -1,10 +1,11 @@
 <script>
+	import { m } from '$lib/paraglide/messages';
 	let { items = [] } = $props();
 </script>
 
 <div class="inline-block text-black">
 	<section class="bg-brand-yellow">
-		<div class="px-2 py-1 text-2xl">Newsletter</div>
+		<div class="px-2 py-1 text-2xl">{m.nav_newsletter()}</div>
 		<ul class="space-y-1">
 			{#each items.slice(0, 10) as n}
 				<li>

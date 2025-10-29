@@ -14,7 +14,7 @@
 	let currentIndex = $state(0);
 	let holdMs = $state([]);
 	let timer = $state(null);
-	let fadeMs = 1000;
+	let fadeMs = 3000;
 
 	function scheduleNext() {
 		if (!splashImages.length) return;

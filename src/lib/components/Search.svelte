@@ -41,7 +41,19 @@
 			.slice(0, 20)
 			.sort((a, b) => b.count - a.count);
 	});
-	let suggestedFilters = $derived(filteredFilters ?? fallbackFilters);
+
+	// let suggestedFilters = $derived(filteredFilters ?? fallbackFilters);
+	let suggestedFilters = $derived.by(() => {
+		const source = filteredFilters ?? fallbackFilters ?? [];
+		return source
+			.filter((f) => !['creator', 'year'].includes(f.type))
+			.sort((a, b) => {
+				if (a.type === 'objectType' && b.type !== 'objectType') return -1;
+				if (b.type === 'objectType' && a.type !== 'objectType') return 1;
+				return b.count - a.count;
+			});
+	});
+
 	let showLoader = $derived($navigating != null || pending);
 	$effect(() => {
 		if ($navigating == null && pending) {

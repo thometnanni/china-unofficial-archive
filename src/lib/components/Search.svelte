@@ -107,7 +107,7 @@
 				return active;
 			})
 			.flat();
-		console.log($page.url.search, JSON.stringify(activeFilters, null, 2));
+		// console.log($page.url.search, JSON.stringify(activeFilters, null, 2));
 		return activeFilters;
 	});
 
@@ -119,7 +119,7 @@
 	});
 </script>
 
-<section id="search" class="sticky top-0 z-2 border-b bg-white">
+<section id="search" class="sticky top-0 z-2 border-b border-t bg-white">
 	<div class="search-box visible m-1 flex gap-1">
 		{#each activeFilters as filter}
 			<button class="mx-1" onclick={() => applyFilter(filter)}>

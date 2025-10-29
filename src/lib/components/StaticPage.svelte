@@ -69,20 +69,22 @@
 	});
 </script>
 
-<main>
+<main class="min-h-screen">
 	<div class="tile">
-		<ImageFilter src={splashImages[0]} color="var(--color-brand-primary)"  fit="cover" />
+		<ImageFilter src={splashImages[0]} color="var(--color-brand-primary)" fit="cover" />
 	</div>
 
-	{#if notFound}
-		<section class="py-10 text-center">
-			<h1 class="text-3xl font-bold">404</h1>
-		</section>
-	{:else}
-		<section class="mx-auto prose px-10 py-8">
-			<h1 class="mb-4">{title}</h1>
-			<article>{@html html}</article>
-		</section>
+	{#if html != ''}
+		{#if notFound}
+			<section class="bg-white py-10 text-center">
+				<h1 class="text-3xl font-bold">404</h1>
+			</section>
+		{:else}
+			<section class="mx-auto prose bg-white px-10 py-8">
+				<h1 class="mb-4">{title}</h1>
+				<article>{@html html}</article>
+			</section>
+		{/if}
 	{/if}
 </main>
 
@@ -106,7 +108,6 @@
 	}
 
 	section {
-		background-color: white;
 		max-width: 800px;
 		margin: 0 auto;
 	}

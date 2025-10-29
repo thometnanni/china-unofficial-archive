@@ -29,7 +29,7 @@
 		const vh = window.innerHeight || 1;
 		const mid = (r.top + r.bottom) / 2;
 		const ratio = mid / vh;
-		showOriginal = isTouch && scrollReveal && ratio > 0.3 && ratio < 0.7;
+		showOriginal = isTouch && scrollReveal && ratio > 0.4 && ratio < 0.6;
 	}
 
 	function setupObserver(node) {

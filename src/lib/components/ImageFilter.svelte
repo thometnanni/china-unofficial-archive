@@ -57,12 +57,19 @@
 		transition: opacity 0.4s ease;
 	}
 	.noise {
-		background-size: 64px;
-		filter: brightness(0.5);
+		background-size: 128px;
+		filter: brightness(0.4);
 		mix-blend-mode: color-dodge;
 	}
 	.waves {
-		background: linear-gradient(0deg, black 0%, gainsboro 25%, black 50%, gainsboro 75%, black 100%);
+		background: linear-gradient(
+			0deg,
+			black 0%,
+			gainsboro 25%,
+			black 50%,
+			gainsboro 75%,
+			black 100%
+		);
 		background-size: 80% 80%;
 		opacity: 0.2;
 		mix-blend-mode: screen;
@@ -75,7 +82,7 @@
 		height: 100%;
 		width: 100%;
 		display: block;
-		filter: grayscale() contrast(1.5) brightness(0.5);
+		filter: grayscale() contrast(1.5) brightness(0.6);
 	}
 
 	.original {

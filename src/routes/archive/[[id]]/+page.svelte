@@ -18,7 +18,9 @@
 	<svelte:boundary>
 		<Archive />
 		{#snippet pending()}
-			<p>{m.loading()}</p>
+			<div class="border-t">
+				<p>{m.loading()}</p>
+			</div>
 		{/snippet}
 	</svelte:boundary>
 </main>

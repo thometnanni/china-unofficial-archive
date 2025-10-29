@@ -100,8 +100,8 @@
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		--color-card-primary: var(--color-brand-purple);
-		background-color: var(--color-brand-cream);
+		--color-card-primary: var(--color-brand-cover);
+		background-color: var(--color-brand-cover);
 	}
 
 	.tile :global(img) {

@@ -41,7 +41,7 @@
 
 <section
 	bind:this={splashEl}
-	class="relative flex h-[85dvh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-purple p-1"
+	class="relative flex h-[85dvh] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1"
 >
 	<div class="pointer-events-none absolute -inset-1">
 		{#if splashImages.length > 0}
@@ -93,14 +93,14 @@
 
 <style>
 	h2 {
-		--color-card-primary: var(--color-brand-purple);
+		--color-card-primary: var(--color-brand-cover);
 	}
 	.tile {
 		position: absolute;
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		--color-card-primary: var(--color-brand-purple);
-		background-color: var(--color-brand-cream);
+		--color-card-primary: var(--color-brand-cover);
+		background-color: var(--color-brand-cover);
 	}
 </style>

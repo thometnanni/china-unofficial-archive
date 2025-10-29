@@ -33,13 +33,17 @@
 	--color-type-object-periodical: #b178c2;
 	--color-type-object-newsletter: #d59676; */
 
+	--color-brand-cover: var(--color-brand-purple);
 	--color-type-creator: #7d8fa8;
-	--color-type-default: #9cacc2;
+	--color-type-default: gainsboro;
 
-	--color-type-object: #a07ec2;
+	--color-type-creator: #7d8fa8;
+	--color-type-default: #9ca4c0;
+	--color-type-object: #bdb1bf;
+
 	--color-type-object-book: #6cbf9c;
-	--color-type-object-video: #e28a5c;
-	--color-type-object-periodical: #9b6fd4;
+	--color-type-object-video: #e6a782;
+	--color-type-object-periodical: #5aafef;
 	--color-type-object-newsletter: #c3a85e;
 	--color-type-object-article: #b07ab0;
 

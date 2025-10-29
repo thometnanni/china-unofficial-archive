@@ -23,14 +23,15 @@
 
 		recentItems = (Array.isArray(recent) ? recent : (recent?.items ?? []))
 			.filter((d) => d?.objectType?.length)
-			.slice(0, 5);
+			.slice(0, 10);
 
 		console.log(recentItems);
 		newsletterList = Array.isArray(newsletters) ? newsletters : (newsletters?.items ?? []);
 	});
 </script>
 
-<section class="items grid min-h-200 w-svw gap-2 lg:grid-cols-[1fr_320px]">
+<section class="items grid items-start min-h-200 w-svw gap-2 lg:grid-cols-[1fr_320px]">
+
 	{#if featuredList.length > 0}
 		<div class="p-5">
 			<div
@@ -74,7 +75,7 @@
 	{/if}
 
 	{#if newsletterList.length > 0}
-		<aside class="lg:sticky lg:top-4">
+		<aside class="sticky top-0">
 			<NewsletterPanel items={newsletterList} />
 		</aside>
 	{/if}

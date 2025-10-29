@@ -3,10 +3,8 @@
 </script>
 
 <div class="inline-block text-black">
-	<div class="flex flex-row-reverse items-end">
-		<div class="z-10 -mb-2 bg-brand-yellow px-4 py-1 text-xl">Newsletter</div>
-	</div>
-	<section class=" bg-brand-yellow pt-4">
+	<section class="bg-brand-yellow">
+		<div class="px-2 py-1 text-2xl">Newsletter</div>
 		<ul class="space-y-1">
 			{#each items.slice(0, 10) as n}
 				<li>
@@ -15,8 +13,8 @@
 						class="flex w-full items-start gap-2 px-2 py-1 hover:bg-black hover:text-white"
 					>
 						<div class="text-base">
-							<div class="text-base opacity-70">{new Date(n.date).toLocaleDateString()}</div>
-							<div class="text-xl leading-snug">{n.title}</div>
+							<div class="text-sm opacity-70">{new Date(n.date).toLocaleDateString()}</div>
+							<div class="text-base leading-snug">{n.title}</div>
 						</div>
 					</a>
 				</li>

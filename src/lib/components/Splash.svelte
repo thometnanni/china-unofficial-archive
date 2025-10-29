@@ -50,7 +50,7 @@
 					class="tile dither"
 					style="opacity:{currentIndex === i ? 1 : 0}; transition: opacity {fadeMs}ms ease;"
 				>
-					<ImageFilter {src} fit="cover" />
+					<ImageFilter {src} fit="cover" scrollReveal={false} />
 				</div>
 			{/each}
 		{/if}

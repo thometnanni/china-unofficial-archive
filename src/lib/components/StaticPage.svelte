@@ -71,7 +71,12 @@
 
 <main class="min-h-screen">
 	<div class="tile">
-		<ImageFilter src={splashImages[0]} color="var(--color-brand-primary)" fit="cover" />
+		<ImageFilter
+			src={splashImages[0]}
+			color="var(--color-brand-primary)"
+			fit="cover"
+			scrollReveal={false}
+		/>
 	</div>
 
 	{#if html != ''}

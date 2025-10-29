@@ -1,9 +1,19 @@
 <script>
 	import noise from '$lib/assets/noise.png';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 
-	const { src, alt = '', fit = 'contain', objectPosition = 'center center' } = $props();
+	const {
+		src,
+		alt = '',
+		fit = 'contain',
+		objectPosition = 'center center',
+		scrollReveal = true
+	} = $props();
+
 	const dispatch = createEventDispatcher();
+	let isTouch = $state(false);
+	let showOriginal = $state(false);
+	let hostEl;
 
 	function onImgLoad(e) {
 		const img = e.target;
@@ -11,9 +21,48 @@
 		const h = img.naturalHeight || 1;
 		dispatch('ratio', { isPortrait: h > w });
 	}
+
+	let observer;
+	function updateOriginal() {
+		if (!hostEl) return;
+		const r = hostEl.getBoundingClientRect();
+		const vh = window.innerHeight || 1;
+		const mid = (r.top + r.bottom) / 2;
+		const ratio = mid / vh;
+		showOriginal = isTouch && scrollReveal && ratio > 0.3 && ratio < 0.7;
+	}
+
+	function setupObserver(node) {
+		if (!scrollReveal) return;
+		const thresholds = Array.from({ length: 21 }, (_, i) => i / 20);
+		observer = new IntersectionObserver(() => updateOriginal(), { threshold: thresholds });
+		observer.observe(node);
+		window.addEventListener('resize', updateOriginal, { passive: true });
+		window.addEventListener('scroll', updateOriginal, { passive: true });
+		return {
+			destroy() {
+				if (observer) observer.disconnect();
+				window.removeEventListener('resize', updateOriginal);
+				window.removeEventListener('scroll', updateOriginal);
+			}
+		};
+	}
+
+	onMount(() => {
+		isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+		if (scrollReveal) updateOriginal();
+	});
+	onDestroy(() => {
+		if (observer) observer.disconnect();
+	});
 </script>
 
-<div class="group relative block h-full w-full overflow-hidden bg-card-primary">
+<div
+	use:setupObserver
+	bind:this={hostEl}
+	class="group relative block h-full w-full overflow-hidden bg-card-primary"
+	class:originalActive={showOriginal}
+>
 	<div class="container h-full">
 		<div class="filters group-hover:opacity-0">
 			<div class="noise" style="background-image:url({noise})"></div>
@@ -41,11 +90,23 @@
 </div>
 
 <style>
+	@media (hover: none) {
+		.group.originalActive .filters {
+			opacity: 0;
+		}
+		.group.originalActive .original {
+			opacity: 1;
+		}
+		.group .filters,
+		.group .original {
+			transition: opacity 0.3s ease;
+		}
+	}
+
 	.container {
 		position: relative;
 		mix-blend-mode: screen;
 		filter: contrast(5);
-		/* image-rendering: pixelated; */
 		max-width: unset;
 		transition: all 0.4s ease;
 	}
@@ -84,7 +145,7 @@
 		display: block;
 		filter: grayscale() contrast(1.5) brightness(0.5);
 	}
-
+	
 	.original {
 		mix-blend-mode: normal !important;
 		filter: none !important;

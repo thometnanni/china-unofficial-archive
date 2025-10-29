@@ -2,8 +2,7 @@
 	import { query } from '$lib/api';
 	import { m } from '$lib/paraglide/messages';
 	import { setLocale, getLocale } from '$lib/paraglide/runtime';
-	import { onMount, tick } from 'svelte';
-	// import { inkFilter } from '$lib/filter.js';
+	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import Logo from '$lib/components/Logo.svelte';
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
@@ -12,38 +11,31 @@
 	let splashImages = $derived([]);
 	let splashEl;
 	let lang = $derived(getLocale());
+	let currentIndex = $state(0);
+	let holdMs = $state([]);
+	let timer = $state(null);
+	let fadeMs = 1000;
 
-	// const scrollBelowSplash = async () => {
-	// 	await tick();
-	// 	const h = splashEl?.offsetHeight ?? 0;
-	// 	if (h > 0) window.scrollTo({ top: h, behavior: 'smooth' });
-	// };
-
-	// function currentLocaleFromPath() {
-	// 	if (!browser) return '';
-	// 	const seg = location.pathname.split('/')[1] || '';
-	// 	return seg;
-	// }
-
-	// function changeLang(next) {
-	// 	const cur = currentLocaleFromPath();
-	// 	if (browser && cur === next) {
-	// 		scrollBelowSplash();
-	// 		return;
-	// 	}
-	// 	if (browser) sessionStorage.setItem('scrollTo', 'menu');
-	// 	setLocale(next);
-	// }
+	function scheduleNext() {
+		if (!splashImages.length) return;
+		clearTimeout(timer);
+		const d = holdMs[currentIndex] ?? 5000;
+		timer = setTimeout(() => {
+			currentIndex = (currentIndex + 1) % splashImages.length;
+			scheduleNext();
+		}, d);
+	}
 
 	onMount(async () => {
 		const images = await query('splash-images');
 		splashImages = [...images].sort(() => Math.random() - 0.5);
+		holdMs = splashImages.map(() => Math.floor(3000 + Math.random() * 3000));
+		currentIndex = 0;
+		scheduleNext();
+	});
 
-		// if (!browser) return;
-		// if (sessionStorage.getItem('scrollTo') === 'menu') {
-		// 	sessionStorage.removeItem('scrollTo');
-		// 	scrollBelowSplash();
-		// }
+	onDestroy(() => {
+		clearTimeout(timer);
 	});
 </script>
 
@@ -54,17 +46,11 @@
 	<div class="pointer-events-none absolute -inset-1">
 		{#if splashImages.length > 0}
 			{#each splashImages as src, i}
-				<!-- <img
-					{src}
-					alt="splash"
-					crossorigin="anonymous"
-					use:inkFilter={{ ink: '#9773b0', paper: '#ecebd9', thr: 80, bandAmp: 10, noise: 20 }}
+				<div
 					class="tile dither"
-					style="--i:{i}; --count:{splashImages.length}"
-				/> -->
-
-				<div class="tile dither" style="--i:{i}; --count:{splashImages.length}">
-					<ImageFilter {src} color="var(--color-brand-primary)" fit="cover" />
+					style="opacity:{currentIndex === i ? 1 : 0}; transition: opacity {fadeMs}ms ease;"
+				>
+					<ImageFilter {src} fit="cover" />
 				</div>
 			{/each}
 		{/if}
@@ -103,61 +89,18 @@
 			</h2>
 		{/if}
 	</div>
-
-	<div class="z-20 mb-4 flex gap-4">
-		<!-- <button
-			class="zh bg-gray-100 px-4 py-1 hover:cursor-pointer hover:bg-black hover:text-white"
-			on:click={() => changeLang('zh')}
-		>
-			{m.lang(null, { locale: 'zh' })}
-		</button>
-		<button
-			class="en bg-gray-100 px-4 py-1 hover:cursor-pointer hover:bg-black hover:text-white"
-			on:click={() => changeLang('en')}
-		>
-			{m.lang(null, { locale: 'en' })}
-		</button> -->
-	</div>
 </section>
 
 <style>
 	h2 {
 		--color-card-primary: var(--color-brand-purple);
 	}
-
 	.tile {
 		position: absolute;
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		/* opacity: 1; */
-		transition: opacity 1s ease;
-		animation: fade calc(var(--count) * 2s) linear infinite;
-		animation-delay: calc(var(--i) * 2s);
 		--color-card-primary: var(--color-brand-purple);
 		background-color: var(--color-brand-cream);
-	}
-
-	/* .tile :global(img) {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center;
-		display: block;
-	} */
-	 
-	@keyframes fade {
-		0% {
-			opacity: 1;
-		}
-		40% {
-			opacity: 0;
-		}
-		95% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
 	}
 </style>

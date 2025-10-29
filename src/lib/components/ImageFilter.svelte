@@ -1,10 +1,10 @@
 <script>
 	import noise from '$lib/assets/noise.png';
 	import { createEventDispatcher } from 'svelte';
-	
+
 	const { src, alt = '', fit = 'contain', objectPosition = 'center center' } = $props();
 	const dispatch = createEventDispatcher();
-	
+
 	function onImgLoad(e) {
 		const img = e.target;
 		const w = img.naturalWidth || 1;
@@ -62,8 +62,8 @@
 		mix-blend-mode: color-dodge;
 	}
 	.waves {
-		background: linear-gradient(0deg, black 0%, white 25%, black 50%, white 75%, black 100%);
-		background-size: 100px 100px;
+		background: linear-gradient(0deg, black 0%, gainsboro 25%, black 50%, gainsboro 75%, black 100%);
+		background-size: 80% 80%;
 		opacity: 0.2;
 		mix-blend-mode: screen;
 	}
@@ -77,6 +77,7 @@
 		display: block;
 		filter: grayscale() contrast(1.5) brightness(0.5);
 	}
+
 	.original {
 		mix-blend-mode: normal !important;
 		filter: none !important;

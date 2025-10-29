@@ -65,36 +65,36 @@
 		</div>
 
 		{#if !isCollapsed}
-			<div class="custom-outline mb-1 text-xl">
+			<div class="custom-outline mb-1 text-2xl">
 				<a data-sveltekit-reload href={localizeHref('/archive?view=all')}>
 					<TextOutlined>{m.nav_explore()}</TextOutlined>
 				</a>
 			</div>
-			<div class="custom-outline mb-1 text-xl">
+			<div class="custom-outline mb-1 text-2xl">
 				<a data-sveltekit-reload href={localizeHref('/archive?view=creator')}>
 					<TextOutlined>{m.nav_creators()}</TextOutlined>
 				</a>
 			</div>
-			<div class="custom-outline mb-1 text-xl">
+			<div class="custom-outline mb-1 text-2xl">
 				<a data-sveltekit-reload href="https://chinaunofficialarchives.substack.com/">
 					<TextOutlined>{m.nav_newsletter()}</TextOutlined>
 				</a>
 			</div>
-			<!-- <div class="custom-outline mb-1 text-xl">
+			<!-- <div class="custom-outline mb-1 text-2xl">
 				<a data-sveltekit-reload href={localizeHref('/exhibits/')}>
 					<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>
 				</a>
 			</div> -->
 		{:else}
 			<div class="relative">
-				<div class="custom-outline mb-1 text-xl">
+				<div class="custom-outline mb-1 text-2xl">
 					<button onclick={() => (openMenu = !openMenu)}>
 						<TextOutlined>⋯</TextOutlined>
 					</button>
 				</div>
 
 				{#if openMenu}
-					<div use:clickOutside role="menu" class="menuPanel text-xl">
+					<div use:clickOutside role="menu" class="menuPanel text-2xl">
 						<a class="custom-outline" href={localizeHref('/archive?view=all')}>
 							<TextOutlined>{m.nav_explore()}</TextOutlined>
 						</a>
@@ -120,7 +120,7 @@
 	</div>
 </section>
 
-<section class="fixed top-2 right-2 z-[210] text-xl text-black">
+<section class="fixed top-2 right-2 z-[210] text-2xl text-black">
 	<div class="flex items-center gap-2">
 		<button
 			class="custom-outline {lang === 'zh' ? 'is-active' : ''}"

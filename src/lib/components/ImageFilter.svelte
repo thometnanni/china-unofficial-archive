@@ -99,7 +99,7 @@
 		}
 		.group .filters,
 		.group .original {
-			transition: opacity 0.3s ease;
+			/* transition: opacity 0.3s ease; */
 		}
 	}
 
@@ -108,7 +108,7 @@
 		mix-blend-mode: screen;
 		filter: contrast(5);
 		max-width: unset;
-		transition: all 0.4s ease;
+		/* transition: all 0.4s ease; */
 	}
 	.container div {
 		position: absolute;

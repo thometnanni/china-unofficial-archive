@@ -65,52 +65,52 @@
 		</div>
 
 		{#if !isCollapsed}
-			<div class="customOutline mb-1 text-xl">
+			<div class="custom-outline mb-1 text-xl">
 				<a data-sveltekit-reload href={localizeHref('/archive?view=all')}>
 					<TextOutlined>{m.nav_explore()}</TextOutlined>
 				</a>
 			</div>
-			<div class="customOutline mb-1 text-xl">
+			<div class="custom-outline mb-1 text-xl">
 				<a data-sveltekit-reload href={localizeHref('/archive?view=creator')}>
 					<TextOutlined>{m.nav_creators()}</TextOutlined>
 				</a>
 			</div>
-			<div class="customOutline mb-1 text-xl">
+			<div class="custom-outline mb-1 text-xl">
 				<a data-sveltekit-reload href="https://chinaunofficialarchives.substack.com/">
 					<TextOutlined>{m.nav_newsletter()}</TextOutlined>
 				</a>
 			</div>
-			<!-- <div class="customOutline mb-1 text-xl">
+			<!-- <div class="custom-outline mb-1 text-xl">
 				<a data-sveltekit-reload href={localizeHref('/exhibits/')}>
 					<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>
 				</a>
 			</div> -->
 		{:else}
 			<div class="relative">
-				<div class="customOutline mb-1 text-xl">
+				<div class="custom-outline mb-1 text-xl">
 					<button onclick={() => (openMenu = !openMenu)}>
 						<TextOutlined>⋯</TextOutlined>
 					</button>
 				</div>
 
 				{#if openMenu}
-					<div use:clickOutside role="menu" class="menuPanel">
-						<a class="customOutline" href={localizeHref('/archive?view=all')}>
+					<div use:clickOutside role="menu" class="menuPanel text-xl">
+						<a class="custom-outline" href={localizeHref('/archive?view=all')}>
 							<TextOutlined>{m.nav_explore()}</TextOutlined>
 						</a>
-						<a class="customOutline" href={localizeHref('/archive?view=creator')}>
+						<a class="custom-outline" href={localizeHref('/archive?view=creator')}>
 							<TextOutlined>{m.nav_creators()}</TextOutlined>
 						</a>
-						<a class="customOutline" href={localizeHref('/newsletters/')}>
+						<a class="custom-outline" href={localizeHref('/newsletters/')}>
 							<TextOutlined>{m.nav_newsletter()}</TextOutlined>
 						</a>
-						<!-- <a class="customOutline" href={localizeHref('/exhibits/')}>
+						<!-- <a class="custom-outline" href={localizeHref('/exhibits/')}>
 							<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>
 						</a> -->
-						<a class="customOutline" href={localizeHref('/about/')}>
+						<a class="custom-outline" href={localizeHref('/about/')}>
 							<TextOutlined>{m.nav_about()}</TextOutlined>
 						</a>
-						<a class="customOutline" href={localizeHref('/resources/')}>
+						<a class="custom-outline" href={localizeHref('/resources/')}>
 							<TextOutlined>{m.nav_resources()}</TextOutlined>
 						</a>
 					</div>
@@ -138,7 +138,7 @@
 </section>
 
 <style>
-	.customOutline {
+	.custom-outline {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
@@ -151,11 +151,13 @@
 			--color-outlined-bg: var(--color-black);
 			--color-outlined-text: var(--color-white);
 		}
+
 		&:hover {
 			--color-outlined-bg: var(--color-black);
 			--color-outlined-text: var(--color-white);
 		}
-		& button {
+
+		button {
 			margin-top: 0;
 			cursor: pointer;
 		}

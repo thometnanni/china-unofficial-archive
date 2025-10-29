@@ -51,6 +51,11 @@
 	--color-card-secondary: var(--color-brand-black);
 }
 
+html,
+body {
+	overscroll-behavior-y: none;
+}
+
 :root {
 	font-family: var(--font-sans);
 	--lh-tight: 1.29;

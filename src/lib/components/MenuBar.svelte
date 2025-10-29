@@ -56,7 +56,7 @@
 	>
 		{#if showBg}
 			<ImageFilter
-				src="https://minjian-danganguan.org/files/asset/4f98be9d60f19c57bfdb72cf569dd136bb775c8c.png"
+				src="https://minjian-danganguan.org/files/original/a033ef9956aaa4a9bcace1c6de9e8dde1611d87d.jpg"
 				fit="cover"
 			/>
 		{/if}

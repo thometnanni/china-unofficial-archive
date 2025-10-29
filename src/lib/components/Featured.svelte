@@ -10,11 +10,22 @@
 
 	let featuredList = [];
 	let newsletterList = [];
+	let recentItems = [];
 
 	onMount(async () => {
 		const featured = await query('featured');
 		const newsletters = await query('newsletters');
-		featuredList = Array.isArray(featured) ? featured : (featured?.items ?? []);
+		const recent = await query('items');
+
+		featuredList = (Array.isArray(featured) ? featured : (featured?.items ?? [])).sort(
+			() => Math.random() - 0.5
+		);
+
+		recentItems = (Array.isArray(recent) ? recent : (recent?.items ?? []))
+			.filter((d) => d?.objectType?.length)
+			.slice(0, 5);
+
+		console.log(recentItems);
 		newsletterList = Array.isArray(newsletters) ? newsletters : (newsletters?.items ?? []);
 	});
 </script>
@@ -25,9 +36,27 @@
 			<div
 				class="grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(auto-fit,minmax(var(--grid-cell-size),1fr))] gap-8"
 			>
-				{#each featuredList as item, i}
+				{#each [...recentItems] as item, i}
+					{#if i == 0}
+						<h2
+							class="custom-outline pointer-events-none col-span-4 row-span-1 p-2 text-3xl leading-[var(--lh-tight)] font-medium"
+						>
+							<TextOutlined class="mb-1 ">{m.new()}</TextOutlined>
+						</h2>
+					{/if}
+					<Card {item} {i} />
+				{/each}
+
+				{#each [...featuredList] as item, i}
+					{#if i == 0}
+						<h2
+							class="custom-outline pointer-events-none col-span-4 row-span-1 p-2 text-3xl leading-[var(--lh-tight)] font-medium"
+						>
+							<TextOutlined class="mb-1 ">{m.featured()}</TextOutlined>
+						</h2>
+					{/if}
 					{#if i == 1}
-						<FeaturedNews />
+						<!-- <FeaturedNews /> -->
 					{/if}
 
 					<Card {item} {i} />

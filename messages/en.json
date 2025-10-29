@@ -30,5 +30,7 @@
 	"pdf": "PDF",
 	"youtube": "YouTube",
 	"video": "Video",
-	"image": "Image"
+	"image": "Image",
+	"featured": "Highlights from the Collection",
+	"new": "New in the Archive"
 }

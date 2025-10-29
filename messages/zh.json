@@ -29,5 +29,7 @@
 	"video": "视频",
 	"image": "图片",
 	"objects": "作品",
-	"creators": "创作者"
+	"creators": "创作者",
+	"featured": "馆藏精选",
+	"new": "新增馆藏"
 }

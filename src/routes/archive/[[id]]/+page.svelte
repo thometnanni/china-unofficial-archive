@@ -13,14 +13,13 @@
 	let search = $state('');
 </script>
 
-<MenuBar />
-<svelte:boundary>
-	<Archive />
-	{#snippet pending()}
-		<p>{m.loading()}</p>
-	{/snippet}
-</svelte:boundary>
-
-
+<main class="min-h-screen">
+	<MenuBar />
+	<svelte:boundary>
+		<Archive />
+		{#snippet pending()}
+			<p>{m.loading()}</p>
+		{/snippet}
+	</svelte:boundary>
+</main>
 <Footer />
-

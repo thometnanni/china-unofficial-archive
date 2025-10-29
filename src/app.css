@@ -53,11 +53,11 @@
 
 :root {
 	font-family: var(--font-sans);
-	--lh-tight: 1.3;
+	--lh-tight: 1.29;
 	text-rendering: geometricPrecision;
 }
 :lang(zh) {
-	--lh-tight: 1.3;
+	--lh-tight: 1.29;
 	--font-sans: var(--font-sans-zh);
 }
 

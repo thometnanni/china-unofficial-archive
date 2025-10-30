@@ -91,6 +91,6 @@
 	}
 
 	.items {
-		--grid-cell-size: 65px;
+		--grid-cell-size: 60px;
 	}
 </style>

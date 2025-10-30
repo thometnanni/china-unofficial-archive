@@ -8,7 +8,7 @@
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 
 	const { item } = $props();
-	console.log(item)
+	// console.log(item);
 </script>
 
 <section class="flex flex-col gap-4 p-2">
@@ -43,37 +43,43 @@
 	</p> -->
 	<p>
 		{#each item.creator as creator}
-			<a class="person bg-gray-200 px-2 py-1" href={localizeHref(`/archive/${creator.id}`)}
-				>{creator.title}</a
-			>
+			{#if creator.title}
+				<a class="person bg-gray-200 px-2 py-1" href={localizeHref(`/archive/${creator.id}`)}
+					>{creator.title}</a
+				>
+			{/if}
 		{/each}
 	</p>
 	<p>
 		{#each item.objectType as objectType}
-			<a
-				class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1 text-black"
-				href={localizeHref(`/archive/${objectType.id}`)}>{objectType.title}</a
-			>
+			{#if objectType.title}
+				<a
+					class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1 text-black"
+					href={localizeHref(`/archive/${objectType.id}`)}>{objectType.title}</a
+				>
+			{/if}
 		{/each}
 	</p>
 	<div>
 		{#each [...(item.theme ?? []), ...(item.era ?? [])] as theme}
-			<a
-				class="filter {item.type} mr-1 bg-gray-200 p-1 text-xs leading-loose"
-				href={localizeHref(`/archive/${theme.id}`)}
-			>
-				{theme.title}
-			</a>
+			{#if theme.title}
+				<a
+					class="filter {item.type} mr-1 bg-gray-200 p-1 text-xs leading-loose"
+					href={localizeHref(`/archive/${theme.id}`)}
+				>
+					{theme.title}
+				</a>
+			{/if}
 		{/each}
 	</div>
-	<div class="item-container  text-xl whitespace-pre-wrap">
+	<div class="item-container text-xl whitespace-pre-wrap">
 		{@html item.description}
 	</div>
 </section>
 
 <style>
-	.card {
-		--color-card-primary: var(--color-type-creator);
+	section {
+		--color-card-primary: black;
 	}
 
 	:global(.item-container a) {

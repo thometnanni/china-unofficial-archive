@@ -132,7 +132,7 @@
 	{#if showLoader}
 		<div class="progressLine w-full"></div>
 	{/if}
-	<div class="searchBox visible relative m-1 flex gap-1">
+	<div class="searchBox visible relative m-1 flex flex-wrap gap-1">
 		{#each activeFilters as filter}
 			<button
 				class="mx-1"

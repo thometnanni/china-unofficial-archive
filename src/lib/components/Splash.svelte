@@ -65,7 +65,7 @@
 
 <section
 	bind:this={splashEl}
-	class="relative flex w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1"
+	class="flex] sm:min-h-[85vh] relative w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1"
 	style={heroStyle}
 >
 	<div class="pointer-events-none absolute -inset-1">

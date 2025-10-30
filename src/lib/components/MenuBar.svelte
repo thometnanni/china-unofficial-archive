@@ -10,7 +10,8 @@
 	let openMenu = $state(false);
 	let isCollapsed = $state(false);
 	let showSpace = $derived($page.route.id !== '/');
-	let showBg = $derived($page.params.slug !== 'about' && $page.params.slug !== 'resources');
+
+	let showBg = $derived($page.route.id === '/archive/[[id]]');
 	let lang = $derived(getLocale());
 
 	function clickOutside(node) {

@@ -17,6 +17,7 @@
 	let fadeMs = 3000;
 	let heroStyle = $state('');
 	let unbind = null;
+	let titleTopPx = $state(0);
 
 	function scheduleNext() {
 		if (!splashImages.length) return;
@@ -31,6 +32,8 @@
 	function setLockedHeight() {
 		const h = window.visualViewport?.height ? document.documentElement.clientHeight : 1;
 		heroStyle = `height:${Math.round(h * 0.85)}px`;
+		const vh = window.innerHeight || document.documentElement.clientHeight || 0;
+		titleTopPx = Math.round(vh * 0.4);
 	}
 
 	let t = null;
@@ -65,7 +68,7 @@
 
 <section
 	bind:this={splashEl}
-	class="flex] sm:min-h-[85vh] relative w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1"
+	class="relative flex w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1 sm:min-h-[85vh]"
 	style={heroStyle}
 >
 	<div class="pointer-events-none absolute -inset-1">
@@ -81,40 +84,67 @@
 		{/if}
 	</div>
 
-	<div class="flex flex-col-reverse sm:flex-col">
-		{#if lang === 'zh'}
-			<h2
-				class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
-			>
-				<span class="bg-gray-100"
-					><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
-				>
-			</h2>
-			<h2
-				class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
-			>
-				<TextOutlined
-					>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
-				>
-			</h2>
-		{:else}
-			<h2
-				class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
-			>
-				<span class="bg-gray-100"
-					><TextOutlined
+	{#key lang}
+		<div class="absolute inset-x-0 sm:hidden" style={`top:${titleTopPx}px`}>
+			{#if lang === 'zh'}
+				<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+					<TextOutlined
 						>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
-					></span
-				>
-			</h2>
-			<h2
-				class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
-			>
-				<TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined>
-			</h2>
-		{/if}
-	</div>
-	<div class="z-20 mb-4 flex gap-4"></div>
+					>
+				</h2>
+				<h2 class="en z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+					<span class="bg-gray-100"
+						><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
+					>
+				</h2>
+			{:else}
+				<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+					<span class="bg-gray-100"
+						><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
+					>
+				</h2>
+				<h2 class="zh z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+					<TextOutlined
+						>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
+					>
+				</h2>
+			{/if}
+		</div>
+
+		<div class="hidden sm:block">
+			<div class="sm:absolute sm:right-0 sm:bottom-62">
+				{#if lang === 'zh'}
+					<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
+						<TextOutlined
+							>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
+						>
+					</h2>
+				{:else}
+					<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
+						<span class="bg-gray-100"
+							><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
+						>
+					</h2>
+				{/if}
+			</div>
+
+			<div class="sm:absolute sm:top-60 sm:left-10">
+				{#if lang === 'zh'}
+					<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
+						<span class="bg-gray-100"
+							><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
+						>
+					</h2>
+				{:else}
+					<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
+						<TextOutlined
+							>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
+						>
+					</h2>
+				{/if}
+			</div>
+		</div>
+	{/key}
 </section>
 
 <style>

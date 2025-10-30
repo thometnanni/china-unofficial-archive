@@ -1,12 +1,11 @@
-// Place this next to the page that renders StaticPage.svelte (adjust route name to match)
 import { error } from '@sveltejs/kit';
 import { BASE_URL_OMEKA } from '$lib/api';
 import { getLocale } from '$lib/paraglide/runtime';
 
 export async function load({ params, fetch }) {
-	const slug = params.slug; // or get it however your route provides it
+	const slug = params.slug;
 	const site = 'china-unofficial-new';
-	const lang = getLocale(); // derive appropriately (from cookies, params, or i18n store)
+	const lang = getLocale();
 	const apiSlug = `${slug}-${lang}`;
 
 	const url = new URL(`${BASE_URL_OMEKA}/site_pages`);
@@ -24,5 +23,5 @@ export async function load({ params, fetch }) {
 	const block = (page['o:block'] || []).find((b) => b['o:layout'] === 'html');
 	const html = block?.['o:data']?.html ?? '';
 
-	return { title, html, splashImages: [] }; // pass whatever props your component needs
+	return { title, html, splashImages: [] };
 }

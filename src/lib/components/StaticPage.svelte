@@ -3,6 +3,7 @@
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { BASE_URL_OMEKA } from '$lib/api';
 	import { query } from '$lib/api';
+	import ImageFilter from '$lib/components/ImageFilter.svelte';
 
 	let { slug, site = 'china-unofficial-new' } = $props();
 
@@ -60,19 +61,18 @@
 		load();
 	});
 
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
-	let splashImages = $derived([]);
+	// let splashImages = $derived([]);
 
-	onMount(async () => {
-		const images = await query('splash-images');
-		splashImages = [...images].sort(() => Math.random() - 0.5);
-	});
+	// onMount(async () => {
+	// 	const images = await query('splash-images');
+	// 	splashImages = [...images].sort(() => Math.random() - 0.5);
+	// });
 </script>
 
 <main class="min-h-screen">
 	<div class="tile">
 		<ImageFilter
-			src={splashImages[0]}
+			src="https://minjian-danganguan.org/files/original/a033ef9956aaa4a9bcace1c6de9e8dde1611d87d.jpg"
 			color="var(--color-brand-primary)"
 			fit="cover"
 			scrollReveal={false}

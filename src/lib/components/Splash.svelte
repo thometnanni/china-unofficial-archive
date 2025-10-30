@@ -15,6 +15,8 @@
 	let holdMs = $state([]);
 	let timer = $state(null);
 	let fadeMs = 3000;
+	let heroStyle = $state('');
+	let unbind = null;
 
 	function scheduleNext() {
 		if (!splashImages.length) return;
@@ -26,22 +28,45 @@
 		}, d);
 	}
 
+	function setLockedHeight() {
+		const h = window.visualViewport?.height ? document.documentElement.clientHeight : 1;
+		heroStyle = `height:${Math.round(h * 0.85)}px`;
+	}
+
+	let t = null;
+	function debounceSet() {
+		if (t) cancelAnimationFrame(t);
+		t = requestAnimationFrame(setLockedHeight);
+	}
+
 	onMount(async () => {
 		const images = await query('splash-images');
 		splashImages = [...images].sort(() => Math.random() - 0.5);
 		holdMs = splashImages.map(() => Math.floor(3000 + Math.random() * 3000));
 		currentIndex = 0;
 		scheduleNext();
+		if (browser) {
+			debounceSet();
+			const onOrient = () => debounceSet();
+			const onShow = () => debounceSet();
+			window.addEventListener('orientationchange', onOrient, { passive: true });
+			window.addEventListener('pageshow', onShow, { passive: true });
+			unbind = () => {
+				window.removeEventListener('orientationchange', onOrient);
+				window.removeEventListener('pageshow', onShow);
+			};
+		}
 	});
-
 	onDestroy(() => {
 		clearTimeout(timer);
+		if (unbind) unbind();
 	});
 </script>
 
 <section
 	bind:this={splashEl}
-	class="relative flex h-[600px] w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1 sm:h-[85dvh]"
+	class="relative flex w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1"
+	style={heroStyle}
 >
 	<div class="pointer-events-none absolute -inset-1">
 		{#if splashImages.length > 0}
@@ -61,26 +86,26 @@
 			<h2
 				class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
 			>
-				<span class="bg-gray-100">
-					<TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined>
-				</span>
+				<span class="bg-gray-100"
+					><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
+				>
 			</h2>
 			<h2
 				class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
 			>
-				<TextOutlined>
-					唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span>
-				</TextOutlined>
+				<TextOutlined
+					>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
+				>
 			</h2>
 		{:else}
 			<h2
 				class="en z-10 mx-auto mt-12 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:right-4 sm:bottom-62 sm:mt-0 sm:text-left sm:text-4xl"
 			>
-				<span class="bg-gray-100">
-					<TextOutlined>
-						唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span>
-					</TextOutlined>
-				</span>
+				<span class="bg-gray-100"
+					><TextOutlined
+						>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
+					></span
+				>
 			</h2>
 			<h2
 				class="zh z-10 mx-auto mt-6 mb-28 max-w-[640px] px-2 text-left indent-10 text-3xl text-black sm:absolute sm:top-60 sm:left-4 sm:mt-0 sm:mb-0 sm:text-4xl"
@@ -89,6 +114,7 @@
 			</h2>
 		{/if}
 	</div>
+	<div class="z-20 mb-4 flex gap-4"></div>
 </section>
 
 <style>

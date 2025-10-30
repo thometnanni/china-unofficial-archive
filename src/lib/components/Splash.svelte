@@ -17,7 +17,7 @@
 	let fadeMs = 3000;
 	let heroStyle = $state('');
 	let unbind = null;
-	let titleTopPx = $state(0);
+	let lines = $derived(lang === 'zh' ? ['zh', 'en'] : ['en', 'zh']);
 
 	function scheduleNext() {
 		if (!splashImages.length) return;
@@ -32,8 +32,6 @@
 	function setLockedHeight() {
 		const h = window.visualViewport?.height ? document.documentElement.clientHeight : 1;
 		heroStyle = `height:${Math.round(h * 0.85)}px`;
-		const vh = window.innerHeight || document.documentElement.clientHeight || 0;
-		titleTopPx = Math.round(vh * 0.4);
 	}
 
 	let t = null;
@@ -66,16 +64,12 @@
 	});
 </script>
 
-<section
-	bind:this={splashEl}
-	class="relative flex w-svw flex-col items-center justify-end overflow-hidden border-b bg-brand-cover p-1 sm:min-h-[85vh]"
-	style={heroStyle}
->
-	<div class="pointer-events-none absolute -inset-1">
+<section bind:this={splashEl} class="tilesSection" style={heroStyle}>
+	<div class="tilesWrap">
 		{#if splashImages.length > 0}
 			{#each splashImages as src, i}
 				<div
-					class="tile dither"
+					class="tile"
 					style="opacity:{currentIndex === i ? 1 : 0}; transition: opacity {fadeMs}ms ease;"
 				>
 					<ImageFilter {src} fit="cover" scrollReveal={false} />
@@ -85,64 +79,21 @@
 	</div>
 
 	{#key lang}
-		<div class="absolute inset-x-0 sm:hidden" style={`top:${titleTopPx}px`}>
-			{#if lang === 'zh'}
-				<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
-					<TextOutlined
-						>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
-					>
-				</h2>
-				<h2 class="en z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
-					<span class="bg-gray-100"
-						><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
-					>
-				</h2>
-			{:else}
-				<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
-					<span class="bg-gray-100"
-						><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
-					>
-				</h2>
-				<h2 class="zh z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
-					<TextOutlined
-						>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
-					>
-				</h2>
-			{/if}
-		</div>
-
-		<div class="hidden sm:block">
-			<div class="sm:absolute sm:right-0 sm:bottom-62">
-				{#if lang === 'zh'}
-					<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
+		<div class="textContainer">
+			{#each lines as l, i}
+				{#if l === 'zh'}
+					<h2 class="line zhLine">
 						<TextOutlined
-							>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
+							>唯一非营利性的 <span class="nowrap">中国独立思想档案库</span></TextOutlined
 						>
 					</h2>
 				{:else}
-					<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
-						<span class="bg-gray-100"
-							><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
+					<h2 class="line enLine">
+						<span class="enBg"><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
 						>
 					</h2>
 				{/if}
-			</div>
-
-			<div class="sm:absolute sm:top-60 sm:left-10">
-				{#if lang === 'zh'}
-					<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
-						<span class="bg-gray-100"
-							><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
-						>
-					</h2>
-				{:else}
-					<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-4xl text-black">
-						<TextOutlined
-							>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
-						>
-					</h2>
-				{/if}
-			</div>
+			{/each}
 		</div>
 	{/key}
 </section>
@@ -151,6 +102,18 @@
 	h2 {
 		--color-card-primary: var(--color-brand-cover);
 	}
+	.tilesSection {
+		position: relative;
+		width: 100vw;
+		overflow: hidden;
+		background-color: var(--color-brand-cover);
+		border-bottom: 1px solid var(--color-brand-cover);
+	}
+	.tilesWrap {
+		pointer-events: none;
+		position: absolute;
+		inset: 0;
+	}
 	.tile {
 		position: absolute;
 		inset: 0;
@@ -158,5 +121,58 @@
 		height: 100%;
 		--color-card-primary: var(--color-brand-cover);
 		background-color: var(--color-brand-cover);
+	}
+	.textContainer {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: min(95vw, 1100px);
+		display: grid;
+		grid-template-columns: 1fr;
+		row-gap: 1.2rem;
+		text-indent: 2rem;
+	}
+	
+	.line {
+		max-width: 640px;
+		font-size: 1.5rem;
+		line-height: 1.2;
+		color: #000;
+		justify-self: center;
+	}
+	.line:first-child {
+		justify-self: start;
+		text-align: left;
+	}
+	.line:nth-child(2) {
+		justify-self: end;
+		text-align: right;
+	}
+	.nowrap {
+		white-space: nowrap;
+	}
+	.enBg {
+		background: #f3f4f6;
+	}
+	@media (min-width: 840px) {
+		.textContainer {
+			grid-template-columns: 1fr 1fr;
+			column-gap: 2rem;
+			align-items: center;
+		}
+		.line {
+			font-size: 2.25rem;
+		}
+		.line:first-child {
+			justify-self: start;
+			text-align: left;
+			transform: translateY(-5vh);
+		}
+		.line:nth-child(2) {
+			justify-self: end;
+			text-align: right;
+			transform: translateY(5vh);
+		}
 	}
 </style>

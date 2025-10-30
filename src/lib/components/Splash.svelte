@@ -87,23 +87,23 @@
 	{#key lang}
 		<div class="absolute inset-x-0 sm:hidden" style={`top:${titleTopPx}px`}>
 			{#if lang === 'zh'}
-				<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+				<h2 class="zh z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
 					<TextOutlined
 						>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
 					>
 				</h2>
-				<h2 class="en z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+				<h2 class="en z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
 					<span class="bg-gray-100"
 						><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
 					>
 				</h2>
 			{:else}
-				<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+				<h2 class="en z-10 mx-auto max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
 					<span class="bg-gray-100"
 						><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
 					>
 				</h2>
-				<h2 class="zh z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-3xl text-black">
+				<h2 class="zh z-10 mx-auto mt-4 max-w-[640px] px-2 text-left indent-10 text-2xl text-black">
 					<TextOutlined
 						>唯一非营利性的 <span class="text-nowrap">中国独立思想档案库</span></TextOutlined
 					>

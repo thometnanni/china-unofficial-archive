@@ -19,7 +19,7 @@
 						if (itemFilters == null) return true;
 						return itemFilters[type][filter.id ?? filter.value] != null;
 					})
-					.slice(0, 3)
+					// .slice(0, 3)
 					.map((v) => ({ ...v, type }))
 			)
 			.flat();
@@ -38,21 +38,48 @@
 					.map((v) => ({ ...v, type }))
 			)
 			.flat()
-			.slice(0, 20)
+			.slice(0, 10)
 			.sort((a, b) => b.count - a.count);
 	});
 
-	// let suggestedFilters = $derived(filteredFilters ?? fallbackFilters);
+	const maxOthers = 3;
+
 	let suggestedFilters = $derived.by(() => {
 		const source = filteredFilters ?? fallbackFilters ?? [];
-		return source
-			.filter((f) => !['creator', 'year'].includes(f.type))
-			.sort((a, b) => {
-				if (a.type === 'objectType' && b.type !== 'objectType') return -1;
-				if (b.type === 'objectType' && a.type !== 'objectType') return 1;
-				return b.count - a.count;
-			});
+		const base = source.filter((f) => !['creator', 'year'].includes(f.type));
+		const sortFn = (a, b) => {
+			if (a.type === 'objectType' && b.type !== 'objectType') return -1;
+			if (b.type === 'objectType' && a.type !== 'objectType') return 1;
+			return b.count - a.count;
+		};
+		if (filteredFilters) return base.sort(sortFn);
+
+		const allObjectType = base.filter((f) => f.type === 'objectType');
+		const others = base
+			.filter((f) => f.type !== 'objectType')
+			.reduce((acc, f) => {
+				if (!acc[f.type]) acc[f.type] = [];
+				if (acc[f.type].length < maxOthers) acc[f.type].push(f);
+				return acc;
+			}, {});
+		const limitedOthers = Object.values(others).flat();
+		return [...allObjectType, ...limitedOthers].sort(sortFn);
 	});
+
+	let othersLimited = $derived.by(() => {
+		if (filteredFilters) return [];
+		const pick = (t) =>
+			(filters[t] ?? [])
+				.filter((f) => itemFilters == null || itemFilters[t][f.id ?? f.value] != null)
+				.sort((a, b) => b.count - a.count)
+				.slice(0, 3)
+				.map((v) => ({ ...v, type: t }));
+		return [...pick('creator'), ...pick('year')];
+	});
+
+	// $effect(() => {
+	// 	console.log('suggestedFilters', suggestedFilters);
+	// });
 
 	let showLoader = $derived($navigating != null || pending);
 	$effect(() => {

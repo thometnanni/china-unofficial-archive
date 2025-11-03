@@ -1,5 +1,5 @@
 <script>
-	import TextOutlined from './TextOutlined.svelte';
+	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	let { item, close } = $props();
 </script>
 

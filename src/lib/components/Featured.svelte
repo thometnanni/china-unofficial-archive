@@ -25,7 +25,7 @@
 			.filter((d) => d?.objectType?.length)
 			.slice(0, 10);
 
-		console.log(recentItems);
+		// console.log(recentItems);
 		newsletterList = Array.isArray(newsletters) ? newsletters : (newsletters?.items ?? []);
 	});
 </script>

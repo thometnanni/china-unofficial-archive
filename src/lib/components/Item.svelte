@@ -8,10 +8,18 @@
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 
 	const { item } = $props();
-	// console.log(item);
+	$effect(() => {
+		console.log(item);
+	});
+
+	const dataType = $derived(
+		String(item?.objectType?.[0]?.id || '')
+			.toLowerCase()
+			.trim()
+	);
 </script>
 
-<section class="flex flex-col gap-4 p-2">
+<section class="flex flex-col gap-4 p-2" data-type={dataType}>
 	{#if item.thumbnail && item.type == 'creator'}
 		<div class="{item.type} card max-h-[200px] w-fit border">
 			<img
@@ -44,7 +52,7 @@
 	<p>
 		{#each item.creator as creator}
 			{#if creator.title}
-				<a class="person bg-gray-200 px-2 py-1" href={localizeHref(`/archive/${creator.id}`)}
+				<a class="person creatorTag px-2 py-1" href={localizeHref(`/archive/${creator.id}`)}
 					>{creator.title}</a
 				>
 			{/if}
@@ -54,7 +62,7 @@
 		{#each item.objectType as objectType}
 			{#if objectType.title}
 				<a
-					class="{item.type} bg-gray-200 box-decoration-clone px-2 py-1 text-black"
+					class="{item.type} tag box-decoration-clone px-2 py-1 text-black"
 					href={localizeHref(`/archive/${objectType.id}`)}>{objectType.title}</a
 				>
 			{/if}
@@ -64,7 +72,7 @@
 		{#each [...(item.theme ?? []), ...(item.era ?? [])] as theme}
 			{#if theme.title}
 				<a
-					class="filter {item.type} mr-1 bg-gray-200 p-1 text-xs leading-loose"
+					class="filter {item.type} tag mr-1 p-1 text-xs leading-loose"
 					href={localizeHref(`/archive/${theme.id}`)}
 				>
 					{theme.title}
@@ -78,8 +86,31 @@
 </section>
 
 <style>
+	.tag {
+		background-color: var(--color-type-object);
+	}
+
+	.creatorTag {
+		background-color: var(--color-type-creator);
+	}
+
 	section {
-		--color-card-primary: black;
+		--color-card-primary: var(--color-type-object);
+	}
+	section[data-type='4186'] {
+		--color-card-primary: var(--color-type-object-book);
+	}
+	section[data-type='4187'] {
+		--color-card-primary: var(--color-type-object-article);
+	}
+	section[data-type='4184'] {
+		--color-card-primary: var(--color-type-object-periodical);
+	}
+	section[data-type='4185'] {
+		--color-card-primary: var(--color-type-object-newsletter);
+	}
+	section[data-type='4190'] {
+		--color-card-primary: var(--color-type-object-video);
 	}
 
 	:global(.item-container a) {

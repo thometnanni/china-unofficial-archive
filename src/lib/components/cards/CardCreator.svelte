@@ -9,7 +9,7 @@
 </script>
 
 <div class={`col-span-4 row-span-4 grid grid-rows-[auto_1fr]`}>
-	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="" />
+	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
 
 	<a {href} class="card col-span-4 row-span-4 border border-card-primary">
 		<div class="relative h-full p-1">

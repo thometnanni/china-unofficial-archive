@@ -2,6 +2,7 @@
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import { page } from '$app/stores';
+	import Snippet from '$lib/components/cards/Snippet.svelte';
 	let { item, href } = $props();
 	let isPortrait = $state(true);
 	function onRatio(e) {
@@ -13,38 +14,14 @@
 			.toLowerCase()
 			.trim()
 	);
-	const wrapperRows = $derived(`row-span-${hasSnippets ? 3 + (item.snippets?.length ?? 0) : 3}`);
-
 	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
-
-	function escapeRegex(s) {
-		return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-	}
-	function escapeHtml(s) {
-		return String(s).replace(
-			/[&<>"']/g,
-			(m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]
-		);
-	}
-	function highlightSnippet(s, q) {
-		if (!q) return escapeHtml(s);
-		const terms = Array.from(new Set(q.split(/\s+/).filter(Boolean)));
-		if (!terms.length) return escapeHtml(s);
-		const re = new RegExp('(' + terms.map(escapeRegex).join('|') + ')', 'gi');
-		return escapeHtml(s).replace(re, '<mark>$1</mark>');
-	}
+	const titleClass = $derived(
+		isPortrait ? 'z-0 col-[2/4] row-[1/4] mb-2 ml-4 items-end' : 'z-0 col-[1/4] row-[3/4] ml-4'
+	);
 </script>
 
-<div class={`col-span-3 ${wrapperRows} grid grid-rows-[auto_1fr] gap-2`}>
-	{#if hasSnippets}
-		<a {href} class="grid gap-2">
-			{#each item.snippets.slice(0, 3) as snippet}
-				<TextOutlined as="p" class="text-xs leading-snug opacity-80"
-					>{@html highlightSnippet(snippet, searchTerm)}</TextOutlined
-				>
-			{/each}
-		</a>
-	{/if}
+<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] `}>
+	<Snippet snippets={item.snippets} {href} {searchTerm} {dataType} />
 
 	<a
 		{href}
@@ -102,10 +79,5 @@
 	}
 	.card[data-type='4190'] {
 		--color-card-primary: var(--color-type-object-video);
-	}
-	mark {
-		background: var(--color-card-primary);
-		color: var(--color-bg, #fff);
-		padding: 0 2px;
 	}
 </style>

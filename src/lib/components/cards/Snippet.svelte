@@ -1,6 +1,4 @@
 <script>
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import { createEventDispatcher } from 'svelte';
 	let { snippets = [], href = '#', searchTerm = '', dataType = '' } = $props();
 	const hasSnippets = $derived(Boolean(snippets?.length));
 	function escapeRegex(s) {
@@ -12,12 +10,18 @@
 			(m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]
 		);
 	}
+	function stripTags(s) {
+		return String(s)
+			.replace(/<[^>]*>/g, '')
+			.replace(/&lt;[^&]*?&gt;/g, '');
+	}
 	function highlightSnippet(s, q) {
-		if (!q) return escapeHtml(s);
+		const base = stripTags(s);
+		if (!q) return escapeHtml(base);
 		const t = Array.from(new Set(q.split(/\s+/).filter(Boolean)));
-		if (!t.length) return escapeHtml(s);
+		if (!t.length) return escapeHtml(base);
 		const re = new RegExp('(' + t.map(escapeRegex).join('|') + ')', 'gi');
-		return escapeHtml(s).replace(re, '<mark>$1</mark>');
+		return escapeHtml(base).replace(re, '<mark>$1</mark>');
 	}
 </script>
 
@@ -27,9 +31,6 @@
 			<p class="line-clamp-2 text-xs leading-snug break-words opacity-80">
 				{@html highlightSnippet(s, searchTerm)}
 			</p>
-			<!-- <TextOutlined class="text-[10px] leading-snug break-all opacity-80"
-				>{@html highlightSnippet(s, searchTerm)}
-			</TextOutlined> -->
 		{/each}
 	</a>
 {/if}
@@ -37,21 +38,18 @@
 <style>
 	.snippets {
 		padding: 0.5rem;
-    border-top: 1px solid var(--color-card-primary);
-    border-right: 1px solid var(--color-card-primary);
-    border-left: 1px solid var(--color-card-primary);
+		border-top: 1px solid var(--color-card-primary);
+		border-right: 1px solid var(--color-card-primary);
+		border-left: 1px solid var(--color-card-primary);
 	}
-
 	:global(mark) {
-		background: var(--color-brand-yellow);
-    background: var(--color-card-primary);
+		background: var(--color-card-primary);
 		color: var(--color-black);
 		padding: 0 2px;
 		box-decoration-break: clone;
 		-webkit-box-decoration-break: clone;
 	}
-
-  .snippets {
+	.snippets {
 		--color-card-primary: var(--color-type-object);
 	}
 	.snippets[data-type='4186'] {
@@ -68,5 +66,9 @@
 	}
 	.snippets[data-type='4190'] {
 		--color-card-primary: var(--color-type-object-video);
+	}
+
+	.snippets[data-type='creator'] {
+		--color-card-primary: var(--color-type-creator);
 	}
 </style>

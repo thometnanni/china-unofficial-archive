@@ -8,10 +8,14 @@ export async function load({ params, url, fetch }) {
 	const id = params.id ?? null;
 	const path = id == null ? `items${url.search}` : `items/${id}${url.search}`;
 	const u = new URL(`${BASE_URL}/${path}`);
+	console.log(u, path, id);
 	u.searchParams.set('lang', lang);
 	const res = await fetch(u.toString());
+	console.log('res', res);
 	if (!res.ok) throw error(500, { message: 'load failed' });
 	const data = await res.json();
+	console.log('data', data);
+
 	let seo;
 	if (id == null) {
 		const title = 'Archive';

@@ -27,7 +27,7 @@ export async function load({ params, fetch, url }) {
 		} catch {}
 		const status = res.status === 404 ? 404 : res.status;
 		throw error(status, {
-			message: `request to ${u.pathname} failed: ${res.status} ${res.statusText}${body ? ` — ${body}` : ''}`
+			message: `request to ${u.pathname} failed: ${res.status} ${res.statusText}${body}`
 		});
 	}
 

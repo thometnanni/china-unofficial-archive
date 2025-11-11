@@ -23,7 +23,7 @@ export async function load({ params, url, fetch }) {
 			body = await res.text();
 		} catch {}
 		throw error(res.status, {
-			message: `request to ${u.pathname} failed: ${res.status} ${res.statusText}${body ? ` — ${body)}` : ''}`
+			message: `request to ${u.pathname} failed: ${res.status} ${res.statusText}${body}`
 		});
 	}
 

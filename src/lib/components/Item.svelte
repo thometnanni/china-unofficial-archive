@@ -38,7 +38,7 @@
 		</div>
 	{/if}
 
-	<h2 class="title z-10 mt-[-1em] mb-5 ml-[-2em] text-5xl">
+	<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] lg:ml-[-2em] text-5xl">
 		<TextOutlined>{item.title}</TextOutlined>
 	</h2>
 

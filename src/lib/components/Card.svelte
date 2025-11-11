@@ -6,7 +6,7 @@
 
 	let { item, i = 0 } = $props();
 
-	let href = $derived(`/archive/${item.id}`);
+	let href = $derived(localizeHref(`/archive/${item.id}`));
 	let CardComponent = $derived.by(() => {
 		if (item.objectType != null) return CardObject;
 		switch (item.type) {

@@ -21,12 +21,12 @@
 
 <section class="flex flex-col gap-2 p-2" data-type={dataType}>
 	{#if item.thumbnail && item.type == 'creator'}
-		<div class="{item.type} card z-10 mt-[-40px] ml-10 max-h-[200px] w-fit border">
+		<div class="{item.type} card z-10 mt-[-200px] ml-10 max-h-[200px] w-fit border-1">
 			<img
 				src={item.thumbnail}
 				alt=""
 				crossorigin="anonymous"
-				class="object-fit block max-h-[200px] border"
+				class="object-fit block max-h-[200px] "
 			/>
 
 			<!-- <ImageFilter
@@ -38,12 +38,12 @@
 		</div>
 	{/if}
 
-	<h2 class="z-10 mt-[-30px] text-3xl">
+	<h2 class="title z-10 mt-[-1em] mb-5 text-5xl">
 		<TextOutlined>{item.title}</TextOutlined>
 	</h2>
 
 	{#if item.titleAlt?.length > 0}
-		<h3 class="text-xl">
+		<h3 class="title mb-3 text-3xl">
 			<TextOutlined>{item.titleAlt}</TextOutlined>
 		</h3>
 	{/if}
@@ -51,7 +51,7 @@
 		{item.published}
 	</p> -->
 
-	<div class="flex flex-wrap gap-2">
+	<div class="mb-5 flex flex-wrap gap-2">
 		{#each item.creator as creator}
 			{#if creator.title}
 				<a class="person creatorTag" href={localizeHref(`/archive/${creator.id}`)}>
@@ -92,9 +92,12 @@
 </section>
 
 <style>
+	.title {
+		/* --color-outlined-text: var(--color-card-primary); */
+	}
+	
 	.tag {
 		--color-outlined-border: var(--color-type-object);
-		/* border-color: var(--color-type-object); */
 		/* background: var(--color-type-object); */
 	}
 	.tag:hover {
@@ -104,7 +107,8 @@
 
 	.creatorTag {
 		--color-outlined-border: var(--color-type-creator);
-		/* border-color: var(--color-type-creator); */
+		color: var(--color-type-creator);
+		border-color: var(--color-type-creator);
 		/* background: var(--color-type-creator); */
 	}
 

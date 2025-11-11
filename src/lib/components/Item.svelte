@@ -26,7 +26,7 @@
 				src={item.thumbnail}
 				alt=""
 				crossorigin="anonymous"
-				class="object-fit block max-h-[200px] "
+				class="object-fit block max-h-[200px]"
 			/>
 
 			<!-- <ImageFilter
@@ -65,7 +65,7 @@
 		{#each item.objectType as objectType}
 			{#if objectType.title}
 				<a
-					class="{item.type} tag box-decoration-clone text-black"
+					class="{item.type} type tag box-decoration-clone text-black"
 					href={localizeHref(`/archive/${objectType.id}`)}
 				>
 					<TextOutlined>
@@ -94,27 +94,29 @@
 <style>
 	.title {
 		/* --color-outlined-text: var(--color-card-primary); */
+		--color-outlined-border: black;
 	}
-	
+
 	.tag {
-		--color-outlined-border: var(--color-type-object);
-		/* background: var(--color-type-object); */
+		--color-outlined-border: var(--color-type-default);
+		--color-outlined-bg: var(--color-type-default);
 	}
-	.tag:hover {
-		--color-outlined-bg: var(--color-type-object);
-		--color-outlined-text: var(--color-black);
+
+	.type {
+		--color-outlined-border: var(--color-card-primary);
+		--color-outlined-bg: var(--color-card-primary);
 	}
 
 	.creatorTag {
 		--color-outlined-border: var(--color-type-creator);
-		color: var(--color-type-creator);
-		border-color: var(--color-type-creator);
-		/* background: var(--color-type-creator); */
+		--color-outlined-bg: var(--color-type-creator);
 	}
 
+	.tag:hover,
 	.creatorTag:hover {
-		--color-outlined-bg: var(--color-type-creator);
-		--color-outlined-text: var(--color-black);
+		--color-outlined-bg: var(--color-black);
+		--color-outlined-text: var(--color-white);
+		--color-outlined-border: var(--color-black);
 	}
 
 	section {

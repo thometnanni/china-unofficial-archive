@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 	import { getLocale } from '$lib/paraglide/runtime';
-	import { BASE_URL_OMEKA } from '$lib/api';
 	import { query } from '$lib/api';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 

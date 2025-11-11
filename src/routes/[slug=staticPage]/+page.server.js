@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { BASE_URL_OMEKA } from '$lib/api';
+import { BASE_URL } from '$lib/api';
 import { getLocale } from '$lib/paraglide/runtime';
 import { extractText, summarize, firstImageSrc, absolutize } from '$lib/seo';
 
@@ -9,7 +9,7 @@ export async function load({ params, fetch, url }) {
 	const lang = getLocale();
 	const apiSlug = `${slug}-${lang}`;
 
-	const u = new URL(`${BASE_URL_OMEKA}/site_pages`);
+	const u = new URL(`${BASE_URL}/omeka/site_pages`);
 	u.searchParams.set('site', site);
 	u.searchParams.set('slug', apiSlug);
 

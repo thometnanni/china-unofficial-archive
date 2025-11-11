@@ -13,6 +13,12 @@ export function summarize(text, n = 180) {
 	const t = s.slice(0, n);
 	return t.replace(/\s+\S*$/, '') + '…';
 }
+
+export function firstImageSrc(html) {
+	const m = /<img[^>]+src=["']?([^"'\s>]+)["']?[^>]*>/i.exec(String(html || ''));
+	return m ? m[1] : null;
+}
+
 export function absolutize(u, base) {
 	if (!u) return null;
 	try {

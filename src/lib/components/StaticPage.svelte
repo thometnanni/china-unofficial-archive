@@ -10,6 +10,7 @@
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
+
 <main class="min-h-screen">
 	<div class="tile">
 		<ImageFilter

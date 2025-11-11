@@ -38,16 +38,20 @@
 	);
 </script>
 
-<section class="grid w-svw gap-2 {id != null && `lg:grid-cols-[640px_1fr]`}">
+<section class="">
 	{#if item?.id != null}
-		<Item {item} />
+		<div class="m-auto max-w-[840px]">
+			<Item {item} />
+		</div>
 	{/if}
 
 	{#if item.type === 'object'}
-		<MediaPreview {medias} {item} initialIndex={0} />
+		<div class="m-auto max-w-[840px]">
+			<MediaPreview {medias} {item} initialIndex={0} />
+		</div>
 	{:else}
 		<div>
-			{#if items?.length > 2 || hasActiveFilters}
+			{#if items?.length || hasActiveFilters}
 				<div>
 					<Search bind:value={search} itemFilters={item.filters} />
 					<TypeFilter bind:value={typeView} />

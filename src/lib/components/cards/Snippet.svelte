@@ -23,12 +23,14 @@
 		const re = new RegExp('(' + t.map(escapeRegex).join('|') + ')', 'gi');
 		return escapeHtml(base).replace(re, '<mark>$1</mark>');
 	}
+
+//   console.log(snippets)
 </script>
 
 {#if hasSnippets}
-	<a {href} class="snippets grid w-full min-w-0 gap-1" data-type={dataType}>
-		{#each snippets.slice(0, 3) as s}
-			<p class="line-clamp-2 text-xs leading-snug break-words opacity-80">
+	<a {href} class="z-1000 bg-white snippets grid w-full min-w-0 gap-1" data-type={dataType}>
+		{#each snippets.slice(0, 2) as s}
+			<p class="line-clamp-4 text-xs leading-snug break-words opacity-80">
 				{@html highlightSnippet(s, searchTerm)}
 			</p>
 		{/each}
@@ -43,8 +45,8 @@
 		border-left: 1px solid var(--color-card-primary);
 	}
 	:global(mark) {
-		background: var(--color-card-primary);
-		color: var(--color-black);
+		/* background: var(--color-card-primary);
+		color: var(--color-black); */
 		padding: 0 2px;
 		box-decoration-break: clone;
 		-webkit-box-decoration-break: clone;

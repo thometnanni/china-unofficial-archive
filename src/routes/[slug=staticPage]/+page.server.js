@@ -1,18 +1,19 @@
 import { error } from '@sveltejs/kit';
 import { BASE_URL_OMEKA } from '$lib/api';
 import { getLocale } from '$lib/paraglide/runtime';
+import { extractText, summarize, firstImageSrc, absolutize } from '$lib/seo';
 
-export async function load({ params, fetch }) {
+export async function load({ params, fetch, url }) {
 	const slug = params.slug;
 	const site = 'china-unofficial-new';
 	const lang = getLocale();
 	const apiSlug = `${slug}-${lang}`;
 
-	const url = new URL(`${BASE_URL_OMEKA}/site_pages`);
-	url.searchParams.set('site', site);
-	url.searchParams.set('slug', apiSlug);
+	const u = new URL(`${BASE_URL_OMEKA}/site_pages`);
+	u.searchParams.set('site', site);
+	u.searchParams.set('slug', apiSlug);
 
-	const res = await fetch(url.toString());
+	const res = await fetch(u.toString());
 	if (!res.ok) throw error(404, { message: 'Page not found' });
 
 	const pages = await res.json();
@@ -23,5 +24,10 @@ export async function load({ params, fetch }) {
 	const block = (page['o:block'] || []).find((b) => b['o:layout'] === 'html');
 	const html = block?.['o:data']?.html ?? '';
 
-	return { title, html, splashImages: [] };
+	const text = extractText(html);
+	const description = summarize(text, 180);
+	const imgLocal = firstImageSrc(html);
+	const image = absolutize(imgLocal, url.origin) || `${url.origin}/cover.png`;
+
+	return { title, html, splashImages: [], seo: { title, description, image } };
 }

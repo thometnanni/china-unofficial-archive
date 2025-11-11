@@ -4,11 +4,12 @@
 	import { page } from '$app/stores';
 	import Footer from '$lib/components/Footer.svelte';
 	import { m } from '$lib/paraglide/messages';
-
+	import Meta from '$lib/components/Meta.svelte';
 	let slug = $derived($page.params.slug);
-
 	let { data } = $props();
 </script>
+
+<Meta title={data.seo.title} description={data.seo.description} image={data.seo.image} />
 
 <MenuBar />
 <svelte:boundary>
@@ -19,5 +20,4 @@
 		</div>
 	{/snippet}
 </svelte:boundary>
-
 <Footer />

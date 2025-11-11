@@ -5,20 +5,14 @@
 	import MediaPreview from '$lib/components/previews/MediaPreview.svelte';
 	import TypeFilter from '$lib/components/TypeFilter.svelte';
 	import { page } from '$app/stores';
-	import { query } from '$lib/api';
-	import { browser } from '$app/environment';
+
+	let { item } = $props();
 
 	let id = $derived($page.params.id);
-	let item = $derived(
-		await query(id == null ? `items${$page.url.search}` : `items/${id}${$page.url.search}`)
-	);
 	let items = $derived(item.items);
-
 	let search = $state('');
 	let medias = $derived(item?.media ?? []);
-
 	let typeView = $state($page.url.searchParams.get('view') || 'all');
-
 	let filteredItems = $derived(
 		(items ?? []).filter((i) => (typeView === 'all' ? true : i.type === typeView))
 	);
@@ -28,13 +22,12 @@
 	});
 
 	$effect(() => {
-		if (!browser) return;
-		const url = new URL(window.location.href);
-		const current = url.searchParams.get('view') || 'all';
+		const u = new URL(window.location.href);
+		const current = u.searchParams.get('view') || 'all';
 		if (current !== typeView) {
-			if (typeView === 'all') url.searchParams.delete('view');
-			else url.searchParams.set('view', typeView);
-			history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+			if (typeView === 'all') u.searchParams.delete('view');
+			else u.searchParams.set('view', typeView);
+			history.replaceState({}, '', `${u.pathname}${u.search}${u.hash}`);
 		}
 	});
 

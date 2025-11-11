@@ -13,12 +13,33 @@ export async function load({ params, fetch, url }) {
 	u.searchParams.set('site', site);
 	u.searchParams.set('slug', apiSlug);
 
-	const res = await fetch(u.toString());
-	if (!res.ok) throw error(404, { message: 'Page not found' });
+	let res;
+	try {
+		res = await fetch(u.toString());
+	} catch (e) {
+		throw error(502, { message: `network error fetching ${u.pathname}: ${String(e)}` });
+	}
 
-	const pages = await res.json();
+	if (!res.ok) {
+		let body = '';
+		try {
+			body = await res.text();
+		} catch {}
+		const status = res.status === 404 ? 404 : res.status;
+		throw error(status, {
+			message: `request to ${u.pathname} failed: ${res.status} ${res.statusText}${body ? ` — ${body.slice(0, 200)}` : ''}`
+		});
+	}
+
+	let pages;
+	try {
+		pages = await res.json();
+	} catch (e) {
+		throw error(500, { message: `invalid json from ${u.pathname}: ${String(e)}` });
+	}
+
 	const page = pages?.[0];
-	if (!page) throw error(404, { message: 'Page not found' });
+	if (!page) throw error(404, { message: `page not found for slug ${apiSlug}` });
 
 	const title = page['o:title'] ?? '';
 	const block = (page['o:block'] || []).find((b) => b['o:layout'] === 'html');

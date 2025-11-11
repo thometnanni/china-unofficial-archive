@@ -8,13 +8,31 @@ export async function load({ params, url, fetch }) {
 	const id = params.id ?? null;
 	const path = id == null ? `items${url.search}` : `items/${id}${url.search}`;
 	const u = new URL(`${BASE_URL}/${path}`);
-	console.log(u, path, id);
 	u.searchParams.set('lang', lang);
-	const res = await fetch(u.toString());
-	console.log('res', res);
-	if (!res.ok) throw error(500, { message: 'load failed' });
-	const data = await res.json();
-	console.log('data', data);
+
+	let res;
+	try {
+		res = await fetch(u.toString());
+	} catch (e) {
+		throw error(502, { message: `network error fetching ${u.pathname}: ${String(e)}` });
+	}
+
+	if (!res.ok) {
+		let body = '';
+		try {
+			body = await res.text();
+		} catch {}
+		throw error(res.status, {
+			message: `request to ${u.pathname} failed: ${res.status} ${res.statusText}${body ? ` — ${body.slice(0, 200)}` : ''}`
+		});
+	}
+
+	let data;
+	try {
+		data = await res.json();
+	} catch (e) {
+		throw error(500, { message: `invalid json from ${u.pathname}: ${String(e)}` });
+	}
 
 	let seo;
 	if (id == null) {
@@ -29,5 +47,6 @@ export async function load({ params, url, fetch }) {
 	} else {
 		seo = deriveSeoFromItem(data, url.origin);
 	}
+
 	return { item: data, seo };
 }

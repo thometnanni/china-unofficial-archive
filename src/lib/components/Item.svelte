@@ -21,12 +21,12 @@
 
 <section class="flex flex-col gap-2 p-2" data-type={dataType}>
 	{#if item.thumbnail && item.type == 'creator'}
-		<div class="{item.type} card z-10 mt-[-200px] ml-10 max-h-[200px] w-fit border-1">
+		<div class="{item.type} card z-10 ml-10 w-fit">
 			<img
 				src={item.thumbnail}
 				alt=""
 				crossorigin="anonymous"
-				class="object-fit block max-h-[200px]"
+				class="object-fit mt-[-200px] block max-h-[200px] border-1"
 			/>
 
 			<!-- <ImageFilter
@@ -38,7 +38,7 @@
 		</div>
 	{/if}
 
-	<h2 class="title z-10 mt-[-1em] mb-5 text-5xl">
+	<h2 class="title z-10 mt-[-1em] mb-5 ml-[-2em] text-5xl">
 		<TextOutlined>{item.title}</TextOutlined>
 	</h2>
 

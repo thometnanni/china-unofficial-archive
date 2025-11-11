@@ -153,7 +153,7 @@
 
 <section
 	id="search"
-	class="sticky top-0 z-2 border-t border-b bg-white {loading && 'isLoading'}"
+	class="sticky top-0 z-2  border-b bg-white {loading && 'isLoading'}"
 	aria-busy={$navigating != null}
 >
 	{#if showLoader}

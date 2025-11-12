@@ -8,10 +8,10 @@
 	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
 </script>
 
-<div class={`col-span-4 row-span-4 grid grid-rows-[auto_1fr]`}>
+<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr]`}>
 	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
 
-	<a {href} class="card col-span-4 row-span-4 border border-card-primary">
+	<a {href} class="card col-span-3 row-span-3 border border-card-primary">
 		<div class="relative h-full p-1">
 			<ImageFilter
 				src={item.thumbnail}

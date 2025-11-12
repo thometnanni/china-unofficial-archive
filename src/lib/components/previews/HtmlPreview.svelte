@@ -11,6 +11,11 @@
 		margin-bottom: 1em;
 	}
 
+	:global(.editorial a) {
+		color: var(--color-brand-cover);
+		text-decoration: underline;
+	}
+
 	:global(.editorial img) {
 		max-height: 500px;
 		object-fit: contain;

@@ -22,7 +22,7 @@
 		);
 
 		recentItems = (Array.isArray(recent) ? recent : (recent?.items ?? []))
-			.filter((d) => d?.objectType?.length)
+			// .filter((d) => d?.objectType?.length)
 			.slice(0, 10);
 
 		// console.log(recentItems);

@@ -7,15 +7,26 @@
 	import { setLocale, localizeHref, getLocale } from '$lib/paraglide/runtime';
 	import { page } from '$app/stores';
 
+	let showMenu = $state(false);
+
 	let openMenu = $state(false);
 	let isCollapsed = $state(false);
 	let showSpace = $derived($page.route.id !== '/');
 	let showBg = $derived($page.route.id === '/archive/[[id]]');
 	let lang = $derived(getLocale());
 
+	function toggleMenu() {
+		showMenu = !showMenu;
+	}
+
+	function closeMenu() {
+		showMenu = false;
+	}
+
 	function clickOutside(node) {
 		const handle = (e) => {
-			if (!node.contains(e.target)) openMenu = false;
+			e.stopPropagation();
+			if (!node.contains(e.target)) showMenu = false;
 		};
 		document.addEventListener('mousedown', handle);
 		return {
@@ -24,22 +35,6 @@
 			}
 		};
 	}
-	function bindScroll() {
-		const update = () => {
-			isCollapsed = window.scrollY > 20;
-			if (isCollapsed) openMenu = false;
-		};
-		update();
-		window.addEventListener('scroll', update, { passive: true });
-		return () => window.removeEventListener('scroll', update);
-	}
-	let unbind = null;
-	onMount(() => {
-		unbind = bindScroll();
-	});
-	onDestroy(() => {
-		if (unbind) unbind();
-	});
 
 	const defaultHero =
 		'https://minjian-danganguan.org/files/original/a033ef9956aaa4a9bcace1c6de9e8dde1611d87d.jpg';
@@ -59,129 +54,93 @@
 	let heroSrc = $derived(pickHeroFromData($page) || defaultHero);
 </script>
 
-{#if showSpace}
-	<div
-		class="pointer-events-none h-[350px] {showBg == true ? 'border-b' : ''}"
-		style="--color-card-primary: var(--color-brand-purple);"
-	>
-		{#if showBg}
-			<ImageFilter src={heroSrc} fit="cover" objectPosition="10% left" />
-		{/if}
-	</div>
-{/if}
-
-<section class="fixed top-0 left-0 z-[200] text-black">
-	<div class="w-[200px] p-1">
-		<div class="mb-1 border-1 bg-white">
-			<a href="/"><Logo textColor="#000" showSubtitle={true} /></a>
+<nav class="fixed z-50 flex w-full justify-between p-2 text-xl">
+	<section class="flex items-start gap-2">
+		<div class="w-[150px] max-w-[calc(100vw_-160px)] border-1 border-brand bg-white">
+			<a href="/"><Logo height="60" /></a>
 		</div>
 
-		{#if !isCollapsed}
-			<div class="custom-outline mb-1 text-2xl">
-				<a data-sveltekit-reload href={localizeHref('/archive?view=all')}>
-					<TextOutlined>{m.nav_explore()}</TextOutlined>
-				</a>
-			</div>
-			<div class="custom-outline mb-1 text-2xl">
-				<a data-sveltekit-reload href={localizeHref('/archive?view=creator')}>
-					<TextOutlined>{m.nav_creators()}</TextOutlined>
-				</a>
-			</div>
-			<div class="custom-outline mb-1 text-2xl">
-				<a data-sveltekit-reload href="https://chinaunofficialarchives.substack.com/">
-					<TextOutlined>{m.nav_newsletter()}</TextOutlined>
-				</a>
-			</div>
-			<!-- <div class="custom-outline mb-1 text-2xl">
-				<a data-sveltekit-reload href={localizeHref('/exhibits/')}>
-					<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>
-				</a>
-			</div> -->
-		{:else}
-			<div class="relative">
-				<div class="custom-outline mb-1 text-2xl">
-					<button onclick={() => (openMenu = !openMenu)}>
-						<TextOutlined>⋯</TextOutlined>
-					</button>
-				</div>
+		<a class="button hidden sm:block" href={localizeHref('/archive?view=all')}>
+			{m.nav_explore()}
+		</a>
 
-				{#if openMenu}
-					<div use:clickOutside role="menu" class="menuPanel text-2xl">
-						<a class="custom-outline" href={localizeHref('/archive?view=all')}>
-							<TextOutlined>{m.nav_explore()}</TextOutlined>
-						</a>
-						<a class="custom-outline" href={localizeHref('/archive?view=creator')}>
-							<TextOutlined>{m.nav_creators()}</TextOutlined>
-						</a>
-						<a class="custom-outline" href={localizeHref('/newsletters/')}>
-							<TextOutlined>{m.nav_newsletter()}</TextOutlined>
-						</a>
-						<!-- <a class="custom-outline" href={localizeHref('/exhibits/')}>
-							<TextOutlined>{m.nav_exhibits ? m.nav_exhibits() : 'exhibits'}</TextOutlined>
-						</a> -->
-						<a class="custom-outline" href={localizeHref('/about/')}>
-							<TextOutlined>{m.nav_about()}</TextOutlined>
-						</a>
-						<a class="custom-outline" href={localizeHref('/resources/')}>
-							<TextOutlined>{m.nav_resources()}</TextOutlined>
-						</a>
-					</div>
-				{/if}
-			</div>
+		<a class="button hidden sm:block" href={localizeHref('/archive?view=creator')}>
+			{m.nav_creators()}
+		</a>
+
+		<a class="button hidden sm:block" href="https://chinaunofficialarchives.substack.com/">
+			{m.nav_newsletter()}
+		</a>
+	</section>
+	<section class="flex flex-col items-end gap-2">
+		<div class="flex items-center gap-2">
+			<button
+				class="custom-outline {lang === 'zh' ? 'is-active' : ''}"
+				onclick={() => setLocale('zh')}
+			>
+				{m.lang(null, { locale: 'zh' })}
+			</button>
+			<button
+				class="custom-outline {lang === 'en' ? 'is-active' : ''}"
+				onclick={() => setLocale('en')}
+			>
+				{m.lang(null, { locale: 'en' })}
+			</button>
+			<button aria-label="menu" class="p-1 sm:hidden" onclick={toggleMenu}>
+				<svg width="20" height="20">
+					{#if showMenu}
+						<line x1="4" x2="16" y1="4" y2="16" />
+						<line x1="4" x2="16" y1="16" y2="4" />
+					{:else}
+						<line x1="2" x2="18" y1="5" y2="5" />
+						<line x1="2" x2="18" y1="10" y2="10" />
+						<line x1="2" x2="18" y1="15" y2="15" />
+					{/if}
+				</svg>
+			</button>
+		</div>
+
+		{#if showMenu}
+			<div
+				class="fixed top-0 left-0 -z-1 h-full w-full sm:hidden"
+				onclick={closeMenu}
+				aria-hidden="true"
+			></div>
+
+			<a class="button sm:hidden" href={localizeHref('/archive?view=all')} onclick={closeMenu}>
+				{m.nav_explore()}
+			</a>
+
+			<a class="button sm:hidden" href={localizeHref('/archive?view=creator')} onclick={closeMenu}>
+				{m.nav_creators()}
+			</a>
+
+			<a class="button sm:hidden" href="https://chinaunofficialarchives.substack.com/">
+				{m.nav_newsletter()}
+			</a>
 		{/if}
-	</div>
-</section>
-
-<section class="fixed top-2 right-2 z-[210] text-2xl text-black">
-	<div class="flex items-center gap-2">
-		<button
-			class="custom-outline {lang === 'zh' ? 'is-active' : ''}"
-			onclick={() => setLocale('zh')}
-		>
-			<TextOutlined>{m.lang(null, { locale: 'zh' })}</TextOutlined>
-		</button>
-		<button
-			class="custom-outline {lang === 'en' ? 'is-active' : ''}"
-			onclick={() => setLocale('en')}
-		>
-			<TextOutlined>{m.lang(null, { locale: 'en' })}</TextOutlined>
-		</button>
-	</div>
-</section>
+	</section>
+</nav>
 
 <style>
-	.custom-outline {
-		cursor: pointer;
-		display: inline-flex;
-		align-items: center;
-		box-sizing: border-box;
-		--lh-tight: 1.28;
-		--color-outlined-border: var(--color-black);
-		--color-outlined-bg: var(--color-white);
+	@reference "../../app.css";
+	.button,
+	button {
+		@apply cursor-pointer border border-brand bg-white px-1;
+
+		&.is-active,
+		&:hover {
+			@apply border-white bg-brand text-white;
+		}
 
 		&.is-active {
-			--color-outlined-bg: var(--color-black);
-			--color-outlined-text: var(--color-white);
+			@apply cursor-default;
 		}
 
-		&:hover {
-			--color-outlined-bg: var(--color-black);
-			--color-outlined-text: var(--color-white);
+		svg {
+			line {
+				stroke: currentColor;
+			}
 		}
-
-		button {
-			margin-top: 0;
-			cursor: pointer;
-		}
-	}
-
-	.menuPanel {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		z-index: 220;
 	}
 </style>

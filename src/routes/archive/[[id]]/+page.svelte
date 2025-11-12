@@ -10,6 +10,7 @@
 	let id = $derived($page.params.id);
 	let search = $state('');
 	import Meta from '$lib/components/Meta.svelte';
+	import Hero from '$lib/components/Hero.svelte';
 	let { data } = $props();
 </script>
 
@@ -17,6 +18,7 @@
 
 <main class="min-h-screen">
 	<MenuBar />
+	<Hero />
 	<svelte:boundary>
 		<Archive item={data.item} />
 		{#snippet pending()}

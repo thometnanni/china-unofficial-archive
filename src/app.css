@@ -24,6 +24,7 @@
 	--color-brand-cream: #ecebd9;
 	--color-brand-yellow: #fff200;
 
+	--color-brand: var(--color-brand-purple);
 	/* --color-type-creator: #6e95d2;
 	--color-type-default: #9ab2d9;
 
@@ -32,7 +33,6 @@
 	--color-type-object-video: #e58c6c;
 	--color-type-object-periodical: #b178c2;
 	--color-type-object-newsletter: #d59676; */
-
 	--color-brand-cover: var(--color-brand-purple);
 	--color-type-creator: #7d8fa8;
 	--color-type-default: gainsboro;
@@ -53,6 +53,8 @@
 	--color-type-era: var(--color-type-default);
 	--color-card-primary: var(--color-type-default);
 	--color-card-secondary: var(--color-brand-black);
+
+	--breakpoint-xs: 20rem;
 }
 
 html,

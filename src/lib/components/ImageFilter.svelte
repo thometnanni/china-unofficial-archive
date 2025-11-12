@@ -145,7 +145,7 @@
 		display: block;
 		filter: grayscale() contrast(1.5) brightness(0.5);
 	}
-	
+
 	.original {
 		mix-blend-mode: normal !important;
 		filter: none !important;

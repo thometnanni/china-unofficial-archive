@@ -51,7 +51,7 @@
 		{item.published}
 	</p> -->
 
-	<div class="mb-5 flex flex-wrap gap-2">
+	<div class="mb-20 flex flex-wrap gap-2">
 		{#each item.creator as creator}
 			{#if creator.title}
 				<a class="person creatorTag" href={localizeHref(`/archive/${creator.id}`)}>

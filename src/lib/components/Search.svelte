@@ -6,41 +6,62 @@
 	let { value, itemFilters } = $props();
 	import SearchTag from './SearchTag.svelte';
 	import TextOutlined from './TextOutlined.svelte';
-	let filters = await query('filters');
-	let searchInput;
-	let pending = $state(false);
-	let navStart = $state(0);
-	let hideTimer;
-	let fallbackFilters = $derived.by(() => {
-		return Object.entries(filters)
-			.map(([type, values]) =>
-				values
-					.filter((filter) => {
-						if (itemFilters == null) return true;
-						return itemFilters[type][filter.id ?? filter.value] != null;
-					})
-					// .slice(0, 3)
-					.map((v) => ({ ...v, type }))
-			)
-			.flat();
-	});
-	let filteredFilters = $derived.by(() => {
-		if (!value) return null;
-		return Object.entries(filters)
-			.map(([type, values]) =>
-				values
-					.filter((filter) => {
-						return (
-							(itemFilters == null || itemFilters[type][filter.id ?? filter.value] != null) &&
-							new RegExp(value, 'i').test(filter.title ?? filter.value)
-						);
-					})
-					.map((v) => ({ ...v, type }))
-			)
-			.flat()
-			.slice(0, 10)
-			.sort((a, b) => b.count - a.count);
-	});
+let filters = await query('filters');
+let searchInput;
+let pending = $state(false);
+let navStart = $state(0);
+let hideTimer;
+const getFilterKey = (filter) => `${filter.type}:${filter.id ?? filter.value}`;
+let activeFilters = $derived.by(() => {
+	const activeFilters = Object.entries(filters)
+		.map(([type, typedFilters]) => {
+			const searchParam = $page.url.searchParams.get(type);
+			if (searchParam == null) return [];
+			const active = decodeURIComponent(searchParam)
+				.split(',')
+				.map((value) => {
+					const filter = filters[type].find((f) => f.id == value || f.value == value);
+					if (filter == null) return [];
+					return { ...filter, type };
+				});
+			return active;
+		})
+		.flat();
+	return activeFilters;
+});
+let activeFilterKeys = $derived.by(() => new Set(activeFilters.map((filter) => getFilterKey(filter))));
+let fallbackFilters = $derived.by(() => {
+	return Object.entries(filters)
+		.map(([type, values]) =>
+			values
+				.filter((filter) => {
+					if (itemFilters == null) return true;
+					return itemFilters[type][filter.id ?? filter.value] != null;
+				})
+				// .slice(0, 3)
+				.map((v) => ({ ...v, type }))
+				.filter((filter) => !activeFilterKeys.has(getFilterKey(filter)))
+		)
+		.flat();
+});
+let filteredFilters = $derived.by(() => {
+	if (!value) return null;
+	return Object.entries(filters)
+		.map(([type, values]) =>
+			values
+				.filter((filter) => {
+					return (
+						(itemFilters == null || itemFilters[type][filter.id ?? filter.value] != null) &&
+						new RegExp(value, 'i').test(filter.title ?? filter.value)
+					);
+				})
+				.map((v) => ({ ...v, type }))
+				.filter((filter) => !activeFilterKeys.has(getFilterKey(filter)))
+		)
+		.flat()
+		.slice(0, 10)
+		.sort((a, b) => b.count - a.count);
+});
 
 	const maxOthers = 3;
 
@@ -74,8 +95,8 @@
 				.sort((a, b) => b.count - a.count)
 				.slice(0, 3)
 				.map((v) => ({ ...v, type: t }));
-		return [...pick('creator'), ...pick('year')];
-	});
+	return [...pick('creator'), ...pick('year')];
+});
 
 	// $effect(() => {
 	// 	console.log('suggestedFilters', suggestedFilters);
@@ -124,24 +145,6 @@
 		url.searchParams.delete('search');
 		goto(url, { replaceState: true });
 	}
-	let activeFilters = $derived.by(() => {
-		const activeFilters = Object.entries(filters)
-			.map(([type, typedFilters]) => {
-				const searchParam = $page.url.searchParams.get(type);
-				if (searchParam == null) return [];
-				const active = decodeURIComponent(searchParam)
-					.split(',')
-					.map((value) => {
-						const filter = filters[type].find((f) => f.id == value || f.value == value);
-						if (filter == null) return [];
-						return { ...filter, type };
-					});
-				return active;
-			})
-			.flat();
-		// console.log($page.url.search, JSON.stringify(activeFilters, null, 2));
-		return activeFilters;
-	});
 	let activeSearch = $derived.by(() => {
 		const searchParam = $page.url.searchParams.get('search');
 		if (searchParam == null) return;

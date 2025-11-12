@@ -38,7 +38,7 @@
 		</div>
 	{/if}
 
-	<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] lg:ml-[-2em] text-5xl">
+	<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] text-5xl lg:ml-[-2em]">
 		<TextOutlined>{item.title}</TextOutlined>
 	</h2>
 
@@ -51,7 +51,11 @@
 		{item.published}
 	</p> -->
 
-	<div class="mb-20 flex flex-wrap gap-2">
+	<div
+		class={`flex flex-wrap gap-2 ${
+			item.objectType?.length > 0 || item.theme?.length > 0 || item.era?.length > 0 ? 'mb-20' : 'mb-2'
+		}`}
+	>
 		{#each item.creator as creator}
 			{#if creator.title}
 				<a class="person creatorTag" href={localizeHref(`/archive/${creator.id}`)}>

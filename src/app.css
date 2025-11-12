@@ -20,7 +20,7 @@
 	--color-brand-green-200: #bdd1cf;
 	--color-brand-teal: #5da9c3;
 	--color-brand-gold: #eab160;
-	--color-brand-purple: #9773b0;
+	--color-brand-purple: #721d77;
 	--color-brand-cream: #ecebd9;
 	--color-brand-yellow: #fff200;
 
@@ -78,7 +78,8 @@ h5 {
 	font-weight: 400;
 }
 
-strong, b {
+strong,
+b {
 	font-weight: 500;
 }
 

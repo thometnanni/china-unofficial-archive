@@ -51,12 +51,12 @@
 		</div>
 	{:else}
 		<div>
-			<!-- {#if items?.length || hasActiveFilters} -->
+			{#if items?.length}
 				<div>
 					<Search bind:value={search} itemFilters={item.filters} />
 					<TypeFilter bind:value={typeView} />
 				</div>
-			<!-- {/if} -->
+			{/if}
 			<Items items={filteredItems} />
 		</div>
 	{/if}

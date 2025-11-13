@@ -1,6 +1,7 @@
 <script lang="ts">
 	import MenuBar from '$lib/components/MenuBar.svelte';
 	import StaticPage from '$lib/components/StaticPage.svelte';
+	import Hero from '$lib/components/Hero.svelte';
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages';
 
@@ -8,7 +9,7 @@
 </script>
 
 <MenuBar />
-
+<Hero />
 <svelte:boundary>
 	<StaticPage {title} />
 	{#snippet pending()}

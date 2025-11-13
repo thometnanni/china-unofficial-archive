@@ -54,7 +54,7 @@
 	let heroSrc = $derived(pickHeroFromData($page) || defaultHero);
 </script>
 
-<nav class="fixed z-50 flex w-full justify-between p-2 text-xl">
+<nav class="absolute z-50 flex w-full justify-between p-2 text-xl">
 	<section class="flex items-start gap-2">
 		<div class="w-[150px] max-w-[calc(100vw_-160px)] border-1 border-brand bg-white">
 			<a href="/"><Logo height="60" /></a>

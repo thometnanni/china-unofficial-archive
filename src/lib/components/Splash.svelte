@@ -1,83 +1,25 @@
 <script>
+	import { onMount } from 'svelte';
 	import { query } from '$lib/api';
 	import { m } from '$lib/paraglide/messages';
-	import { setLocale, getLocale } from '$lib/paraglide/runtime';
-	import { onMount, onDestroy } from 'svelte';
-	import { browser } from '$app/environment';
-	import Logo from '$lib/components/Logo.svelte';
+	import { getLocale } from '$lib/paraglide/runtime';
+	import Hero from '$lib/components/Hero.svelte';
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
 
-	let splashImages = $derived([]);
-	let splashEl;
+	let splashImages = $state([]);
 	let lang = $derived(getLocale());
-	let currentIndex = $state(0);
-	let holdMs = $state([]);
-	let timer = $state(null);
-	let fadeMs = 3000;
-	let heroStyle = $state('');
-	let unbind = null;
 	let lines = $derived(lang === 'zh' ? ['zh', 'en'] : ['en', 'zh']);
-
-	function scheduleNext() {
-		if (!splashImages.length) return;
-		clearTimeout(timer);
-		const d = holdMs[currentIndex] ?? 5000;
-		timer = setTimeout(() => {
-			currentIndex = (currentIndex + 1) % splashImages.length;
-			scheduleNext();
-		}, d);
-	}
-
-	function setLockedHeight() {
-		const h = window.visualViewport?.height ? document.documentElement.clientHeight : 1;
-		heroStyle = `height:${Math.round(h * 0.85)}px`;
-	}
-
-	let t = null;
-	function debounceSet() {
-		if (t) cancelAnimationFrame(t);
-		t = requestAnimationFrame(setLockedHeight);
-	}
 
 	onMount(async () => {
 		const images = await query('splash-images');
 		splashImages = [...images].sort(() => Math.random() - 0.5);
-		holdMs = splashImages.map(() => Math.floor(3000 + Math.random() * 3000));
-		currentIndex = 0;
-		scheduleNext();
-		if (browser) {
-			debounceSet();
-			const onOrient = () => debounceSet();
-			const onShow = () => debounceSet();
-			window.addEventListener('orientationchange', onOrient, { passive: true });
-			window.addEventListener('pageshow', onShow, { passive: true });
-			unbind = () => {
-				window.removeEventListener('orientationchange', onOrient);
-				window.removeEventListener('pageshow', onShow);
-			};
-		}
-	});
-	onDestroy(() => {
-		clearTimeout(timer);
-		if (unbind) unbind();
 	});
 </script>
 
-<section bind:this={splashEl} class="tilesSection" style={heroStyle}>
-	<div class="tilesWrap">
-		{#if splashImages.length > 0}
-			{#each splashImages as src, i}
-				<div
-					class="tile"
-					style="opacity:{currentIndex === i ? 1 : 0}; transition: opacity {fadeMs}ms ease;"
-				>
-					<ImageFilter {src} fit="cover" scrollReveal={false} />
-				</div>
-			{/each}
-		{/if}
-	</div>
-
+<section class="tilesSection" style="height:85dvh;">
+	{#if splashImages.length > 0}
+		<Hero images={splashImages} height={'85dvh'} />
+	{/if}
 	{#key lang}
 		<div class="textContainer">
 			{#each lines as l, i}
@@ -109,19 +51,7 @@
 		background-color: var(--color-brand-cover);
 		border-bottom: 1px solid var(--color-brand-cover);
 	}
-	.tilesWrap {
-		pointer-events: none;
-		position: absolute;
-		inset: 0;
-	}
-	.tile {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		--color-card-primary: var(--color-brand-cover);
-		background-color: var(--color-brand-cover);
-	}
+
 	.textContainer {
 		position: absolute;
 		left: 50%;
@@ -133,7 +63,7 @@
 		row-gap: 1.2rem;
 		text-indent: 2rem;
 	}
-	
+
 	.line {
 		max-width: 640px;
 		font-size: 1.5rem;

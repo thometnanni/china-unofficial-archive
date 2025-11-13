@@ -27,8 +27,7 @@
 
 	let currentIndex = $state(0);
 	let timer = null;
-	let fallbackHero =
-		'https://minjian-danganguan.org/files/original/a033ef9956aaa4a9bcace1c6de9e8dde1611d87d.jpg';
+	let fallbackHero = '/hero.jpg';
 	let heroSrc = $derived(
 		images.length > 0
 			? (images[currentIndex] ?? fallbackHero)

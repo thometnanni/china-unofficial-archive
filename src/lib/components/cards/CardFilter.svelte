@@ -22,7 +22,7 @@
 	}
 	.card:hover {
 		--color-outlined-border: var(--color-card-primary);
-		--color-outlined-bg: var(--color-card-primary);
-		--color-outlined-text: var(--color-black);
+		/* --color-outlined-bg: var(--color-card-primary); */
+		--color-outlined-text: var(--color-card-primary);
 	}
 </style>

@@ -11,11 +11,12 @@
 <div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr]`}>
 	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
 
-	<a {href} class="card col-span-3 row-span-3 border border-card-primary">
+	<a {href} class="card group col-span-3 row-span-3 border border-card-primary">
 		<div class="relative h-full p-1">
 			<ImageFilter
 				src={item.thumbnail}
 				color="var(--color-card-primary)"
+				inheritHoverState
 				fit="cover"
 				objectPosition="center 35%"
 			/>
@@ -31,5 +32,10 @@
 <style>
 	.card {
 		--color-card-primary: var(--color-type-creator);
+	}
+	.card:hover {
+		--color-outlined-border: var(--color-card-primary);
+		/* --color-outlined-bg: var(--color-card-primary); */
+		--color-outlined-text: var(--color-card-primary);
 	}
 </style>

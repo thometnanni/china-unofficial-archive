@@ -4,7 +4,6 @@
 	import { m } from '$lib/paraglide/messages';
 	import Card from '$lib/components/Card.svelte';
 	import NewsletterPanel from '$lib/components/NewsletterPanel.svelte';
-	import FeaturedNews from '$lib/components/FeaturedNews.svelte';
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
 
@@ -36,7 +35,6 @@
 			<div
 				class="grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(auto-fit,minmax(var(--grid-cell-size),1fr))] gap-8"
 			>
-				<!-- <FeaturedNews /> -->
 				{#each [...recentItems] as item, i}
 					{#if i == 1}
 						<h2

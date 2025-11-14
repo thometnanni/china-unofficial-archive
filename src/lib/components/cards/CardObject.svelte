@@ -18,6 +18,7 @@
 	const titleClass = $derived(
 		isPortrait ? 'z-0 col-[2/4] row-[1/4] mb-2 ml-4 items-end' : 'z-0 col-[1/4] row-[3/4] ml-4'
 	);
+	console.log("here", item)
 </script>
 
 <div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] `}>
@@ -25,7 +26,7 @@
 
 	<a
 		{href}
-		class="card col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
+		class="card group col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
 		data-type={dataType}
 	>
 		<div
@@ -35,6 +36,7 @@
 				<ImageFilter
 					src={item.thumbnail}
 					alt={item.title}
+					inheritHoverState
 					on:ratio={onRatio}
 					fit="cover"
 					objectPosition="center center"
@@ -79,5 +81,10 @@
 	}
 	.card[data-type='4190'] {
 		--color-card-primary: var(--color-type-object-video);
+	}
+	.card:hover {
+		--color-outlined-border: var(--color-card-primary);
+		/* --color-outlined-bg: var(--color-card-primary); */
+		--color-outlined-text: var(--color-card-primary);
 	}
 </style>

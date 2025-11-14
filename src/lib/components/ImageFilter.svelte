@@ -7,7 +7,8 @@
 		alt = '',
 		fit = 'contain',
 		objectPosition = 'center center',
-		scrollReveal = true
+		scrollReveal = true,
+		inheritHoverState = false
 	} = $props();
 
 	const dispatch = createEventDispatcher();
@@ -60,7 +61,9 @@
 <div
 	use:setupObserver
 	bind:this={hostEl}
-	class="group relative block h-full w-full overflow-hidden bg-card-primary"
+	class={`image-filter relative block h-full w-full overflow-hidden bg-card-primary ${
+		inheritHoverState ? '' : 'group'
+	}`}
 	class:originalActive={showOriginal}
 >
 	<div class="container h-full">
@@ -84,21 +87,21 @@
 			{src}
 			{alt}
 			style={`object-fit:${fit}; object-position:${objectPosition}`}
-			class="original pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+			class="original pointer-events-none absolute inset-0 h-full w-full opacity-0 duration-300 group-hover:opacity-100"
 		/>
 	{/if}
 </div>
 
 <style>
 	@media (hover: none) {
-		.group.originalActive .filters {
+		.image-filter.originalActive .filters {
 			opacity: 0;
 		}
-		.group.originalActive .original {
+		.image-filter.originalActive .original {
 			opacity: 1;
 		}
-		.group .filters,
-		.group .original {
+		.image-filter .filters,
+		.image-filter .original {
 			/* transition: opacity 0.3s ease; */
 		}
 	}
@@ -108,14 +111,14 @@
 		mix-blend-mode: screen;
 		filter: contrast(5);
 		max-width: unset;
-		transition: all 0.4s ease;
+		/* transition: all 0.4s ease; */
 	}
 	.container div {
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		z-index: 1;
-		transition: opacity 0.4s ease;
+		/* transition: opacity 0.4s ease; */
 	}
 	.noise {
 		background-size: 128px;

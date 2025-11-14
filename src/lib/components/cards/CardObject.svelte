@@ -26,7 +26,7 @@
 
 	<a
 		{href}
-		class="card col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
+		class="card group col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
 		data-type={dataType}
 	>
 		<div
@@ -36,6 +36,7 @@
 				<ImageFilter
 					src={item.thumbnail}
 					alt={item.title}
+					inheritHoverState
 					on:ratio={onRatio}
 					fit="cover"
 					objectPosition="center center"
@@ -80,5 +81,10 @@
 	}
 	.card[data-type='4190'] {
 		--color-card-primary: var(--color-type-object-video);
+	}
+	.card:hover {
+		--color-outlined-border: var(--color-card-primary);
+		--color-outlined-bg: var(--color-card-primary);
+		--color-outlined-text: var(--color-black);
 	}
 </style>

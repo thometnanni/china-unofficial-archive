@@ -18,6 +18,7 @@
 	const titleClass = $derived(
 		isPortrait ? 'z-0 col-[2/4] row-[1/4] mb-2 ml-4 items-end' : 'z-0 col-[1/4] row-[3/4] ml-4'
 	);
+	console.log("here", item)
 </script>
 
 <div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] `}>

@@ -49,7 +49,6 @@
 		width: 100vw;
 		overflow: hidden;
 		background-color: var(--color-brand-cover);
-		border-bottom: 1px solid var(--color-brand-cover);
 	}
 
 	.textContainer {

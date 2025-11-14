@@ -62,7 +62,7 @@
 </script>
 
 <div
-	class={`hero-root pointer-events-none overflow-hidden ${className}`}
+	class={`hero-root pointer-events-none overflow-hidden border-b  border-[var(--color-card-primary)] ${className}`}
 	style={`--color-card-primary: var(--color-brand-purple); height:${height}`}
 >
 	{#if images.length}

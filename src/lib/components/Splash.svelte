@@ -12,7 +12,11 @@
 
 	onMount(async () => {
 		const images = await query('splash-images');
-		splashImages = [...images].sort(() => Math.random() - 0.5);
+
+		splashImages = images
+			.map((value) => ({ value, sort: Math.random() }))
+			.sort((a, b) => a.sort - b.sort)
+			.map(({ value }) => value);
 	});
 </script>
 

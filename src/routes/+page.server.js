@@ -6,7 +6,7 @@ export async function load() {
 
 	if (!res.ok) {
 		throw error(res.status, {
-			message: `${res.statusText}`
+			message: res.statusText
 		});
 	}
 

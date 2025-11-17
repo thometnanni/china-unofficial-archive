@@ -11,21 +11,23 @@
 	let search = $state('');
 	import Meta from '$lib/components/Meta.svelte';
 	import Hero from '$lib/components/Hero.svelte';
-	let { data } = $props();
+	import Loading from '$lib/components/Loading.svelte';
+	import Details from '$lib/components/Details.svelte';
+
+	let { item, seo } = $derived($page.data);
 </script>
 
-<Meta title={data.seo.title} description={data.seo.description} image={data.seo.image} />
+<Meta title={seo?.title} description={seo?.description} image={seo?.image} />
 
-<main class="min-h-screen">
-	<MenuBar />
-	<Hero />
-	<svelte:boundary>
-		<Archive item={data.item} />
-		{#snippet pending()}
-			<div class="border-t">
-				<p>{m.loading()}</p>
-			</div>
-		{/snippet}
-	</svelte:boundary>
-</main>
+<MenuBar />
+<Hero />
+
+<svelte:boundary>
+	<Item {item} />
+	<Details />
+	<Archive />
+	{#snippet pending()}
+		<Loading />
+	{/snippet}
+</svelte:boundary>
 <Footer />

@@ -15,13 +15,6 @@
 <MenuBar />
 <Splash />
 
-<!-- <svelte:boundary> -->
 <Featured />
-<!-- {#snippet pending()}
-		<section class="h-200">
-			<p>Loading...</p>
-		</section>
-	{/snippet}
-</svelte:boundary> -->
 
 <Footer />

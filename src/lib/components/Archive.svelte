@@ -9,7 +9,9 @@
 
 	let id = $derived($page.params.id ?? '');
 
-	const { items, filters } = $derived(await query(`query/${id}`).then((d) => d.json()));
+	let { items, filters } = $derived(
+		await query(`query/${id}${$page.url.search}`).then((d) => d.json())
+	);
 
 	let search = $state('');
 	// let typeView = $state($page.url.searchParams.get('view') || 'all');

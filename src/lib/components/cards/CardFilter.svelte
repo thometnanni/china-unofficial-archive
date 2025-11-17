@@ -1,12 +1,23 @@
 <script>
+	import { hoverable } from '$lib/actions/hoverable';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import TextOutlined from '../TextOutlined.svelte';
 	let { item, href } = $props();
+
+	let hovering = $state(false);
 </script>
 
-<a {href} class={['card col-span-3 row-span-1 border border-card-primary', item.type]}>
+<a
+	{href}
+	class="card group col-span-3 row-span-1 border border-card-primary"
+	class:hovering
+	data-type={item.type}
+	use:hoverable
+	onhover-start={() => (hovering = true)}
+	onhover-end={() => (hovering = false)}
+>
 	<div class="relative h-full p-1">
-		<ImageFilter />
+		<ImageFilter disabled={hovering} />
 		<TextOutlined as="h3" class="absolute top-2 left-[calc(var(--spacing)_*_-4)] text-balance">
 			{item.title}
 		</TextOutlined>
@@ -14,7 +25,16 @@
 </a>
 
 <style>
-	.era {
+	.card {
+		--color-card-primary: var(--color-type-default);
+	}
+
+	.card[data-type='era'] {
 		--color-card-primary: var(--color-type-era);
+	}
+	.card.hovering {
+		--color-outlined-border: var(--color-card-primary);
+		/* --color-outlined-bg: var(--color-card-primary); */
+		--color-outlined-text: var(--color-card-primary);
 	}
 </style>

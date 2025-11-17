@@ -18,7 +18,7 @@
 </script>
 
 {#if item}
-	<section class="flex flex-col gap-2 p-2" data-type={dataType}>
+	<section class="m-auto flex max-w-[840px] flex-col gap-2 p-2" data-type={dataType}>
 		{#if item.thumbnail && item.type == 'creator'}
 			<div class="{item.type} card z-10 ml-10 w-fit">
 				<img

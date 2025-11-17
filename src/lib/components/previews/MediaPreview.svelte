@@ -48,7 +48,7 @@
 	});
 </script>
 
-<section class="m-2">
+<section class="m-auto max-w-[840px]">
 	{#if displayedMedias.length > 0}
 		<div class="flex flex-wrap items-center justify-between">
 			<div class="flex flex-wrap gap-2">

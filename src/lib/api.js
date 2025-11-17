@@ -14,5 +14,6 @@ export async function query(path) {
 	const url = new URL(`${BASE_URL}/${path}`);
 	url.searchParams.set('lang', lang);
 
-	return await fetch(url).then((d) => d.json());
+	const res = await fetch(url);
+	return res;
 }

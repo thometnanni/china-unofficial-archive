@@ -3,15 +3,25 @@
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import { page } from '$app/stores';
 	import Snippet from '$lib/components/cards/Snippet.svelte';
+	import { hoverable } from '$lib/actions/hoverable';
 	let { item, href } = $props();
 	const hasSnippets = $derived(Boolean(item?.snippets?.length));
 	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
+
+	let hovering = $state(false);
 </script>
 
 <div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr]`}>
 	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
 
-	<a {href} class="card group col-span-3 row-span-3 border border-card-primary">
+	<a
+		{href}
+		class="card group col-span-3 row-span-3 border border-card-primary"
+		class:hovering
+		use:hoverable
+		onhover-start={() => (hovering = true)}
+		onhover-end={() => (hovering = false)}
+	>
 		<div class="relative h-full p-1">
 			<ImageFilter
 				src={item.thumbnail}
@@ -19,6 +29,7 @@
 				inheritHoverState
 				fit="cover"
 				objectPosition="center 35%"
+				disabled={hovering}
 			/>
 			<TextOutlined
 				as="h3"
@@ -33,7 +44,7 @@
 	.card {
 		--color-card-primary: var(--color-type-creator);
 	}
-	.card:hover {
+	.card.hovering {
 		--color-outlined-border: var(--color-card-primary);
 		/* --color-outlined-bg: var(--color-card-primary); */
 		--color-outlined-text: var(--color-card-primary);

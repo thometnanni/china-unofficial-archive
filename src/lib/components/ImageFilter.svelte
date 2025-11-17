@@ -7,14 +7,10 @@
 		alt = '',
 		fit = 'contain',
 		objectPosition = 'center center',
-		scrollReveal = true,
-		inheritHoverState = false
+		disabled = false
 	} = $props();
 
 	const dispatch = createEventDispatcher();
-	let isTouch = $state(false);
-	let showOriginal = $state(false);
-	let hostEl;
 
 	function onImgLoad(e) {
 		const img = e.target;
@@ -22,52 +18,14 @@
 		const h = img.naturalHeight || 1;
 		dispatch('ratio', { isPortrait: h > w });
 	}
-
-	let observer;
-	function updateOriginal() {
-		if (!hostEl) return;
-		const r = hostEl.getBoundingClientRect();
-		const vh = window.innerHeight || 1;
-		const mid = (r.top + r.bottom) / 2;
-		const ratio = mid / vh;
-		showOriginal = isTouch && scrollReveal && ratio > 0.4 && ratio < 0.6;
-	}
-
-	function setupObserver(node) {
-		if (!scrollReveal) return;
-		const thresholds = Array.from({ length: 21 }, (_, i) => i / 20);
-		observer = new IntersectionObserver(() => updateOriginal(), { threshold: thresholds });
-		observer.observe(node);
-		window.addEventListener('resize', updateOriginal, { passive: true });
-		window.addEventListener('scroll', updateOriginal, { passive: true });
-		return {
-			destroy() {
-				if (observer) observer.disconnect();
-				window.removeEventListener('resize', updateOriginal);
-				window.removeEventListener('scroll', updateOriginal);
-			}
-		};
-	}
-
-	onMount(() => {
-		isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-		if (scrollReveal) updateOriginal();
-	});
-	onDestroy(() => {
-		if (observer) observer.disconnect();
-	});
 </script>
 
 <div
-	use:setupObserver
-	bind:this={hostEl}
-	class={`image-filter relative block h-full w-full overflow-hidden bg-card-primary ${
-		inheritHoverState ? '' : 'group'
-	}`}
-	class:originalActive={showOriginal}
+	class="image-filter relative block h-full w-full overflow-hidden bg-card-primary"
+	class:originalActive={disabled}
 >
 	<div class="container h-full">
-		<div class="filters group-hover:opacity-0">
+		<div class="filters">
 			<div class="noise" style="background-image:url({noise})"></div>
 			<div class="waves"></div>
 		</div>
@@ -82,28 +40,22 @@
 		{/if}
 	</div>
 
-	{#if src}
+	{#if src && disabled}
 		<img
 			{src}
 			{alt}
 			style={`object-fit:${fit}; object-position:${objectPosition}`}
-			class="original pointer-events-none absolute inset-0 h-full w-full opacity-0 duration-300 group-hover:opacity-100"
+			class="original pointer-events-none absolute inset-0 h-full w-full"
 		/>
 	{/if}
 </div>
 
 <style>
-	@media (hover: none) {
-		.image-filter.originalActive .filters {
-			opacity: 0;
-		}
-		.image-filter.originalActive .original {
-			opacity: 1;
-		}
-		.image-filter .filters,
-		.image-filter .original {
-			/* transition: opacity 0.3s ease; */
-		}
+	/* .image-filter.originalActive .filters {
+		opacity: 0;
+	} */
+	.image-filter.originalActive .original {
+		opacity: 1;
 	}
 
 	.container {

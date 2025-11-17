@@ -2,6 +2,8 @@
 	import { page } from '$app/stores';
 	import { onDestroy } from 'svelte';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	import { crossfade } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 
 	let {
 		images = [],
@@ -34,31 +36,22 @@
 			: pickHeroFromData($page) || fallbackHero
 	);
 
-	$effect(() => {
-		clearTimeout(timer);
-		if (images.length < 2) {
-			currentIndex = 0;
-			return;
+	const [send, receive] = crossfade({
+		duration: fadeMs,
+		easing: quintOut,
+		fallback(node, params) {
+			// Fallback if the element isn’t in the other list yet
+			return {
+				duration: fadeMs,
+				css: (t) => `opacity:${t}`
+			};
 		}
-
-		currentIndex = 0;
-		const duration = Number.isFinite(intervalMs) && intervalMs > 0 ? intervalMs : 5000;
-
-		const rotate = () => {
-			timer = setTimeout(() => {
-				currentIndex = (currentIndex + 1) % images.length;
-				rotate();
-			}, duration);
-		};
-
-		rotate();
-
-		return () => clearTimeout(timer);
 	});
 
-	onDestroy(() => {
-		clearTimeout(timer);
-	});
+	const interval = setInterval(() => {
+		currentIndex = (currentIndex + 1) % images.length;
+	}, intervalMs);
+	onDestroy(() => clearInterval(interval));
 </script>
 
 <div
@@ -68,12 +61,11 @@
 	{#if images.length}
 		<div class="hero-slides">
 			{#each images as src, i}
-				<div
-					class="hero-slide"
-					style={`opacity:${currentIndex === i ? 1 : 0}; transition: opacity ${fadeMs}ms ease;`}
-				>
-					<ImageFilter {src} {fit} {objectPosition} scrollReveal={false} />
-				</div>
+				{#if i === currentIndex}
+					<div class="hero-slide" in:receive|local out:send|local>
+						<ImageFilter {src} {fit} {objectPosition} scrollReveal={false} />
+					</div>
+				{/if}
 			{/each}
 		</div>
 	{:else}

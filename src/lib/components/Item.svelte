@@ -71,7 +71,7 @@
 				{#if objectType.title}
 					<a
 						class="{item.type} type tag box-decoration-clone text-black"
-						href={localizeHref(`/archive/${objectType.id}`)}
+						href={localizeHref(`/archive/?objectType=${objectType.id}`)}
 					>
 						<TextOutlined>
 							{objectType.title}
@@ -80,14 +80,27 @@
 				{/if}
 			{/each}
 
-			{#each [...(item.theme ?? []), ...(item.era ?? [])] as theme}
+			{#each item.theme ?? [] as theme}
 				{#if theme.title}
 					<a
 						class="filter {item.type} tag leading-loose"
-						href={localizeHref(`/archive/${theme.id}`)}
+						href={localizeHref(`/archive/?theme=${theme.id}`)}
 					>
 						<TextOutlined>
 							{theme.title}
+						</TextOutlined>
+					</a>
+				{/if}
+			{/each}
+
+			{#each item.era ?? [] as era}
+				{#if era.title}
+					<a
+						class="filter {item.type} tag leading-loose"
+						href={localizeHref(`/archive/?era=${era.id}`)}
+					>
+						<TextOutlined>
+							{era.title}
 						</TextOutlined>
 					</a>
 				{/if}

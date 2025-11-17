@@ -11,8 +11,8 @@ export async function load({ params, url, fetch }) {
 		});
 	}
 
-	const data = await res.json();
-	const seo = deriveSeoFromItem(data, url.origin);
+	const item = await res.json();
+	const seo = deriveSeoFromItem(item, url.origin);
 
-	return { item: data, seo };
+	return { item, seo, heroes: item.heroes };
 }

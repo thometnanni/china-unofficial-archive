@@ -11,11 +11,16 @@
 
 	let items = $state(null);
 	let filters = $state(null);
+	let baseFilters = $state(null);
 
 	$effect(async () => {
 		const item = await query(`query/${id}${$page.url.search}`).then((d) => d.json());
 		items = item.items;
 		filters = item.filters;
+	});
+
+	$effect(async () => {
+		baseFilters = await query(`filters`).then((d) => d.json());
 	});
 
 	let search = $state('');
@@ -45,11 +50,11 @@
 	// );
 </script>
 
-{#if items?.length}
+{#if items?.length && baseFilters}
 	<section>
 		<div>
 			<div>
-				<!-- <Search bind:value={search} itemFilters={filters} /> -->
+				<Search bind:value={search} itemFilters={filters} {baseFilters} />
 				<!-- <TypeFilter bind:value={typeView} /> -->
 			</div>
 			<Items {items} />

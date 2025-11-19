@@ -3,25 +3,24 @@
 	import { goto } from '$app/navigation';
 	import { page, navigating } from '$app/stores';
 	import { m } from '$lib/paraglide/messages.js';
-	let { value, itemFilters } = $props();
+	let { value, itemFilters, baseFilters } = $props();
 	import SearchTag from './SearchTag.svelte';
 	import TextOutlined from './TextOutlined.svelte';
 
-	let filters = await query('filters');
 	let searchInput;
 	let pending = $state(false);
 	let navStart = $state(0);
 	let hideTimer;
 	const getFilterKey = (filter) => `${filter.type}:${filter.id ?? filter.value}`;
 	let activeFilters = $derived.by(() => {
-		const activeFilters = Object.entries(filters)
+		const activeFilters = Object.entries(baseFilters)
 			.map(([type, typedFilters]) => {
 				const searchParam = $page.url.searchParams.get(type);
 				if (searchParam == null) return [];
 				const active = decodeURIComponent(searchParam)
 					.split(',')
 					.map((value) => {
-						const filter = filters[type].find((f) => f.id == value || f.value == value);
+						const filter = baseFilters[type].find((f) => f.id == value || f.value == value);
 						if (filter == null) return [];
 						return { ...filter, type };
 					});
@@ -34,7 +33,7 @@
 		() => new Set(activeFilters.map((filter) => getFilterKey(filter)))
 	);
 	let fallbackFilters = $derived.by(() => {
-		return Object.entries(filters)
+		return Object.entries(baseFilters)
 			.map(([type, values]) =>
 				values
 					.filter((filter) => {
@@ -49,7 +48,7 @@
 	});
 	let filteredFilters = $derived.by(() => {
 		if (!value) return null;
-		return Object.entries(filters)
+		return Object.entries(baseFilters)
 			.map(([type, values]) =>
 				values
 					.filter((filter) => {
@@ -93,7 +92,7 @@
 	let othersLimited = $derived.by(() => {
 		if (filteredFilters) return [];
 		const pick = (t) =>
-			(filters[t] ?? [])
+			(baseFilters[t] ?? [])
 				.filter((f) => itemFilters == null || itemFilters[t][f.id ?? f.value] != null)
 				.sort((a, b) => b.count - a.count)
 				.slice(0, 3)

@@ -9,7 +9,7 @@
 
 <a
 	{href}
-	class="card group col-span-3 row-span-1 border border-card-primary"
+	class="card group col-span-3 row-span-1 border border-card-primary bg-white"
 	class:hovering
 	data-type={item.type}
 	use:hoverable

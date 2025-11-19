@@ -11,7 +11,7 @@
 	let hovering = $state(false);
 </script>
 
-<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr]`}>
+<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] bg-white`}>
 	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
 
 	<a

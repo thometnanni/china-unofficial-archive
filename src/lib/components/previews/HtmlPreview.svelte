@@ -2,7 +2,7 @@
 	let { media } = $props();
 </script>
 
-<article class="editorial mt-5 text-xl">
+<article class="editorial m-auto mt-5 max-w-[840px] text-xl">
 	{@html media.replace(/<p>(?:&nbsp;|\s)*<\/p>/g, '') ?? ''}
 </article>
 

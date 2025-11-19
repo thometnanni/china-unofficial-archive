@@ -3,7 +3,6 @@
 	import MenuBar from '$lib/components/MenuBar.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import Archive from '$lib/components/Archive.svelte';
-	import Loading from '$lib/components/Loading.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 </script>
 
@@ -15,11 +14,5 @@
 
 <MenuBar />
 <Hero />
-
-<svelte:boundary>
-	<Archive />
-	{#snippet pending()}
-		<Loading />
-	{/snippet}
-</svelte:boundary>
+<Archive />
 <Footer />

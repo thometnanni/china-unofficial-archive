@@ -3,7 +3,7 @@ import { query } from '$lib/api';
 import { deriveSeoFromItem } from '$lib/seo';
 
 export async function load({ params, url, fetch }) {
-	const res = await query(`item/${params.id}`);
+	const res = await query(`item/${params.id}`, fetch);
 
 	if (!res.ok) {
 		throw error(res.status, {

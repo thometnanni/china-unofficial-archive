@@ -9,9 +9,14 @@
 
 	let id = $derived($page.params.id ?? '');
 
-	let { items, filters } = $derived(
-		await query(`query/${id}${$page.url.search}`).then((d) => d.json())
-	);
+	let items = $state(null);
+	let filters = $state(null);
+
+	$effect(async () => {
+		const item = await query(`query/${id}${$page.url.search}`).then((d) => d.json());
+		items = item.items;
+		filters = item.filters;
+	});
 
 	let search = $state('');
 	// let typeView = $state($page.url.searchParams.get('view') || 'all');
@@ -44,7 +49,7 @@
 	<section>
 		<div>
 			<div>
-				<Search bind:value={search} itemFilters={filters} />
+				<!-- <Search bind:value={search} itemFilters={filters} /> -->
 				<!-- <TypeFilter bind:value={typeView} /> -->
 			</div>
 			<Items {items} />

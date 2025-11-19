@@ -6,9 +6,16 @@
 
 	let id = $derived($page.params.id);
 
-	let promise = $derived(id && query(`item-details/${id}`));
+	let html = $state(null);
+	let media = $state(null);
 
-	const { html, media } = $derived((await promise).json());
+	$effect(async () => {
+		if (id == null) return;
+		const item = await query(`item-details/${id}`).then((d) => d.json());
+
+		html = item.html;
+		media = item.media;
+	});
 </script>
 
 {#if html}

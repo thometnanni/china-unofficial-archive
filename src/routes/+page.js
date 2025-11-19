@@ -1,8 +1,8 @@
 import { error } from '@sveltejs/kit';
 import { query } from '$lib/api';
 
-export async function load() {
-	const res = await query('featured');
+export async function load({ fetch }) {
+	const res = await query('featured', fetch);
 
 	if (!res.ok) {
 		throw error(res.status, {

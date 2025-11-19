@@ -14,20 +14,16 @@
 	import Loading from '$lib/components/Loading.svelte';
 	import Details from '$lib/components/Details.svelte';
 
-	let { item, seo } = $derived($page.data);
+	let { item, seo = {} } = $derived($page.data);
 </script>
 
-<Meta title={seo?.title} description={seo?.description} image={seo?.image} />
+<Meta title={seo.title} description={seo.description} image={seo.image} />
 
 <MenuBar />
 <Hero />
+<Item {item} />
 
-<svelte:boundary>
-	<Item {item} />
-	<Details />
-	<Archive />
-	{#snippet pending()}
-		<Loading />
-	{/snippet}
-</svelte:boundary>
+<Details />
+<Archive />
+
 <Footer />

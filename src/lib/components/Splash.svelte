@@ -6,24 +6,12 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 
-	let splashImages = $state([]);
 	let lang = $derived(getLocale());
 	let lines = $derived(lang === 'zh' ? ['zh', 'en'] : ['en', 'zh']);
-
-	onMount(async () => {
-		const images = await query('splash-images');
-
-		splashImages = images
-			.map((value) => ({ value, sort: Math.random() }))
-			.sort((a, b) => a.sort - b.sort)
-			.map(({ value }) => value);
-	});
 </script>
 
 <section class="tilesSection" style="height:85dvh;">
-	{#if splashImages.length > 0}
-		<Hero images={splashImages} height={'85dvh'} />
-	{/if}
+	<Hero height={'85dvh'} />
 	{#key lang}
 		<div class="textContainer">
 			{#each lines as l, i}

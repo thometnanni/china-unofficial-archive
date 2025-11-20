@@ -9,10 +9,11 @@ export async function fetchFilters() {
 	return res.json();
 }
 
-export async function query(path) {
+export async function query(path, fetch = window.fetch) {
 	const lang = getLocale();
 	const url = new URL(`${BASE_URL}/${path}`);
 	url.searchParams.set('lang', lang);
 
-	return await fetch(url).then((d) => d.json());
+	const res = await fetch(url);
+	return res;
 }

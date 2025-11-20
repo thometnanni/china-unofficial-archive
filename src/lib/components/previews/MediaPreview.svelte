@@ -1,11 +1,14 @@
 <script>
-	import HtmlPreview from '$lib/components/previews/HtmlPreview.svelte';
 	import PdfPreview from '$lib/components/previews/PdfPreview.svelte';
 	import VideoPreview from '$lib/components/previews/VideoPreview.svelte';
 	import { m } from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
+	import { page } from '$app/stores';
 
-	let { medias = [], item, initialIndex = 0 } = $props();
+	let { medias = [], initialIndex = 0 } = $props();
+
+	let item = $derived($page.data.item);
+
 	let selectedIndex = $state(initialIndex);
 	let lang = $derived(getLocale());
 
@@ -21,11 +24,7 @@
 	function isPdf(med) {
 		return (med?.type || '') === 'application/pdf';
 	}
-	function isHtml(med) {
-		if (typeof med !== 'object' || med === null) return false;
-		if (typeof med.html !== 'string') return false;
-		return med.html.trim().length > 0;
-	}
+
 	function isImage(med) {
 		const t = med?.type || '';
 		const s = String(med?.filename || med?.url || '');
@@ -44,14 +43,12 @@
 	let displayedMedias = $derived(nonImageMedias.length ? nonImageMedias : medias.filter(isImage));
 	let selected = $derived(displayedMedias?.[selectedIndex]);
 
-	let showHTML = isHtml(medias[0]) ? true : false;
-
 	$effect(() => {
 		if (selectedIndex >= displayedMedias.length) selectedIndex = 0;
 	});
 </script>
 
-<section class="m-2">
+<section class="m-auto max-w-[840px]">
 	{#if displayedMedias.length > 0}
 		<div class="flex flex-wrap items-center justify-between">
 			<div class="flex flex-wrap gap-2">
@@ -104,8 +101,5 @@
 		<div class="bg-black p-0.5">
 			<img src={item.thumbnail} alt={item.title || ''} class="w-full" />
 		</div>
-	{/if}
-	{#if showHTML}
-		<HtmlPreview media={medias[0]} />
 	{/if}
 </section>

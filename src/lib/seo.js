@@ -28,14 +28,8 @@ export function absolutize(u, base) {
 	}
 }
 export function deriveSeoFromItem(item, base) {
-	const title = item?.title || '';
-	const description = summarize(extractText(item?.description || ''), 180);
-	const firstImage =
-		(Array.isArray(item?.media)
-			? item.media.find((m) => (m?.type || '').startsWith('image/'))?.url
-			: null) ||
-		item?.thumbnail ||
-		null;
-	const image = absolutize(firstImage, base) || `${base}/cover.png`;
+	const title = item.title || 'China Unofficial Archives';
+	const description = summarize(extractText(item.description ?? ''), 180);
+	const image = absolutize(item.thumbnail, base) || `${base}/cover.png`;
 	return { title, description, image };
 }

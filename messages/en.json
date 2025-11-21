@@ -34,5 +34,7 @@
 	"featured": "Highlights from the Collection",
 	"new": "New in the Archive",
 	"nav_newsletter": "Newsletters",
-	"nav_contact": "Contact"
+	"nav_contact": "Contact",
+	"more_filters": "more filters",
+	"hide_filters": "hide filters"
 }

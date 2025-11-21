@@ -119,13 +119,15 @@
 	});
 
 	const categoryOrder = ['objectType', 'theme', 'era', 'year', 'creator'];
+	
 	const categoryLabels = {
 		objectType: () => m.type(),
 		theme: () => m.theme(),
 		era: () => m.era(),
-		year: () => 'Year',
-		creator: () => 'Creator'
+		year: () => m.year?.() ?? 'Year',
+		creator: () => m.creator?.() ?? 'Creator'
 	};
+	
 	let expandedFilters = $derived.by(() => {
 		if (!baseFilters) return [];
 		const groups = Object.entries(baseFilters).map(([type, values]) => ({

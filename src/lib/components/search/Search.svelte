@@ -61,15 +61,19 @@
 			)
 			.flat();
 	});
+	let searchTerm = $derived.by(() => (value ? String(value).toLowerCase().trim() : ''));
+
 	let filteredFilters = $derived.by(() => {
-		if (!value) return null;
+		if (!searchTerm) return null;
 		return Object.entries(baseFilters ?? {})
 			.map(([type, values]) =>
 				values
 					.filter((filter) => {
 						return (
 							(itemFilters == null || itemFilters[type]?.[filter.id ?? filter.value] != null) &&
-							new RegExp(value, 'i').test(filter.title ?? filter.value)
+							String(filter.title ?? filter.value ?? '')
+								.toLowerCase()
+								.includes(searchTerm)
 						);
 					})
 					.map((v) => withCounts(v, type))
@@ -127,11 +131,22 @@
 
 	let expandedFilters = $derived.by(() => {
 		if (!baseFilters) return [];
-		const groups = Object.entries(baseFilters).map(([type, values]) => ({
-			type,
-			label: categoryLabels[type]?.() ?? type,
-			filters: values.map((v) => withCounts(v, type))
-		}));
+		const groups = Object.entries(baseFilters).map(([type, values]) => {
+			const filters = values
+				.map((v) => withCounts(v, type))
+				.filter((f) =>
+					searchTerm
+						? String(f.title ?? f.value ?? f.label ?? '')
+								.toLowerCase()
+								.includes(searchTerm)
+						: true
+				);
+			return {
+				type,
+				label: categoryLabels[type]?.() ?? type,
+				filters
+			};
+		});
 		return categoryOrder
 			.map((type) => groups.find((g) => g.type === type))
 			.filter(Boolean)

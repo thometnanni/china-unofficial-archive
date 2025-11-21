@@ -131,9 +131,7 @@
 		const groups = Object.entries(baseFilters).map(([type, values]) => ({
 			type,
 			label: categoryLabels[type]?.() ?? type,
-			filters: values
-				.map((v) => withCounts(v, type))
-				.filter((f) => !(hasScope && f.availableCount === 0))
+			filters: values.map((v) => withCounts(v, type))
 		}));
 		return categoryOrder
 			.map((type) => groups.find((g) => g.type === type))
@@ -249,19 +247,26 @@
 		</form>
 	</div>
 	<div class="m-2">
-		<div class="flex flex-wrap gap-1 gap-y-1.5">
-			{#each suggestedFilters as filter (filter.id ?? filter.value ?? filter.title ?? filter.type)}
-				<button onclick={() => applyFilter(filter)} disabled={loading} aria-disabled={loading}>
-					<SearchTag item={filter}></SearchTag>
-				</button>
-			{/each}
-			<MoreFilters
-				bind:showAllFilters
-				{expandedFilters}
-				{loading}
-				hasScope={hasScope}
-				on:applyFilter={(e) => applyFilter(e.detail)}
-			/>
+		<div class="flex flex-wrap items-start gap-1 gap-y-1.5 w-full">
+			{#if !showAllFilters}
+				<div class="flex flex-wrap gap-1 gap-y-1.5 flex-1">
+					{#each suggestedFilters as filter (filter.id ?? filter.value ?? filter.title ?? filter.type)}
+						<button onclick={() => applyFilter(filter)} disabled={loading} aria-disabled={loading}>
+							<SearchTag item={filter}></SearchTag>
+						</button>
+					{/each}
+				</div>
+			{/if}
+			<div class={showAllFilters ? 'w-full' : 'ml-auto flex-none self-start'}>
+				<MoreFilters
+					bind:showAllFilters
+					{expandedFilters}
+					{loading}
+					hasScope={hasScope}
+					activeKeys={activeFilterKeys}
+					on:applyFilter={(e) => applyFilter(e.detail)}
+				/>
+			</div>
 		</div>
 	</div>
 </section>

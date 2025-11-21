@@ -4,6 +4,7 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages';
+	import Footer from '$lib/components/Footer.svelte';
 
 	let title = $derived(`${page.status} | ${page.error.message}`);
 </script>
@@ -18,3 +19,4 @@
 		</div>
 	{/snippet}
 </svelte:boundary>
+<Footer />

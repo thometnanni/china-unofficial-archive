@@ -1,7 +1,7 @@
 <script>
 	import Items from '$lib/components/Items.svelte';
 	import Item from '$lib/components/Item.svelte';
-import Search from '$lib/components/search/Search.svelte';
+	import Search from '$lib/components/search/Search.svelte';
 	import MediaPreview from '$lib/components/previews/MediaPreview.svelte';
 	import TypeFilter from '$lib/components/TypeFilter.svelte';
 	import { page } from '$app/stores';

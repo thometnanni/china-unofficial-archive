@@ -1,9 +1,9 @@
 <script>
-	import Featured from '$lib/components/Featured.svelte';
-	import MenuBar from '$lib/components/MenuBar.svelte';
-	import Splash from '$lib/components/Splash.svelte';
-	import Footer from '$lib/components/Footer.svelte';
 	import Meta from '$lib/components/Meta.svelte';
+	import MenuBar from '$lib/components/MenuBar.svelte';
+	import Hero from '$lib/components/Hero.svelte';
+	import Archive from '$lib/components/Archive.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 </script>
 
 <Meta
@@ -13,8 +13,6 @@
 />
 
 <MenuBar />
-<Splash />
-
-<Featured />
-
+<Hero />
+<Archive />
 <Footer />

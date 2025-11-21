@@ -30,14 +30,14 @@
 </script>
 
 <div
-	class={`hero-root pointer-events-none overflow-hidden border-b  border-[var(--color-card-primary)]`}
+	class={`hero-root pointer-events-none overflow-hidden`}
 	style={`--color-card-primary: var(--color-brand-purple); height:${height}`}
 >
 	<div class="hero-slides">
 		{#each images as src, i}
 			{#if i === index}
 				<div class="hero-slide" in:receive|local out:send|local>
-					<ImageFilter {src} {fit} {objectPosition} scrollReveal={false} />
+					<ImageFilter {src} {fit} {objectPosition} scrollReveal={false} fade />
 				</div>
 			{/if}
 		{/each}

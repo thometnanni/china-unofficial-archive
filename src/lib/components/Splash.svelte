@@ -40,7 +40,6 @@
 		position: relative;
 		width: 100vw;
 		overflow: hidden;
-		background-color: var(--color-brand-cover);
 	}
 
 	.textContainer {

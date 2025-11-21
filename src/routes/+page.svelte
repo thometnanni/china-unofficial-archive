@@ -15,6 +15,7 @@
 <MenuBar />
 <Splash />
 
-<Featured />
-
+<div class="relative z-200 mt-[-220px]">
+	<Featured />
+</div>
 <Footer />

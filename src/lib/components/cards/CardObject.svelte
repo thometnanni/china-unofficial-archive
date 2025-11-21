@@ -33,7 +33,7 @@
 		onhover-end={() => (hovering = false)}
 	>
 		<div
-			class={`${isPortrait ? 'col-[1/3] row-[1/4]' : 'col-[1/4] row-[1/3]'} border border-card-primary`}
+			class={`${isPortrait ? 'col-[1/3] row-[1/4]' : 'col-[1/4] row-[1/3]'} border border-card-primary bg-white`}
 		>
 			<div class="relative h-full p-1">
 				<ImageFilter

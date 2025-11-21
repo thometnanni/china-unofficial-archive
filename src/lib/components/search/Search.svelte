@@ -22,8 +22,7 @@
 	const withCounts = (filter, type) => {
 		const key = filter.id ?? filter.value;
 		const scoped = hasScope ? itemFilters?.[type]?.[key] : undefined;
-		const count =
-			hasScope && itemFilters != null ? scoped ?? 0 : filter.count ?? 0;
+		const count = hasScope && itemFilters != null ? (scoped ?? 0) : (filter.count ?? 0);
 		return { ...filter, type, availableCount: count, count };
 	};
 	let activeFilters = $derived.by(() => {
@@ -35,9 +34,7 @@
 			decodeURIComponent(searchParam)
 				.split(',')
 				.forEach((value) => {
-					const filter = (baseFilters?.[type] ?? []).find(
-						(f) => f.id == value || f.value == value
-					);
+					const filter = (baseFilters?.[type] ?? []).find((f) => f.id == value || f.value == value);
 					if (!filter) return;
 					const enriched = withCounts(filter, type);
 					const key = getFilterKey(enriched);
@@ -119,7 +116,7 @@
 	});
 
 	const categoryOrder = ['objectType', 'theme', 'era', 'year', 'creator'];
-	
+
 	const categoryLabels = {
 		objectType: () => m.type(),
 		theme: () => m.theme(),
@@ -127,7 +124,7 @@
 		year: () => m.year?.() ?? 'Year',
 		creator: () => m.creator?.() ?? 'Creator'
 	};
-	
+
 	let expandedFilters = $derived.by(() => {
 		if (!baseFilters) return [];
 		const groups = Object.entries(baseFilters).map(([type, values]) => ({
@@ -209,12 +206,13 @@
 				disabled={loading}
 				aria-disabled={loading}
 			>
-				<SearchTag item={filter} close></SearchTag>
+				<SearchTag showCount={false} item={filter} close></SearchTag>
 			</button>
 		{/each}
 		{#if activeSearch}
 			<button onclick={resetSearch} disabled={loading} aria-disabled={loading}>
-				<SearchTag item={{ title: activeSearch, type: 'search' }} close></SearchTag>
+				<SearchTag showCount={false} item={{ title: activeSearch, type: 'search' }} close
+				></SearchTag>
 			</button>
 		{/if}
 		<form onsubmit={submitSearch} class="flex flex-1">
@@ -249,9 +247,9 @@
 		</form>
 	</div>
 	<div class="m-2">
-		<div class="flex flex-wrap items-start gap-1 gap-y-1.5 w-full">
+		<div class="flex w-full flex-wrap items-start gap-1 gap-y-1.5">
 			{#if !showAllFilters}
-				<div class="flex flex-wrap gap-1 gap-y-1.5 flex-1">
+				<div class="flex flex-1 flex-wrap gap-1 gap-y-1.5">
 					{#each suggestedFilters as filter (filter.id ?? filter.value ?? filter.title ?? filter.type)}
 						<button onclick={() => applyFilter(filter)} disabled={loading} aria-disabled={loading}>
 							<SearchTag item={filter}></SearchTag>
@@ -264,7 +262,7 @@
 					bind:showAllFilters
 					{expandedFilters}
 					{loading}
-					hasScope={hasScope}
+					{hasScope}
 					activeKeys={activeFilterKeys}
 					on:applyFilter={(e) => applyFilter(e.detail)}
 				/>

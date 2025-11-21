@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	let { item, close, disabled = false, class: className = '' } = $props();
+	let { item, close, disabled = false, class: className = '', showCount = true } = $props();
 	let label = $derived.by(() => item?.label ?? item?.title ?? item?.value ?? '');
 	let count = $derived.by(() => item?.availableCount ?? item?.baseCount ?? item?.count);
 	let isDisabled = $derived.by(() => disabled && !close);
@@ -13,7 +13,7 @@
 </script>
 
 <button
-	class={`search-tag ${item.type ?? ''} ${className} inline-flex items-center gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-0.5 py-0.5 text-sm leading-tight enabled:hover:bg-black enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none`}
+	class={`search-tag ${item.type ?? ''} ${className} inline-flex items-center gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-0.5 py-0.5 text-sm leading-tight enabled:hover:bg-black enabled:hover:text-white disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40`}
 	data-id={item.id}
 	type="button"
 	disabled={isDisabled}
@@ -21,7 +21,7 @@
 	aria-disabled={isDisabled}
 >
 	<span class="label">{label}</span>
-	{#if count != null}
+	{#if showCount && count != null}
 		<span class="count text-xs opacity-80">({count})</span>
 	{/if}
 	{#if close}

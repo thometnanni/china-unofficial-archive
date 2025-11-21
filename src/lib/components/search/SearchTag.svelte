@@ -17,7 +17,7 @@
 	data-id={item.id}
 	type="button"
 	disabled={isDisabled}
-	on:click={handleClick}
+	onclick={handleClick}
 	aria-disabled={isDisabled}
 >
 	<span class="label">{label}</span>

@@ -276,10 +276,11 @@
 		position: relative;
 		overflow: hidden;
 	}
+
 	.progressLine {
 		position: absolute;
 		left: 0;
-		top: 0;
+		bottom: 0;
 		height: 2px;
 		width: 100%;
 		background: currentColor;
@@ -288,6 +289,7 @@
 		z-index: 20;
 		opacity: 0.9;
 	}
+
 	@keyframes progress {
 		0% {
 			transform: scaleX(0);

@@ -1,8 +1,9 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	let { item, close, disabled = false, class: className = '' } = $props();
-	const count = item?.availableCount ?? item?.count;
-	const isDisabled = disabled && !close;
+	let label = $derived.by(() => item?.label ?? item?.title ?? item?.value ?? '');
+	let count = $derived.by(() => item?.availableCount ?? item?.baseCount ?? item?.count);
+	let isDisabled = $derived.by(() => disabled && !close);
 	const dispatch = createEventDispatcher();
 
 	function handleClick(event) {
@@ -12,15 +13,16 @@
 </script>
 
 <button
-	class={`search-tag ${item.type} ${className} inline-flex items-center gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-2 py-0.5 text-sm hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-20`}
+	class={`search-tag ${item.type ?? ''} ${className} inline-flex items-center gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-0.5 py-0.5 text-sm leading-tight enabled:hover:bg-black enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none`}
 	data-id={item.id}
 	type="button"
 	disabled={isDisabled}
 	on:click={handleClick}
+	aria-disabled={isDisabled}
 >
-	<span class="label">{item.title ?? item.value}</span>
+	<span class="label">{label}</span>
 	{#if count != null}
-		<span class="count text-xs opacity-80">{count}</span>
+		<span class="count text-xs opacity-80">({count})</span>
 	{/if}
 	{#if close}
 		<span aria-hidden="true">×</span>
@@ -29,8 +31,6 @@
 
 <style>
 	.search-tag {
-		cursor: default;
-
 		--color-outlined-border: var(--color-type-default);
 		--color-outlined-bg: var(--color-type-default);
 	}

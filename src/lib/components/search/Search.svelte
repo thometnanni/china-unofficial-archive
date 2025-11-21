@@ -1,63 +1,81 @@
 <script>
-	import { query } from '$lib/api';
 	import { goto } from '$app/navigation';
 	import { page, navigating } from '$app/stores';
 	import { m } from '$lib/paraglide/messages.js';
 	let { value, itemFilters, baseFilters } = $props();
 	import SearchTag from './SearchTag.svelte';
-	import TextOutlined from './TextOutlined.svelte';
+	import MoreFilters from './MoreFilters.svelte';
 
 	let searchInput;
 	let pending = $state(false);
 	let navStart = $state(0);
 	let hideTimer;
+	let showAllFilters = $state(false);
+
+	const hasFilterParams = $derived.by(() =>
+		baseFilters ? Object.keys(baseFilters).some((type) => $page.url.searchParams.has(type)) : false
+	);
+	const hasSearchParam = $derived.by(() => !!$page.url.searchParams.get('search'));
+	const hasScope = $derived.by(() => hasFilterParams || hasSearchParam);
+
 	const getFilterKey = (filter) => `${filter.type}:${filter.id ?? filter.value}`;
+	const withCounts = (filter, type) => {
+		const key = filter.id ?? filter.value;
+		const scoped = hasScope ? itemFilters?.[type]?.[key] : undefined;
+		const count =
+			hasScope && itemFilters != null ? scoped ?? 0 : filter.count ?? 0;
+		return { ...filter, type, availableCount: count, count };
+	};
 	let activeFilters = $derived.by(() => {
-		const activeFilters = Object.entries(baseFilters)
-			.map(([type, typedFilters]) => {
-				const searchParam = $page.url.searchParams.get(type);
-				if (searchParam == null) return [];
-				const active = decodeURIComponent(searchParam)
-					.split(',')
-					.map((value) => {
-						const filter = baseFilters[type].find((f) => f.id == value || f.value == value);
-						if (filter == null) return [];
-						return { ...filter, type };
-					});
-				return active;
-			})
-			.flat();
-		return activeFilters;
+		const picked = [];
+		const seen = new Set();
+		Object.entries(baseFilters ?? {}).forEach(([type]) => {
+			const searchParam = $page.url.searchParams.get(type);
+			if (searchParam == null) return;
+			decodeURIComponent(searchParam)
+				.split(',')
+				.forEach((value) => {
+					const filter = (baseFilters?.[type] ?? []).find(
+						(f) => f.id == value || f.value == value
+					);
+					if (!filter) return;
+					const enriched = withCounts(filter, type);
+					const key = getFilterKey(enriched);
+					if (seen.has(key)) return;
+					seen.add(key);
+					picked.push(enriched);
+				});
+		});
+		return picked;
 	});
 	let activeFilterKeys = $derived.by(
 		() => new Set(activeFilters.map((filter) => getFilterKey(filter)))
 	);
 	let fallbackFilters = $derived.by(() => {
-		return Object.entries(baseFilters)
+		return Object.entries(baseFilters ?? {})
 			.map(([type, values]) =>
 				values
 					.filter((filter) => {
 						if (itemFilters == null) return true;
-						return itemFilters[type][filter.id ?? filter.value] != null;
+						return itemFilters[type]?.[filter.id ?? filter.value] != null;
 					})
-					// .slice(0, 3)
-					.map((v) => ({ ...v, type }))
+					.map((v) => withCounts(v, type))
 					.filter((filter) => !activeFilterKeys.has(getFilterKey(filter)))
 			)
 			.flat();
 	});
 	let filteredFilters = $derived.by(() => {
 		if (!value) return null;
-		return Object.entries(baseFilters)
+		return Object.entries(baseFilters ?? {})
 			.map(([type, values]) =>
 				values
 					.filter((filter) => {
 						return (
-							(itemFilters == null || itemFilters[type][filter.id ?? filter.value] != null) &&
+							(itemFilters == null || itemFilters[type]?.[filter.id ?? filter.value] != null) &&
 							new RegExp(value, 'i').test(filter.title ?? filter.value)
 						);
 					})
-					.map((v) => ({ ...v, type }))
+					.map((v) => withCounts(v, type))
 					.filter((filter) => !activeFilterKeys.has(getFilterKey(filter)))
 			)
 			.flat()
@@ -92,17 +110,36 @@
 	let othersLimited = $derived.by(() => {
 		if (filteredFilters) return [];
 		const pick = (t) =>
-			(baseFilters[t] ?? [])
-				.filter((f) => itemFilters == null || itemFilters[t][f.id ?? f.value] != null)
+			(baseFilters?.[t] ?? [])
+				.filter((f) => itemFilters == null || itemFilters[t]?.[f.id ?? f.value] != null)
 				.sort((a, b) => b.count - a.count)
 				.slice(0, 3)
-				.map((v) => ({ ...v, type: t }));
+				.map((v) => withCounts(v, t));
 		return [...pick('creator'), ...pick('year')];
 	});
 
-	// $effect(() => {
-	// 	console.log('suggestedFilters', suggestedFilters);
-	// });
+	const categoryOrder = ['objectType', 'theme', 'era', 'year', 'creator'];
+	const categoryLabels = {
+		objectType: () => m.type(),
+		theme: () => m.theme(),
+		era: () => m.era(),
+		year: () => 'Year',
+		creator: () => 'Creator'
+	};
+	let expandedFilters = $derived.by(() => {
+		if (!baseFilters) return [];
+		const groups = Object.entries(baseFilters).map(([type, values]) => ({
+			type,
+			label: categoryLabels[type]?.() ?? type,
+			filters: values
+				.map((v) => withCounts(v, type))
+				.filter((f) => !(hasScope && f.availableCount === 0))
+		}));
+		return categoryOrder
+			.map((type) => groups.find((g) => g.type === type))
+			.filter(Boolean)
+			.concat(groups.filter((g) => !categoryOrder.includes(g.type)));
+	});
 
 	let showLoader = $derived($navigating != null || pending);
 	$effect(() => {
@@ -213,12 +250,18 @@
 	</div>
 	<div class="m-2">
 		<div class="flex flex-wrap gap-1 gap-y-1.5">
-			{#each suggestedFilters as filter}
+			{#each suggestedFilters as filter (filter.id ?? filter.value ?? filter.title ?? filter.type)}
 				<button onclick={() => applyFilter(filter)} disabled={loading} aria-disabled={loading}>
 					<SearchTag item={filter}></SearchTag>
 				</button>
 			{/each}
-			<TextOutlined>more filters</TextOutlined>
+			<MoreFilters
+				bind:showAllFilters
+				{expandedFilters}
+				{loading}
+				hasScope={hasScope}
+				on:applyFilter={(e) => applyFilter(e.detail)}
+			/>
 		</div>
 	</div>
 </section>

@@ -16,7 +16,7 @@
 		baseFilters ? Object.keys(baseFilters).some((type) => $page.url.searchParams.has(type)) : false
 	);
 	const hasSearchParam = $derived.by(() => !!$page.url.searchParams.get('search'));
-	const hasScope = $derived.by(() => hasFilterParams || hasSearchParam);
+	const hasScope = $derived(itemFilters != null);
 
 	const getFilterKey = (filter) => `${filter.type}:${filter.id ?? filter.value}`;
 	const withCounts = (filter, type) => {

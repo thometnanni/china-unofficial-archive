@@ -1,7 +1,7 @@
 <script>
 	import Items from '$lib/components/Items.svelte';
 	import MenuBar from '$lib/components/MenuBar.svelte';
-	import Search from '$lib/components/Search.svelte';
+	import Search from '$lib/components/search/Search.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { m } from '$lib/paraglide/messages';
 	import { page } from '$app/stores';

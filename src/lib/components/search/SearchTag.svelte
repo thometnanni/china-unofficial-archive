@@ -13,7 +13,7 @@
 </script>
 
 <button
-	class={`search-tag ${item.type ?? ''} ${className} inline-flex items-center gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-0.5 py-0.5 text-sm leading-tight enabled:hover:bg-black enabled:hover:text-white disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40`}
+	class={`search-tag ${item.type ?? ''} ${className} inline-flex max-w-full items-start justify-start gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-0.5 py-0.5 text-left text-sm leading-tight break-words whitespace-normal enabled:hover:bg-black enabled:hover:text-white disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40`}
 	data-id={item.id}
 	type="button"
 	disabled={isDisabled}

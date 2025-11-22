@@ -2,10 +2,13 @@
 	import { goto } from '$app/navigation';
 	import { page, navigating } from '$app/stores';
 	import { m } from '$lib/paraglide/messages.js';
+	import { collators } from '$lib/collators.js';
+	import { getLocale } from '$lib/paraglide/runtime';
 	let { value, itemFilters, baseFilters } = $props();
 	import SearchTag from './SearchTag.svelte';
 	import MoreFilters from './MoreFilters.svelte';
 
+	const hiddenTypes = new Set(['creator']);
 	let searchInput;
 	let pending = $state(false);
 	let navStart = $state(0);
@@ -13,7 +16,11 @@
 	let showAllFilters = $state(false);
 
 	const hasFilterParams = $derived.by(() =>
-		baseFilters ? Object.keys(baseFilters).some((type) => $page.url.searchParams.has(type)) : false
+		baseFilters
+			? Object.keys(baseFilters)
+					.filter((type) => !hiddenTypes.has(type))
+					.some((type) => $page.url.searchParams.has(type))
+			: false
 	);
 	const hasSearchParam = $derived.by(() => !!$page.url.searchParams.get('search'));
 	const hasScope = $derived.by(() => hasFilterParams || hasSearchParam);
@@ -29,6 +36,7 @@
 		const picked = [];
 		const seen = new Set();
 		Object.entries(baseFilters ?? {}).forEach(([type]) => {
+			if (hiddenTypes.has(type)) return;
 			const searchParam = $page.url.searchParams.get(type);
 			if (searchParam == null) return;
 			decodeURIComponent(searchParam)
@@ -50,6 +58,7 @@
 	);
 	let fallbackFilters = $derived.by(() => {
 		return Object.entries(baseFilters ?? {})
+			.filter(([type]) => !hiddenTypes.has(type))
 			.map(([type, values]) =>
 				values
 					.filter((filter) => {
@@ -66,6 +75,7 @@
 	let filteredFilters = $derived.by(() => {
 		if (!searchTerm) return null;
 		return Object.entries(baseFilters ?? {})
+			.filter(([type]) => !hiddenTypes.has(type))
 			.map(([type, values]) =>
 				values
 					.filter((filter) => {
@@ -116,10 +126,10 @@
 				.sort((a, b) => b.count - a.count)
 				.slice(0, 3)
 				.map((v) => withCounts(v, t));
-		return [...pick('creator'), ...pick('year')];
+		return [...pick('year')];
 	});
 
-	const categoryOrder = ['objectType', 'theme', 'era', 'year', 'creator'];
+	const categoryOrder = ['objectType', 'theme', 'era', 'year'];
 
 	const categoryLabels = {
 		objectType: () => m.type(),
@@ -129,24 +139,45 @@
 		creator: () => m.creator?.() ?? 'Creator'
 	};
 
+	const sortByLabel = (mode) => (a, b) => {
+		const textA = a.title ?? a.label ?? a.value ?? '';
+		const textB = b.title ?? b.label ?? b.value ?? '';
+
+		const primary = mode === 'pinyin' ? collators.zhPinyin : collators.zhStroke;
+
+		const secondary = mode === 'pinyin' ? collators.zhStroke : collators.zhPinyin;
+
+		const first = primary.compare(textA, textB);
+		if (first !== 0) return first;
+
+		const second = secondary.compare(textA, textB);
+		if (second !== 0) return second;
+
+		return collators.en.compare(textA, textB);
+	};
+
 	let expandedFilters = $derived.by(() => {
 		if (!baseFilters) return [];
-		const groups = Object.entries(baseFilters).map(([type, values]) => {
-			const filters = values
-				.map((v) => withCounts(v, type))
-				.filter((f) =>
-					searchTerm
-						? String(f.title ?? f.value ?? f.label ?? '')
-								.toLowerCase()
-								.includes(searchTerm)
-						: true
-				);
-			return {
-				type,
-				label: categoryLabels[type]?.() ?? type,
-				filters
-			};
-		});
+		const groups = Object.entries(baseFilters)
+			.filter(([type]) => !hiddenTypes.has(type))
+			.map(([type, values]) => {
+				const filters = values
+					.map((v) => withCounts(v, type))
+					.filter((f) =>
+						searchTerm
+							? String(f.title ?? f.value ?? f.label ?? '')
+									.toLowerCase()
+									.includes(searchTerm)
+							: true
+					)
+					.slice()
+					.sort(sortByLabel('pinyin'));
+				return {
+					type,
+					label: categoryLabels[type]?.() ?? type,
+					filters
+				};
+			});
 		return categoryOrder
 			.map((type) => groups.find((g) => g.type === type))
 			.filter(Boolean)
@@ -264,9 +295,16 @@
 	<div class="m-2">
 		<div class="flex w-full flex-wrap items-start gap-1 gap-y-1.5">
 			{#if !showAllFilters}
-				<div class="flex flex-1 flex-wrap gap-1 gap-y-1.5">
+				<div
+					class="flex flex-1 items-center gap-1 overflow-x-auto pr-1 whitespace-nowrap md:flex-wrap md:overflow-visible md:whitespace-normal"
+				>
 					{#each suggestedFilters as filter (filter.id ?? filter.value ?? filter.title ?? filter.type)}
-						<button onclick={() => applyFilter(filter)} disabled={loading} aria-disabled={loading}>
+						<button
+							class="shrink-0 md:shrink"
+							onclick={() => applyFilter(filter)}
+							disabled={loading}
+							aria-disabled={loading}
+						>
 							<SearchTag item={filter}></SearchTag>
 						</button>
 					{/each}

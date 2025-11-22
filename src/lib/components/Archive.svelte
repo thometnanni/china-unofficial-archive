@@ -13,7 +13,7 @@
 	let items = $state(null);
 	let filters = $state(null);
 	let baseFilters = $state(null);
-	let nextPage = $state(1);
+	let nextPage = $state(2);
 	let hasNextPage = $state(false);
 	let awaitingNextPage = $state(false);
 
@@ -36,7 +36,9 @@
 		const item = await query(
 			`query/${id}${$page.url.search}${$page.url.search ? '&' : '?'}page=${nextPage}`
 		).then((d) => d.json());
-		items.push(...item.items);
+
+		const ids = items.map(({ id }) => id);
+		items.push(...item.items.filter(({ id }) => !ids.includes(id)));
 		hasNextPage = item.hasNextPage;
 		nextPage++;
 		awaitingNextPage = false;

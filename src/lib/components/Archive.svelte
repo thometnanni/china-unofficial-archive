@@ -6,22 +6,41 @@
 	import TypeFilter from '$lib/components/TypeFilter.svelte';
 	import { page } from '$app/stores';
 	import { query } from '$lib/api';
+	import IntersectionTrigger from './IntersectionTrigger.svelte';
 
 	let id = $derived($page.params.id ?? '');
 
 	let items = $state(null);
 	let filters = $state(null);
 	let baseFilters = $state(null);
+	let nextPage = $state(1);
+	let hasNextPage = $state(false);
+	let awaitingNextPage = $state(false);
 
 	$effect(async () => {
 		const item = await query(`query/${id}${$page.url.search}`).then((d) => d.json());
+		nextPage = 2;
 		items = item.items;
 		filters = item.filters;
+		hasNextPage = item.hasNextPage;
 	});
 
 	$effect(async () => {
 		baseFilters = await query(`filters`).then((d) => d.json());
 	});
+
+	async function loadNextPage() {
+		if (awaitingNextPage === true) return;
+
+		awaitingNextPage = true;
+		const item = await query(`query/${id}${$page.url.search}&page=${nextPage}`).then((d) =>
+			d.json()
+		);
+		items.push(...item.items);
+		hasNextPage = item.hasNextPage;
+		nextPage++;
+		awaitingNextPage = false;
+	}
 
 	let search = $state('');
 	// let typeView = $state($page.url.searchParams.get('view') || 'all');
@@ -60,4 +79,7 @@
 			<Items {items} />
 		</div>
 	</section>
+	{#if hasNextPage}
+		<IntersectionTrigger on:visible={loadNextPage} />
+	{/if}
 {/if}

@@ -1,37 +1,18 @@
 <script>
 	let { snippets = [], href = '#', searchTerm = '', dataType = '' } = $props();
 	const hasSnippets = $derived(Boolean(snippets?.length));
-	function escapeRegex(s) {
-		return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-	}
-	function escapeHtml(s) {
-		return String(s).replace(
-			/[&<>"']/g,
-			(m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]
-		);
-	}
-	function stripTags(s) {
-		return String(s)
-			.replace(/<[^>]*>/g, '')
-			.replace(/&lt;[^&]*?&gt;/g, '');
-	}
-	function highlightSnippet(s, q) {
-		const base = stripTags(s);
-		if (!q) return escapeHtml(base);
-		const t = Array.from(new Set(q.split(/\s+/).filter(Boolean)));
-		if (!t.length) return escapeHtml(base);
-		const re = new RegExp('(' + t.map(escapeRegex).join('|') + ')', 'gi');
-		return escapeHtml(base).replace(re, '<mark>$1</mark>');
-	}
 
-//   console.log(snippets)
+	function highlightSnippet({ term, snippet }) {
+		const regex = new RegExp(`(${term})`);
+		return snippet.replace(regex, '<mark>$1</mark>');
+	}
 </script>
 
 {#if hasSnippets}
-	<a {href} class="z-1000 bg-white snippets grid w-full min-w-0 gap-1" data-type={dataType}>
-		{#each snippets.slice(0, 2) as s}
+	<a {href} class="snippets z-1000 grid w-full min-w-0 gap-1 bg-white" data-type={dataType}>
+		{#each snippets as snippet}
 			<p class="line-clamp-4 text-xs leading-snug break-words opacity-80">
-				{@html highlightSnippet(s, searchTerm)}
+				{@html highlightSnippet(snippet)}
 			</p>
 		{/each}
 	</a>

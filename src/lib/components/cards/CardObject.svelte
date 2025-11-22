@@ -10,7 +10,6 @@
 	function onRatio(e) {
 		isPortrait = e.detail.isPortrait;
 	}
-	const hasSnippets = $derived(Boolean(item?.snippets?.length));
 	const objectType = $derived(item?.objectType?.[0]?.id || '');
 	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
 	const titleClass = $derived(

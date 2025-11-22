@@ -5,7 +5,6 @@
 	import Snippet from '$lib/components/cards/Snippet.svelte';
 	import { hoverable } from '$lib/actions/hoverable';
 	let { item, href } = $props();
-	const hasSnippets = $derived(Boolean(item?.snippets?.length));
 	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
 
 	let hovering = $state(false);

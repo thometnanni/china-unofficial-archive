@@ -60,7 +60,7 @@
 			<a href="/"><Logo height="60" /></a>
 		</div>
 
-		<a class="button hidden sm:block" href={localizeHref('/archive?view=all')}>
+		<a class="button hidden sm:block" href={localizeHref('/archive')}>
 			{m.nav_explore()}
 		</a>
 
@@ -107,7 +107,7 @@
 				aria-hidden="true"
 			></div>
 
-			<a class="button sm:hidden" href={localizeHref('/archive?view=all')} onclick={closeMenu}>
+			<a class="button sm:hidden" href={localizeHref('/archive')} onclick={closeMenu}>
 				{m.nav_explore()}
 			</a>
 

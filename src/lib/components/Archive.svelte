@@ -33,9 +33,9 @@
 		if (awaitingNextPage === true) return;
 
 		awaitingNextPage = true;
-		const item = await query(`query/${id}${$page.url.search}&page=${nextPage}`).then((d) =>
-			d.json()
-		);
+		const item = await query(
+			`query/${id}${$page.url.search}${$page.url.search ? '&' : '?'}page=${nextPage}`
+		).then((d) => d.json());
 		items.push(...item.items);
 		hasNextPage = item.hasNextPage;
 		nextPage++;

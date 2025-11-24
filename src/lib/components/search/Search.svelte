@@ -156,6 +156,8 @@
 		return collators.en.compare(textA, textB);
 	};
 
+	const sortByCountDesc = (a, b) => (b.count ?? 0) - (a.count ?? 0);
+
 	let expandedFilters = $derived.by(() => {
 		if (!baseFilters) return [];
 		const groups = Object.entries(baseFilters)
@@ -171,7 +173,7 @@
 							: true
 					)
 					.slice()
-					.sort(sortByLabel('pinyin'));
+					.sort(type === 'objectType' ? sortByCountDesc : sortByLabel('pinyin'));
 				return {
 					type,
 					label: categoryLabels[type]?.() ?? type,
@@ -226,6 +228,9 @@
 		const url = new URL($page.url);
 		url.searchParams.delete('search');
 		goto(url, { replaceState: true });
+	}
+	function toggleFilters() {
+		showAllFilters = !showAllFilters;
 	}
 	let activeSearch = $derived.by(() => {
 		const searchParam = $page.url.searchParams.get('search');
@@ -293,8 +298,19 @@
 		</form>
 	</div>
 	<div class="m-2">
-		<div class="flex w-full flex-wrap items-start gap-1">
-			{#if !showAllFilters}
+		<div class="grid w-full items-start gap-2 grid-cols-[1fr_auto]">
+			{#if showAllFilters}
+				<div class="flex-1 min-w-0">
+					<MoreFilters
+						{showAllFilters}
+						{expandedFilters}
+						{loading}
+						{hasScope}
+						activeKeys={activeFilterKeys}
+						on:applyFilter={(e) => applyFilter(e.detail)}
+					/>
+				</div>
+			{:else}
 				<div
 					class="flex flex-1 items-center gap-1 overflow-x-auto pr-1 whitespace-nowrap md:flex-wrap md:overflow-visible md:whitespace-normal"
 				>
@@ -310,15 +326,17 @@
 					{/each}
 				</div>
 			{/if}
-			<div class={showAllFilters ? 'w-full' : 'ml-auto flex-none self-end'}>
-				<MoreFilters
-					bind:showAllFilters
-					{expandedFilters}
-					{loading}
-					{hasScope}
-					activeKeys={activeFilterKeys}
-					on:applyFilter={(e) => applyFilter(e.detail)}
-				/>
+			<div class="flex-none self-start justify-self-end">
+				<button
+					class="inline-flex items-center rounded-none border px-0.5 text-sm text-black transition-colors enabled:hover:bg-black enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-20"
+					type="button"
+					onclick={toggleFilters}
+					aria-expanded={showAllFilters}
+					disabled={loading}
+					aria-disabled={loading}
+				>
+					<span>{showAllFilters ? m.hide_filters() : m.more_filters()}</span>
+				</button>
 			</div>
 		</div>
 	</div>

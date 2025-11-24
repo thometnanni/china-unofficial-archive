@@ -1,39 +1,22 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { m } from '$lib/paraglide/messages';
 	import SearchTag from './SearchTag.svelte';
 	let {
 		expandedFilters = [],
 		loading = false,
 		hasScope = false,
 		activeKeys = new Set(),
-		showAllFilters = $bindable(false)
+		showAllFilters = false
 	} = $props();
 	const dispatch = createEventDispatcher();
 
-	function toggle() {
-		showAllFilters = !showAllFilters;
-	}
 	function apply(filter) {
 		dispatch('applyFilter', filter);
 	}
 </script>
 
-<div class="flex w-full justify-end">
-	<button
-		class="inline-flex items-center rounded-none border px-0.5 text-sm text-black transition-colors enabled:hover:bg-black enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-20"
-		type="button"
-		on:click={toggle}
-		aria-expanded={showAllFilters}
-		disabled={loading}
-		aria-disabled={loading}
-	>
-		<span>{showAllFilters ? m.hide_filters() : m.more_filters()}</span>
-	</button>
-</div>
-
 {#if showAllFilters}
-	<div class="mt-2 flex flex-col gap-3 pt-2">
+	<div class="flex flex-col gap-3 pt-2">
 		{#each expandedFilters as category}
 			{#if category.filters.length}
 				<div class="flex flex-col gap-1">
@@ -54,7 +37,7 @@
 								}}
 								class="filter-pill"
 								disabled={isDisabled}
-								on:click={() => apply(filter)}
+								onclick={() => apply(filter)}
 							/>
 						{/each}
 					</div>

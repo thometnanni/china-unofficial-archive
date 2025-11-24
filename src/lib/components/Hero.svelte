@@ -30,7 +30,7 @@
 </script>
 
 <div
-	class={`hero-root pointer-events-none overflow-hidden`}
+	class={`hero-root pointer-events-none overflow-hidden z-[-1]`}
 	style={`--color-card-primary: var(--color-brand-purple); height:${height}`}
 >
 	<div class="hero-slides">

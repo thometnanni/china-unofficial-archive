@@ -2,7 +2,7 @@
 	let { media } = $props();
 </script>
 
-<article class="editorial m-auto mt-5 max-w-[840px] text-xl">
+<article class="editorial m-auto px-4 mt-5 max-w-[840px] p-3 mb-10 text-xl">
 	{@html media.replace(/<p>(?:&nbsp;|\s)*<\/p>/g, '') ?? ''}
 </article>
 
@@ -20,6 +20,6 @@
 		max-height: 500px;
 		object-fit: contain;
 		object-position: left;
-		margin-left: -5em;
+		/* margin-left: -5em; */
 	}
 </style>

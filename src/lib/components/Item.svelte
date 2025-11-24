@@ -18,14 +18,14 @@
 </script>
 
 {#if item}
-	<section class="m-auto flex max-w-[840px] flex-col gap-2 p-2" data-type={dataType}>
+	<section class="m-auto px-4 flex max-w-[840px] flex-col gap-2 p-2" data-type={dataType}>
 		{#if item.thumbnail && item.type == 'creator'}
 			<div class="{item.type} card z-10 ml-10 w-fit">
 				<img
 					src={item.thumbnail}
 					alt=""
 					crossorigin="anonymous"
-					class="object-fit mt-[-200px] block max-h-[200px] border-1"
+					class="object-fit mt-[-200px] block max-h-[200px] border-1 border-brand-purple"
 				/>
 
 				<!-- <ImageFilter
@@ -37,7 +37,7 @@
 			</div>
 		{/if}
 
-		<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] text-5xl lg:ml-[-2em]">
+		<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] text-3xl sm:text-5xl lg:ml-[-2em]">
 			<TextOutlined>{item.title}</TextOutlined>
 		</h2>
 
@@ -53,7 +53,7 @@
 		<div
 			class={`flex flex-wrap gap-2 ${
 				item.objectType?.length > 0 || item.theme?.length > 0 || item.era?.length > 0
-					? 'mb-20'
+					? 'mb-10'
 					: 'mb-2'
 			}`}
 		>
@@ -116,7 +116,7 @@
 <style>
 	.title {
 		/* --color-outlined-text: var(--color-card-primary); */
-		--color-outlined-border: black;
+		--color-outlined-border: var(--color-brand-purple);
 	}
 
 	.tag {

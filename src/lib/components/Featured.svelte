@@ -21,12 +21,24 @@
 </script>
 
 <section
-	class="items grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(auto-fit,minmax(var(--grid-cell-size),1fr))] gap-8 p-8"
+	class="items m-auto grid max-w-[1640px] grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(auto-fit,minmax(var(--grid-cell-size),1fr))] gap-8 p-8"
 >
+	{#each featuredItems as item, i}
+		{#if i == 0}
+			<h2
+				class="custom-outline pointer-events-none col-span-4 row-span-1 text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
+			>
+				<TextOutlined class="mb-1 ">{m.featured()}</TextOutlined>
+			</h2>
+		{/if}
+
+		<Card {item} {i} />
+	{/each}
+
 	{#each newItems as item, i}
 		{#if i == 0}
 			<h2
-				class="custom-outline col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
+				class="custom-outline col-span-4 row-span-1 text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
 			>
 				<a href={localizeHref('/archive/')} class="col-span-4 row-span-1">
 					<TextOutlined class="mb-1 ">{m.new()}</TextOutlined>
@@ -36,22 +48,10 @@
 		<Card {item} {i} />
 	{/each}
 
-	{#each featuredItems as item, i}
-		{#if i == 0}
-			<h2
-				class="custom-outline pointer-events-none col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
-			>
-				<TextOutlined class="mb-1 ">{m.featured()}</TextOutlined>
-			</h2>
-		{/if}
-
-		<Card {item} {i} />
-	{/each}
-
 	{#each newsletterItems as item, i}
 		{#if i == 0}
 			<h2
-				class="custom-outline col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
+				class="custom-outline col-span-4 row-span-1 text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
 			>
 				<a href={localizeHref('/archive?objectType=4185/')} class="col-span-4 row-span-1">
 					<TextOutlined class="mb-1 ">{m.nav_newsletter()}</TextOutlined>

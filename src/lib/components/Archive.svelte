@@ -68,7 +68,7 @@
 	});
 </script>
 
-{#if items?.length && baseFilters}
+{#if items && baseFilters}
 	<section class="max-w-[1640px] m-auto">
 		<div>
 			<div>

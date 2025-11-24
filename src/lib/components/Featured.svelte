@@ -5,9 +5,9 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { page } from '$app/stores';
 
-	let featuredItems = $derived($page.data.featured.slice(0, 5));
-	let newItems = $derived($page.data.newItems.slice(0, 5));
-	let newsletterItems = $derived($page.data.newsletters.slice(0, 5));
+	let featuredItems = $derived($page.data.featured?.slice(0, 5));
+	let newItems = $derived($page.data.newItems?.slice(0, 5));
+	let newsletterItems = $derived($page.data.newsletters?.slice(0, 5));
 </script>
 
 <section

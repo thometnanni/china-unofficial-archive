@@ -5,9 +5,19 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { page } from '$app/stores';
 
-	let featuredItems = $derived($page.data.featured);
-	let newItems = $derived($page.data.newItems);
-	let newsletterItems = $derived($page.data.newsletters);
+	const shuffleList = (list) => {
+		const copy = list.slice();
+		for (let i = copy.length - 1; i > 0; i -= 1) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[copy[i], copy[j]] = [copy[j], copy[i]];
+		}
+		return copy;
+	};
+
+	let slices = 5;
+	let featuredItems = $derived.by(() => shuffleList($page.data.featured ?? []).slice(0, slices));
+	let newItems = $derived.by(() => $page.data.newItems?.slice(0, slices) ?? []);
+	let newsletterItems = $derived.by(() => $page.data.newsletters?.slice(0, slices) ?? []);
 </script>
 
 <section

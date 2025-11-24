@@ -16,7 +16,7 @@
 	{#each featuredItems as item, i}
 		{#if i == 0}
 			<h2
-				class="custom-outline pointer-events-none col-span-4 row-span-1 text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
+				class="custom-outline pointer-events-none col-span-4 self-end text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
 			>
 				<TextOutlined class="mb-1 ">{m.featured()}</TextOutlined>
 			</h2>
@@ -28,9 +28,9 @@
 	{#each newItems as item, i}
 		{#if i == 0}
 			<h2
-				class="custom-outline col-span-4 row-span-1 text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
+				class="custom-outline col-span-4 self-end text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
 			>
-				<a href={localizeHref('/archive/')} class="col-span-4 row-span-1">
+				<a href={localizeHref('/archive/')} class="col-span-4">
 					<TextOutlined class="mb-1 ">{m.new()}</TextOutlined>
 				</a>
 			</h2>
@@ -41,9 +41,9 @@
 	{#each newsletterItems as item, i}
 		{#if i == 0}
 			<h2
-				class="custom-outline col-span-4 row-span-1 text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
+				class="custom-outline col-span-4 self-end text-xl sm:text-3xl leading-[var(--lh-tight)] font-medium"
 			>
-				<a href={localizeHref('/archive?objectType=4185/')} class="col-span-4 row-span-1">
+				<a href={localizeHref('/archive?objectType=4185/')} class="col-span-4">
 					<TextOutlined class="mb-1 ">{m.nav_newsletter()}</TextOutlined>
 				</a>
 			</h2>
@@ -52,7 +52,7 @@
 		<Card {item} {i} />
 	{/each}
 
-	<a href={localizeHref('/archive/')} class="col-span-4 row-span-1">
+	<a href={localizeHref('/archive/')} class="col-span-4">
 		<h2 class="custom-outline p-2 text-2xl leading-tight font-medium">
 			<TextOutlined class="mb-1 ">
 				{m.explore_archive()}

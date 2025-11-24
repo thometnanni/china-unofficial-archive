@@ -17,14 +17,19 @@
 			{#each lines as l, i}
 				{#if l === 'zh'}
 					<h2 class="line zhLine">
-						<TextOutlined
-							>唯一非营利性的 <span class="nowrap">中国独立思想档案库</span></TextOutlined
-						>
+						<!-- <TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined> -->
+						<TextOutlined>
+							中国民间档案馆是一个非营利性数据库，
+							致力于收集、保存和传播被审查、
+							被压制的中国民间历史
+						</TextOutlined>
 					</h2>
 				{:else}
 					<h2 class="line enLine">
-						<span class="enBg"><TextOutlined>{m.slogan(null, { locale: 'en' })}</TextOutlined></span
-						>
+						<TextOutlined>
+							A non-profit digital archive dedicated to collect, preserve and disseminate censored
+							and suppressed Chinese unofficial history
+						</TextOutlined>
 					</h2>
 				{/if}
 			{/each}
@@ -47,15 +52,15 @@
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
-		width: min(95vw, 1100px);
+		width: min(95vw, 1400px);
 		display: grid;
 		grid-template-columns: 1fr;
 		row-gap: 1.2rem;
-		text-indent: 2rem;
+		/* text-indent: 2rem; */
 	}
 
 	.line {
-		max-width: 640px;
+		/* max-width: 840px; */
 		font-size: 1.5rem;
 		line-height: 1.2;
 		color: #000;
@@ -71,6 +76,11 @@
 	}
 	.nowrap {
 		white-space: nowrap;
+	}
+	.line .text-outlined,
+	.line .text-outlined span {
+		white-space: pre;
+		word-break: keep-all;
 	}
 	.enBg {
 		background: #f3f4f6;

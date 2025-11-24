@@ -41,13 +41,13 @@ export function hoverable(node, { preventDefault = false } = {}) {
 		const target = document.elementFromPoint(touch.clientX, touch.clientY);
 		// if (!isChild(target)) return;
 		if (preventDefault) e.preventDefault();
-		node.dispatchEvent(new CustomEvent('hover:start', { detail: { source: target } }));
+		node.dispatchEvent(new CustomEvent('hover-start', { detail: { source: target } }));
 	};
 
 	const onTouchEnd = (e) => {
 		// Touchend may have no touches left – we just fire the end event.
 		if (preventDefault) e.preventDefault();
-		node.dispatchEvent(new CustomEvent('hover:end'));
+		node.dispatchEvent(new CustomEvent('hover-end'));
 	};
 
 	/** Attach listeners (using capture phase so we see the event before it bubbles out). */

@@ -18,7 +18,7 @@
 </script>
 
 {#if item}
-	<section class="m-auto px-4 flex max-w-[840px] flex-col gap-2 p-2" data-type={dataType}>
+	<section class="m-auto flex max-w-[840px] flex-col gap-2 p-2 px-4" data-type={dataType}>
 		{#if item.thumbnail && item.type == 'creator'}
 			<div class="{item.type} card z-10 ml-10 w-fit">
 				<img
@@ -42,7 +42,7 @@
 		</h2>
 
 		{#if item.titleAlt?.length > 0}
-			<h3 class="title mb-3 text-3xl">
+			<h3 class="title mb-3 text-2xl sm:text-2x">
 				<TextOutlined>{item.titleAlt}</TextOutlined>
 			</h3>
 		{/if}
@@ -51,9 +51,9 @@
 	</p> -->
 
 		<div
-			class={`flex flex-wrap gap-2 ${
+			class={`flex flex-wrap gap-2  ${
 				item.objectType?.length > 0 || item.theme?.length > 0 || item.era?.length > 0
-					? 'mb-10'
+					? 'mb-20'
 					: 'mb-2'
 			}`}
 		>

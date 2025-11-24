@@ -11,7 +11,6 @@
 	let search = $state('');
 	import Meta from '$lib/components/Meta.svelte';
 	import Hero from '$lib/components/Hero.svelte';
-	import Loading from '$lib/components/Loading.svelte';
 	import Details from '$lib/components/Details.svelte';
 
 	let { item, seo = {} } = $derived($page.data);

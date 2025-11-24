@@ -338,7 +338,7 @@
 					{loading}
 					{hasScope}
 					activeKeys={activeFilterKeys}
-					onapplyFilter={(e) => applyFilter(e.detail)}
+					on:applyFilter={(e) => applyFilter(e.detail)}
 				/>
 			</div>
 		{/if}

@@ -37,7 +37,7 @@
 								}}
 								class="filter-pill"
 								disabled={isDisabled}
-								onclick={() => apply(filter)}
+								on:click={() => apply(filter)}
 							/>
 						{/each}
 					</div>

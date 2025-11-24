@@ -16,9 +16,11 @@
 	{#each newItems as item, i}
 		{#if i == 0}
 			<h2
-				class="custom-outline pointer-events-none col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
+				class="custom-outline col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
 			>
-				<TextOutlined class="mb-1 ">{m.new()}</TextOutlined>
+				<a href={localizeHref('/archive/')} class="col-span-4 row-span-1">
+					<TextOutlined class="mb-1 ">{m.new()}</TextOutlined>
+				</a>
 			</h2>
 		{/if}
 		<Card {item} {i} />
@@ -39,9 +41,11 @@
 	{#each newsletterItems as item, i}
 		{#if i == 0}
 			<h2
-				class="custom-outline pointer-events-none col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
+				class="custom-outline col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
 			>
-				<TextOutlined class="mb-1 ">{m.nav_newsletter()}</TextOutlined>
+				<a href={localizeHref('/archive?objectType=4185/')} class="col-span-4 row-span-1">
+					<TextOutlined class="mb-1 ">{m.nav_newsletter()}</TextOutlined>
+				</a>
 			</h2>
 		{/if}
 

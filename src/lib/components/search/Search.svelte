@@ -238,7 +238,7 @@
 
 <section
 	id="search"
-	class="sticky top-0 z-2 border-b bg-white {loading && 'isLoading'}"
+	class="sticky top-0 z-2 border border-brand mx-10 bg-white {loading && 'isLoading'}"
 	aria-busy={$navigating != null}
 >
 	{#if showLoader}
@@ -286,14 +286,14 @@
 			<input
 				bind:this={searchInput}
 				type="text"
-				class="w-full border-transparent focus:ring-0 focus:ring-offset-0 focus:outline-none"
+				class="w-full p-1 border-transparent focus:ring-0 focus:ring-offset-0 focus:outline-none"
 				bind:value
 				placeholder={m.search_placeholder()}
 			/>
 		</form>
 	</div>
 	<div class="m-2">
-		<div class="flex w-full flex-wrap items-start gap-1 gap-y-1.5">
+		<div class="flex w-full flex-wrap items-start gap-1">
 			{#if !showAllFilters}
 				<div
 					class="flex flex-1 items-center gap-1 overflow-x-auto pr-1 whitespace-nowrap md:flex-wrap md:overflow-visible md:whitespace-normal"
@@ -310,7 +310,7 @@
 					{/each}
 				</div>
 			{/if}
-			<div class={showAllFilters ? 'w-full' : 'ml-auto flex-none self-start'}>
+			<div class={showAllFilters ? 'w-full' : 'ml-auto flex-none self-end'}>
 				<MoreFilters
 					bind:showAllFilters
 					{expandedFilters}

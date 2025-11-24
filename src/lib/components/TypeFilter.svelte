@@ -24,21 +24,34 @@
 	}
 </script>
 
-<div class="flex justify-end gap-2">
+<div class="m-2 flex justify-center gap-1">
 	<button
-		class="cursor-pointer px-2 py-1 text-sm {currentView === 'object'
-			? 'bg-black text-white'
-			: 'bg-gray-200 hover:bg-gray-300'}"
+		class="custom-outline {currentView === 'object' ? 'is-active' : ''}"
 		onclick={() => setView('object')}
 	>
 		{m.objects()}
 	</button>
 	<button
-		class="cursor-pointer px-2 py-1 text-sm {currentView === 'creator'
-			? 'bg-black text-white'
-			: 'bg-gray-200 hover:bg-gray-300'}"
+		class="custom-outline {currentView === 'creator' ? 'is-active' : ''}"
 		onclick={() => setView('creator')}
 	>
 		{m.creators()}
 	</button>
 </div>
+
+<style>
+	@reference "../../app.css";
+
+	button {
+		@apply cursor-pointer border border-brand bg-white px-1;
+
+		&.is-active,
+		&:hover {
+			@apply border-white bg-brand text-white;
+		}
+
+		&.is-active {
+			@apply cursor-default;
+		}
+	}
+</style>

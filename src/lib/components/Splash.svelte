@@ -10,8 +10,8 @@
 	let lines = $derived(lang === 'zh' ? ['zh', 'en'] : ['en', 'zh']);
 </script>
 
-<section class="tilesSection" style="height:85dvh;">
-	<Hero height={'85dvh'} />
+<section class="tilesSection" style="height:100dvh;">
+	<Hero height={'100dvh'} />
 	{#key lang}
 		<div class="textContainer">
 			{#each lines as l, i}

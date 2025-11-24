@@ -84,16 +84,16 @@
 			background: linear-gradient(
 				0deg,
 				black 0%,
-				gainsboro 25%,
+				white 25%,
 				black 50%,
-				gainsboro 75%,
+				white 75%,
 				black 100%
 			);
 			opacity: 0.2;
 			mix-blend-mode: screen;
 		}
 		.fade {
-			height: 200px;
+			height: 50%;
 			bottom: 0;
 			background: linear-gradient(180deg, black 0%, rgb(160, 160, 160) 100%);
 			opacity: 1;

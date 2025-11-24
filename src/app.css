@@ -38,14 +38,14 @@
 	--color-type-default: gainsboro;
 
 	--color-type-creator: #7d8fa8;
-	--color-type-default: #9ca4c0;
-	--color-type-object: #bdb1bf;
+	--color-type-default: #c9d2df;
+	--color-type-object: #7d8fa8;
 
-	--color-type-object-book: #6cbf9c;
-	--color-type-object-video: #e6a782;
-	--color-type-object-periodical: #5aafef;
-	--color-type-object-newsletter: #c3a85e;
-	--color-type-object-article: #b07ab0;
+	--color-type-object-book: #52969a;
+	--color-type-object-video: #ac5b78;
+	--color-type-object-periodical: #3781a8;
+	--color-type-object-newsletter: #c0a14d;
+	--color-type-object-article: #6c8f5d;
 
 	--color-type-object-official: var(--color-type-object);
 	--color-type-object-other: var(--color-type-object);
@@ -55,11 +55,15 @@
 	--color-card-secondary: var(--color-brand-black);
 
 	--breakpoint-xs: 20rem;
+	--grid-cell-size: 80px;
 }
 
 html,
 body {
 	overscroll-behavior-y: none;
+	/* -webkit-font-smoothing: none; */
+	text-rendering: optimizeSpeed;
+	-webkit-font-smoothing: antialiased;
 }
 
 :root {

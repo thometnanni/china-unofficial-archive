@@ -14,7 +14,7 @@
 	class="items grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(auto-fit,minmax(var(--grid-cell-size),1fr))] gap-8 p-8"
 >
 	{#each newItems as item, i}
-		{#if i == 1}
+		{#if i == 0}
 			<h2
 				class="custom-outline pointer-events-none col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
 			>
@@ -25,7 +25,7 @@
 	{/each}
 
 	{#each featuredItems as item, i}
-		{#if i == 1}
+		{#if i == 0}
 			<h2
 				class="custom-outline pointer-events-none col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
 			>
@@ -37,7 +37,7 @@
 	{/each}
 
 	{#each newsletterItems as item, i}
-		{#if i == 1}
+		{#if i == 0}
 			<h2
 				class="custom-outline pointer-events-none col-span-4 row-span-1 text-2xl leading-[var(--lh-tight)] font-medium"
 			>
@@ -60,16 +60,12 @@
 <style>
 	.custom-outline {
 		cursor: pointer;
-		--color-outlined-border: var(--color-black);
+		--color-outlined-border: var(--color-brand-purple);
 		--color-outlined-bg: var(--color-white);
 
 		&:hover {
-			--color-outlined-bg: var(--color-black);
+			--color-outlined-bg: var(--color-brand-purple);
 			--color-outlined-text: var(--color-white);
 		}
-	}
-
-	.items {
-		--grid-cell-size: 60px;
 	}
 </style>

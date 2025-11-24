@@ -33,7 +33,7 @@
 </div>
 
 {#if showAllFilters}
-	<div class="mt-2 flex flex-col gap-3 border-t border-black pt-2">
+	<div class="mt-2 flex flex-col gap-3 pt-2">
 		{#each expandedFilters as category}
 			{#if category.filters.length}
 				<div class="flex flex-col gap-1">

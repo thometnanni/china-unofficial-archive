@@ -8,7 +8,8 @@
 		fit = 'contain',
 		objectPosition = 'center center',
 		disabled = false,
-		fade = false
+		fade = false,
+		background
 	} = $props();
 
 	const dispatch = createEventDispatcher();
@@ -24,6 +25,7 @@
 <div
 	class="image-filter relative block h-full w-full overflow-hidden bg-card-primary"
 	class:originalActive={disabled}
+	style={background != null && `background-image:${background}`}
 >
 	<div class="container h-full">
 		<div class="filters">
@@ -81,14 +83,7 @@
 			mix-blend-mode: color-dodge;
 		}
 		.waves {
-			background: linear-gradient(
-				0deg,
-				black 0%,
-				white 25%,
-				black 50%,
-				white 75%,
-				black 100%
-			);
+			background: linear-gradient(0deg, black 0%, white 25%, black 50%, white 75%, black 100%);
 			opacity: 0.2;
 			mix-blend-mode: screen;
 		}

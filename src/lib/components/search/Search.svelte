@@ -243,7 +243,7 @@
 
 <section
 	id="search"
-	class="sticky top-0 z-2 border border-brand mx-10 bg-white {loading && 'isLoading'}"
+	class="sticky top-0 z-2 border border-brand mx-2 md:mx-10 bg-white {loading && 'isLoading'}"
 	aria-busy={$navigating != null}
 >
 	{#if showLoader}
@@ -298,34 +298,25 @@
 		</form>
 	</div>
 	<div class="m-2">
-		<div class="grid w-full items-start gap-2 grid-cols-[1fr_auto]">
-			{#if showAllFilters}
-				<div class="flex-1 min-w-0">
-					<MoreFilters
-						{showAllFilters}
-						{expandedFilters}
-						{loading}
-						{hasScope}
-						activeKeys={activeFilterKeys}
-						on:applyFilter={(e) => applyFilter(e.detail)}
-					/>
-				</div>
-			{:else}
-				<div
-					class="flex flex-1 items-center gap-1 overflow-x-auto pr-1 whitespace-nowrap md:flex-wrap md:overflow-visible md:whitespace-normal"
-				>
-					{#each suggestedFilters as filter (filter.id ?? filter.value ?? filter.title ?? filter.type)}
-						<button
-							class="shrink-0 md:shrink"
-							onclick={() => applyFilter(filter)}
-							disabled={loading}
-							aria-disabled={loading}
-						>
-							<SearchTag item={filter}></SearchTag>
-						</button>
-					{/each}
-				</div>
-			{/if}
+		<div class="flex w-full items-start gap-2 flex-wrap">
+			<div class="flex-1 min-w-0">
+				{#if !showAllFilters}
+					<div
+						class="flex items-center gap-1 overflow-x-auto pr-1 whitespace-nowrap md:flex-wrap md:overflow-visible md:whitespace-normal"
+					>
+						{#each suggestedFilters as filter (filter.id ?? filter.value ?? filter.title ?? filter.type)}
+							<button
+								class="shrink-0 md:shrink"
+								onclick={() => applyFilter(filter)}
+								disabled={loading}
+								aria-disabled={loading}
+							>
+								<SearchTag item={filter}></SearchTag>
+							</button>
+						{/each}
+					</div>
+				{/if}
+			</div>
 			<div class="flex-none self-start justify-self-end">
 				<button
 					class="inline-flex items-center rounded-none border px-0.5 text-sm text-black transition-colors enabled:hover:bg-black enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-20"
@@ -339,6 +330,18 @@
 				</button>
 			</div>
 		</div>
+		{#if showAllFilters}
+			<div class="mt-2">
+				<MoreFilters
+					{showAllFilters}
+					{expandedFilters}
+					{loading}
+					{hasScope}
+					activeKeys={activeFilterKeys}
+					onapplyFilter={(e) => applyFilter(e.detail)}
+				/>
+			</div>
+		{/if}
 	</div>
 </section>
 

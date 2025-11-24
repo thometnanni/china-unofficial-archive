@@ -11,9 +11,9 @@
 	<title>{title}</title>
 </svelte:head>
 
-<main class="m-auto min-h-screen max-w-[1640px] bg-white">
+<main class="m-auto min-h-screen max-w-[1640px]">
 	<section class="mx-auto prose px-10 py-8">
-		<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] text-3xl sm:text-5xl lg:ml-[-2em]">
+		<h2 class="title z-10 mb-5 ml-[0] text-3xl sm:text-5xl lg:ml-[-2em]">
 			<TextOutlined>{title}</TextOutlined>
 		</h2>
 

@@ -25,7 +25,7 @@
 					src={item.thumbnail}
 					alt=""
 					crossorigin="anonymous"
-					class="object-fit mt-[-200px] block max-h-[200px] border-1 border-brand-purple"
+					class="object-fit mt-[-100px] block max-h-[200px] border-1 border-brand-purple"
 				/>
 
 				<!-- <ImageFilter

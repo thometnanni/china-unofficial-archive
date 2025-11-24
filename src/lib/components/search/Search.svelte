@@ -243,7 +243,7 @@
 
 <section
 	id="search"
-	class="sticky mt-[-100px] top-0 z-2 border border-brand mx-2 md:mx-10 bg-white {loading && 'isLoading'}"
+	class="sticky top-0 z-2 border border-brand mx-2 md:mx-10 bg-white {loading && 'isLoading'}"
 	aria-busy={$navigating != null}
 >
 	{#if showLoader}

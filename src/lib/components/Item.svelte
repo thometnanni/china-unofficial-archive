@@ -42,7 +42,7 @@
 		</h2>
 
 		{#if item.titleAlt?.length > 0}
-			<h3 class="title mb-3 text-2xl sm:text-2x">
+			<h3 class="title sm:text-2x mb-3 text-2xl">
 				<TextOutlined>{item.titleAlt}</TextOutlined>
 			</h3>
 		{/if}
@@ -70,7 +70,7 @@
 			{#each item.objectType as objectType}
 				{#if objectType.title}
 					<a
-						class="{item.type} type tag box-decoration-clone text-black"
+						class="{item.type} type tag box-decoration-clone text-white"
 						href={localizeHref(`/archive/?objectType=${objectType.id}`)}
 					>
 						<TextOutlined>
@@ -125,11 +125,13 @@
 	}
 
 	.type {
+		--color-outlined-text: var(--color-white);
 		--color-outlined-border: var(--color-card-primary);
 		--color-outlined-bg: var(--color-card-primary);
 	}
 
 	.creatorTag {
+		--color-outlined-text: var(--color-white);
 		--color-outlined-border: var(--color-type-creator);
 		--color-outlined-bg: var(--color-type-creator);
 	}

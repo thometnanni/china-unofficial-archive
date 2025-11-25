@@ -8,7 +8,8 @@
 		fit = 'contain',
 		objectPosition = 'center center',
 		disabled = false,
-		fade = false
+		fade = false,
+		hide = false
 	} = $props();
 
 	const dispatch = createEventDispatcher();
@@ -25,36 +26,50 @@
 	class="image-filter relative block h-full w-full overflow-hidden bg-card-primary"
 	class:originalActive={disabled}
 >
-	<div class="container h-full">
-		<div class="filters">
-			<div class="noise" style="background-image:url({noise})"></div>
-			<div class="waves"></div>
-			{#if fade}
-				<div class="fade"></div>
+	{#if hide == false}
+		<div class="container h-full">
+			<div class="filters">
+				<div class="noise" style="background-image:url({noise})"></div>
+				<div class="waves"></div>
+				{#if fade}
+					<div class="fade"></div>
+				{/if}
+			</div>
+			{#if src}
+				<img
+					{src}
+					{alt}
+					onload={onImgLoad}
+					style={`object-fit:${fit}; object-position:${objectPosition}`}
+					class="edited"
+				/>
 			{/if}
 		</div>
-		{#if src}
+
+		{#if src && disabled}
 			<img
 				{src}
 				{alt}
-				onload={onImgLoad}
 				style={`object-fit:${fit}; object-position:${objectPosition}`}
-				class="edited"
+				class="original pointer-events-none absolute inset-0 h-full w-full"
 			/>
 		{/if}
-	</div>
-
-	{#if src && disabled}
+	{:else}
 		<img
 			{src}
 			{alt}
+			onload={onImgLoad}
 			style={`object-fit:${fit}; object-position:${objectPosition}`}
-			class="original pointer-events-none absolute inset-0 h-full w-full"
+			class="edited"
 		/>
 	{/if}
 </div>
 
 <style>
+	img {
+		width: 100%;
+		height: 100%;
+	}
 	/* .image-filter.originalActive .filters {
 		opacity: 0;
 	} */
@@ -81,15 +96,8 @@
 			mix-blend-mode: color-dodge;
 		}
 		.waves {
-			background: linear-gradient(
-				0deg,
-				black 0%,
-				white 25%,
-				black 50%,
-				white 75%,
-				black 100%
-			);
-			opacity: 0.2;
+			background: linear-gradient(0deg, black 0%, white 25%, black 50%, white 75%, black 100%);
+			opacity: 0.1;
 			mix-blend-mode: screen;
 		}
 		.fade {

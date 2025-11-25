@@ -43,6 +43,7 @@
 					fit="cover"
 					objectPosition="center center"
 					disabled={hovering}
+					hide={true}
 				/>
 				{#if item.objectType}
 					<div class="absolute top-1 left-[calc(var(--spacing)_*_-4)] text-balance">

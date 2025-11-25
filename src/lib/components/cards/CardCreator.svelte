@@ -29,6 +29,7 @@
 				fit="cover"
 				objectPosition="center 35%"
 				disabled={hovering}
+				hide={true}
 			/>
 			<TextOutlined
 				as="h3"

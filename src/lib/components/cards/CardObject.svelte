@@ -86,8 +86,8 @@
 		--color-card-primary: var(--color-type-object-video);
 	}
 	.card.hovering {
-		--color-outlined-border: var(--color-card-primary);
-		/* --color-outlined-bg: var(--color-card-primary); */
-		--color-outlined-text: var(--color-card-primary);
+		--color-outlined-border: var(--color-white);
+		--color-outlined-bg: var(--color-card-primary);
+		--color-outlined-text: var(--color-white);
 	}
 </style>

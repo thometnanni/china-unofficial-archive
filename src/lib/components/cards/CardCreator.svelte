@@ -17,10 +17,12 @@
 
 		const gradient = Object.entries(item.objectTypes)
 			.map(([objectType, items]) => {
-				const a = `${getColor(objectType)} ${progress * 100}%`;
-				progress += items / totalItems;
+				const offset = items / totalItems;
+				const a = `${getColor(objectType)} ${(progress + offset / 2) * 100}%`;
+				progress += offset;
 				const b = `${getColor(objectType)} ${progress * 100}%`;
-				return [a, b];
+				// return [a, b];
+				return [a];
 			})
 			.flat()
 			.join(', ');

@@ -17,8 +17,10 @@
 			{#each lines as l, i}
 				{#if l === 'zh'}
 					<h2 class="line zhLine">
-						<TextOutlined
+						<!-- <TextOutlined
 							>唯一非营利性的 <span class="nowrap">中国独立思想档案库</span></TextOutlined
+						> -->
+						<span><TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined></span
 						>
 					</h2>
 				{:else}
@@ -51,7 +53,7 @@
 		display: grid;
 		grid-template-columns: 1fr;
 		row-gap: 1.2rem;
-		text-indent: 2rem;
+		/* text-indent: 2rem; */
 	}
 
 	.line {

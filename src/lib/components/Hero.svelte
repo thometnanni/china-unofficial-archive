@@ -10,13 +10,14 @@
 		intervalMs = 5000,
 		height = '350px;',
 		fit = 'cover',
-		objectPosition = '10% left'
+		objectPosition = 'center 40%'
 	} = $props();
 
 	let index = $state(0);
 	let timer = null;
 
-	let images = $derived($page.data.heroes ?? ['/hero.jpg']);
+	const isCreator = $derived($page.data?.item?.type === 'creator');
+	let images = $derived(isCreator ? ['/hero.jpg'] : ($page.data.heroes ?? ['/hero.jpg']));
 
 	const [send, receive] = crossfade({
 		duration: fadeMs,
@@ -30,7 +31,7 @@
 </script>
 
 <div
-	class={`hero-root pointer-events-none overflow-hidden z-[-1] mb-[-100px]`}
+	class={`hero-root pointer-events-none z-[-1] mb-[-100px] overflow-hidden`}
 	style={`--color-card-primary: var(--color-brand-purple); height:${height}`}
 >
 	<div class="hero-slides">

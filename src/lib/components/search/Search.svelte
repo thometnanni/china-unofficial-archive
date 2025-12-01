@@ -30,7 +30,7 @@
 		const key = filter.id ?? filter.value;
 		const scoped = hasScope ? itemFilters?.[type]?.[key] : undefined;
 		const count = hasScope && itemFilters != null ? (scoped ?? 0) : (filter.count ?? 0);
-		return { ...filter, type, availableCount: count, count };
+		return { ...filter, type, count };
 	};
 	let activeFilters = $derived.by(() => {
 		const picked = [];
@@ -106,7 +106,7 @@
 		};
 		if (filteredFilters) return base.sort(sortFn);
 
-		const allObjectType = base.filter((f) => f.type === 'objectType');
+		const allObjectType = base.filter((f) => f.type === 'objectType' && f.count > 0);
 		const others = base
 			.filter((f) => f.type !== 'objectType')
 			.reduce((acc, f) => {
@@ -164,6 +164,9 @@
 			.filter(([type]) => !hiddenTypes.has(type))
 			.map(([type, values]) => {
 				const filters = values
+					.filter((f) => {
+						return f.count != 0 || itemFilters?.[type]?.[f.id];
+					})
 					.map((v) => withCounts(v, type))
 					.filter((f) =>
 						searchTerm
@@ -243,7 +246,7 @@
 
 <section
 	id="search"
-	class="sticky top-0 z-2 border border-brand mx-2 md:mx-10 bg-white {loading && 'isLoading'}"
+	class="sticky top-0 z-2 mx-2 border border-brand bg-white md:mx-10 {loading && 'isLoading'}"
 	aria-busy={$navigating != null}
 >
 	{#if showLoader}
@@ -291,15 +294,15 @@
 			<input
 				bind:this={searchInput}
 				type="text"
-				class="w-full p-1 border-transparent focus:ring-0 focus:ring-offset-0 focus:outline-none"
+				class="w-full border-transparent p-1 focus:ring-0 focus:ring-offset-0 focus:outline-none"
 				bind:value
 				placeholder={m.search_placeholder()}
 			/>
 		</form>
 	</div>
 	<div class="m-2">
-		<div class="flex w-full items-start gap-2 flex-wrap">
-			<div class="flex-1 min-w-0">
+		<div class="flex w-full flex-wrap items-start gap-2">
+			<div class="min-w-0 flex-1">
 				{#if !showAllFilters}
 					<div
 						class="flex items-center gap-1 overflow-x-auto pr-1 whitespace-nowrap md:flex-wrap md:overflow-visible md:whitespace-normal"

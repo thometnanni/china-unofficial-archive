@@ -66,14 +66,25 @@
 		const itemType = $page.url.searchParams.get('view') === 'creator' ? 'creator' : 'object';
 		return items.filter(({ type }) => itemType === type);
 	});
+
+	let typeCounts = $derived.by(() =>
+		items.reduce(
+			(acc, { type }) => {
+				if (type === 'creator') acc.creators++;
+				if (type === 'object') acc.objects++;
+				return acc;
+			},
+			{ objects: 0, creators: 0 }
+		)
+	);
 </script>
 
 {#if items && baseFilters}
-	<section class="max-w-[1640px] m-auto">
+	<section class="m-auto max-w-[1640px]">
 		<div>
 			<div>
 				<Search bind:value={search} itemFilters={filters} {baseFilters} />
-				<TypeFilter />
+				<TypeFilter objectCount={typeCounts.objects} creatorCount={typeCounts.creators} />
 			</div>
 			<Items items={displayItems} />
 		</div>

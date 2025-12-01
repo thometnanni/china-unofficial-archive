@@ -7,15 +7,15 @@
 	let { items = [] } = $props();
 </script>
 
-<div class="w-full text-black">
+<h2 class="custom-outline mb-8 text-xl leading-[var(--lh-tight)] font-medium sm:text-4xl">
+	<a href={localizeHref('/archive?objectType=4185/')} class="bg-white">
+		<button class="">{m.nav_newsletter()}</button>
+	</a>
+</h2>
+<div class="w-full border border-type-object-newsletter bg-type-object-newsletter/10 text-black">
 	<section>
-		<h2 class="custom-outline mb-4 text-xl leading-[var(--lh-tight)] font-medium sm:text-4xl">
-			<a href={localizeHref('/archive?objectType=4185/')}>
-				<TextOutlined class="mb-1 ">{m.nav_newsletter()}</TextOutlined>
-			</a>
-		</h2>
 		<!-- <div class="px-2 py-1 text-2xl">{m.nav_newsletter()}</div> -->
-		<div class="grid gap-3">
+		<div class="grid gap-1">
 			{#each items.slice(0, 7) as item}
 				<CardNewsletter {item} />
 			{/each}
@@ -23,9 +23,9 @@
 
 		<a
 			href="https://chinaunofficialarchives.substack.com/"
-			class="block mt-2 w-full text-center text-xl underline "
+			class="mt-2 block w-full pb-2 text-center text-xl underline"
 		>
-			<button>{m.all()}</button>
+			<button class="bg-white">{m.all()}</button>
 		</a>
 	</section>
 </div>
@@ -33,19 +33,8 @@
 <style>
 	@reference "../../app.css";
 
-	.custom-outline {
-		cursor: pointer;
-		--color-outlined-border: var(--color-type-object-newsletter);
-		--color-outlined-bg: var(--color-white);
-
-		&:hover {
-			--color-outlined-bg: var(--color-type-object-newsletter);
-			--color-outlined-text: var(--color-white);
-		}
-	}
-
 	button {
-		@apply cursor-pointer border border-type-object-newsletter bg-white px-1;
+		@apply cursor-pointer border border-type-object-newsletter px-1;
 
 		&.is-active,
 		&:hover {

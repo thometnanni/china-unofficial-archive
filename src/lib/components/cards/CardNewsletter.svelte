@@ -13,15 +13,12 @@
 	});
 </script>
 
-<a
-	href={item.url}
-	class="newsletter-card group relative block overflow-hidden border border-card-primary transition-colors hover:text-white"
->
+<a href={item.url} class="newsletter-card group relative block overflow-hidden">
 	<!-- <div class="absolute top">
 		<ImageFilter />
 	</div> -->
 
-	<div class="relative z-10 flex flex-col gap-2 p-3">
+	<div class="relative z-10 flex flex-col gap-2 px-3 py-3">
 		{#if dateLabel}
 			<TextOutlined as="p" class="text-xs tracking-wide uppercase">{dateLabel}</TextOutlined>
 		{/if}
@@ -40,10 +37,11 @@
 	.newsletter-card {
 		--color-card-primary: var(--color-type-object-newsletter);
 		border-color: var(--color-card-primary);
-		background: white;
 
 		&:hover {
-			background-color: var(--color-card-primary);
+			--color-outlined-border: var(--color-card-primary);
+			--color-outlined-bg: var(--color-card-primary);
+			--color-outlined-text: var(--color-white);
 		}
 	}
 </style>

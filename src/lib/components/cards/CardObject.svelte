@@ -76,7 +76,8 @@
 	.card[data-object-type='4187'] {
 		--color-card-primary: var(--color-type-object-article);
 	}
-	.card[data-object-type='4184'] {
+	.card[data-object-type='4184'],
+	.card[data-object-type='4561'] {
 		--color-card-primary: var(--color-type-object-periodical);
 	}
 	.card[data-object-type='4185'] {

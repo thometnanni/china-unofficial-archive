@@ -59,7 +59,8 @@
 		--color-outlined-border: var(--color-type-object-article);
 		--color-outlined-bg: var(--color-type-object-article);
 	}
-	.search-tag[data-id='4184'] {
+	.search-tag[data-id='4184'],
+	.search-tag[data-id='4561'] {
 		--color-outlined-border: var(--color-type-object-periodical);
 		--color-outlined-bg: var(--color-type-object-periodical);
 	}

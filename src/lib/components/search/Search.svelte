@@ -210,7 +210,7 @@
 		else filterSet.add(newParam);
 		if (filterSet.size > 0) url.searchParams.set(filter.type, Array.from(filterSet).join(','));
 		else url.searchParams.delete(filter.type);
-		goto(url, { replaceState: true });
+		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
 		setTimeout(() => {
 			searchInput?.focus();
 		}, 0);
@@ -221,13 +221,13 @@
 		const url = new URL($page.url);
 		if (value) url.searchParams.set('search', value);
 		else url.searchParams.delete('search');
-		goto(url, { replaceState: true });
+		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
 	}
 	function resetSearch() {
 		startNav();
 		const url = new URL($page.url);
 		url.searchParams.delete('search');
-		goto(url, { replaceState: true });
+		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
 	}
 	function toggleFilters() {
 		showAllFilters = !showAllFilters;

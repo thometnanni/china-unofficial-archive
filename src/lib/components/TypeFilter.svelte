@@ -20,7 +20,11 @@
 	function setView(view) {
 		const url = new URL($page.url);
 		url.searchParams.set('view', view);
-		goto(url, { replaceState: true });
+		goto(url, {
+			replaceState: true,
+			noScroll: true,
+			keepFocus: true
+		});
 	}
 </script>
 

@@ -23,18 +23,15 @@
 	let file = $derived(!isYoutube && isVideoFile ? raw : media?.url);
 </script>
 
-<section class="m-2 h-full min-h-[80vh] overflow-scroll bg-black">
+<section class="h-[400px]">
 	{#if isYoutube}
-		<div>
-			<iframe
-				src={embed}
-				style="width:100%;aspect-ratio:16/9;border:0"
-				allow="autoplay; encrypted-media"
-				allowfullscreen
-			></iframe>
-		</div>
+		<iframe
+			src={embed}
+			class="aspect-video h-[100%] border-0"
+			allow="autoplay; encrypted-media"
+			allowfullscreen
+		></iframe>
 	{:else if isVideoFile && file}
-		<video src={file} controls playsinline style="width:100%;aspect-ratio:16/9;background:black"
-		></video>
+		<video src={file} controls playsinline class="asppect-video h-[100%]"></video>
 	{/if}
 </section>

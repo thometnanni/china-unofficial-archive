@@ -211,9 +211,6 @@
 		if (filterSet.size > 0) url.searchParams.set(filter.type, Array.from(filterSet).join(','));
 		else url.searchParams.delete(filter.type);
 		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
-		setTimeout(() => {
-			searchInput?.focus();
-		}, 0);
 	}
 	function submitSearch(e) {
 		e.preventDefault();
@@ -243,7 +240,7 @@
 
 <section
 	id="search"
-	class="sticky top-0 z-2 border border-brand mx-2 md:mx-10 bg-white {loading && 'isLoading'}"
+	class="sticky top-0 z-2 mx-2 border border-brand bg-white md:mx-10 {loading && 'isLoading'}"
 	aria-busy={$navigating != null}
 >
 	{#if showLoader}
@@ -291,15 +288,15 @@
 			<input
 				bind:this={searchInput}
 				type="text"
-				class="w-full p-1 border-transparent focus:ring-0 focus:ring-offset-0 focus:outline-none"
+				class="w-full border-transparent p-1 focus:ring-0 focus:ring-offset-0 focus:outline-none"
 				bind:value
 				placeholder={m.search_placeholder()}
 			/>
 		</form>
 	</div>
 	<div class="m-2">
-		<div class="flex w-full items-start gap-2 flex-wrap">
-			<div class="flex-1 min-w-0">
+		<div class="flex w-full flex-wrap items-start gap-2">
+			<div class="min-w-0 flex-1">
 				{#if !showAllFilters}
 					<div
 						class="flex items-center gap-1 overflow-x-auto pr-1 whitespace-nowrap md:flex-wrap md:overflow-visible md:whitespace-normal"

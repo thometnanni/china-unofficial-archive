@@ -15,11 +15,11 @@
 	onhover-start={() => (hovering = true)}
 	onhover-end={() => (hovering = false)}
 >
-	<div class="absolute inset-0 border border-brand bg-white p-1">
+	<div class="absolute inset-0 border border-brand bg-white p-1 pointer-events-none">
 		<ImageFilter src={image} fit="cover" objectPosition="center" disabled={hovering} />
 	</div>
 
-	<div class="relative z-10 flex h-full flex-col justify-end gap-2 p-4">
+	<div class="relative z-10 flex h-full flex-col justify-end gap-2 p-4 pointer-events-none">
 		{#if title}
 			<TextOutlined class="text-2xl text-card-primary">{title}</TextOutlined>
 		{/if}

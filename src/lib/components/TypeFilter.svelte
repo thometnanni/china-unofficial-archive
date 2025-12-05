@@ -2,7 +2,7 @@
 	import { m } from '$lib/paraglide/messages';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	const { objectCount = 0, creatorCount = 0 } = $props();
+	const { objectCount, creatorCount } = $props();
 
 	// import { getLocale } from '$lib/paraglide/runtime';
 	// let { value = $bindable('all'), options = ['all', 'object', 'creator'] } = $props();

@@ -25,7 +25,7 @@
 		items = item.items;
 		filters = item.filters;
 		hasNextPage = item.hasNextPage;
-		typeCounts = item.counts ?? { objects: 0, creators: 0 };
+		typeCounts = item.counts;
 	});
 
 	$effect(async () => {
@@ -43,7 +43,6 @@
 		const ids = items.map(({ id }) => id);
 		items.push(...item.items.filter(({ id }) => !ids.includes(id)));
 		hasNextPage = item.hasNextPage;
-		typeCounts = item.counts ?? typeCounts;
 		nextPage++;
 		awaitingNextPage = false;
 	}

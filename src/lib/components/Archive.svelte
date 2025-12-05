@@ -20,7 +20,6 @@
 
 	$effect(async () => {
 		const item = await query(`query/${id}${$page.url.search}`).then((d) => d.json());
-		console.log(item);
 		nextPage = 2;
 		items = item.items;
 		filters = item.filters;

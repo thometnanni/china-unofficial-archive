@@ -14,7 +14,7 @@
 	} = $props();
 
 	let index = $state(0);
-	let images = $derived($page.data.heroes);
+	let images = $derived($page.data.heroes ?? ['/hero.jpg']);
 
 	const [send, receive] = crossfade({
 		duration: fadeMs,

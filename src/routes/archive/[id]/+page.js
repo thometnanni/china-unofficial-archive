@@ -14,7 +14,7 @@ export async function load({ params, url, fetch }) {
 	const item = await res.json();
 	const seo = deriveSeoFromItem(item, url.origin);
 	const heroes =
-		item.type === 'creator' || !item.heroes?.length ? ['/hero.jpg'] : item.heroes;
+		item.type === 'creator' || !item.heroes?.length ? null : item.heroes;
 
 	return { item, seo, heroes };
 }

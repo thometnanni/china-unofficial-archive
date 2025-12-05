@@ -14,10 +14,7 @@
 	} = $props();
 
 	let index = $state(0);
-	let timer = null;
-
-	const isCreator = $derived($page.data?.item?.type === 'creator');
-	let images = $derived(isCreator ? ['/hero.jpg'] : ($page.data.heroes ?? ['/hero.jpg']));
+	let images = $derived($page.data.heroes);
 
 	const [send, receive] = crossfade({
 		duration: fadeMs,

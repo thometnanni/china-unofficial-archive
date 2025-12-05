@@ -10,7 +10,7 @@
 		intervalMs = 5000,
 		height = '350px;',
 		fit = 'cover',
-		objectPosition = 'center 40%'
+		objectPosition = 'center center'
 	} = $props();
 
 	let index = $state(0);

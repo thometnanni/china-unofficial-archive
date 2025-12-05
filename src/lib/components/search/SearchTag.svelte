@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	let { item, close, disabled = false, class: className = '', showCount = true } = $props();
 	let label = $derived.by(() => item?.label ?? item?.title ?? item?.value ?? '');
-	let count = $derived.by(() => item?.availableCount ?? item?.baseCount ?? item?.count);
+	let count = $derived.by(() => item?.count);
 	let isDisabled = $derived.by(() => disabled && !close);
 	const dispatch = createEventDispatcher();
 
@@ -13,7 +13,7 @@
 </script>
 
 <button
-	class={`${item.type == "objectType" ? "text-white" : "text-black"} search-tag ${item.type ?? ''} ${className} inline-flex max-w-full items-start justify-start gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-0.5 py-0.5 text-left text-sm leading-tight break-words whitespace-normal enabled:hover:bg-black enabled:hover:text-white disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40`}
+	class={`${item.type == 'objectType' ? 'text-white' : 'text-black'} search-tag ${item.type ?? ''} ${className} inline-flex max-w-full items-start justify-start gap-1 rounded-none border border-[var(--color-outlined-border)] bg-[var(--color-outlined-bg)] px-0.5 py-0.5 text-left text-sm leading-tight break-words whitespace-normal enabled:hover:bg-black enabled:hover:text-white disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40`}
 	data-id={item.id}
 	type="button"
 	disabled={isDisabled}
@@ -59,7 +59,8 @@
 		--color-outlined-border: var(--color-type-object-article);
 		--color-outlined-bg: var(--color-type-object-article);
 	}
-	.search-tag[data-id='4184'] {
+	.search-tag[data-id='4184'],
+	.search-tag[data-id='4561'] {
 		--color-outlined-border: var(--color-type-object-periodical);
 		--color-outlined-bg: var(--color-type-object-periodical);
 	}

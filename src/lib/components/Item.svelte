@@ -152,7 +152,8 @@
 	section[data-type='4187'] {
 		--color-card-primary: var(--color-type-object-article);
 	}
-	section[data-type='4184'] {
+	section[data-type='4184'],
+	section[data-type='4561'] {
 		--color-card-primary: var(--color-type-object-periodical);
 	}
 	section[data-type='4185'] {

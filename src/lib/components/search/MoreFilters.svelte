@@ -25,16 +25,11 @@
 					</div>
 					<div class="flex flex-wrap gap-2">
 						{#each category.filters as filter}
-							{@const count = hasScope
-								? (filter.availableCount ?? filter.scopedCount ?? 0)
-								: (filter.baseCount ?? filter.count ?? 0)}
+							{@const count = filter.count ?? 0}
 							{@const isActive = activeKeys?.has?.(`${filter.type}:${filter.id ?? filter.value}`)}
 							{@const isDisabled = loading || isActive || (hasScope && count === 0)}
 							<SearchTag
-								item={{
-									...filter,
-									availableCount: count
-								}}
+								item={filter}
 								class="filter-pill"
 								disabled={isDisabled}
 								on:click={() => apply(filter)}

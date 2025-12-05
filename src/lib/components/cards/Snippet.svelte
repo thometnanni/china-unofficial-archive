@@ -41,7 +41,8 @@
 	.snippets[data-type='4187'] {
 		--color-card-primary: var(--color-type-object-article);
 	}
-	.snippets[data-type='4184'] {
+	.snippets[data-type='4184'],
+	.snippets[data-type='4561'] {
 		--color-card-primary: var(--color-type-object-periodical);
 	}
 	.snippets[data-type='4185'] {

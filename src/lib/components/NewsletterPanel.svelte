@@ -4,7 +4,7 @@
 
 <div class="text-black">
 	<div class="relative">
-		<ul class="fade max-h-[100vh] space-y-1 overflow-auto pr-2">
+		<ul class="max-h-[100vh] space-y-1 overflow-auto pr-2">
 			{#each items as n, index}
 				<li class={index >= 3 ? 'hidden sm:list-item' : ''}>
 					<a href={n.url} class="flex w-full items-start gap-2 px-2 py-1 hover:bg-brand/10">
@@ -18,22 +18,3 @@
 		</ul>
 	</div>
 </div>
-
-<style>
-	.fade {
-		-webkit-mask-image: linear-gradient(
-			180deg,
-			transparent 0%,
-			#000 2.5rem,
-			#000 calc(100% - 2.5rem),
-			transparent 100%
-		);
-		mask-image: linear-gradient(
-			180deg,
-			transparent 0%,
-			#000 2.5rem,
-			#000 calc(100% - 2.5rem),
-			transparent 100%
-		);
-	}
-</style>

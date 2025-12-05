@@ -7,16 +7,16 @@
 	import { page } from '$app/stores';
 
 	let featuredItems = $derived($page.data.featured?.slice(0, 9));
-	let newItems = $derived($page.data.newItems?.slice(0, 6));
+	let newItems = $derived($page.data.newItems?.slice(0, 11));
 	let newsletterItems = $derived($page.data.newsletters?.slice(0, 20));
 </script>
 
-<section class="m-auto max-w-[1640px] space-y-14 px-4 pt-6 pb-10">
-	<div class="pb-2">
+<section class="m-auto max-w-[1640px] px-4 pt-6 pb-10">
+	<div>
 		<div class="grid grid-cols-1 gap-2 lg:grid-cols-12">
-			<div class="space-y-6 lg:col-span-9">
+			<div class="space-y-6  pb-20 lg:col-span-9">
 				<div class="flex items-baseline justify-between gap-4">
-					<h2 class="text-2xl">{m.featured()}</h2>
+					<h2 class="text-xl">{m.featured()}</h2>
 				</div>
 
 				<div class="feature-list">
@@ -28,8 +28,8 @@
 				</div>
 			</div>
 
-			<div class="space-y-4 border-brand pl-2 sm:border-l lg:col-span-3">
-				<h2 class="text-2xl">{m.nav_newsletter()}</h2>
+			<div class="space-y-4 pb-10 border-brand pl-2 sm:border-l lg:col-span-3">
+				<h2 class="text-xl">{m.nav_newsletter()}</h2>
 				{#if newsletterItems?.length}
 					<NewsletterPanel items={newsletterItems} />
 				{/if}
@@ -42,9 +42,9 @@
 		</div>
 	</div>
 
-	<div class="space-y-6 border-t border-brand">
+	<div class="space-y-6 border-t border-brand pt-2">
 		<div class="flex items-center justify-between gap-4">
-			<h2 class="text-2xl">{m.new()}</h2>
+			<h2 class="text-xl">{m.new()}</h2>
 		</div>
 
 		<div class="new-list">

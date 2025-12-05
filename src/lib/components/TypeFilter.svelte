@@ -2,6 +2,8 @@
 	import { m } from '$lib/paraglide/messages';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	const { objectCount = 0, creatorCount = 0 } = $props();
+
 	// import { getLocale } from '$lib/paraglide/runtime';
 	// let { value = $bindable('all'), options = ['all', 'object', 'creator'] } = $props();
 	// let lang = $derived(getLocale());
@@ -29,13 +31,13 @@
 		class="custom-outline {currentView === 'object' ? 'is-active' : ''}"
 		onclick={() => setView('object')}
 	>
-		{m.objects()}
+		{m.objects()} ({objectCount})
 	</button>
 	<button
 		class="custom-outline {currentView === 'creator' ? 'is-active' : ''}"
 		onclick={() => setView('creator')}
 	>
-		{m.creators()}
+		{m.creators()} ({creatorCount})
 	</button>
 </div>
 

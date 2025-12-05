@@ -16,13 +16,16 @@
 	let nextPage = $state(2);
 	let hasNextPage = $state(false);
 	let awaitingNextPage = $state(false);
+	let typeCounts = $state({ objects: 0, creators: 0 });
 
 	$effect(async () => {
 		const item = await query(`query/${id}${$page.url.search}`).then((d) => d.json());
+		console.log(item);
 		nextPage = 2;
 		items = item.items;
 		filters = item.filters;
 		hasNextPage = item.hasNextPage;
+		typeCounts = item.counts ?? { objects: 0, creators: 0 };
 	});
 
 	$effect(async () => {
@@ -40,6 +43,7 @@
 		const ids = items.map(({ id }) => id);
 		items.push(...item.items.filter(({ id }) => !ids.includes(id)));
 		hasNextPage = item.hasNextPage;
+		typeCounts = item.counts ?? typeCounts;
 		nextPage++;
 		awaitingNextPage = false;
 	}
@@ -69,11 +73,11 @@
 </script>
 
 {#if items && baseFilters}
-	<section class="max-w-[1640px] m-auto">
+	<section class="m-auto max-w-[1640px]">
 		<div>
 			<div>
 				<Search bind:value={search} itemFilters={filters} {baseFilters} />
-				<TypeFilter />
+				<TypeFilter objectCount={typeCounts.objects} creatorCount={typeCounts.creators} />
 			</div>
 			<Items items={displayItems} />
 		</div>

@@ -15,7 +15,7 @@
 	</ul>
 	<div class="max-w-[800px] p-2 text-xl">
 		<p class="mb-4 text-base">
-			{m.nav_contact ? m.nav_contact() : 'Contact'}:
+			{m.nav_contact()}:
 			<a href="mailto:minjiandanganguan@gmail.com" class="underline">minjiandanganguan@gmail.com</a>
 		</p>
 		<p>© {m.title()}</p>

@@ -2,6 +2,7 @@
 	import { m } from '$lib/paraglide/messages';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	import { browser } from '$app/environment';
 	// import Logo from '$lib/components/Logo.svelte';
 </script>
 
@@ -14,14 +15,15 @@
 		<li><a class="text-2xl" href={localizeHref('/resources/')}>{m.nav_resources()}</a></li>
 	</ul>
 	<div class="max-w-[800px] p-2 text-xl">
-		<ClientOnly>
+		{#if browser}
+			{@const address = `${atob('bWluamlhbmRhbmdhbmd1YW4=')}@${atob('Z21haWwuY29t')}`}
 			<p class="mb-4 text-base">
 				{m.nav_contact()}:
-				<a href="mailto:minjiandanganguan@gmail.com" class="underline">
-					minjiandanganguan@gmail.com
+				<a href="mailto:{address}" class="underline">
+					{address}
 				</a>
 			</p>
-		</ClientOnly>
+		{/if}
 		<p>© {m.title()}</p>
 		<p class="mt-1 text-xs">
 			{m.claim()}

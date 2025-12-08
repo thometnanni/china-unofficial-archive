@@ -12,33 +12,31 @@
 </script>
 
 <section class="m-auto max-w-[1640px] px-4 pt-6 pb-10">
-	<div>
-		<div class="grid grid-cols-1 gap-2 lg:grid-cols-12">
-			<div class="space-y-6  pb-20 lg:col-span-9">
-				<div class="flex items-baseline justify-between gap-4">
-					<h2 class="text-xl">{m.featured()}</h2>
-				</div>
-
-				<div class="feature-list">
-					{#each featuredItems as item, i}
-						<div class="feature-card">
-							<Card {item} {i} />
-						</div>
-					{/each}
-				</div>
+	<div class="featureWrapper gap-0">
+		<div class="featureMain space-y-6 pb-20">
+			<div class="flex w-full max-w-full items-baseline justify-between gap-4">
+				<h2 class="text-xl">{m.featured()}</h2>
 			</div>
 
-			<div class="space-y-4 pb-10 border-brand pl-2 sm:border-l lg:col-span-3">
-				<h2 class="text-xl">{m.nav_newsletter()}</h2>
-				{#if newsletterItems?.length}
-					<NewsletterPanel items={newsletterItems} />
-				{/if}
-				<CardCta
-					href="https://chinaunofficialarchives.substack.com/"
-					title="Subscribe to China Unofficial Archive"
-					image="/demo.jpg"
-				/>
+			<div class="featureList border-b pb-10 sm:border-b-0">
+				{#each featuredItems as item, i}
+					<div class="card">
+						<Card {item} {i} />
+					</div>
+				{/each}
 			</div>
+		</div>
+
+		<div class="newsletterCol space-y-4 border-brand pb-10 pl-2 md:border-l">
+			<h2 class="text-xl">{m.nav_newsletter()}</h2>
+			{#if newsletterItems?.length}
+				<NewsletterPanel items={newsletterItems} />
+			{/if}
+			<CardCta
+				href="https://chinaunofficialarchives.substack.com/"
+				title="Subscribe to China Unofficial Archive"
+				image="/demo.jpg"
+			/>
 		</div>
 	</div>
 
@@ -47,14 +45,13 @@
 			<h2 class="text-xl">{m.new()}</h2>
 		</div>
 
-		<div class="new-list">
+		<div class="newList">
 			{#each newItems as item, i}
-				<div class="new-card">
+				<div class="card">
 					<Card {item} {i} />
 				</div>
 			{/each}
-
-			<div class="cta-card">
+			<div class="card">
 				<CardCta href={localizeHref('/archive/')} title={m.explore_archive()} image="/hero.jpg" />
 			</div>
 		</div>
@@ -64,90 +61,93 @@
 <style>
 	@reference '../../app.css';
 
-	.feature-list {
-		@apply flex w-full gap-6 overflow-x-auto p-4;
-		scrollbar-width: thin;
-		grid-auto-columns: clamp(240px, 82vw, 320px);
+	:global(:root) {
+		--gap: 1.5rem;
+		--sidePadding: 2rem;
+		--innerMax: 1640px;
+		--effectiveWidth: min(100vw, var(--innerMax));
+		--cardMax: 420px;
+		--cardSize: calc(var(--effectiveWidth) - 2 * var(--sidePadding));
 	}
 
-	.feature-card {
-		@apply flex flex-none;
-		width: clamp(240px, 82vw, 320px);
-		aspect-ratio: 1 / 1;
+	.card {
+		@apply flex-none;
+		width: min(var(--cardSize), var(--cardMax));
+		height: min(var(--cardSize), var(--cardMax));
 	}
 
-	.new-list {
-		@apply flex w-full gap-6 overflow-x-auto p-4;
-		scrollbar-width: thin;
-		grid-auto-columns: clamp(240px, 82vw, 320px);
-	}
-
-	.new-card {
-		@apply flex flex-none;
-		width: clamp(240px, 82vw, 320px);
-		aspect-ratio: 1 / 1;
-	}
-
-	.feature-card :global(> *),
-	.new-card :global(> *) {
+	.card :global(> *) {
 		@apply h-full w-full;
+		/* testing the fontsize depending on the card size */
+		/* font-size: clamp(0.75rem, calc(var(--cardSize) / 26), 1rem); */
 	}
 
-	.cta-card {
-		@apply flex flex-none;
-		width: clamp(240px, 82vw, 320px);
-		aspect-ratio: 3 / 1;
+	.featureWrapper {
+		@apply flex flex-col items-center;
+		gap: var(--gap);
 	}
 
-	.cta-card :global(> *) {
-		@apply h-full w-full;
+	.featureMain {
+		@apply flex w-full flex-col items-center;
+	}
+
+	.featureList {
+		@apply flex max-w-full flex-nowrap justify-start overflow-x-auto px-4 pt-4;
+		gap: var(--gap);
+		scrollbar-width: thin;
+	}
+
+
+	.newsletterCol {
+		@apply w-full;
+	}
+
+	.newList {
+		@apply flex flex-nowrap justify-start overflow-x-auto px-4 pt-4;
+		gap: var(--gap);
+		scrollbar-width: thin;
+	}
+
+
+	@media (min-width: 768px) {
+		:global(:root) {
+			--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3);
+		}
+
+		.featureWrapper {
+			@apply flex-row items-start justify-center;
+		}
+
+		.featureMain {
+			flex: 0 0 calc(2 * min(var(--cardSize), var(--cardMax)) + var(--gap));
+			@apply items-start;
+		}
+
+		.newsletterCol {
+			flex: 0 0 min(var(--cardSize), var(--cardMax));
+			max-width: min(var(--cardSize), var(--cardMax));
+		}
+
+		.featureList {
+			@apply flex-wrap overflow-x-visible px-0 pt-6;
+		}
+
+		.newList {
+			@apply flex-wrap justify-center overflow-x-visible px-0 pt-6;
+		}
 	}
 
 	@media (min-width: 1024px) {
-		.feature-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(6,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
+		:global(:root) {
+			--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 3 * var(--gap)) / 4);
 		}
 
-		.feature-card {
-			@apply contents;
+		.featureMain {
+			flex: 0 0 calc(3 * min(var(--cardSize), var(--cardMax)) + 2 * var(--gap));
 		}
 
-		.new-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(9,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
-		}
-
-		.new-card {
-			@apply contents;
-		}
-
-		.cta-card {
-			@apply contents;
-		}
-	}
-
-	@media (min-width: 1280px) {
-		.feature-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(9,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
-		}
-
-		.feature-card {
-			@apply contents;
-		}
-
-		.new-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(12,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
-		}
-
-		.new-card {
-			@apply contents;
-		}
-
-		.cta-card {
-			@apply contents;
+		.newsletterCol {
+			flex: 0 0 min(var(--cardSize), var(--cardMax));
 		}
 	}
 </style>

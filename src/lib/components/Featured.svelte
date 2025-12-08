@@ -79,7 +79,7 @@
 	.card :global(> *) {
 		@apply h-full w-full;
 		/* testing the fontsize depending on the card size */
-		/* font-size: clamp(0.75rem, calc(var(--cardSize) / 26), 1rem); */
+		font-size: clamp(0.75rem, calc(var(--cardSize) / 26), 1rem);
 	}
 
 	.featureWrapper {

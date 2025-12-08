@@ -14,10 +14,14 @@
 		<li><a class="text-2xl" href={localizeHref('/resources/')}>{m.nav_resources()}</a></li>
 	</ul>
 	<div class="max-w-[800px] p-2 text-xl">
-		<p class="mb-4 text-base">
-			{m.nav_contact()}:
-			<a href="mailto:minjiandanganguan@gmail.com" class="underline">minjiandanganguan@gmail.com</a>
-		</p>
+		<ClientOnly>
+			<p class="mb-4 text-base">
+				{m.nav_contact()}:
+				<a href="mailto:minjiandanganguan@gmail.com" class="underline">
+					minjiandanganguan@gmail.com
+				</a>
+			</p>
+		</ClientOnly>
 		<p>© {m.title()}</p>
 		<p class="mt-1 text-xs">
 			{m.claim()}

@@ -1,32 +1,20 @@
 <script>
-	import { m } from '$lib/paraglide/messages';
 	let { items = [] } = $props();
 </script>
 
-<div class="inline-block text-black">
-	<section class="bg-brand-yellow">
-		<div class="px-2 py-1 text-2xl">{m.nav_newsletter()}</div>
-		<ul class="space-y-1">
-			{#each items.slice(0, 10) as n}
-				<li>
-					<a
-						href={n.url}
-						class="flex w-full items-start gap-2 px-2 py-1 hover:bg-black hover:text-white"
-					>
+<div class="text-black">
+	<div class="relative">
+		<ul class="max-h-[100vh] space-y-1 overflow-auto pr-2">
+			{#each items as n, index}
+				<li class={index >= 3 ? 'hidden sm:list-item' : ''}>
+					<a href={n.url} class="flex w-full items-start gap-2 px-2 py-1 hover:bg-brand/10">
 						<div class="text-base">
-							<div class="text-sm opacity-70">{new Date(n.date).toLocaleDateString()}</div>
+							<div class="text-sm opacity-70">{new Date(n.published).toLocaleDateString()}</div>
 							<div class="text-base leading-snug">{n.title}</div>
 						</div>
 					</a>
 				</li>
 			{/each}
 		</ul>
-
-		<a
-			href="https://chinaunofficialarchives.substack.com/"
-			class="mt-3 block w-full pb-2 text-center text-sm hover:bg-black hover:text-white"
-		>
-			See all
-		</a>
-	</section>
+	</div>
 </div>

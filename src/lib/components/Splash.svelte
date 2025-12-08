@@ -84,7 +84,7 @@
 			align-items: center;
 		}
 		.line {
-			font-size: 2.25rem;
+			font-size: 1.7rem;
 		}
 		.line:first-child {
 			justify-self: start;

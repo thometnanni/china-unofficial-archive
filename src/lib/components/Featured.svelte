@@ -5,20 +5,47 @@
 	import NewsletterPanel from '$lib/components/NewsletterPanel.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { setupResize } from '$lib/resize';
+	import { browser } from '$app/environment';
 
 	let featuredItems = $derived($page.data.featured?.slice(0, 9));
 	let newItems = $derived($page.data.newItems?.slice(0, 11));
 	let newsletterItems = $derived($page.data.newsletters?.slice(0, 20));
+
+	let featureListRef;
+	let newsletterColRef;
+	let resizeCleanup;
+
+	function syncHeight() {
+		if (!browser) return;
+		if (!featureListRef || !newsletterColRef) return;
+
+		const width = window.innerWidth || document.documentElement.clientWidth || 0;
+
+		if (!width || width < 768) {
+			newsletterColRef.style.height = '';
+			return;
+		}
+
+		const listHeight = featureListRef.offsetHeight;
+		newsletterColRef.style.height = listHeight + 'px';
+	}
+
+	onMount(() => {
+		if (!browser) return;
+		setupResize(featureListRef, syncHeight);
+	});
 </script>
 
 <section class="m-auto max-w-[1640px] px-4 pt-6 pb-10">
 	<div class="featureWrapper gap-0">
-		<div class="featureMain space-y-6 pb-20">
+		<div class="featureMain">
 			<div class="flex w-full max-w-full items-baseline justify-between gap-4">
 				<h2 class="text-xl">{m.featured()}</h2>
 			</div>
 
-			<div class="featureList border-b pb-10 sm:border-b-0">
+			<div class="featureList pb-10" bind:this={featureListRef}>
 				{#each featuredItems as item, i}
 					<div class="card">
 						<Card {item} {i} />
@@ -27,11 +54,15 @@
 			</div>
 		</div>
 
-		<div class="newsletterCol space-y-4 border-brand pb-10 pl-2 md:border-l">
+		<div class="newsletterCol pb-10" bind:this={newsletterColRef}>
 			<h2 class="text-xl">{m.nav_newsletter()}</h2>
+
 			{#if newsletterItems?.length}
-				<NewsletterPanel items={newsletterItems} />
+				<div class="newsletterPanelWrapper">
+					<NewsletterPanel items={newsletterItems} />
+				</div>
 			{/if}
+
 			<CardCta
 				href="https://chinaunofficialarchives.substack.com/"
 				title="Subscribe to China Unofficial Archive"
@@ -62,8 +93,8 @@
 	@reference '../../app.css';
 
 	:global(:root) {
-		--gap: 1.5rem;
-		--sidePadding: 2rem;
+		--gap: 2rem;
+		--sidePadding: 1rem;
 		--innerMax: 1640px;
 		--effectiveWidth: min(100vw, var(--innerMax));
 		--cardMax: 420px;
@@ -78,8 +109,7 @@
 
 	.card :global(> *) {
 		@apply h-full w-full;
-		/* testing the fontsize depending on the card size */
-		font-size: clamp(0.75rem, calc(var(--cardSize) / 26), 1rem);
+		/* font-size: clamp(0.75rem, calc(var(--cardSize) / 26), 1rem); */
 	}
 
 	.featureWrapper {
@@ -89,6 +119,7 @@
 
 	.featureMain {
 		@apply flex w-full flex-col items-center;
+		position: relative;
 	}
 
 	.featureList {
@@ -97,9 +128,14 @@
 		scrollbar-width: thin;
 	}
 
-
 	.newsletterCol {
-		@apply w-full;
+		@apply flex w-full flex-col pt-2;
+		overflow: hidden;
+		border-top: 1px solid var(--color-brand);
+	}
+
+	.newsletterPanelWrapper {
+		@apply min-h-0 flex-1 overflow-hidden;
 	}
 
 	.newList {
@@ -108,14 +144,15 @@
 		scrollbar-width: thin;
 	}
 
-
 	@media (min-width: 768px) {
 		:global(:root) {
-			--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3);
+			--cardSize: calc(
+				(var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px
+			);
 		}
 
 		.featureWrapper {
-			@apply flex-row items-start justify-center;
+			@apply flex-row items-stretch justify-center;
 		}
 
 		.featureMain {
@@ -123,9 +160,22 @@
 			@apply items-start;
 		}
 
+		.featureMain::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: calc((var(--gap) / -2) - 1px);
+			width: 1px;
+			background: var(--color-brand);
+			pointer-events: none;
+		}
+
 		.newsletterCol {
+			@apply pt-0;
 			flex: 0 0 min(var(--cardSize), var(--cardMax));
 			max-width: min(var(--cardSize), var(--cardMax));
+			border-top: none;
 		}
 
 		.featureList {
@@ -137,9 +187,11 @@
 		}
 	}
 
-	@media (min-width: 1024px) {
+	@media (min-width: 1224px) {
 		:global(:root) {
-			--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 3 * var(--gap)) / 4);
+			--cardSize: calc(
+				(var(--effectiveWidth) - 2 * var(--sidePadding) - 3 * var(--gap)) / 4 - 10px
+			);
 		}
 
 		.featureMain {

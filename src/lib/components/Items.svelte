@@ -3,7 +3,7 @@
 	const { items } = $props();
 </script>
 
-<section class="itemsSection w-full px-4 pt-8 pb-10">
+<section class="itemsSection w-full px-8 pt-8 pb-10">
 	<div class="itemsList">
 		{#each items as item, i}
 			<div class="card">
@@ -17,7 +17,7 @@
 	@reference '../../app.css';
 
 	.itemsSection {
-		--gap: 1.5rem;
+		--gap: 2rem;
 		--cardMax: 420px;
 		--cardSize: min(100%, var(--cardMax));
 	}

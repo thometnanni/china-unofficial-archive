@@ -3,7 +3,7 @@
 	const { items } = $props();
 </script>
 
-<section class="itemsSection w-full px-8 pt-8 pb-10">
+<section class="itemsSection m-auto max-w-[1640px] px-4 pt-8 pb-10">
 	<div class="itemsList">
 		{#each items as item, i}
 			<div class="card">
@@ -16,39 +16,48 @@
 <style>
 	@reference '../../app.css';
 
-	.itemsSection {
+	:global(:root) {
 		--gap: 2rem;
+		--sidePadding: 1rem;
+		--innerMax: 1640px;
+		--effectiveWidth: min(100vw, var(--innerMax));
 		--cardMax: 420px;
-		--cardSize: min(100%, var(--cardMax));
+		--cardSize: calc(var(--effectiveWidth) - 2 * var(--sidePadding)) ;
 	}
 
 	.itemsList {
-		@apply flex flex-wrap justify-center;
+		@apply flex flex-wrap justify-start overflow-x-auto px-4 pt-4;
 		gap: var(--gap);
+		scrollbar-width: thin;
 	}
 
 	.card {
-		width: var(--cardSize);
-		height: var(--cardSize);
-		/* testing the fontsize depending on the card size */
-		/* font-size: clamp(0.75rem, calc(var(--cardSize) / 20), 1rem); */
+		/* @apply flex-none; */
+		width: min(var(--cardSize), var(--cardMax));
+		height: min(var(--cardSize), var(--cardMax));
+	}
+
+	.card :global(> *) {
+		@apply h-full w-full;
 	}
 
 	@media (min-width: 768px) {
-		.itemsSection {
-			--cardSize: min(calc((100% - 1 * var(--gap)) / 2), var(--cardMax));
+		:global(:root) {
+			--cardSize: calc(
+				(var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px
+			);
+		}
+
+		.itemsList {
+			@apply flex-wrap justify-center overflow-x-visible px-0 pt-6;
 		}
 	}
 
-	@media (min-width: 1024px) {
-		.itemsSection {
-			--cardSize: min(calc((100% - 2 * var(--gap)) / 3), var(--cardMax));
-		}
-	}
-
-	@media (min-width: 1280px) {
-		.itemsSection {
-			--cardSize: min(calc((100% - 3 * var(--gap)) / 4), var(--cardMax));
+	@media (min-width: 1224px) {
+		:global(:root) {
+			--cardSize: calc(
+				(var(--effectiveWidth) - 2 * var(--sidePadding) - 3 * var(--gap)) / 4 - 10px
+			);
 		}
 	}
 </style>

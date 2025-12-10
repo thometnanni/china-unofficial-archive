@@ -32,6 +32,11 @@
 	.card[data-type='era'] {
 		--color-card-primary: var(--color-type-era);
 	}
+
+	.card[data-type='theme'] {
+		--color-card-primary: var(--color-type-theme);
+	}
+
 	.card.hovering {
 		--color-outlined-border: var(--color-white);
 		--color-outlined-bg: var(--color-card-primary);

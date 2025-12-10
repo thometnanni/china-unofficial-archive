@@ -46,6 +46,10 @@
 		--color-outlined-border: var(--color-type-era);
 		--color-outlined-bg: var(--color-type-era);
 	}
+	.search-tag.theme {
+		--color-outlined-border: var(--color-type-theme);
+		--color-outlined-bg: var(--color-type-theme);
+	}
 	.search-tag.search {
 		--color-outlined-border: var(--color-brand-yellow);
 		--color-outlined-bg: var(--color-brand-yellow);

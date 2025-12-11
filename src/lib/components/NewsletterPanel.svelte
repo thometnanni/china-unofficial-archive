@@ -68,15 +68,15 @@
 			{#each items as item}
 				<li class="mb-4">
 					<a
-						href={localizeHref(`/archive/${n.id}`)}
+						href={localizeHref(`/archive/${item.id}`)}
 						class="flex w-full items-start gap-2 py-1 hover:text-brand"
 					>
 						<div class="text-base">
 							<div class="text-sm opacity-70">
-								{new Date(n.published).toLocaleDateString()}
+								{new Date(item.published).toLocaleDateString()}
 							</div>
 							<div class="text-base leading-snug">
-								{n.title}
+								{item.title}
 							</div>
 						</div>
 					</a>

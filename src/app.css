@@ -37,7 +37,7 @@
 	--color-type-creator: #7d8fa8;
 
 	--color-type-creator: #7d8fa8;
-	--color-type-default: #e8e5ef;
+	--color-type-default: #e9e7ee;
 	--color-type-object: #7d8fa8;
 
 	--color-type-object-book: #52969a;
@@ -49,8 +49,8 @@
 	--color-type-object-official: var(--color-type-object);
 	--color-type-object-other: var(--color-type-object);
 
-	--color-type-theme: #c2bfca;
-	--color-type-era: #d7d5df;
+	--color-type-theme: #d6dee3;
+	--color-type-era: #e3d6e0;
 
 	--color-card-primary: var(--color-type-default);
 	--color-card-secondary: var(--color-brand-black);

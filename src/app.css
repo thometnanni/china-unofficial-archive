@@ -70,6 +70,13 @@ body {
 	font-family: var(--font-sans);
 	--lh-tight: 1.29;
 	text-rendering: geometricPrecision;
+
+	--gap: 2rem;
+	--sidePadding: 1rem;
+	--innerMax: 1640px;
+	--effectiveWidth: min(100vw, var(--innerMax));
+	--cardMax: 420px;
+	--cardSize: calc(var(--effectiveWidth) - 2 * var(--sidePadding));
 }
 :lang(zh) {
 	--lh-tight: 1.29;
@@ -92,4 +99,36 @@ b {
 ::selection {
 	background-color: var(--color-brand-yellow);
 	color: var(--color-brand-black);
+}
+
+/* Card sizes */
+
+.card {
+	/* @apply flex-none; */
+	width: min(var(--cardSize), var(--cardMax));
+	height: min(var(--cardSize), var(--cardMax));
+}
+
+.card > * {
+	@apply h-full w-full;
+}
+
+@media (min-width: 768px) {
+	:root {
+		--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px);
+	}
+
+	:root {
+		--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px);
+	}
+
+	.itemsList {
+		@apply flex-wrap justify-center overflow-x-visible px-0 pt-6;
+	}
+}
+
+@media (min-width: 1224px) {
+	:root {
+		--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 3 * var(--gap)) / 4 - 10px);
+	}
 }

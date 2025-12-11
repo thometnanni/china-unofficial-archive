@@ -10,34 +10,35 @@
 	let hovering = $state(false);
 </script>
 
-<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] bg-white`}>
+<section>
+	<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] bg-white`}>
+		<a
+			{href}
+			class="card group col-span-3 row-span-3 border border-card-primary"
+			class:hovering
+			use:hoverable
+			onhover-start={() => (hovering = true)}
+			onhover-end={() => (hovering = false)}
+		>
+			<div class="relative h-full p-1">
+				<ImageFilter
+					src={item.thumbnail}
+					color="var(--color-card-primary)"
+					inheritHoverState
+					fit="cover"
+					objectPosition="center 35%"
+					disabled={hovering}
+				/>
+				<TextOutlined
+					as="h3"
+					class="absolute right-[calc(var(--spacing)_*_-4)] bottom-4 text-right text-xl"
+					>{item.title}</TextOutlined
+				>
+			</div>
+		</a>
+	</div>
 	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
-
-	<a
-		{href}
-		class="card group col-span-3 row-span-3 border border-card-primary"
-		class:hovering
-		use:hoverable
-		onhover-start={() => (hovering = true)}
-		onhover-end={() => (hovering = false)}
-	>
-		<div class="relative h-full p-1">
-			<ImageFilter
-				src={item.thumbnail}
-				color="var(--color-card-primary)"
-				inheritHoverState
-				fit="cover"
-				objectPosition="center 35%"
-				disabled={hovering}
-			/>
-			<TextOutlined
-				as="h3"
-				class="absolute right-[calc(var(--spacing)_*_-4)] bottom-4 text-right text-xl"
-				>{item.title}</TextOutlined
-			>
-		</div>
-	</a>
-</div>
+</section>
 
 <style>
 	.card {

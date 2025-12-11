@@ -47,9 +47,7 @@
 
 			<div class="featureList pb-10" bind:this={featureListRef}>
 				{#each featuredItems as item, i}
-					<div class="card">
-						<Card {item} {i} />
-					</div>
+					<Card {item} {i} />
 				{/each}
 			</div>
 		</div>
@@ -78,39 +76,15 @@
 
 		<div class="newList">
 			{#each newItems as item, i}
-				<div class="card">
-					<Card {item} {i} />
-				</div>
+				<Card {item} {i} />
 			{/each}
-			<div class="card">
-				<CardCta href={localizeHref('/archive/')} title={m.explore_archive()} image="/hero.jpg" />
-			</div>
+			<CardCta href={localizeHref('/archive/')} title={m.explore_archive()} image="/hero.jpg" />
 		</div>
 	</div>
 </section>
 
 <style>
 	@reference '../../app.css';
-
-	:global(:root) {
-		--gap: 2rem;
-		--sidePadding: 1rem;
-		--innerMax: 1640px;
-		--effectiveWidth: min(100vw, var(--innerMax));
-		--cardMax: 420px;
-		--cardSize: calc(var(--effectiveWidth) - 2 * var(--sidePadding));
-	}
-
-	.card {
-		@apply flex-none;
-		width: min(var(--cardSize), var(--cardMax));
-		height: min(var(--cardSize), var(--cardMax));
-	}
-
-	.card :global(> *) {
-		@apply h-full w-full;
-		/* font-size: clamp(0.75rem, calc(var(--cardSize) / 26), 1rem); */
-	}
 
 	.featureWrapper {
 		@apply flex flex-col items-center;
@@ -145,12 +119,6 @@
 	}
 
 	@media (min-width: 768px) {
-		:global(:root) {
-			--cardSize: calc(
-				(var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px
-			);
-		}
-
 		.featureWrapper {
 			@apply flex-row items-stretch justify-center;
 		}
@@ -188,12 +156,6 @@
 	}
 
 	@media (min-width: 1224px) {
-		:global(:root) {
-			--cardSize: calc(
-				(var(--effectiveWidth) - 2 * var(--sidePadding) - 3 * var(--gap)) / 4 - 10px
-			);
-		}
-
 		.featureMain {
 			flex: 0 0 calc(3 * min(var(--cardSize), var(--cardMax)) + 2 * var(--gap));
 		}

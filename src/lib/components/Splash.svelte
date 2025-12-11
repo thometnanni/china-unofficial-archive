@@ -8,10 +8,24 @@
 
 	let lang = $derived(getLocale());
 	let lines = $derived(lang === 'zh' ? ['zh', 'en'] : ['en', 'zh']);
+	const splashImages = [
+		'intro/1fb378c2aa01bec8d45cdd0f3f218dd7a86b7624.jpg',
+		'intro/58c4e5afa6ac1b19599eab1c4cf8726d40f13355.jpg',
+		'intro/90013809d93d8128b50db66dc6d308db88240086.jpg',
+		'intro/a033ef9956aaa4a9bcace1c6de9e8dde1611d87d.jpg',
+		'intro/a4224ce2467fd14fdc3c200414c081d4930e5bc7.jpg',
+		'intro/b512cf7688c9accc46263a5ba4b6525aa0a25ac4.jpg',
+		'intro/baaced0ab3bd9d8a3cf8eb6f8ffc1fbb5fb9ec10.jpg',
+		'intro/cbf06d99411180cefe892fcf98aebab3ee5e5301.jpg',
+		'intro/d067e9f57229c6331e311f1d55f3d2d819e54311.jpg',
+		'intro/e2e611470791d99cd6f3de94477f2e18dcf636d6.jpg',
+		'intro/e97c3adb5b462db98eb7535a63a69fe3b23abaa7.jpg',
+		'intro/f5fb5445465a38f5a8de60a479afd8f9470426a0.jpg'
+	];
 </script>
 
 <section class="tilesSection" style="height:100dvh;">
-	<Hero height={'100dvh'} />
+	<Hero height={'100dvh'} {splashImages}/>
 	{#key lang}
 		<div class="textContainer">
 			{#each lines as l, i}
@@ -20,8 +34,7 @@
 						<!-- <TextOutlined
 							>唯一非营利性的 <span class="nowrap">中国独立思想档案库</span></TextOutlined
 						> -->
-						<span><TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined></span
-						>
+						<span><TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined></span>
 					</h2>
 				{:else}
 					<h2 class="line enLine">

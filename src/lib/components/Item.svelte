@@ -20,7 +20,7 @@
 {#if item}
 	<section class="m-auto flex max-w-[840px] flex-col gap-2 p-2 px-4" data-type={dataType}>
 		{#if item.thumbnail && item.type == 'creator'}
-			<div class="{item.type} card z-10 ml-10 w-fit">
+			<div class="{item.type}  z-10 ml-10 w-fit">
 				<img
 					src={item.thumbnail}
 					alt=""

@@ -83,7 +83,7 @@
 			{#each item.theme ?? [] as theme}
 				{#if theme.title}
 					<a
-						class="filter {item.type} tag leading-loose"
+						class="theme filter {item.type} tag leading-loose"
 						href={localizeHref(`/archive/?theme=${theme.id}`)}
 					>
 						<TextOutlined>
@@ -96,7 +96,7 @@
 			{#each item.era ?? [] as era}
 				{#if era.title}
 					<a
-						class="filter {item.type} tag leading-loose"
+						class="era filter {item.type} tag leading-loose"
 						href={localizeHref(`/archive/?era=${era.id}`)}
 					>
 						<TextOutlined>
@@ -134,6 +134,18 @@
 		--color-outlined-text: var(--color-white);
 		--color-outlined-border: var(--color-type-creator);
 		--color-outlined-bg: var(--color-type-creator);
+	}
+
+	.era {
+		/* --color-outlined-text: var(--color-white); */
+		--color-outlined-border: var(--color-type-era);
+		--color-outlined-bg: var(--color-type-era);
+	}
+
+	.theme {
+		/* --color-outlined-text: var(--color-white); */
+		--color-outlined-border: var(--color-type-theme);
+		--color-outlined-bg: var(--color-type-theme);
 	}
 
 	.tag:hover,

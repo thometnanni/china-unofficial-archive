@@ -65,7 +65,7 @@
 
 			<CardCta
 				href="https://chinaunofficialarchives.substack.com/"
-				title="Subscribe to China Unofficial Archive"
+				title={m.subscribe()}
 				image="/demo.jpg"
 			/>
 		</div>

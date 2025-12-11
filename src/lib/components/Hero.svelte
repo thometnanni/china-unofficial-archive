@@ -10,11 +10,12 @@
 		intervalMs = 5000,
 		height = '350px;',
 		fit = 'cover',
-		objectPosition = 'center center'
+		objectPosition = 'center center',
+		splashImages = null
 	} = $props();
 
 	let index = $state(0);
-	let images = $derived($page.data.heroes ?? ['/hero.jpg']);
+	let images = $derived(splashImages ?? $page.data.heroes ?? ['/hero.jpg']);
 
 	const [send, receive] = crossfade({
 		duration: fadeMs,

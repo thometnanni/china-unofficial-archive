@@ -65,7 +65,7 @@
 <div class="flex h-full flex-col text-black" style:visibility={isReady ? 'visible' : 'hidden'}>
 	<div class="relative mt-4 min-h-0 flex-1" bind:this={containerRef}>
 		<ul>
-			{#each items as n}
+			{#each items as item}
 				<li class="mb-4">
 					<a
 						href={localizeHref(`/archive/${n.id}`)}

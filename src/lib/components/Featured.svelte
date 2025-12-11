@@ -5,40 +5,69 @@
 	import NewsletterPanel from '$lib/components/NewsletterPanel.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { setupResize } from '$lib/resize';
+	import { browser } from '$app/environment';
 
 	let featuredItems = $derived($page.data.featured?.slice(0, 9));
 	let newItems = $derived($page.data.newItems?.slice(0, 11));
 	let newsletterItems = $derived($page.data.newsletters?.slice(0, 20));
+
+	let featureListRef;
+	let newsletterColRef;
+	let resizeCleanup;
+
+	function syncHeight() {
+		if (!browser) return;
+		if (!featureListRef || !newsletterColRef) return;
+
+		const width = window.innerWidth || document.documentElement.clientWidth || 0;
+
+		if (!width || width < 768) {
+			newsletterColRef.style.height = '';
+			return;
+		}
+
+		const listHeight = featureListRef.offsetHeight;
+		newsletterColRef.style.height = listHeight + 'px';
+	}
+
+	onMount(() => {
+		if (!browser) return;
+		setupResize(featureListRef, syncHeight);
+	});
 </script>
 
 <section class="m-auto max-w-[1640px] px-4 pt-6 pb-10">
-	<div>
-		<div class="grid grid-cols-1 gap-2 lg:grid-cols-12">
-			<div class="space-y-6  pb-20 lg:col-span-9">
-				<div class="flex items-baseline justify-between gap-4">
-					<h2 class="text-xl">{m.featured()}</h2>
-				</div>
-
-				<div class="feature-list">
-					{#each featuredItems as item, i}
-						<div class="feature-card">
-							<Card {item} {i} />
-						</div>
-					{/each}
-				</div>
+	<div class="featureWrapper gap-0">
+		<div class="featureMain">
+			<div class="flex w-full max-w-full items-baseline justify-between gap-4">
+				<h2 class="text-xl">{m.featured()}</h2>
 			</div>
 
-			<div class="space-y-4 pb-10 border-brand pl-2 sm:border-l lg:col-span-3">
-				<h2 class="text-xl">{m.nav_newsletter()}</h2>
-				{#if newsletterItems?.length}
+			<div class="featureList pb-10" bind:this={featureListRef}>
+				{#each featuredItems as item, i}
+					<div class="card">
+						<Card {item} {i} />
+					</div>
+				{/each}
+			</div>
+		</div>
+
+		<div class="newsletterCol pb-10" bind:this={newsletterColRef}>
+			<h2 class="text-xl">{m.nav_newsletter()}</h2>
+
+			{#if newsletterItems?.length}
+				<div class="newsletterPanelWrapper">
 					<NewsletterPanel items={newsletterItems} />
-				{/if}
-				<CardCta
-					href="https://chinaunofficialarchives.substack.com/"
-					title="Subscribe to China Unofficial Archive"
-					image="/demo.jpg"
-				/>
-			</div>
+				</div>
+			{/if}
+
+			<CardCta
+				href="https://chinaunofficialarchives.substack.com/"
+				title={m.subscribe()}
+				image="/demo.jpg"
+			/>
 		</div>
 	</div>
 
@@ -47,14 +76,13 @@
 			<h2 class="text-xl">{m.new()}</h2>
 		</div>
 
-		<div class="new-list">
+		<div class="newList">
 			{#each newItems as item, i}
-				<div class="new-card">
+				<div class="card">
 					<Card {item} {i} />
 				</div>
 			{/each}
-
-			<div class="cta-card">
+			<div class="card">
 				<CardCta href={localizeHref('/archive/')} title={m.explore_archive()} image="/hero.jpg" />
 			</div>
 		</div>
@@ -64,90 +92,114 @@
 <style>
 	@reference '../../app.css';
 
-	.feature-list {
-		@apply flex w-full gap-6 overflow-x-auto p-4;
-		scrollbar-width: thin;
-		grid-auto-columns: clamp(240px, 82vw, 320px);
+	:global(:root) {
+		--gap: 2rem;
+		--sidePadding: 1rem;
+		--innerMax: 1640px;
+		--effectiveWidth: min(100vw, var(--innerMax));
+		--cardMax: 420px;
+		--cardSize: calc(var(--effectiveWidth) - 2 * var(--sidePadding));
 	}
 
-	.feature-card {
-		@apply flex flex-none;
-		width: clamp(240px, 82vw, 320px);
-		aspect-ratio: 1 / 1;
+	.card {
+		@apply flex-none;
+		width: min(var(--cardSize), var(--cardMax));
+		height: min(var(--cardSize), var(--cardMax));
 	}
 
-	.new-list {
-		@apply flex w-full gap-6 overflow-x-auto p-4;
-		scrollbar-width: thin;
-		grid-auto-columns: clamp(240px, 82vw, 320px);
-	}
-
-	.new-card {
-		@apply flex flex-none;
-		width: clamp(240px, 82vw, 320px);
-		aspect-ratio: 1 / 1;
-	}
-
-	.feature-card :global(> *),
-	.new-card :global(> *) {
+	.card :global(> *) {
 		@apply h-full w-full;
+		/* font-size: clamp(0.75rem, calc(var(--cardSize) / 26), 1rem); */
 	}
 
-	.cta-card {
-		@apply flex flex-none;
-		width: clamp(240px, 82vw, 320px);
-		aspect-ratio: 3 / 1;
+	.featureWrapper {
+		@apply flex flex-col items-center;
+		gap: var(--gap);
 	}
 
-	.cta-card :global(> *) {
-		@apply h-full w-full;
+	.featureMain {
+		@apply flex w-full flex-col items-center;
+		position: relative;
 	}
 
-	@media (min-width: 1024px) {
-		.feature-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(6,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
+	.featureList {
+		@apply flex max-w-full flex-nowrap justify-start overflow-x-auto px-4 pt-4;
+		gap: var(--gap);
+		scrollbar-width: thin;
+	}
+
+	.newsletterCol {
+		@apply flex w-full flex-col pt-2;
+		overflow: hidden;
+		border-top: 1px solid var(--color-brand);
+	}
+
+	.newsletterPanelWrapper {
+		@apply min-h-0 flex-1 overflow-hidden;
+	}
+
+	.newList {
+		@apply flex flex-nowrap justify-start overflow-x-auto px-4 pt-4;
+		gap: var(--gap);
+		scrollbar-width: thin;
+	}
+
+	@media (min-width: 768px) {
+		:global(:root) {
+			--cardSize: calc(
+				(var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px
+			);
 		}
 
-		.feature-card {
-			@apply contents;
+		.featureWrapper {
+			@apply flex-row items-stretch justify-center;
 		}
 
-		.new-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(9,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
+		.featureMain {
+			flex: 0 0 calc(2 * min(var(--cardSize), var(--cardMax)) + var(--gap));
+			@apply items-start;
 		}
 
-		.new-card {
-			@apply contents;
+		.featureMain::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: calc((var(--gap) / -2) - 1px);
+			width: 1px;
+			background: var(--color-brand);
+			pointer-events: none;
 		}
 
-		.cta-card {
-			@apply contents;
+		.newsletterCol {
+			@apply pt-0;
+			flex: 0 0 min(var(--cardSize), var(--cardMax));
+			max-width: min(var(--cardSize), var(--cardMax));
+			border-top: none;
+		}
+
+		.featureList {
+			@apply flex-wrap overflow-x-visible px-0 pt-6;
+		}
+
+		.newList {
+			@apply flex-wrap justify-center overflow-x-visible px-0 pt-6;
 		}
 	}
 
-	@media (min-width: 1280px) {
-		.feature-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(9,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
+	@media (min-width: 1224px) {
+		:global(:root) {
+			--cardSize: calc(
+				(var(--effectiveWidth) - 2 * var(--sidePadding) - 3 * var(--gap)) / 4 - 10px
+			);
 		}
 
-		.feature-card {
-			@apply contents;
+		.featureMain {
+			flex: 0 0 calc(3 * min(var(--cardSize), var(--cardMax)) + 2 * var(--gap));
 		}
 
-		.new-list {
-			@apply grid grid-flow-dense auto-rows-[var(--grid-cell-size)] grid-cols-[repeat(12,minmax(var(--grid-cell-size),1fr))];
-			grid-auto-columns: unset;
-		}
-
-		.new-card {
-			@apply contents;
-		}
-
-		.cta-card {
-			@apply contents;
+		.newsletterCol {
+			flex: 0 0 min(var(--cardSize), var(--cardMax));
 		}
 	}
 </style>

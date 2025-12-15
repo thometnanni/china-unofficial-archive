@@ -3,7 +3,7 @@
 	const { items } = $props();
 </script>
 
-<section class="itemsSection m-auto max-w-[1640px] px-4 pt-8 pb-10">
+<section class="itemsSection m-auto max-w-[1640px] pt-8 pb-10">
 	<div class="itemsList">
 		{#each items as item, i}
 			<Card {item} {i} />
@@ -14,8 +14,12 @@
 <style>
 	@reference '../../app.css';
 
+	:root {
+		--sidePadding: 2rem;
+	}
+
 	.itemsList {
-		@apply flex flex-wrap justify-start overflow-x-auto px-4 pt-4;
+		@apply flex flex-wrap justify-center overflow-x-auto pt-4;
 		gap: var(--gap);
 		scrollbar-width: thin;
 	}

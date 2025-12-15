@@ -62,6 +62,7 @@
 			{/if}
 
 			<CardCta
+				target={"_blank"}
 				href="https://chinaunofficialarchives.substack.com/"
 				title={m.subscribe()}
 				image="/demo.jpg"

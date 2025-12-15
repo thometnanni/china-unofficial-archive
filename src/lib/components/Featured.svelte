@@ -62,7 +62,7 @@
 			{/if}
 
 			<CardCta
-				target={'_blank'}
+				target="_blank"
 				href="https://chinaunofficialarchives.substack.com/"
 				title={m.subscribe()}
 				image="/demo.jpg"
@@ -78,7 +78,12 @@
 			{#each newItems as item, i}
 				<Card {item} {i} />
 			{/each}
-			<CardCta href={localizeHref('/archive/')} title={m.explore_archive()} image="/hero.jpg" />
+			<CardCta
+				stretch="true"
+				href={localizeHref('/archive/')}
+				title={m.explore_archive()}
+				image="/hero.jpg"
+			/>
 		</div>
 	</div>
 </section>

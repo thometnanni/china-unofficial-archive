@@ -8,7 +8,8 @@
 	let {
 		fadeMs = 3000,
 		intervalMs = 5000,
-		height = '350px;',
+		height = '',
+
 		fit = 'cover',
 		objectPosition = 'center center',
 		splashImages = null
@@ -16,6 +17,11 @@
 
 	let index = $state(0);
 	let images = $derived(splashImages ?? $page.data.heroes ?? ['/hero.jpg']);
+
+	const heroHeight = () => {
+		const resolved = height ? height : $page.data.heroes ? '550px' : '350px';
+		return resolved;
+	};
 
 	const [send, receive] = crossfade({
 		duration: fadeMs,
@@ -30,7 +36,7 @@
 
 <div
 	class={`hero-root pointer-events-none z-[-1] mb-[-100px] overflow-hidden`}
-	style={`--color-card-primary: var(--color-brand-purple); height:${height}`}
+	style={`--color-card-primary: var(--color-brand-purple); height:${heroHeight()}`}
 >
 	<div class="hero-slides">
 		{#each images as src, i}

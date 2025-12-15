@@ -68,7 +68,11 @@
 			{m.nav_creators()}
 		</a>
 
-		<a class="button hidden sm:block" href="https://chinaunofficialarchives.substack.com/">
+		<a
+			target="_blank"
+			class="button hidden sm:block"
+			href="https://chinaunofficialarchives.substack.com/"
+		>
 			{m.nav_newsletter()}
 		</a>
 	</section>
@@ -115,7 +119,11 @@
 				{m.nav_creators()}
 			</a>
 
-			<a class="button sm:hidden" href="https://chinaunofficialarchives.substack.com/">
+			<a
+				target="_blank"
+				class="button sm:hidden"
+				href="https://chinaunofficialarchives.substack.com/"
+			>
 				{m.nav_newsletter()}
 			</a>
 		{/if}

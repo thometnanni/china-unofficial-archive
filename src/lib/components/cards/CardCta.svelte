@@ -10,7 +10,7 @@
 	{target}
 	class:h-[var(--cardSize)]={stretch}
 	class:h-fit={!stretch}
-	class="group relative col-span-3 row-span-1 block w-[var(--cardSize)] overflow-hidden bg-white text-white"
+	class="group relative col-span-3 row-span-1 block min-w-[var(--cardSize)] w-[var(--cardSize)] overflow-hidden bg-white text-white"
 >
 	<div class="pointer-events-none absolute inset-0 border border-brand bg-white p-1">
 		<ImageFilter src={image} fit="cover" objectPosition="center" />

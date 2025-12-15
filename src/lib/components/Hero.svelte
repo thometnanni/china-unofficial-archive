@@ -8,7 +8,7 @@
 	let {
 		fadeMs = 3000,
 		intervalMs = 5000,
-		height = '350px;',
+		height = '550px;',
 		fit = 'cover',
 		objectPosition = 'center center',
 		splashImages = null

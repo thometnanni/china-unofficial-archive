@@ -7,6 +7,7 @@
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import { page } from '$app/stores';
+	import { addLinkTargets } from '$lib/utils/linkTargets.js';
 
 	let item = $derived($page.data.item);
 
@@ -15,6 +16,8 @@
 			.toLowerCase()
 			.trim()
 	);
+
+	const processedDescription = $derived(addLinkTargets(item?.description ?? ''));
 </script>
 
 {#if item}
@@ -108,7 +111,7 @@
 		</div>
 
 		<div class="item-container text-xl whitespace-pre-wrap">
-			{@html item.description}
+			{@html processedDescription}
 		</div>
 	</section>
 {/if}

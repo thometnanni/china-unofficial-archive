@@ -1,8 +1,10 @@
 <script>
 	import { query } from '$lib/api';
 	import { page } from '$app/stores';
-	import HtmlPreview from './previews/HtmlPreview.svelte';
-	import MediaPreview from './previews/MediaPreview.svelte';
+	import HtmlPreview from '$lib/components/previews/HtmlPreview.svelte';
+	import MediaPreview from '$lib/components/previews/MediaPreview.svelte';
+
+	let { thumbnail } = $props();
 
 	let id = $derived($page.params.id);
 

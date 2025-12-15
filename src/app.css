@@ -73,7 +73,7 @@ body {
 	text-rendering: geometricPrecision;
 
 	--gap: 2rem;
-	--sidePadding: 1rem;
+	--sidePadding: 2rem;
 	--innerMax: 1640px;
 	--effectiveWidth: min(100vw, var(--innerMax));
 	--cardMax: 420px;
@@ -116,6 +116,7 @@ b {
 
 @media (min-width: 768px) {
 	:root {
+		--sidePadding: 1rem;
 		--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px);
 	}
 

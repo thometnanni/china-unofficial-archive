@@ -5,8 +5,8 @@
 	import { collators } from '$lib/collators.js';
 	import { getLocale } from '$lib/paraglide/runtime';
 	let { value, itemFilters, baseFilters } = $props();
-	import SearchTag from './SearchTag.svelte';
-	import MoreFilters from './MoreFilters.svelte';
+	import SearchTag from '$lib/components/search/SearchTag.svelte';
+	import MoreFilters from '$lib/components/search/MoreFilters.svelte';
 
 	const hiddenTypes = new Set(['creator']);
 	let searchInput;
@@ -319,13 +319,32 @@
 			</div>
 			<div class="flex-none self-start justify-self-end">
 				<button
-					class="inline-flex items-center rounded-none border px-0.5 text-sm text-black transition-colors enabled:hover:bg-black enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-20"
+					class="inline-flex cursor-pointer items-center gap-1 rounded-none border px-0.5 text-sm text-black transition-colors enabled:hover:bg-black enabled:hover:fill-white enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-20"
 					type="button"
 					onclick={toggleFilters}
 					aria-expanded={showAllFilters}
 					disabled={loading}
 					aria-disabled={loading}
 				>
+					<svg
+						id="icon"
+						xmlns="http://www.w3.org/2000/svg"
+						version="1.1"
+						viewBox="0 0 32 32"
+						class="inline-block h-[1em] w-[1em] flex-shrink-0"
+					>
+						<defs>
+							<style>
+								.st0 {
+									fill: none;
+								}
+							</style>
+						</defs>
+						<path
+							d="M12.9,7c-.4-1.7-2-3-3.9-3s-3.4,1.3-3.9,3h-3.1v2h3.1c.4,1.7,2,3,3.9,3s3.4-1.3,3.9-3h17.1v-2H12.9ZM9,10c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2ZM23,12c-1.9,0-3.4,1.3-3.9,3H2v2h17.1c.4,1.7,2,3,3.9,3s3.4-1.3,3.9-3h3.1v-2h-3.1c-.4-1.7-2-3-3.9-3ZM23,18c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2ZM14,20c-1.9,0-3.4,1.3-3.9,3H2v2h8.1c.4,1.7,2,3,3.9,3s3.4-1.3,3.9-3h12.1v-2h-12.1c-.4-1.7-2-3-3.9-3ZM14,26c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2Z"
+						/>
+						<rect id="__x3C_Transparent_Rectangle_x3E_" class="st0" width="32" height="32" />
+					</svg>
 					<span>{showAllFilters ? m.hide_filters() : m.more_filters()}</span>
 				</button>
 			</div>

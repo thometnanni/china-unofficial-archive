@@ -14,10 +14,6 @@
 <style>
 	@reference '../../app.css';
 
-	:root {
-		--sidePadding: 2rem;
-	}
-
 	.itemsList {
 		@apply flex flex-wrap justify-center overflow-x-auto pt-4;
 		gap: var(--gap);

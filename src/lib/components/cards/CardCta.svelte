@@ -8,7 +8,7 @@
 <a
 	{href}
 	{target}
-	class="card group relative col-span-3 row-span-1 block h-fit w-fit max-w-[80vw] overflow-hidden bg-white text-white sm:max-w-[400px]"
+	class="card group relative col-span-3 row-span-1 block h-fit w-fit min-w-[var(--cardSize)] max-w-[80vw] overflow-hidden bg-white text-white sm:max-w-[400px]"
 >
 	<div class="pointer-events-none absolute inset-0 border border-brand bg-white p-1">
 		<ImageFilter src={image} fit="cover" objectPosition="center" />

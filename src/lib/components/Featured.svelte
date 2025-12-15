@@ -42,7 +42,7 @@
 	<div class="featureWrapper gap-0">
 		<div class="featureMain">
 			<div class="flex w-full max-w-full items-baseline justify-between gap-4">
-				<h2 class="text-xl">{m.featured()}</h2>
+				<h2 class="text-3xl">{m.featured()}</h2>
 			</div>
 
 			<div class="featureList pb-10" bind:this={featureListRef}>
@@ -53,7 +53,7 @@
 		</div>
 
 		<div class="newsletterCol pb-10" bind:this={newsletterColRef}>
-			<h2 class="text-xl">{m.nav_newsletter()}</h2>
+			<h2 class="text-3xl">{m.nav_newsletter()}</h2>
 
 			{#if newsletterItems?.length}
 				<div class="newsletterPanelWrapper">
@@ -62,7 +62,7 @@
 			{/if}
 
 			<CardCta
-				target={"_blank"}
+				target={'_blank'}
 				href="https://chinaunofficialarchives.substack.com/"
 				title={m.subscribe()}
 				image="/demo.jpg"
@@ -71,10 +71,9 @@
 	</div>
 
 	<div class="space-y-6 border-t border-brand pt-2">
-		<div class="flex items-center justify-between gap-4">
-			<h2 class="text-xl">{m.new()}</h2>
+		<div class="flex w-full max-w-full items-baseline justify-between gap-4">
+			<h2 class="text-3xl">{m.new()}</h2>
 		</div>
-
 		<div class="newList">
 			{#each newItems as item, i}
 				<Card {item} {i} />
@@ -114,7 +113,8 @@
 	}
 
 	.newList {
-		@apply flex flex-nowrap justify-start overflow-x-auto px-4 pt-4;
+		@apply flex flex-nowrap items-center justify-start overflow-x-auto px-4 pt-4;
+
 		gap: var(--gap);
 		scrollbar-width: thin;
 	}

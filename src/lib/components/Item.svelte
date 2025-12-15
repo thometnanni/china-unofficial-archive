@@ -4,10 +4,10 @@
 	import { m } from '$lib/paraglide/messages.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { creator } from 'd3-selection';
-import TextOutlined from '$lib/components/TextOutlined.svelte';
-import ImageFilter from '$lib/components/ImageFilter.svelte';
-import { page } from '$app/stores';
-import { addLinkTargets } from '$lib/utils/linkTargets.js';
+	import TextOutlined from '$lib/components/TextOutlined.svelte';
+	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	import { page } from '$app/stores';
+	import { addLinkTargets } from '$lib/utils/linkTargets.js';
 
 	let item = $derived($page.data.item);
 

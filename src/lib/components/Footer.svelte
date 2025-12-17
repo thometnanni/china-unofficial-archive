@@ -16,7 +16,7 @@
 	</ul>
 	<div class="max-w-[800px] p-2 text-xl">
 		{#if browser}
-			{@const address = `${atob('bWluamlhbmRhbmdhbmd1YW4=')}@${atob('Z21haWwuY29t')}`}
+			{@const address = `${atob('aW5mbw==')}@${atob('bWluamlhbi1kYW5nYW5ndWFuLm9yZw==')}`}
 			<p class="mb-4 text-base">
 				{m.nav_contact()}:
 				<a href="mailto:{address}" class="underline">

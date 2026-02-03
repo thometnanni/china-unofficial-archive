@@ -81,14 +81,7 @@
 			mix-blend-mode: color-dodge;
 		}
 		.waves {
-			background: linear-gradient(
-				0deg,
-				black 0%,
-				white 25%,
-				black 50%,
-				white 75%,
-				black 100%
-			);
+			background: linear-gradient(0deg, black 0%, white 25%, black 50%, white 75%, black 100%);
 			opacity: 0.2;
 			mix-blend-mode: screen;
 		}
@@ -108,6 +101,12 @@
 			width: 100%;
 			display: block;
 			filter: grayscale() contrast(1.5) brightness(0.5);
+		}
+	}
+
+	@media (dynamic-range: high) {
+		.container {
+			filter: contrast(5) brightness(0.79);
 		}
 	}
 	.original {

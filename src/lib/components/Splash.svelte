@@ -25,7 +25,7 @@
 </script>
 
 <section class="tilesSection" style="height:100dvh;">
-	<Hero height={'100dvh'} {splashImages}/>
+	<Hero height={'100dvh'} {splashImages} />
 	{#key lang}
 		<div class="textContainer">
 			{#each lines as l, i}
@@ -82,7 +82,7 @@
 	}
 	.line:nth-child(2) {
 		justify-self: end;
-		text-align: right;
+		text-align: left;
 	}
 	.nowrap {
 		white-space: nowrap;

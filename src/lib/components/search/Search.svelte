@@ -221,14 +221,26 @@
 		const url = new URL($page.url);
 		if (value) url.searchParams.set('search', value);
 		else url.searchParams.delete('search');
+		value = '';
 		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
 	}
 	function resetSearch() {
 		startNav();
 		const url = new URL($page.url);
 		url.searchParams.delete('search');
+		value = '';
 		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
 	}
+
+	function clearFilters() {
+		startNav();
+		const url = new URL($page.url);
+		url.searchParams.delete('search');
+		value = '';
+		activeFilters.forEach(({ type }) => url.searchParams.delete(type));
+		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
+	}
+
 	function toggleFilters() {
 		showAllFilters = !showAllFilters;
 	}
@@ -296,6 +308,16 @@
 				placeholder={m.search_placeholder()}
 			/>
 		</form>
+		{#if activeSearch || activeFilters?.length}
+			<button
+				onclick={clearFilters}
+				disabled={loading}
+				aria-disabled={loading}
+				class="mr-1 inline-flex cursor-pointer items-center gap-1 self-center rounded-none border px-2 text-sm text-black transition-colors enabled:hover:bg-black enabled:hover:fill-white enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-20"
+			>
+				{m.clear_filters()}
+			</button>
+		{/if}
 	</div>
 	<div class="m-2">
 		<div class="flex w-full flex-wrap items-start gap-2">

@@ -1,0 +1,10 @@
+services:
+  cua_web:
+    build: .
+    container_name: cua_web
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - '8002:4800'
+    depends_on:
+      - cua_api

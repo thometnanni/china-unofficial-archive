@@ -11,8 +11,6 @@
 
 	let openMenu = $state(false);
 	let isCollapsed = $state(false);
-	let showSpace = $derived($page.route.id !== '/');
-	let showBg = $derived($page.route.id === '/archive/[[id]]');
 	let lang = $derived(getLocale());
 
 	function toggleMenu() {
@@ -90,7 +88,12 @@
 			>
 				{m.lang(null, { locale: 'en' })}
 			</button>
-			<button aria-label="menu" class="p-1 sm:hidden" onclick={toggleMenu}>
+			<button
+				aria-label="menu"
+				class="p-1 sm:hidden"
+				class:hidden={$page.route.id === '/'}
+				onclick={toggleMenu}
+			>
 				<svg width="20" height="20">
 					{#if showMenu}
 						<line x1="4" x2="16" y1="4" y2="16" />
@@ -104,7 +107,7 @@
 			</button>
 		</div>
 
-		{#if showMenu}
+		{#if showMenu || $page.route.id === '/'}
 			<div
 				class="fixed top-0 left-0 -z-1 h-full w-full sm:hidden"
 				onclick={closeMenu}

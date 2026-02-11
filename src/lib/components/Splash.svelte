@@ -82,7 +82,7 @@
 	}
 	.line:nth-child(2) {
 		justify-self: end;
-		text-align: right;
+		text-align: left;
 	}
 	.nowrap {
 		white-space: nowrap;

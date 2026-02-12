@@ -8,3 +8,7 @@ services:
       - '8002:4800'
     depends_on:
       - cua_api
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535

@@ -34,6 +34,12 @@
 	onDestroy(() => clearInterval(interval));
 </script>
 
+<svelte:head>
+	{#each images as src}
+		<link rel="preload" as="image" href={src} />
+	{/each}
+</svelte:head>
+
 <div
 	class={`hero-root pointer-events-none z-[-1] mb-[-100px] overflow-hidden`}
 	style={`--color-card-primary: var(--color-brand-purple); height:${heroHeight()}`}

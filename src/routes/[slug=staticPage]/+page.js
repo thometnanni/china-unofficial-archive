@@ -16,7 +16,7 @@ export async function load({ params, fetch, url }) {
 	const text = extractText(html);
 	const description = summarize(text, 180);
 	const imgLocal = firstImageSrc(html);
-	const image = absolutize(imgLocal, url.origin) || `${url.origin}/cover.png`;
+	const image = absolutize(imgLocal, url.origin) || `${url.origin}/cover.webp`;
 
 	return { title, html, splashImages: [], seo: { title, description, image } };
 }

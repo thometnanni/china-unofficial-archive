@@ -65,7 +65,7 @@
 				target="_blank"
 				href="https://chinaunofficialarchives.substack.com/"
 				title={m.subscribe()}
-				image="/demo.jpg"
+				image="/demo.webp"
 			/>
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 				stretch="true"
 				href={localizeHref('/archive/')}
 				title={m.explore_archive()}
-				image="/hero.jpg"
+				image="/hero.webp"
 			/>
 		</div>
 	</div>

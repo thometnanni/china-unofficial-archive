@@ -16,7 +16,7 @@
 	} = $props();
 
 	let index = $state(0);
-	let images = $derived(splashImages ?? $page.data.heroes ?? ['/hero.jpg']);
+	let images = $derived(splashImages ?? $page.data.heroes ?? ['/hero.webp']);
 
 	const heroHeight = () => {
 		const resolved = height ? height : $page.data.heroes ? '550px' : '350px';

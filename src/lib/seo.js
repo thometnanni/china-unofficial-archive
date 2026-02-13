@@ -1,3 +1,5 @@
+import { m } from './paraglide/messages';
+
 export function extractText(html) {
 	return String(html || '')
 		.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
@@ -28,7 +30,7 @@ export function absolutize(u, base) {
 	}
 }
 export function deriveSeoFromItem(item, base) {
-	const title = item.title || 'China Unofficial Archives';
+	const title = item.title || m.title();
 	const description = summarize(extractText(item.description ?? ''), 180);
 	const image = absolutize(item.thumbnail, base) || `${base}/cover.png`;
 	return { title, description, image };

@@ -4,14 +4,10 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import Archive from '$lib/components/Archive.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { m } from '$lib/paraglide/messages';
 </script>
 
-<Meta
-	title="China Unofficial Archives"
-	description="The only non-profit archive of independent Chinese thought"
-	image="/cover.png"
-/>
-
+<Meta title={m.title()} description={m.slogan()} image="/cover.png" />
 <MenuBar />
 <Hero />
 <Archive />

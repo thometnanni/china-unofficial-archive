@@ -3,7 +3,6 @@
 	import { deLocalizeUrl, localizeUrl } from '$lib/paraglide/runtime';
 	let { title = '', description = '', image = '', type = 'website', noindex = false } = $props();
 	const url = $derived($page.url.href);
-	localizeUrl;
 </script>
 
 <svelte:head>

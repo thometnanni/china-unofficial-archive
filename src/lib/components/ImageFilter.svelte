@@ -104,9 +104,11 @@
 		}
 	}
 
-	@media (dynamic-range: high) {
-		.container {
-			filter: contrast(5) brightness(0.79);
+	@supports (-webkit-touch-callout: none) {
+		@media (color-gamut: p3) {
+			.container {
+				filter: contrast(5) brightness(0.79);
+			}
 		}
 	}
 	.original {

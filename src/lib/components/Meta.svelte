@@ -1,11 +1,15 @@
 <script>
 	import { page } from '$app/stores';
+	import { deLocalizeUrl, localizeUrl } from '$lib/paraglide/runtime';
 	let { title = '', description = '', image = '', type = 'website', noindex = false } = $props();
 	const url = $derived($page.url.href);
 </script>
 
 <svelte:head>
 	<title>{title}</title>
+	<link rel="alternate" hreflang="zh" href={localizeUrl(url, { locale: 'zh' })} />
+	<link rel="alternate" hreflang="en" href={localizeUrl(url, { locale: 'en' })} />
+	<link rel="alternate" hreflang="x-default" href={deLocalizeUrl(url)} />
 	<meta name="description" content={description} />
 	{#if noindex}<meta name="robots" content="noindex,nofollow" />{/if}
 	<link rel="canonical" href={url} />

@@ -1,11 +1,11 @@
 services:
   cua_web:
     build: .
-    container_name: cua_web
+    container_name: '${CONTAINER_PREFIX:-cua}_web'
     restart: always
     env_file: .env
     ports:
-      - '8002:4800'
+      - '${WEB_HOST_PORT:-8002}:4800'
     depends_on:
       - cua_api
     ulimits:

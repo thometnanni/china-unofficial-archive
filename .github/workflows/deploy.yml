@@ -5,7 +5,7 @@ on:
   push:
     # Runs on pushes to the default branch (usually main or master)
     branches:
-      - 'release'
+      - 'main'
 
 concurrency:
   group: production-deploy # any unique string

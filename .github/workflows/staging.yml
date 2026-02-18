@@ -8,7 +8,7 @@ on:
       - 'release'
 
 concurrency:
-  group: production-deploy # any unique string
+  group: dev-deploy # any unique string
   cancel-in-progress: true # optional – cancels the older run if a new one starts
 
 jobs:
@@ -48,7 +48,7 @@ jobs:
         run: |
           ssh "${SERVER_USER}@${SERVER_HOST}" <<'EOF'
             set -e               # abort on any error
-            cd /srv/cua
+            cd /srv/cua-dev
             git restore static/robots.txt
             git pull
             printf "User-agent: *\nDisallow: /\n" > static/robots.txt

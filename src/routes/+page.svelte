@@ -7,7 +7,7 @@
 	import { m } from '$lib/paraglide/messages';
 </script>
 
-<Meta title={m.title()} description={m.slogan()} image="/cover.webp" />
+<Meta />
 <MenuBar />
 
 <Splash />

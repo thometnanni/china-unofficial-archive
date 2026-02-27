@@ -28,3 +28,7 @@ src/lib/paraglide
 # Inlang/Paraglide cache
 project.inlang/cache/
 project.inlang/cache/**
+
+static/cmaps
+static/standard_fonts
+static/wasm

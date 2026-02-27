@@ -20,6 +20,16 @@ npm run dev
 npm run dev -- --open
 ```
 
+### PDF.JS
+
+For pdf.js to work properly in development copy some directories into `/static`. For production this handled in the compose file.
+
+```
+cp -r node_modules/pdfjs-dist/maps static
+cp -r node_modules/pdfjs-dist/wasm static
+cp -r node_modules/pdfjs-dist/standard_fonts static
+```
+
 ## Building
 
 To create a production version of your app:

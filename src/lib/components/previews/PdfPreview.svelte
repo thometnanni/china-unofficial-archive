@@ -27,7 +27,9 @@
 		const doc = await pdfjsLib.getDocument({
 			url: media.url,
 			cMapUrl: '/cmaps/',
-			cMapPacked: true
+			standardFontDataUrl: '/standard_fonts/',
+			cMapPacked: true,
+			wasmUrl: '/wasm/'
 		}).promise;
 		loading = true;
 		await renderPage(doc);

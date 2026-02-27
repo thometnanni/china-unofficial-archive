@@ -24,7 +24,13 @@
 
 	$effect(async () => {
 		if (pdfjsLib == null) return;
-		const doc = await pdfjsLib.getDocument(media.url).promise;
+		const doc = await pdfjsLib.getDocument({
+			url: media.url,
+			cMapUrl: '/cmaps/',
+			standardFontDataUrl: '/standard_fonts/',
+			cMapPacked: true,
+			wasmUrl: '/wasm/'
+		}).promise;
 		loading = true;
 		await renderPage(doc);
 	});
@@ -61,7 +67,13 @@
 
 		for (let i = 0; i < maxPages; i++) {
 			const { page, viewport } = pagesAndViewports[i];
-			await page.render({ canvasContext: ctx, viewport, background: 'transparent' }).promise;
+			await page.render({
+				canvasContext: ctx,
+				viewport,
+				renderInteractiveForms: false,
+				background: 'transparent',
+				intent: 'display'
+			}).promise;
 		}
 		loading = false;
 	}

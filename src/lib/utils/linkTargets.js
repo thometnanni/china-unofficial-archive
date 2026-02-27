@@ -3,7 +3,7 @@ export const addLinkTargets = (html = '') => {
 		return '';
 	}
 
-	return html.replace(/<a\b([^>]*)>/gi, (match, attrs = '') => {
+	return html.replace(/=“([^”]+)”/g, '="$1"').replace(/<a\b([^>]*)>/gi, (match, attrs = '') => {
 		const cleanedAttrs = attrs
 			.replace(/\s+target=(["'])[\s\S]*?\1/gi, '')
 			.replace(/\s+rel=(["'])[\s\S]*?\1/gi, '')

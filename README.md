@@ -1,28 +1,33 @@
-# sv
+# China Unofficial Archives
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This is the frontend of the [China Unoffical Archives](https://minjian-danganguan.org).
 
-## Creating a project
+## Deployment
 
-If you're seeing this, you've probably already done this step. Congrats!
+```
+podman compose up --build -d
 
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've cloned this repository and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```sh
 npm run dev
 
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
+```
+
+### PDF.JS
+
+For pdf.js to work properly in development copy some directories into `/static`. For production this handled in the compose file.
+
+```
+cp -r node_modules/pdfjs-dist/maps static
+cp -r node_modules/pdfjs-dist/wasm static
+cp -r node_modules/pdfjs-dist/standard_fonts static
 ```
 
 ## Building
@@ -34,5 +39,3 @@ npm run build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

@@ -7,7 +7,7 @@
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import { page } from '$app/stores';
-	import { addLinkTargets } from '$lib/utils/linkTargets.js';
+	import { normalizeDescription } from '$lib/utils/normalize.js';
 
 	let item = $derived($page.data.item);
 
@@ -17,30 +17,12 @@
 			.trim()
 	);
 
-	const processedDescription = $derived(addLinkTargets(item?.description ?? ''));
+	const description = $derived(normalizeDescription(item?.description));
 </script>
 
 {#if item}
 	<section class="m-auto flex max-w-[840px] flex-col gap-2 p-2 px-4" data-type={dataType}>
-		{#if item.thumbnail && item.type == 'creator'}
-			<div class="{item.type}  z-10 ml-10 w-fit">
-				<img
-					src={item.thumbnail}
-					alt=""
-					crossorigin="anonymous"
-					class="object-fit mt-[-100px] block max-h-[200px] border-1 border-brand-purple"
-				/>
-
-				<!-- <ImageFilter
-				src={item.thumbnail}
-				alt={item.title}
-				color="var(--color-brand-primary)"
-				fit="contain"
-			/> -->
-			</div>
-		{/if}
-
-		<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] text-3xl sm:text-5xl lg:ml-[-2em]">
+		<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] text-3xl sm:text-5xl">
 			<TextOutlined>{item.title}</TextOutlined>
 		</h2>
 
@@ -49,9 +31,6 @@
 				<TextOutlined>{item.titleAlt}</TextOutlined>
 			</h3>
 		{/if}
-		<!-- <p>
-		{item.published}
-	</p> -->
 
 		<div
 			class={`flex flex-wrap gap-2  ${
@@ -110,8 +89,17 @@
 			{/each}
 		</div>
 
-		<div class="item-container text-xl whitespace-pre-wrap">
-			{@html processedDescription}
+		<div class="item-container flex flex-col gap-4 text-xl">
+			{#each description as paragraph, index}
+				<p>{@html paragraph}</p>
+				{#if index === 0 && item.thumbnail}
+					<img
+						src={item.thumbnailLarge ?? item.thumbnail}
+						alt=""
+						class="my-8 block max-h-[75vh] self-center justify-self-center"
+					/>
+				{/if}
+			{/each}
 		</div>
 	</section>
 {/if}

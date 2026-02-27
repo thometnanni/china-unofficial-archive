@@ -23,6 +23,10 @@ COPY --from=builder /app/build ./build
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 
+# Copy pdfjs assets into the static folder so they're served at runtime
+COPY --from=builder /app/node_modules/pdfjs-dist/cmaps ./build/client/cmaps
+COPY --from=builder /app/node_modules/pdfjs-dist/standard_fonts ./build/client/standard_fonts
+
 ENV PORT=4800
 ENV NODE_ENV=production
 

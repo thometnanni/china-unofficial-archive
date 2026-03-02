@@ -1,7 +1,7 @@
 import * as env from '$env/static/public';
 import { getLocale } from './paraglide/runtime';
 
-export const BASE_URL = env.PUBLIC_API ?? 'https://minjian-danganguan.org/fast-api';
+export const BASE_URL = env.PUBLIC_API ?? 'https://api.minjian-danganguan.org';
 
 export async function fetchFilters() {
 	const res = await fetch(`${BASE_URL}/filters`);

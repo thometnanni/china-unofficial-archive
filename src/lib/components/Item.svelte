@@ -8,6 +8,7 @@
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import { page } from '$app/stores';
 	import { normalizeDescription } from '$lib/utils/normalize.js';
+	import Share from './Share.svelte';
 
 	let item = $derived($page.data.item);
 
@@ -32,13 +33,7 @@
 			</h3>
 		{/if}
 
-		<div
-			class={`flex flex-wrap gap-2  ${
-				item.objectType?.length > 0 || item.theme?.length > 0 || item.era?.length > 0
-					? 'mb-20'
-					: 'mb-2'
-			}`}
-		>
+		<div class={`mb-2 flex flex-wrap gap-2`}>
 			{#each item.creator as creator}
 				{#if creator.title}
 					<a class="person creatorTag" href={localizeHref(`/archive/${creator.id}`)}>
@@ -89,7 +84,13 @@
 			{/each}
 		</div>
 
-		<div class="item-container flex flex-col gap-4 text-xl">
+		<span class="share">
+			<TextOutlined>
+				<Share />
+			</TextOutlined>
+		</span>
+
+		<div class="item-container mt-8 flex flex-col gap-4 text-xl">
 			{#each description as paragraph, index}
 				<p>{@html paragraph}</p>
 				{#if index === 0 && item.thumbnail}
@@ -137,6 +138,10 @@
 		/* --color-outlined-text: var(--color-white); */
 		--color-outlined-border: var(--color-type-theme);
 		--color-outlined-bg: var(--color-type-theme);
+	}
+
+	.share {
+		--color-outlined-border: var(--color-brand-purple);
 	}
 
 	.tag:hover,

@@ -39,5 +39,7 @@
 	"menu": "menu",
 	"nav_home": "Home",
 	"subscribe": "Subscribe to China Unofficial Archive",
-	"clear_filters": "clear filters"
+	"clear_filters": "clear filters",
+	"share": "Share",
+	"link_copied": "Link copied!"
 }

@@ -30,8 +30,9 @@ export function absolutize(u, base) {
 	}
 }
 export function deriveSeoFromItem(item, base) {
-	const title = item.title || m.title();
+	const title = item.title ? `${item.title} – ${m.title()}` : m.title();
+	const metaTitle = item.title ? `${m.title()} – ${item.title}` : m.title();
 	const description = summarize(extractText(item.description ?? ''), 180);
 	const image = absolutize(item.thumbnail, base) || `${base}/cover.webp`;
-	return { title, description, image };
+	return { title, metaTitle, description, image };
 }

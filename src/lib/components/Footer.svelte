@@ -3,6 +3,8 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import ImageFilter from '$lib/components/ImageFilter.svelte';
 	import { browser } from '$app/environment';
+	import { page } from '$app/state';
+	import Share from './Share.svelte';
 	// import Logo from '$lib/components/Logo.svelte';
 </script>
 
@@ -13,6 +15,7 @@
 	<ul class="flex flex-wrap gap-4 p-1">
 		<li><a class="text-2xl" href={localizeHref('/about/')}>{m.nav_about()}</a></li>
 		<li><a class="text-2xl" href={localizeHref('/resources/')}>{m.nav_resources()}</a></li>
+		<li class="text-2xl"><Share /></li>
 	</ul>
 	<div class="max-w-[800px] p-2 text-xl">
 		{#if browser}

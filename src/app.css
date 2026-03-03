@@ -59,6 +59,12 @@
 	--grid-cell-size: 80px;
 }
 
+@utility base-grid {
+	@apply grid grid-flow-dense justify-center gap-8;
+	grid-template-columns: repeat(auto-fit, 90px);
+	grid-auto-rows: 90px;
+}
+
 html,
 body {
 	overscroll-behavior-y: none;
@@ -74,7 +80,7 @@ body {
 
 	--gap: 2rem;
 	--sidePadding: 2rem;
-	--innerMax: 1640px;
+	--innerMax: 1648px;
 	--effectiveWidth: min(100vw, var(--innerMax));
 	--cardMax: 420px;
 	--cardSize: calc(var(--effectiveWidth) - 2 * var(--sidePadding));
@@ -106,8 +112,8 @@ b {
 
 .card {
 	/* @apply flex-none; */
-	width: min(var(--cardSize), var(--cardMax));
-	height: min(var(--cardSize), var(--cardMax));
+	/* width: min(var(--cardSize), var(--cardMax));
+	height: min(var(--cardSize), var(--cardMax)); */
 }
 
 .card > * {
@@ -122,10 +128,6 @@ b {
 
 	:root {
 		--cardSize: calc((var(--effectiveWidth) - 2 * var(--sidePadding) - 2 * var(--gap)) / 3 - 10px);
-	}
-
-	.itemsList {
-		@apply flex-wrap justify-center overflow-x-visible px-0 pt-6;
 	}
 }
 

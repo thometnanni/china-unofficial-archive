@@ -19,53 +19,55 @@
 	let hovering = $state(false);
 </script>
 
-<section>
-	<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] `}>
-		<a
-			{href}
-			class="card group col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
-			class:hovering
-			data-object-type={objectType}
-			use:hoverable
-			onhover-start={() => (hovering = true)}
-			onhover-end={() => (hovering = false)}
-		>
-			<div
-				class={`${isPortrait ? 'col-[1/3] row-[1/4]' : 'col-[1/4] row-[1/3]'} border border-card-primary bg-white`}
-			>
-				<div class="relative h-full p-1">
-					<ImageFilter
-						src={item.thumbnail}
-						alt={item.title}
-						inheritHoverState
-						on:ratio={onRatio}
-						fit="cover"
-						objectPosition="center center"
-						disabled={hovering}
-					/>
-					{#if item.objectType}
-						<div class="absolute top-1 left-[calc(var(--spacing)_*_-4)] text-balance">
-							{#each item.objectType as objectType}
-								<TextOutlined class="mb-1 text-card-primary">{objectType.title}</TextOutlined>
-							{/each}
-						</div>
-					{/if}
-				</div>
-			</div>
-
-			{#if item.title}
-				<TextOutlined
-					as="h3"
-					class={isPortrait
-						? 'z-0 col-[2/4] row-[1/4] mb-2 ml-4 items-end'
-						: 'z-0 col-[1/4] row-[3/4] mt-[calc(var(--spacing)_*_-10)] ml-4'}
-					>{item.title}</TextOutlined
-				>
-			{/if}
-		</a>
+<a
+	{href}
+	class:col-span-3={!isPortrait}
+	class:col-span-2={isPortrait}
+	class:row-span-2={!isPortrait}
+	class:row-span-3={isPortrait}
+	class="card grid grid-cols-1 grid-rows-1"
+	class:hovering
+	data-object-type={objectType}
+	use:hoverable
+	onhover-start={() => (hovering = true)}
+	onhover-end={() => (hovering = false)}
+>
+	<div class="col-[1/2] row-[1/2] border border-card-primary bg-white p-1">
+		<ImageFilter
+			src={item.thumbnail}
+			alt={item.title}
+			inheritHoverState
+			on:ratio={onRatio}
+			fit="cover"
+			objectPosition="center center"
+			disabled={hovering}
+		/>
 	</div>
-	<Snippet snippets={item.snippets} {href} {searchTerm} {objectType} />
-</section>
+
+	{#if item.objectType}
+		<div class="z-1 col-[1/2] row-[1/2] flex flex-col content-start justify-items-start gap-2">
+			{#each item.objectType as objectType}
+				<TextOutlined class="-translate-x-2 translate-y-3">{objectType.title}</TextOutlined>
+			{/each}
+		</div>
+	{/if}
+
+	<!-- {#if item.creator}
+		<div class="z-1 col-[1/2] row-[1/2] flex flex-col content-start justify-items-start gap-2">
+			{#each item.creator as creator}
+				<TextOutlined class="-translate-x-2 translate-y-3">{creator.title}</TextOutlined>
+			{/each}
+		</div>
+	{/if} -->
+
+	{#if item.title}
+		<div class="z-1 col-[1/2] row-[1/2] content-end justify-items-start">
+			<TextOutlined as="h3" class="translate-x-2 translate-y-2">{item.title}</TextOutlined>
+		</div>
+	{/if}
+</a>
+
+<Snippet snippets={item.snippets} {href} {searchTerm} {objectType} />
 
 <style>
 	.card {

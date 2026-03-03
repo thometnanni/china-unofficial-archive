@@ -10,35 +10,34 @@
 	let hovering = $state(false);
 </script>
 
-<section>
-	<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] bg-white`}>
-		<a
-			{href}
-			class="card group col-span-3 row-span-3 border border-card-primary"
-			class:hovering
-			use:hoverable
-			onhover-start={() => (hovering = true)}
-			onhover-end={() => (hovering = false)}
-		>
-			<div class="relative h-full p-1">
-				<ImageFilter
-					src={item.thumbnail}
-					color="var(--color-card-primary)"
-					inheritHoverState
-					fit="cover"
-					objectPosition="center 35%"
-					disabled={hovering}
-				/>
-				<TextOutlined
-					as="h3"
-					class="absolute right-[calc(var(--spacing)_*_-4)] bottom-4 text-right text-xl"
-					>{item.title}</TextOutlined
-				>
-			</div>
-		</a>
+<a
+	{href}
+	class="card col-span-3 row-span-3 grid grid-cols-1 grid-rows-1"
+	class:hovering
+	use:hoverable
+	onhover-start={() => (hovering = true)}
+	onhover-end={() => (hovering = false)}
+>
+	<div class="col-[1/2] row-[1/2] border border-card-primary bg-white p-1">
+		<ImageFilter
+			src={item.thumbnail}
+			alt={item.title}
+			color="var(--color-card-primary)"
+			inheritHoverState
+			fit="cover"
+			objectPosition="center 35%"
+			disabled={hovering}
+		/>
 	</div>
-	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
-</section>
+
+	{#if item.title}
+		<div class="z-1 col-[1/2] row-[1/2] content-end justify-items-end">
+			<TextOutlined as="h3" class="-translate-x-2 translate-y-2">{item.title}</TextOutlined>
+		</div>
+	{/if}
+</a>
+
+<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
 
 <style>
 	.card {

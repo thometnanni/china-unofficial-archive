@@ -70,7 +70,7 @@
 		</div>
 	</div>
 
-	<div class="space-y-6 border-t border-brand pt-2">
+	<div class="space-y-6 pt-2">
 		<div class="flex w-full max-w-full items-baseline justify-between gap-4">
 			<h2 class="text-3xl">{m.new()}</h2>
 		</div>
@@ -118,7 +118,7 @@
 	}
 
 	.newList {
-		@apply flex flex-nowrap items-center justify-start overflow-x-auto px-4 pt-4;
+		@apply flex flex-nowrap justify-start overflow-x-auto px-4 pt-4;
 
 		gap: var(--gap);
 		scrollbar-width: thin;
@@ -134,7 +134,7 @@
 			@apply items-start;
 		}
 
-		.featureMain::after {
+		/* .featureMain::after {
 			content: '';
 			position: absolute;
 			top: 0;
@@ -143,7 +143,7 @@
 			width: 1px;
 			background: var(--color-brand);
 			pointer-events: none;
-		}
+		} */
 
 		.newsletterCol {
 			@apply pt-0;
@@ -153,11 +153,17 @@
 		}
 
 		.featureList {
-			@apply flex-wrap overflow-x-visible px-0 pt-6;
+			@apply grid grid-flow-dense flex-wrap overflow-x-visible px-0 pt-6;
+			grid-template-columns: repeat(auto-fit, 90px);
+			grid-auto-rows: 90px;
+			gap: var(--gap);
 		}
 
 		.newList {
-			@apply flex-wrap justify-center overflow-x-visible px-0 pt-6;
+			@apply grid grid-flow-dense flex-wrap overflow-x-visible px-0 pt-6;
+			grid-template-columns: repeat(auto-fit, 90px);
+			grid-auto-rows: 90px;
+			gap: var(--gap);
 		}
 	}
 

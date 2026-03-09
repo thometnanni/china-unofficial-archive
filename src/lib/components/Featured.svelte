@@ -44,6 +44,7 @@
 			<div class="flex w-full max-w-full items-baseline justify-between gap-4">
 				<h2 class="text-3xl">{m.featured()}</h2>
 			</div>
+			<p class="swipeHint">{m.swipe_more_items()}</p>
 
 			<div class="featureList pb-10" bind:this={featureListRef}>
 				{#each featuredItems as item, i}
@@ -71,9 +72,11 @@
 	</div>
 
 	<div class="space-y-6 border-t border-brand pt-2">
-		<div class="flex w-full max-w-full items-baseline justify-between gap-4">
+		<div class="flex w-full max-w-full items-baseline justify-between m-0">
 			<h2 class="text-3xl">{m.new()}</h2>
 		</div>
+		<p class="swipeHint">{m.swipe_more_items()}</p>
+
 		<div class="newList">
 			{#each newItems as item, i}
 				<Card {item} {i} />
@@ -111,6 +114,10 @@
 		@apply flex w-full flex-col pt-2;
 		overflow: hidden;
 		border-top: 1px solid var(--color-brand);
+	}
+
+	.swipeHint {
+		@apply w-full self-start text-base;
 	}
 
 	.newsletterPanelWrapper {
@@ -154,6 +161,10 @@
 
 		.featureList {
 			@apply flex-wrap overflow-x-visible px-0 pt-6;
+		}
+
+		.swipeHint {
+			display: none;
 		}
 
 		.newList {

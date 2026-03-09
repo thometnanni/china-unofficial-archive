@@ -38,13 +38,13 @@
 	});
 </script>
 
-<section class="m-auto max-w-[1640px] px-4 pt-6 pb-10">
+<section class="m-auto max-w-[1640px] px-0 pt-6 pb-10 md:px-4">
 	<div class="featureWrapper gap-0">
 		<div class="featureMain">
-			<div class="flex w-full max-w-full items-baseline justify-between gap-4">
+			<div class="flex w-full max-w-full items-baseline justify-between gap-4 px-4 md:px-0">
 				<h2 class="text-3xl">{m.featured()}</h2>
 			</div>
-			<p class="swipeHint">{m.swipe_more_items()}</p>
+			<p class="swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
 			<div class="featureList pb-10" bind:this={featureListRef}>
 				{#each featuredItems as item, i}
@@ -72,10 +72,10 @@
 	</div>
 
 	<div class="space-y-6 border-t border-brand pt-2">
-		<div class="flex w-full max-w-full items-baseline justify-between m-0">
+		<div class="m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0">
 			<h2 class="text-3xl">{m.new()}</h2>
 		</div>
-		<p class="swipeHint">{m.swipe_more_items()}</p>
+		<p class="swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
 		<div class="newList">
 			{#each newItems as item, i}
@@ -100,24 +100,23 @@
 	}
 
 	.featureMain {
-		@apply flex w-full flex-col items-center;
+		@apply flex w-full flex-col items-stretch;
 		position: relative;
 	}
 
 	.featureList {
-		@apply flex max-w-full flex-nowrap justify-start overflow-x-auto px-4 pt-4;
-		gap: var(--gap);
+		@apply ml-2 flex w-full flex-nowrap justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4;
 		scrollbar-width: thin;
 	}
 
 	.newsletterCol {
-		@apply flex w-full flex-col pt-2;
+		@apply flex w-full flex-col px-4 pt-2;
 		overflow: hidden;
 		border-top: 1px solid var(--color-brand);
 	}
 
 	.swipeHint {
-		@apply w-full self-start text-base;
+		@apply w-full self-start text-sm;
 	}
 
 	.newsletterPanelWrapper {
@@ -125,9 +124,7 @@
 	}
 
 	.newList {
-		@apply flex flex-nowrap items-center justify-start overflow-x-auto px-4 pt-4;
-
-		gap: var(--gap);
+		@apply ml-2 flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4;
 		scrollbar-width: thin;
 	}
 
@@ -153,14 +150,14 @@
 		}
 
 		.newsletterCol {
-			@apply pt-0;
+			@apply px-0 pt-0;
 			flex: 0 0 min(var(--cardSize), var(--cardMax));
 			max-width: min(var(--cardSize), var(--cardMax));
 			border-top: none;
 		}
 
 		.featureList {
-			@apply flex-wrap overflow-x-visible px-0 pt-6;
+			@apply mr-0 w-auto flex-wrap gap-8 overflow-x-visible px-0 pt-6;
 		}
 
 		.swipeHint {
@@ -168,7 +165,7 @@
 		}
 
 		.newList {
-			@apply flex-wrap justify-center overflow-x-visible px-0 pt-6;
+			@apply mr-0 w-auto flex-wrap justify-center gap-8 overflow-x-visible px-0 pt-6;
 		}
 	}
 

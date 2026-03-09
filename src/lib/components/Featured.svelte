@@ -74,12 +74,12 @@
 	</div>
 
 	<div class="space-y-6 pt-2">
-		<div class="m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0">
+		<div class="archiveHeaderRow m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0">
 			<h2 class="w-full border-t border-brand pt-2 text-3xl md:border-t-0 md:pt-0">
 				{m.new()}
 			</h2>
 		</div>
-		<p class="swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
+		<p class="archiveHeaderRow swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
 		<div class="newList">
 			{#each newItems as item, i}
@@ -109,7 +109,7 @@
 	}
 
 	.featureList {
-		@apply ml-2 flex w-full flex-nowrap justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4;
+		@apply ml-2 flex w-full flex-nowrap justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4 md:ml-0;
 		scrollbar-width: thin;
 	}
 
@@ -122,16 +122,25 @@
 		@apply w-full self-start text-sm;
 	}
 
+	.archiveHeaderRow {
+		@apply w-full;
+	}
+
 	.newsletterPanelWrapper {
 		@apply min-h-0 flex-1 overflow-hidden;
 	}
 
 	.newList {
-		@apply ml-2 flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4;
+		@apply ml-2 flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4 md:ml-0;
 		scrollbar-width: thin;
 	}
 
 	@media (min-width: 768px) {
+		.archiveHeaderRow {
+			max-width: calc(4 * min(var(--cardSize), var(--cardMax)) + 3 * var(--gap));
+			margin-inline: auto;
+		}
+
 		.featureWrapper {
 			@apply flex-row items-stretch justify-center;
 		}
@@ -159,7 +168,7 @@
 		}
 
 		.featureList {
-			@apply mr-0 w-auto flex-wrap gap-8 overflow-x-visible px-0 pt-6;
+			@apply mr-0 w-auto flex-wrap gap-8 overflow-visible px-0 pt-6;
 		}
 
 		.swipeHint {
@@ -167,7 +176,7 @@
 		}
 
 		.newList {
-			@apply mr-0 w-auto flex-wrap justify-center gap-8 overflow-x-visible px-0 pt-6;
+			@apply mr-0 w-auto flex-wrap justify-center gap-8 overflow-visible px-0 pt-6;
 		}
 	}
 

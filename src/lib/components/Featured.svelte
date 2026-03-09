@@ -54,7 +54,9 @@
 		</div>
 
 		<div class="newsletterCol pb-10" bind:this={newsletterColRef}>
-			<h2 class="text-3xl">{m.nav_newsletter()}</h2>
+			<h2 class="w-full border-t border-brand pt-2 text-3xl md:border-t-0 md:pt-0">
+				{m.nav_newsletter()}
+			</h2>
 
 			{#if newsletterItems?.length}
 				<div class="newsletterPanelWrapper">
@@ -71,9 +73,11 @@
 		</div>
 	</div>
 
-	<div class="space-y-6 border-t border-brand pt-2">
+	<div class="space-y-6 pt-2">
 		<div class="m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0">
-			<h2 class="text-3xl">{m.new()}</h2>
+			<h2 class="w-full border-t border-brand pt-2 text-3xl md:border-t-0 md:pt-0">
+				{m.new()}
+			</h2>
 		</div>
 		<p class="swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
@@ -112,7 +116,6 @@
 	.newsletterCol {
 		@apply flex w-full flex-col px-4 pt-2;
 		overflow: hidden;
-		border-top: 1px solid var(--color-brand);
 	}
 
 	.swipeHint {
@@ -153,7 +156,6 @@
 			@apply px-0 pt-0;
 			flex: 0 0 min(var(--cardSize), var(--cardMax));
 			max-width: min(var(--cardSize), var(--cardMax));
-			border-top: none;
 		}
 
 		.featureList {

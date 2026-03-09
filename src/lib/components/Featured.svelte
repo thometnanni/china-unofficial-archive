@@ -73,7 +73,7 @@
 		</div>
 	</div>
 
-	<div class="space-y-6 pt-2">
+	<div class="space-y-6 pt-2 md:border-t md:border-brand">
 		<div class="archiveHeaderRow m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0">
 			<h2 class="w-full border-t border-brand pt-2 text-3xl md:border-t-0 md:pt-0">
 				{m.new()}
@@ -109,7 +109,7 @@
 	}
 
 	.featureList {
-		@apply ml-2 flex w-full flex-nowrap justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4 md:ml-0;
+		@apply flex w-full flex-nowrap justify-start gap-8 overflow-x-auto pl-8 pr-0 pt-4;
 		scrollbar-width: thin;
 	}
 
@@ -131,7 +131,7 @@
 	}
 
 	.newList {
-		@apply ml-2 flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto overflow-y-hidden px-4 pt-4 md:ml-0;
+		@apply flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto pl-8 pr-0 pt-4;
 		scrollbar-width: thin;
 	}
 

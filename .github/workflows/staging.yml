@@ -54,4 +54,5 @@ jobs:
             printf "User-agent: *\nDisallow: /\n" > static/robots.txt
             podman compose down
             podman compose up --build -d
+            podman image prune -a -f
           EOF

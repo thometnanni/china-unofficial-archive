@@ -1,7 +1,17 @@
 @import 'tailwindcss';
-@import '@ibm/plex-sans/css/ibm-plex-sans-all.min.css';
-@import '@ibm/plex-sans-sc/css/ibm-plex-sans-sc-all.min.css';
-@import '@ibm/plex-sans-tc/css/ibm-plex-sans-tc-all.min.css';
+
+@import '@ibm/plex-sans/fonts/split/woff2/IBMPlexSans-Regular.css';
+@import '@ibm/plex-sans/fonts/split/woff2/IBMPlexSans-Italic.css';
+@import '@ibm/plex-sans/fonts/split/woff2/IBMPlexSans-Medium.css';
+@import '@ibm/plex-sans/fonts/split/woff2/IBMPlexSans-MediumItalic.css';
+
+/* IBM Plex Sans SC – 400 & 500 (no italic available) */
+@import '@ibm/plex-sans-sc/fonts/split/woff2/hinted/IBMPlexSansSC-Regular.css';
+@import '@ibm/plex-sans-sc/fonts/split/woff2/hinted/IBMPlexSansSC-Medium.css';
+
+/* IBM Plex Sans TC – 400 & 500 (no italic available) */
+@import '@ibm/plex-sans-tc/fonts/split/woff2/hinted/IBMPlexSansTC-Regular.css';
+@import '@ibm/plex-sans-tc/fonts/split/woff2/hinted/IBMPlexSansTC-Medium.css';
 
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';

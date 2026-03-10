@@ -52,7 +52,8 @@ jobs:
             git restore static/robots.txt
             git pull
             printf "User-agent: *\nDisallow: /\n" > static/robots.txt
+            podman compose build
             podman compose down
-            podman compose up --build -d
+            podman compose up -d
             podman image prune -a -f
           EOF

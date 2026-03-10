@@ -50,8 +50,8 @@ jobs:
             set -e               # abort on any error
             cd /srv/cua
             git pull
-            podman compose build
-            podman compose down
+            podman compose down --remove-orphans
             podman compose up -d
-            podman image prune -a -f
+            podman container prune -f   # remove stopped containers first
+            podman image prune -a -f    # now images are free to be removed
           EOF

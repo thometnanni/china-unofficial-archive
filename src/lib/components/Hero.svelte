@@ -36,7 +36,7 @@
 
 <svelte:head>
 	{#each images as src}
-		<link rel="preload" as="image" href={src} />
+		<link rel="preload" as="image" href="{src}?imagesize=thumbnail" />
 	{/each}
 </svelte:head>
 
@@ -48,7 +48,13 @@
 		{#each images as src, i}
 			{#if i === index}
 				<div class="hero-slide" in:receive|local out:send|local>
-					<ImageFilter {src} {fit} {objectPosition} scrollReveal={false} fade />
+					<ImageFilter
+						src="{src}?imagesize=thumbnail"
+						{fit}
+						{objectPosition}
+						scrollReveal={false}
+						fade
+					/>
 				</div>
 			{/if}
 		{/each}

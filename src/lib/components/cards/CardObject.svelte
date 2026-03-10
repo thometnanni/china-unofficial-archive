@@ -35,7 +35,7 @@
 			>
 				<div class="relative h-full p-1">
 					<ImageFilter
-						src={item.thumbnail}
+						src={item.thumbnail && `${item.thumbnail}?imagesize=thumbnail`}
 						alt={item.title}
 						inheritHoverState
 						on:ratio={onRatio}

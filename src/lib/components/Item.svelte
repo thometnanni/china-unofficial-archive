@@ -95,7 +95,8 @@
 				<p>{@html paragraph}</p>
 				{#if index === 0 && item.thumbnail}
 					<img
-						src={item.thumbnailLarge ?? item.thumbnail}
+						src={(item.thumbnailLarge ?? item.thumbnail) &&
+							`${item.thumbnailLarge ?? item.thumbnail}?imagesize=inline`}
 						alt=""
 						class="my-8 block max-h-[75vh] self-center justify-self-center"
 					/>

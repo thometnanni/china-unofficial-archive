@@ -53,7 +53,8 @@ jobs:
             git pull
             printf "User-agent: *\nDisallow: /\n" > static/robots.txt
             podman compose build
-            podman compose down
+            podman compose down --remove-orphans
             podman compose up -d
-            podman image prune -a -f
+            podman container prune -f   # remove stopped containers first
+            podman image prune -f  || true   # now images are free to be removed
           EOF

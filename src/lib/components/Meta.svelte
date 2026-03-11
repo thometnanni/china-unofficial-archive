@@ -6,7 +6,7 @@
 		title = m.title(),
 		metaTitle = m.title(),
 		description = m.slogan(),
-		image = '/cover.webp',
+		image = `${$page.url.href}/cover.webp`,
 		type = 'website',
 		noindex = false
 	} = $props();
@@ -26,7 +26,7 @@
 	<meta property="og:description" content={description} />
 	{#if image}<meta property="og:image" content="{image}?imagesize=opengraph" />{/if}
 	<meta property="og:url" content={url} />
-	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content={metaTitle} />
 	<meta name="twitter:description" content={description} />
 	{#if image}<meta name="twitter:image" content="{image}?imagesize=opengraph" />{/if}

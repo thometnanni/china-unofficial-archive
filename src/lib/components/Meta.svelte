@@ -6,7 +6,7 @@
 		title = m.title(),
 		metaTitle = m.title(),
 		description = m.slogan(),
-		image = `${deLocalizeUrl($page.url.href)}/cover.webp`,
+		image = `${deLocalizeUrl($page.url.href)}cover.webp`,
 		type = 'website',
 		noindex = false
 	} = $props();

@@ -34,7 +34,7 @@
 		{/if}
 
 		<p class="text-base text-neutral-400">
-			Site by <a href="https://krisenstab.net/" target="_blank" class="underline">krisenstab</a>
+			{m.siteby()} <a href="https://krisenstab.net/" target="_blank" class="underline">krisenstab</a>
 		</p>
 	</div>
 

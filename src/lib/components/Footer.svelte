@@ -8,28 +8,33 @@
 	// import Logo from '$lib/components/Logo.svelte';
 </script>
 
-<article class="footer mt-20 flex flex-col bg-black text-white">
+<article class="footer mt-20 flex flex-col bg-black p-2 text-white">
 	<div class="footer-filter" aria-hidden="true">
 		<ImageFilter fit="cover" objectPosition="center" fade />
 	</div>
-	<ul class="flex flex-wrap gap-4 p-1">
+	<ul class="flex flex-wrap gap-4">
 		<li><a class="text-2xl" href={localizeHref('/about/')}>{m.nav_about()}</a></li>
 		<li><a class="text-2xl" href={localizeHref('/resources/')}>{m.nav_resources()}</a></li>
 		<li class="text-2xl"><Share /></li>
 	</ul>
-	<div class="max-w-[800px] p-2 text-xl">
+	<div class="max-w-[800px] text-xl pt-4">
+		<p>© {m.title()}</p>
+		<p class="mt-2 text-xs">
+			{m.claim()}
+		</p>
+
 		{#if browser}
 			{@const address = `${atob('aW5mbw==')}@${atob('bWluamlhbi1kYW5nYW5ndWFuLm9yZw==')}`}
-			<p class="mb-4 text-base">
+			<p class="mt-4 text-base">
 				{m.nav_contact()}:
 				<a href="mailto:{address}" class="underline">
 					{address}
 				</a>
 			</p>
 		{/if}
-		<p>© {m.title()}</p>
-		<p class="mt-1 text-xs">
-			{m.claim()}
+
+		<p class="text-base text-neutral-400">
+			{m.siteby()} <a href="https://krisenstab.net/" target="_blank" class="underline">krisenstab</a>
 		</p>
 	</div>
 

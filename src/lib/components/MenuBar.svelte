@@ -107,13 +107,15 @@
 			</button>
 		</div>
 
-		{#if showMenu || $page.route.id === '/'}
+		{#if showMenu}
 			<div
 				class="fixed top-0 left-0 -z-1 h-full w-full sm:hidden"
 				onclick={closeMenu}
 				aria-hidden="true"
 			></div>
+		{/if}
 
+		{#if showMenu || $page.route.id === '/'}
 			<a class="button sm:hidden" href={localizeHref('/archive')} onclick={closeMenu}>
 				{m.nav_explore()}
 			</a>

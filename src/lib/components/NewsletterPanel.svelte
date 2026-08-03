@@ -6,7 +6,7 @@
 
 	let { items = [] } = $props();
 	let containerRef;
-	let resizeCleanup;
+	import { resolve } from '$app/paths';
 	let isReady = $state(false);
 
 	function updateLayout() {
@@ -65,10 +65,10 @@
 <div class="flex h-full flex-col text-black" style:visibility={isReady ? 'visible' : 'hidden'}>
 	<div class="relative mt-4 min-h-0 flex-1" bind:this={containerRef}>
 		<ul>
-			{#each items as item}
+			{#each items as item (item.id)}
 				<li class="mb-4">
 					<a
-						href={localizeHref(`/archive/${item.id}`)}
+						href={resolve(localizeHref(`/archive/${item.id}`))}
 						class="flex w-full items-start gap-2 py-1 hover:text-brand"
 					>
 						<div class="text-base">

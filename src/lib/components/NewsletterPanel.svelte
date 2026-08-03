@@ -3,10 +3,12 @@
 	import { onMount } from 'svelte';
 	import { setupResize } from '$lib/resize';
 	import { browser } from '$app/environment';
+	import { resolve } from '$app/paths';
+	import { m } from '$lib/paraglide/messages';
+	import TextOutlined from './TextOutlined.svelte';
 
 	let { items = [] } = $props();
 	let containerRef;
-	import { resolve } from '$app/paths';
 	let isReady = $state(false);
 
 	function updateLayout() {
@@ -30,11 +32,17 @@
 			li.style.display = '';
 		});
 
-		const maxHeight = containerRef.clientHeight;
+		let maxHeight = containerRef.clientHeight;
 		if (!maxHeight) {
 			isReady = true;
 			return;
 		}
+
+		const all = containerRef.querySelector('.see-all');
+		maxHeight -=
+			all.getBoundingClientRect().height +
+			parseFloat(getComputedStyle(all).marginTop) +
+			parseFloat(getComputedStyle(all).marginBottom);
 
 		let total = 0;
 
@@ -82,6 +90,23 @@
 					</a>
 				</li>
 			{/each}
+
+			<div class="see-all mb-4 flex justify-end">
+				<a href={resolve(localizeHref('/archive?objectType=4185'))}>
+					<TextOutlined class="newsletter">{m.see_all_newsletters()}</TextOutlined></a
+				>
+			</div>
 		</ul>
 	</div>
 </div>
+
+<style>
+	.see-all a {
+		--color-card-primary: var(--color-type-object-newsletter);
+	}
+	.see-all a:hover {
+		--color-outlined-border: var(--color-white);
+		--color-outlined-bg: var(--color-card-primary);
+		--color-outlined-text: var(--color-white);
+	}
+</style>

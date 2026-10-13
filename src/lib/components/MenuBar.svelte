@@ -83,6 +83,12 @@
 				{m.lang(null, { locale: 'zh' })}
 			</button>
 			<button
+				class="custom-outline {lang === 'zh-hk' ? 'is-active' : ''}"
+				onclick={() => setLocale('zh-hk')}
+			>
+				{m.lang(null, { locale: 'zh-hk' })}
+			</button>
+			<button
 				class="custom-outline {lang === 'en' ? 'is-active' : ''}"
 				onclick={() => setLocale('en')}
 			>

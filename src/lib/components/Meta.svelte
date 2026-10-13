@@ -16,6 +16,7 @@
 <svelte:head>
 	<title>{title}</title>
 	<link rel="alternate" hreflang="zh" href={localizeUrl(url, { locale: 'zh' })} />
+	<link rel="alternate" hreflang="zh-hk" href={localizeUrl(url, { locale: 'zh-hk' })} />
 	<link rel="alternate" hreflang="en" href={localizeUrl(url, { locale: 'en' })} />
 	<link rel="alternate" hreflang="x-default" href={deLocalizeUrl(url)} />
 	<meta name="description" content={description} />

@@ -7,7 +7,8 @@
 	import TextOutlined from '$lib/components/TextOutlined.svelte';
 
 	let lang = $derived(getLocale());
-	let lines = $derived(lang === 'zh' ? ['zh', 'en'] : ['en', 'zh']);
+	let lines = $derived(lang === 'en' ? ['en', 'zh'] : ['zh', 'en']);
+	let zhLocale = $derived(lang === 'zh-hk' ? 'zh-hk' : 'zh-cn');
 	const splashImages = [
 		'intro/1fb378c2aa01bec8d45cdd0f3f218dd7a86b7624.webp',
 		'intro/58c4e5afa6ac1b19599eab1c4cf8726d40f13355.webp',
@@ -34,7 +35,7 @@
 						<!-- <TextOutlined
 							>唯一非营利性的 <span class="nowrap">中国独立思想档案库</span></TextOutlined
 						> -->
-						<span><TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined></span>
+						<span><TextOutlined>{m.slogan(null, { locale: zhLocale })}</TextOutlined></span>
 					</h2>
 				{:else}
 					<h2 class="line enLine">

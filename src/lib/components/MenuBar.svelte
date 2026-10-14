@@ -77,10 +77,10 @@
 	<section class="flex flex-col items-end gap-2">
 		<div class="flex items-center gap-2">
 			<button
-				class="custom-outline {lang === 'zh' ? 'is-active' : ''}"
-				onclick={() => setLocale('zh')}
+				class="custom-outline {lang === 'zh-cn' ? 'is-active' : ''}"
+				onclick={() => setLocale('zh-cn')}
 			>
-				{m.lang(null, { locale: 'zh' })}
+				{m.lang(null, { locale: 'zh-cn' })}
 			</button>
 			<button
 				class="custom-outline {lang === 'zh-hk' ? 'is-active' : ''}"

@@ -41,7 +41,7 @@
 </svelte:head>
 
 <div
-	class={`hero-root pointer-events-none z-[-1] mb-[-100px] overflow-hidden`}
+	class="hero-root pointer-events-none z-[-1] mb-[-100px] overflow-hidden"
 	style={`--color-card-primary: var(--color-brand-purple); height:${heroHeight()}`}
 >
 	<div class="hero-slides">

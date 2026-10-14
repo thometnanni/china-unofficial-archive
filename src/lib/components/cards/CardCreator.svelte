@@ -11,7 +11,7 @@
 </script>
 
 <section>
-	<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] bg-white`}>
+	<div class="col-span-3 row-span-3 grid grid-rows-[auto_1fr] bg-white">
 		<a
 			{href}
 			class="card group col-span-3 row-span-3 border border-card-primary"

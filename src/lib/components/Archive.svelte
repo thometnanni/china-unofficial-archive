@@ -71,7 +71,7 @@
 </script>
 
 {#if items && baseFilters}
-	<section class="m-auto max-w-[1640px] mt-4">
+	<section class="m-auto mt-4 max-w-[1640px]">
 		<div>
 			<div>
 				<Search bind:value={search} itemFilters={filters} {baseFilters} />

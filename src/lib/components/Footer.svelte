@@ -17,7 +17,7 @@
 		<li><a class="text-2xl" href={localizeHref('/resources/')}>{m.nav_resources()}</a></li>
 		<li class="text-2xl"><Share /></li>
 	</ul>
-	<div class="max-w-[800px] text-xl pt-4">
+	<div class="max-w-[800px] pt-4 text-xl">
 		<p>© {m.title()}</p>
 		<p class="mt-2 text-xs">
 			{m.claim()}
@@ -34,7 +34,8 @@
 		{/if}
 
 		<p class="text-base text-neutral-400">
-			{m.siteby()} <a href="https://krisenstab.net/" target="_blank" class="underline">krisenstab</a>
+			{m.siteby()}
+			<a href="https://krisenstab.net/" target="_blank" class="underline">krisenstab</a>
 		</p>
 	</div>
 

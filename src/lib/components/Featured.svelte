@@ -74,7 +74,9 @@
 	</div>
 
 	<div class="space-y-6 pt-2 md:border-t md:border-brand">
-		<div class="archiveHeaderRow m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0">
+		<div
+			class="archiveHeaderRow m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0"
+		>
 			<h2 class="w-full border-t border-brand pt-2 text-3xl md:border-t-0 md:pt-0">
 				{m.new()}
 			</h2>
@@ -109,7 +111,7 @@
 	}
 
 	.featureList {
-		@apply flex w-full flex-nowrap justify-start gap-8 overflow-x-auto pl-8 pr-0 pt-4;
+		@apply flex w-full flex-nowrap justify-start gap-8 overflow-x-auto pt-4 pr-0 pl-8;
 		scrollbar-width: thin;
 	}
 
@@ -131,7 +133,7 @@
 	}
 
 	.newList {
-		@apply flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto pl-8 pr-0 pt-4;
+		@apply flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto pt-4 pr-0 pl-8;
 		scrollbar-width: thin;
 	}
 

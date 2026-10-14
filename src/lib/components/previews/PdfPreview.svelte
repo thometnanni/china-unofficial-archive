@@ -11,7 +11,7 @@
 		// Lazy import to prevent SSR from choking
 		import('pdfjs-dist').then(async (mod) => {
 			pdfjsLib = mod;
-			pdfjsLib.GlobalWorkerOptions.workerSrc = `/workers/pdf.worker.js`;
+			pdfjsLib.GlobalWorkerOptions.workerSrc = `/workers/pdf.worker.mjs`;
 		});
 	}
 

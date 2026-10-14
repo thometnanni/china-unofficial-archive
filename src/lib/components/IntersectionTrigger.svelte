@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-	import Loading from '$lib/components/Loading.svelte';
+	import Loading from '#lib/components/Loading.svelte';
 
 	const dispatch = createEventDispatcher();
 	let element;

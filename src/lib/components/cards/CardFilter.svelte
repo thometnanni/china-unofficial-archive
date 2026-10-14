@@ -1,6 +1,6 @@
 <script>
-	import { hoverable } from '$lib/actions/hoverable';
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	import { hoverable } from '#lib/actions/hoverable.js';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
 	import TextOutlined from '../TextOutlined.svelte';
 	let { item, href } = $props();
 

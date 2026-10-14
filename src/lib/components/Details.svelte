@@ -1,9 +1,9 @@
 <script>
-	import { page } from '$app/stores';
-	import HtmlPreview from '$lib/components/previews/HtmlPreview.svelte';
-	import MediaPreview from '$lib/components/previews/MediaPreview.svelte';
+	import { page } from '$app/state';
+	import HtmlPreview from '#lib/components/previews/HtmlPreview.svelte';
+	import MediaPreview from '#lib/components/previews/MediaPreview.svelte';
 
-	let item = $derived($page.data.item);
+	let item = $derived(page.data.item);
 </script>
 
 {#if item.html}

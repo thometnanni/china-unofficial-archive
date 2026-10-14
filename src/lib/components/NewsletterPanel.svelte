@@ -1,10 +1,10 @@
 <script>
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 	import { onMount } from 'svelte';
-	import { setupResize } from '$lib/resize';
-	import { browser } from '$app/environment';
+	import { setupResize } from '#lib/resize.js';
+	import { browser } from '$app/env';
 	import { resolve } from '$app/paths';
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 	import TextOutlined from './TextOutlined.svelte';
 
 	let { items = [] } = $props();

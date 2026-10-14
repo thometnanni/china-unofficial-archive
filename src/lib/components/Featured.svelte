@@ -1,17 +1,17 @@
 <script>
-	import { m } from '$lib/paraglide/messages';
-	import Card from '$lib/components/Card.svelte';
-	import CardCta from '$lib/components/cards/CardCta.svelte';
-	import NewsletterPanel from '$lib/components/NewsletterPanel.svelte';
-	import { localizeHref } from '$lib/paraglide/runtime';
-	import { page } from '$app/stores';
+	import { m } from '#lib/paraglide/messages.js';
+	import Card from '#lib/components/Card.svelte';
+	import CardCta from '#lib/components/cards/CardCta.svelte';
+	import NewsletterPanel from '#lib/components/NewsletterPanel.svelte';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
-	import { setupResize } from '$lib/resize';
-	import { browser } from '$app/environment';
+	import { setupResize } from '#lib/resize.js';
+	import { browser } from '$app/env';
 
-	let featuredItems = $derived($page.data.featured?.slice(0, 9));
-	let newItems = $derived($page.data.newItems?.slice(0, 11));
-	let newsletterItems = $derived($page.data.newsletters?.slice(0, 20));
+	let featuredItems = $derived(page.data.featured?.slice(0, 9));
+	let newItems = $derived(page.data.newItems?.slice(0, 11));
+	let newsletterItems = $derived(page.data.newsletters?.slice(0, 20));
 
 	let featureListRef;
 	let newsletterColRef;

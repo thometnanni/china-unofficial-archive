@@ -1,10 +1,10 @@
 <script>
-	import Featured from '$lib/components/Featured.svelte';
-	import MenuBar from '$lib/components/MenuBar.svelte';
-	import Splash from '$lib/components/Splash.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import Meta from '$lib/components/Meta.svelte';
-	import { m } from '$lib/paraglide/messages';
+	import Featured from '#lib/components/Featured.svelte';
+	import MenuBar from '#lib/components/MenuBar.svelte';
+	import Splash from '#lib/components/Splash.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import Meta from '#lib/components/Meta.svelte';
+	import { m } from '#lib/paraglide/messages.js';
 </script>
 
 <Meta />

@@ -1,7 +1,7 @@
-import * as env from '$env/static/public';
+import { PUBLIC_API } from '$app/env/public';
 import { getLocale } from './paraglide/runtime';
 
-const BASE_URL = env.PUBLIC_API ?? 'https://api.minjian-danganguan.org';
+const BASE_URL = PUBLIC_API ?? 'https://api.minjian-danganguan.org';
 
 export async function query(path, fetch = window.fetch) {
 	const lang = getLocale();

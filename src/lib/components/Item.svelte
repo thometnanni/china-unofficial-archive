@@ -1,22 +1,20 @@
 <script>
-	import { query } from '$lib/api';
+	import { query } from '#lib/api.js';
 
-	import { m } from '$lib/paraglide/messages.js';
-	import { localizeHref } from '$lib/paraglide/runtime';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
-	import { page } from '$app/stores';
-	import { normalizeDescription } from '$lib/utils/normalize.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
+	import { page } from '$app/state';
+	import { normalizeDescription } from '#lib/utils/normalize.js';
 	import Share from './Share.svelte';
 
-	let item = $derived($page.data.item);
-
+	let item = $derived(page.data.item);
 	const dataType = $derived(
 		String(item?.objectType?.[0]?.id || '')
 			.toLowerCase()
 			.trim()
 	);
-
 	const description = $derived(normalizeDescription(item?.description));
 </script>
 

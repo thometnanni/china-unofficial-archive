@@ -1,8 +1,8 @@
 <script>
-	import { localizeHref } from '$lib/paraglide/runtime';
-	import CardCreator from '$lib/components/cards/CardCreator.svelte';
-	import CardObject from '$lib/components/cards/CardObject.svelte';
-	import CardFilter from '$lib/components/cards/CardFilter.svelte';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
+	import CardCreator from '#lib/components/cards/CardCreator.svelte';
+	import CardObject from '#lib/components/cards/CardObject.svelte';
+	import CardFilter from '#lib/components/cards/CardFilter.svelte';
 
 	let { item, i = 0 } = $props();
 

@@ -1,5 +1,5 @@
 <script>
-	import noise from '$lib/assets/noise.png';
+	import noise from '#lib/assets/noise.png';
 	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 
 	const {

@@ -1,9 +1,9 @@
 <script>
-	import PdfPreview from '$lib/components/previews/PdfPreview.svelte';
-	import VideoPreview from '$lib/components/previews/VideoPreview.svelte';
-	import { m } from '$lib/paraglide/messages';
-	import { page } from '$app/stores';
-	import Gallery from '$lib/components/Gallery.svelte';
+	import PdfPreview from '#lib/components/previews/PdfPreview.svelte';
+	import VideoPreview from '#lib/components/previews/VideoPreview.svelte';
+	import { m } from '#lib/paraglide/messages.js';
+	import { page } from '$app/state';
+	import Gallery from '#lib/components/Gallery.svelte';
 
 	let { medias = [], initialIndex = 0 } = $props();
 

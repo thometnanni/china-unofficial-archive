@@ -1,11 +1,11 @@
 <script>
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import { page } from '$app/stores';
-	import Snippet from '$lib/components/cards/Snippet.svelte';
-	import { hoverable } from '$lib/actions/hoverable';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
+	import { page } from '$app/state';
+	import Snippet from '#lib/components/cards/Snippet.svelte';
+	import { hoverable } from '#lib/actions/hoverable.js';
 	let { item, href } = $props();
-	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
+	const searchTerm = $derived(String(page.url.searchParams.get('search') || '').trim());
 
 	let hovering = $state(false);
 </script>
@@ -37,6 +37,7 @@
 			</div>
 		</a>
 	</div>
+
 	<Snippet snippets={item.snippets} {href} {searchTerm} dataType="creator" />
 </section>
 

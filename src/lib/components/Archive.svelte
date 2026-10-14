@@ -1,14 +1,14 @@
 <script>
-	import Items from '$lib/components/Items.svelte';
-	import Item from '$lib/components/Item.svelte';
-	import Search from '$lib/components/search/Search.svelte';
-	import MediaPreview from '$lib/components/previews/MediaPreview.svelte';
-	import TypeFilter from '$lib/components/TypeFilter.svelte';
-	import { page } from '$app/stores';
-	import { query } from '$lib/api';
+	import Items from '#lib/components/Items.svelte';
+	import Item from '#lib/components/Item.svelte';
+	import Search from '#lib/components/search/Search.svelte';
+	import MediaPreview from '#lib/components/previews/MediaPreview.svelte';
+	import TypeFilter from '#lib/components/TypeFilter.svelte';
+	import { page } from '$app/state';
+	import { query } from '#lib/api.js';
 	import IntersectionTrigger from './IntersectionTrigger.svelte';
 
-	let id = $derived($page.params.id ?? '');
+	let id = $derived(page.params.id ?? '');
 
 	let items = $state([]);
 	let filters = $state(null);
@@ -19,7 +19,7 @@
 	let typeCounts = $state({ objects: 0, creators: 0 });
 
 	$effect(async () => {
-		const item = await query(`query/${id}${$page.url.search}`).then((d) => d.json());
+		const item = await query(`query/${id}${page.url.search}`).then((d) => d.json());
 		nextPage = 2;
 		items = item.items;
 		filters = item.filters;
@@ -35,10 +35,10 @@
 		if (awaitingNextPage === true) return;
 
 		awaitingNextPage = true;
-		const item = await query(
-			`query/${id}${$page.url.search}${$page.url.search ? '&' : '?'}page=${nextPage}`
-		).then((d) => d.json());
 
+		const item = await query(
+			`query/${id}${page.url.search}${page.url.search ? '&' : '?'}page=${nextPage}`
+		).then((d) => d.json());
 		const ids = items.map(({ id }) => id);
 		items.push(...item.items.filter(({ id }) => !ids.includes(id)));
 		hasNextPage = item.hasNextPage;
@@ -65,7 +65,7 @@
 	// });
 
 	let displayItems = $derived.by(() => {
-		const itemType = $page.url.searchParams.get('view') === 'creator' ? 'creator' : 'object';
+		const itemType = page.url.searchParams.get('view') === 'creator' ? 'creator' : 'object';
 		return items.filter(({ type }) => itemType === type);
 	});
 </script>
@@ -75,6 +75,7 @@
 		<div>
 			<div>
 				<Search bind:value={search} itemFilters={filters} {baseFilters} />
+
 				<TypeFilter objectCount={typeCounts.objects} creatorCount={typeCounts.creators} />
 			</div>
 			<Items items={displayItems} />

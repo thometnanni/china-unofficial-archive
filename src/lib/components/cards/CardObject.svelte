@@ -1,9 +1,9 @@
 <script>
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import { page } from '$app/stores';
-	import Snippet from '$lib/components/cards/Snippet.svelte';
-	import { hoverable } from '$lib/actions/hoverable';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
+	import { page } from '$app/state';
+	import Snippet from '#lib/components/cards/Snippet.svelte';
+	import { hoverable } from '#lib/actions/hoverable.js';
 
 	let { item, href } = $props();
 	let isPortrait = $state(true);
@@ -11,7 +11,8 @@
 		isPortrait = e.detail.isPortrait;
 	}
 	const objectType = $derived(item?.objectType?.[0]?.id || '');
-	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
+	const searchTerm = $derived(String(page.url.searchParams.get('search') || '').trim());
+
 	const titleClass = $derived(
 		isPortrait ? 'z-0 col-[2/4] row-[1/4] mb-2 ml-4 items-end' : 'z-0 col-[1/4] row-[3/4] ml-4'
 	);
@@ -64,6 +65,7 @@
 			{/if}
 		</a>
 	</div>
+
 	<Snippet snippets={item.snippets} {href} {searchTerm} {objectType} />
 </section>
 

@@ -1,6 +1,6 @@
 <script>
-	import { browser } from '$app/environment';
-	import { m } from '$lib/paraglide/messages';
+	import { browser } from '$app/env';
+	import { m } from '#lib/paraglide/messages.js';
 	let pdfjsLib = $state();
 
 	let canvas = $state();

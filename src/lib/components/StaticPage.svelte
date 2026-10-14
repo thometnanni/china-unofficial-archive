@@ -1,8 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { query } from '$lib/api';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { query } from '#lib/api.js';
 
 	let { title = '', html = null, splashImages = [] } = $props();
 </script>

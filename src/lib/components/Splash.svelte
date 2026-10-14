@@ -1,10 +1,10 @@
 <script>
 	import { onMount } from 'svelte';
-	import { query } from '$lib/api';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import Hero from '$lib/components/Hero.svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
+	import { query } from '#lib/api.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import Hero from '#lib/components/Hero.svelte';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
 
 	let lang = $derived(getLocale());
 	let lines = $derived(lang === 'en' ? ['en', 'zh'] : ['zh', 'en']);

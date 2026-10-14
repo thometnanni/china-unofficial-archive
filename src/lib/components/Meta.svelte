@@ -1,16 +1,16 @@
 <script>
-	import { page } from '$app/stores';
-	import { m } from '$lib/paraglide/messages';
-	import { deLocalizeUrl, localizeUrl } from '$lib/paraglide/runtime';
+	import { page } from '$app/state';
+	import { m } from '#lib/paraglide/messages.js';
+	import { deLocalizeUrl, localizeUrl } from '#lib/paraglide/runtime.js';
 	let {
 		title = m.title(),
 		metaTitle = m.title(),
 		description = m.slogan(),
-		image = `${deLocalizeUrl($page.url.href)}cover.webp`,
+		image = `${deLocalizeUrl(page.url.href)}cover.webp`,
 		type = 'website',
 		noindex = false
 	} = $props();
-	const url = $derived($page.url.href);
+	const url = $derived(page.url.href);
 </script>
 
 <svelte:head>

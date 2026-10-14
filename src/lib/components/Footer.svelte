@@ -1,11 +1,11 @@
 <script>
-	import { m } from '$lib/paraglide/messages';
-	import { localizeHref } from '$lib/paraglide/runtime';
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
-	import { browser } from '$app/environment';
+	import { m } from '#lib/paraglide/messages.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
+	import { browser } from '$app/env';
 	import { page } from '$app/state';
 	import Share from './Share.svelte';
-	// import Logo from '$lib/components/Logo.svelte';
+	// import Logo from '#lib/components/Logo.svelte';
 </script>
 
 <article class="footer mt-20 flex flex-col bg-black p-2 text-white">

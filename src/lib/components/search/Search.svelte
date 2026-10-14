@@ -1,12 +1,12 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { page, navigating } from '$app/stores';
-	import { m } from '$lib/paraglide/messages.js';
-	import { collators } from '$lib/collators.js';
-	import { getLocale } from '$lib/paraglide/runtime';
+	import { page, navigating } from '$app/state';
+	import { m } from '#lib/paraglide/messages.js';
+	import { collators } from '#lib/collators.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
 	let { value, itemFilters, baseFilters } = $props();
-	import SearchTag from '$lib/components/search/SearchTag.svelte';
-	import MoreFilters from '$lib/components/search/MoreFilters.svelte';
+	import SearchTag from '#lib/components/search/SearchTag.svelte';
+	import MoreFilters from '#lib/components/search/MoreFilters.svelte';
 
 	const hiddenTypes = new Set(['creator']);
 	let searchInput;
@@ -19,12 +19,12 @@
 		baseFilters
 			? Object.keys(baseFilters)
 					.filter((type) => !hiddenTypes.has(type))
-					.some((type) => $page.url.searchParams.has(type))
+					.some((type) => page.url.searchParams.has(type))
 			: false
 	);
-	const hasSearchParam = $derived.by(() => !!$page.url.searchParams.get('search'));
-	const hasScope = $derived(itemFilters != null);
 
+	const hasSearchParam = $derived.by(() => !!page.url.searchParams.get('search'));
+	const hasScope = $derived(itemFilters != null);
 	const getFilterKey = (filter) => `${filter.type}:${filter.id ?? filter.value}`;
 	const withCounts = (filter, type) => {
 		const key = filter.id ?? filter.value;
@@ -37,7 +37,7 @@
 		const seen = new Set();
 		Object.entries(baseFilters ?? {}).forEach(([type]) => {
 			if (hiddenTypes.has(type)) return;
-			const searchParam = $page.url.searchParams.get(type);
+			const searchParam = page.url.searchParams.get(type);
 			if (searchParam == null) return;
 			decodeURIComponent(searchParam)
 				.split(',')
@@ -74,6 +74,7 @@
 
 	let filteredFilters = $derived.by(() => {
 		if (!searchTerm) return null;
+
 		return Object.entries(baseFilters ?? {})
 			.filter(([type]) => !hiddenTypes.has(type))
 			.map(([type, values]) =>
@@ -189,9 +190,9 @@
 			.concat(groups.filter((g) => !categoryOrder.includes(g.type)));
 	});
 
-	let showLoader = $derived($navigating != null || pending);
+	let showLoader = $derived(navigating.to != null || pending);
 	$effect(() => {
-		if ($navigating == null && pending) {
+		if (navigating.to == null && pending) {
 			const elapsed = Date.now() - navStart;
 			const remain = Math.max(250 - elapsed, 0);
 			clearTimeout(hideTimer);
@@ -205,7 +206,7 @@
 	}
 	function applyFilter(filter) {
 		startNav();
-		const url = new URL($page.url);
+		const url = new URL(page.url.href);
 		const newParam = `${filter.id ?? filter.value}`;
 		const currentParam = url.searchParams.get(filter.type);
 		const filterSet = new Set(currentParam ? currentParam.split(',') : []);
@@ -213,39 +214,42 @@
 		else filterSet.add(newParam);
 		if (filterSet.size > 0) url.searchParams.set(filter.type, Array.from(filterSet).join(','));
 		else url.searchParams.delete(filter.type);
-		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
+		goto(url, { replace: true, reset: false });
 	}
 	function submitSearch(e) {
 		e.preventDefault();
 		startNav();
-		const url = new URL($page.url);
+
+		const url = new URL(page.url.href);
+
 		if (value) url.searchParams.set('search', value);
 		else url.searchParams.delete('search');
+
 		value = '';
-		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
+		goto(url, { replace: true, reset: false });
 	}
 	function resetSearch() {
 		startNav();
-		const url = new URL($page.url);
+		const url = new URL(page.url.href);
 		url.searchParams.delete('search');
 		value = '';
-		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
+		goto(url, { replace: true, reset: false });
 	}
 
 	function clearFilters() {
 		startNav();
-		const url = new URL($page.url);
+		const url = new URL(page.url.href);
 		url.searchParams.delete('search');
 		value = '';
 		activeFilters.forEach(({ type }) => url.searchParams.delete(type));
-		goto(url, { replaceState: true, noScroll: true, keepFocus: true });
+		goto(url, { replace: true, reset: false });
 	}
 
 	function toggleFilters() {
 		showAllFilters = !showAllFilters;
 	}
 	let activeSearch = $derived.by(() => {
-		const searchParam = $page.url.searchParams.get('search');
+		const searchParam = page.url.searchParams.get('search');
 		if (searchParam == null) return;
 		const active = decodeURIComponent(searchParam);
 		return active;
@@ -256,7 +260,7 @@
 <section
 	id="search"
 	class="sticky top-0 z-2 mx-2 border border-brand bg-white md:mx-10 {loading && 'isLoading'}"
-	aria-busy={$navigating != null}
+	aria-busy={navigating.to != null}
 >
 	{#if showLoader}
 		<div class="progressLine w-full"></div>
@@ -267,15 +271,12 @@
 				class="mx-1"
 				onclick={() => applyFilter(filter)}
 				disabled={loading}
-				aria-disabled={loading}
+				aria-disabled={loading}><SearchTag showCount={false} item={filter} close /></button
 			>
-				<SearchTag showCount={false} item={filter} close></SearchTag>
-			</button>
 		{/each}
 		{#if activeSearch}
 			<button onclick={resetSearch} disabled={loading} aria-disabled={loading}>
-				<SearchTag showCount={false} item={{ title: activeSearch, type: 'search' }} close
-				></SearchTag>
+				<SearchTag showCount={false} item={{ title: activeSearch, type: 'search' }} close />
 			</button>
 		{/if}
 		<form onsubmit={submitSearch} class="flex flex-1">
@@ -296,8 +297,8 @@
 					>
 					<path
 						d="M29,27.5859l-7.5521-7.5521a11.0177,11.0177,0,1,0-1.4141,1.4141L27.5859,29ZM4,13a9,9,0,1,1,9,9A9.01,9.01,0,0,1,4,13Z"
-					/>
-					<rect class="cls-1" width="32" height="32" />
+					></path>
+					<rect class="cls-1" width="32" height="32"></rect>
 				</svg>
 			</button>
 			<input
@@ -331,10 +332,8 @@
 								class="shrink-0 md:shrink"
 								onclick={() => applyFilter(filter)}
 								disabled={loading}
-								aria-disabled={loading}
+								aria-disabled={loading}><SearchTag item={filter} /></button
 							>
-								<SearchTag item={filter}></SearchTag>
-							</button>
 						{/each}
 					</div>
 				{/if}
@@ -364,8 +363,9 @@
 						</defs>
 						<path
 							d="M12.9,7c-.4-1.7-2-3-3.9-3s-3.4,1.3-3.9,3h-3.1v2h3.1c.4,1.7,2,3,3.9,3s3.4-1.3,3.9-3h17.1v-2H12.9ZM9,10c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2ZM23,12c-1.9,0-3.4,1.3-3.9,3H2v2h17.1c.4,1.7,2,3,3.9,3s3.4-1.3,3.9-3h3.1v-2h-3.1c-.4-1.7-2-3-3.9-3ZM23,18c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2ZM14,20c-1.9,0-3.4,1.3-3.9,3H2v2h8.1c.4,1.7,2,3,3.9,3s3.4-1.3,3.9-3h12.1v-2h-12.1c-.4-1.7-2-3-3.9-3ZM14,26c-1.1,0-2-.9-2-2s.9-2,2-2,2,.9,2,2-.9,2-2,2Z"
-						/>
-						<rect id="__x3C_Transparent_Rectangle_x3E_" class="st0" width="32" height="32" />
+						></path>
+
+						<rect id="__x3C_Transparent_Rectangle_x3E_" class="st0" width="32" height="32"></rect>
 					</svg>
 					<span>{showAllFilters ? m.hide_filters() : m.more_filters()}</span>
 				</button>

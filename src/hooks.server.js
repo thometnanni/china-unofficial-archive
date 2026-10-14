@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { paraglideMiddleware } from '$lib/paraglide/server';
+import { paraglideMiddleware } from '#lib/paraglide/server.js';
 
 const handleParaglide = ({ event, resolve }) => {
 	if (event.url.pathname === '/sitemap.xml') {

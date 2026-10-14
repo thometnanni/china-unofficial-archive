@@ -1,11 +1,11 @@
 <script>
-	import { m } from '$lib/paraglide/messages';
-	import Logo from '$lib/components/Logo.svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	import { m } from '#lib/paraglide/messages.js';
+	import Logo from '#lib/components/Logo.svelte';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
 	import { onMount, onDestroy } from 'svelte';
-	import { setLocale, localizeHref, getLocale } from '$lib/paraglide/runtime';
-	import { page } from '$app/stores';
+	import { setLocale, localizeHref, getLocale } from '#lib/paraglide/runtime.js';
+	import { page } from '$app/state';
 
 	let showMenu = $state(false);
 
@@ -41,15 +41,18 @@
 		if (p.route.id !== '/archive/[[id]]') return null;
 		const d = p.data?.item;
 		if (!d) return null;
+
 		const check = (i) => i && /\.(jpe?g|png)$/i.test(i);
+
 		const tryUrl =
 			d?.media?.find((m) => check(m?.url))?.url ||
 			(Array.isArray(d?.items) ? d.items[0]?.media?.find((m) => check(m?.url))?.url : null) ||
 			(check(d?.thumbnail) ? d.thumbnail : null);
+
 		return tryUrl || null;
 	}
 
-	let heroSrc = $derived(pickHeroFromData($page) || defaultHero);
+	let heroSrc = $derived(pickHeroFromData(page) || defaultHero);
 </script>
 
 <nav class="absolute z-50 flex w-full justify-between p-2 text-xl">
@@ -97,17 +100,17 @@
 			<button
 				aria-label="menu"
 				class="p-1 sm:hidden"
-				class:hidden={$page.route.id === '/'}
+				class:hidden={page.route.id === '/'}
 				onclick={toggleMenu}
 			>
 				<svg width="20" height="20">
 					{#if showMenu}
-						<line x1="4" x2="16" y1="4" y2="16" />
-						<line x1="4" x2="16" y1="16" y2="4" />
+						<line x1="4" x2="16" y1="4" y2="16"></line>
+						<line x1="4" x2="16" y1="16" y2="4"></line>
 					{:else}
-						<line x1="2" x2="18" y1="5" y2="5" />
-						<line x1="2" x2="18" y1="10" y2="10" />
-						<line x1="2" x2="18" y1="15" y2="15" />
+						<line x1="2" x2="18" y1="5" y2="5"></line>
+						<line x1="2" x2="18" y1="10" y2="10"></line>
+						<line x1="2" x2="18" y1="15" y2="15"></line>
 					{/if}
 				</svg>
 			</button>
@@ -121,10 +124,10 @@
 			></div>
 		{/if}
 
-		{#if showMenu || $page.route.id === '/'}
-			<a class="button sm:hidden" href={localizeHref('/archive')} onclick={closeMenu}>
-				{m.nav_explore()}
-			</a>
+		{#if showMenu || page.route.id === '/'}
+			<a class="button sm:hidden" href={localizeHref('/archive')} onclick={closeMenu}
+				>{m.nav_explore()}</a
+			>
 
 			<a class="button sm:hidden" href={localizeHref('/archive?view=creator')} onclick={closeMenu}>
 				{m.nav_creators()}

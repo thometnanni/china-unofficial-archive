@@ -38,8 +38,6 @@
 		"@ibm/plex-sans-sc": "^1.1.0",
 		"@ibm/plex-sans-tc": "^1.1.1",
 		"@inlang/paraglide-js": "^2.0.0",
-		"d3-selection": "^3.0.0",
-		"d3-zoom": "^3.0.0",
 		"pdfjs-dist": "^5.4.149"
 	}
 }

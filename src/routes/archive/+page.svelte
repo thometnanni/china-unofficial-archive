@@ -4,7 +4,6 @@
 	import Hero from '#lib/components/Hero.svelte';
 	import Archive from '#lib/components/Archive.svelte';
 	import Footer from '#lib/components/Footer.svelte';
-	import { m } from '#lib/paraglide/messages.js';
 </script>
 
 <Meta />

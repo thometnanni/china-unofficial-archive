@@ -3,7 +3,7 @@
 	import { page, navigating } from '$app/state';
 	import { m } from '#lib/paraglide/messages.js';
 	import { collators } from '#lib/collators.js';
-	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { SvelteSet } from 'svelte/reactivity';
 	let { value, itemFilters, baseFilters } = $props();
 	import SearchTag from '#lib/components/search/SearchTag.svelte';
 	import MoreFilters from '#lib/components/search/MoreFilters.svelte';
@@ -15,15 +15,6 @@
 	let hideTimer;
 	let showAllFilters = $state(false);
 
-	const hasFilterParams = $derived.by(() =>
-		baseFilters
-			? Object.keys(baseFilters)
-					.filter((type) => !hiddenTypes.has(type))
-					.some((type) => page.url.searchParams.has(type))
-			: false
-	);
-
-	const hasSearchParam = $derived.by(() => !!page.url.searchParams.get('search'));
 	const hasScope = $derived(itemFilters != null);
 	const getFilterKey = (filter) => `${filter.type}:${filter.id ?? filter.value}`;
 	const withCounts = (filter, type) => {
@@ -34,7 +25,7 @@
 	};
 	let activeFilters = $derived.by(() => {
 		const picked = [];
-		const seen = new Set();
+		const seen = new SvelteSet();
 		Object.entries(baseFilters ?? {}).forEach(([type]) => {
 			if (hiddenTypes.has(type)) return;
 			const searchParam = page.url.searchParams.get(type);
@@ -119,17 +110,6 @@
 		return [...allObjectType, ...limitedOthers].sort(sortFn);
 	});
 
-	let othersLimited = $derived.by(() => {
-		if (filteredFilters) return [];
-		const pick = (t) =>
-			(baseFilters?.[t] ?? [])
-				.filter((f) => itemFilters == null || itemFilters[t]?.[f.id ?? f.value] != null)
-				.sort((a, b) => b.count - a.count)
-				.slice(0, 3)
-				.map((v) => withCounts(v, t));
-		return [...pick('year')];
-	});
-
 	const categoryOrder = ['objectType', 'theme', 'era', 'year'];
 
 	const categoryLabels = {
@@ -209,7 +189,7 @@
 		const url = new URL(page.url.href);
 		const newParam = `${filter.id ?? filter.value}`;
 		const currentParam = url.searchParams.get(filter.type);
-		const filterSet = new Set(currentParam ? currentParam.split(',') : []);
+		const filterSet = new SvelteSet(currentParam ? currentParam.split(',') : []);
 		if (filterSet.has(newParam)) filterSet.delete(newParam);
 		else filterSet.add(newParam);
 		if (filterSet.size > 0) url.searchParams.set(filter.type, Array.from(filterSet).join(','));
@@ -266,7 +246,7 @@
 		<div class="progressLine w-full"></div>
 	{/if}
 	<div class="searchBox visible relative m-1 flex flex-wrap gap-1">
-		{#each activeFilters as filter}
+		{#each activeFilters as filter, i (i)}
 			<button
 				class="mx-1"
 				onclick={() => applyFilter(filter)}
@@ -352,7 +332,7 @@
 						xmlns="http://www.w3.org/2000/svg"
 						version="1.1"
 						viewBox="0 0 32 32"
-						class="inline-block h-[1em] w-[1em] flex-shrink-0"
+						class="inline-block h-[1em] w-[1em] shrink-0"
 					>
 						<defs>
 							<style>

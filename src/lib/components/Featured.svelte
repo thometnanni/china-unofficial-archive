@@ -15,7 +15,6 @@
 
 	let featureListRef;
 	let newsletterColRef;
-	let resizeCleanup;
 
 	function syncHeight() {
 		if (!browser) return;
@@ -34,7 +33,7 @@
 
 	onMount(() => {
 		if (!browser) return;
-		setupResize(featureListRef, syncHeight);
+		return setupResize(featureListRef, syncHeight);
 	});
 </script>
 
@@ -47,8 +46,8 @@
 			<p class="swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
 			<div class="featureList pb-10" bind:this={featureListRef}>
-				{#each featuredItems as item, i}
-					<Card {item} {i} />
+				{#each featuredItems as item (item.id)}
+					<Card {item} />
 				{/each}
 			</div>
 		</div>
@@ -84,8 +83,8 @@
 		<p class="archiveHeaderRow swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
 		<div class="newList">
-			{#each newItems as item, i}
-				<Card {item} {i} />
+			{#each newItems as item (item.id)}
+				<Card {item} />
 			{/each}
 			<CardCta
 				stretch="true"

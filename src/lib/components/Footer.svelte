@@ -3,7 +3,6 @@
 	import { localizeHref } from '#lib/paraglide/runtime.js';
 	import ImageFilter from '#lib/components/ImageFilter.svelte';
 	import { browser } from '$app/env';
-	import { page } from '$app/state';
 	import Share from './Share.svelte';
 	// import Logo from '#lib/components/Logo.svelte';
 </script>
@@ -17,7 +16,7 @@
 		<li><a class="text-2xl" href={localizeHref('/resources/')}>{m.nav_resources()}</a></li>
 		<li class="text-2xl"><Share /></li>
 	</ul>
-	<div class="max-w-[800px] pt-4 text-xl">
+	<div class="max-w-200 pt-4 text-xl">
 		<p>© {m.title()}</p>
 		<p class="mt-2 text-xs">
 			{m.claim()}
@@ -39,7 +38,7 @@
 		</p>
 	</div>
 
-	<div class="mt-10 mb-5 max-w-[200px]">
+	<div class="mt-10 mb-5 max-w-50">
 		<!-- <Logo textColor={'#fff'} /> -->
 	</div>
 </article>

@@ -1,6 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-	import { query } from '#lib/api.js';
 	import { m } from '#lib/paraglide/messages.js';
 	import { getLocale } from '#lib/paraglide/runtime.js';
 	import Hero from '#lib/components/Hero.svelte';
@@ -29,7 +27,7 @@
 	<Hero height="100dvh" {splashImages} />
 	{#key lang}
 		<div class="textContainer">
-			{#each lines as l, i}
+			{#each lines as l, i (i)}
 				{#if l === 'zh'}
 					<h2 class="line zhLine">
 						<!-- <TextOutlined
@@ -84,9 +82,6 @@
 	.line:nth-child(2) {
 		justify-self: end;
 		text-align: left;
-	}
-	.nowrap {
-		white-space: nowrap;
 	}
 	.enBg {
 		background: #f3f4f6;

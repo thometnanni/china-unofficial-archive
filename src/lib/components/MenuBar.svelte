@@ -1,16 +1,11 @@
 <script>
 	import { m } from '#lib/paraglide/messages.js';
 	import Logo from '#lib/components/Logo.svelte';
-	import TextOutlined from '#lib/components/TextOutlined.svelte';
-	import ImageFilter from '#lib/components/ImageFilter.svelte';
-	import { onMount, onDestroy } from 'svelte';
 	import { setLocale, localizeHref, getLocale } from '#lib/paraglide/runtime.js';
 	import { page } from '$app/state';
 
 	let showMenu = $state(false);
 
-	let openMenu = $state(false);
-	let isCollapsed = $state(false);
 	let lang = $derived(getLocale());
 
 	function toggleMenu() {
@@ -20,44 +15,11 @@
 	function closeMenu() {
 		showMenu = false;
 	}
-
-	function clickOutside(node) {
-		const handle = (e) => {
-			e.stopPropagation();
-			if (!node.contains(e.target)) showMenu = false;
-		};
-		document.addEventListener('mousedown', handle);
-		return {
-			destroy() {
-				document.removeEventListener('mousedown', handle);
-			}
-		};
-	}
-
-	const defaultHero =
-		'https://minjian-danganguan.org/files/original/a033ef9956aaa4a9bcace1c6de9e8dde1611d87d.jpg';
-
-	function pickHeroFromData(p) {
-		if (p.route.id !== '/archive/[[id]]') return null;
-		const d = p.data?.item;
-		if (!d) return null;
-
-		const check = (i) => i && /\.(jpe?g|png)$/i.test(i);
-
-		const tryUrl =
-			d?.media?.find((m) => check(m?.url))?.url ||
-			(Array.isArray(d?.items) ? d.items[0]?.media?.find((m) => check(m?.url))?.url : null) ||
-			(check(d?.thumbnail) ? d.thumbnail : null);
-
-		return tryUrl || null;
-	}
-
-	let heroSrc = $derived(pickHeroFromData(page) || defaultHero);
 </script>
 
 <nav class="absolute z-50 flex w-full justify-between p-2 text-xl">
 	<section class="flex items-start gap-2">
-		<div class="w-[150px] max-w-[calc(100vw_-160px)] border-1 border-brand bg-white">
+		<div class="w-37.5 max-w-[calc(100vw-160px)] border border-brand bg-white">
 			<a href="/"><Logo /></a>
 		</div>
 

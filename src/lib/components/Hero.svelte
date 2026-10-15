@@ -35,17 +35,17 @@
 </script>
 
 <svelte:head>
-	{#each images as src}
+	{#each images as src (src)}
 		<link rel="preload" as="image" href="{src}?imagesize=thumbnail" />
 	{/each}
 </svelte:head>
 
 <div
-	class="hero-root pointer-events-none z-[-1] mb-[-100px] overflow-hidden"
+	class="hero-root pointer-events-none z-[-1] -mb-25 overflow-hidden"
 	style={`--color-card-primary: var(--color-brand-purple); height:${heroHeight()}`}
 >
 	<div class="hero-slides">
-		{#each images as src, i}
+		{#each images as src, i (src)}
 			{#if i === index}
 				<div class="hero-slide" in:receive|local out:send|local>
 					<ImageFilter

@@ -4,7 +4,7 @@
 	import CardObject from '#lib/components/cards/CardObject.svelte';
 	import CardFilter from '#lib/components/cards/CardFilter.svelte';
 
-	let { item, i = 0 } = $props();
+	let { item } = $props();
 
 	let href = $derived(localizeHref(`/archive/${item.id}`));
 	let CardComponent = $derived.by(() => {

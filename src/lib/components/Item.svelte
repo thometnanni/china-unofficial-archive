@@ -1,10 +1,7 @@
 <script>
-	import { query } from '#lib/api.js';
-
-	import { m } from '#lib/paraglide/messages.js';
+	import { sanitize } from '#lib/utils/sanitize.js';
 	import { localizeHref } from '#lib/paraglide/runtime.js';
 	import TextOutlined from '#lib/components/TextOutlined.svelte';
-	import ImageFilter from '#lib/components/ImageFilter.svelte';
 	import { page } from '$app/state';
 	import { normalizeDescription } from '#lib/utils/normalize.js';
 	import Share from './Share.svelte';
@@ -19,8 +16,8 @@
 </script>
 
 {#if item}
-	<section class="m-auto flex max-w-[840px] flex-col gap-2 p-2 px-4" data-type={dataType}>
-		<h2 class="title z-10 mt-[-1em] mb-5 ml-[0] text-3xl sm:text-5xl">
+	<section class="m-auto flex max-w-210 flex-col gap-2 p-2 px-4" data-type={dataType}>
+		<h2 class="title z-10 mt-[-1em] mb-5 ml-0 text-3xl sm:text-5xl">
 			<TextOutlined>{item.title}</TextOutlined>
 		</h2>
 
@@ -31,7 +28,7 @@
 		{/if}
 
 		<div class="mb-2 flex flex-wrap gap-2">
-			{#each item.creator as creator}
+			{#each item.creator as creator (creator.id)}
 				{#if creator.title}
 					<a class="person creatorTag" href={localizeHref(`/archive/${creator.id}`)}>
 						<TextOutlined>
@@ -41,7 +38,7 @@
 				{/if}
 			{/each}
 
-			{#each item.objectType as objectType}
+			{#each item.objectType as objectType (objectType.id)}
 				{#if objectType.title}
 					<a
 						class="{item.type} type tag box-decoration-clone text-white"
@@ -54,7 +51,7 @@
 				{/if}
 			{/each}
 
-			{#each item.theme ?? [] as theme}
+			{#each item.theme ?? [] as theme (theme.id)}
 				{#if theme.title}
 					<a
 						class="theme filter {item.type} tag leading-loose"
@@ -67,7 +64,7 @@
 				{/if}
 			{/each}
 
-			{#each item.era ?? [] as era}
+			{#each item.era ?? [] as era (era.id)}
 				{#if era.title}
 					<a
 						class="era filter {item.type} tag leading-loose"
@@ -88,9 +85,10 @@
 		</span>
 
 		<div class="item-container mt-8 flex flex-col gap-4 text-xl">
-			{#each description as paragraph, index}
-				<p>{@html paragraph}</p>
-				{#if index === 0 && item.thumbnail}
+			{#each description as paragraph, i (i)}
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				<p>{@html sanitize(paragraph)}</p>
+				{#if i === 0 && item.thumbnail}
 					<img
 						src={(item.thumbnailLarge ?? item.thumbnail) &&
 							`${item.thumbnailLarge ?? item.thumbnail}?imagesize=inline`}

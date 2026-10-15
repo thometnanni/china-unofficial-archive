@@ -29,9 +29,7 @@
 					objectPosition="center 35%"
 					disabled={hovering}
 				/>
-				<TextOutlined
-					as="h3"
-					class="absolute right-[calc(var(--spacing)_*_-4)] bottom-4 text-right text-xl"
+				<TextOutlined as="h3" class="absolute -right-4 bottom-4 text-right text-xl"
 					>{item.title}</TextOutlined
 				>
 			</div>

@@ -1,5 +1,6 @@
 <script>
-	let { snippets = [], href = '#', searchTerm = '', objectType = '' } = $props();
+	import { sanitize } from '#lib/utils/sanitize.js';
+	let { snippets = [], href = '#', objectType = '' } = $props();
 	const hasSnippets = $derived(Boolean(snippets?.length));
 
 	function escapeTerm(term) {
@@ -15,9 +16,10 @@
 
 {#if hasSnippets}
 	<a {href} class="snippets bg-white" data-type={objectType}>
-		{#each snippets as snippet}
-			<p class="mb-2 line-clamp-4 text-base break-words opacity-80">
-				{@html highlightSnippet(snippet)}
+		{#each snippets as snippet, i (i)}
+			<p class="mb-2 line-clamp-4 text-base wrap-break-word opacity-80">
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html sanitize(highlightSnippet(snippet))}
 			</p>
 		{/each}
 	</a>

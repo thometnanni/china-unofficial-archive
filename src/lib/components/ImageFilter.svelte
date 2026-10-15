@@ -1,6 +1,6 @@
 <script>
 	import noise from '#lib/assets/noise.png';
-	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	const {
 		src,

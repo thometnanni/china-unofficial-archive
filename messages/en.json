@@ -44,5 +44,11 @@
 	"share": "Share",
 	"link_copied": "Link copied!",
 	"siteby": "Site by",
-	"see_all_newsletters": "See all"
+	"see_all_newsletters": "See all",
+	"converted_note": "This text was automatically converted from {from}.",
+	"view_original": "View original",
+	"view_converted": "View converted version",
+	"original_load_failed": "Could not load the original.",
+	"variant_simplified": "Simplified Chinese",
+	"variant_traditional": "Traditional Chinese"
 }

@@ -35,5 +35,11 @@
 	"share": "分享",
 	"link_copied": "鏈接已複製",
 	"siteby": "網站由",
-	"see_all_newsletters": "瀏覽更多簡報內容"
+	"see_all_newsletters": "瀏覽更多簡報內容",
+	"converted_note": "此文本由{from}自動轉換。",
+	"view_original": "查看原文",
+	"view_converted": "查看轉換版本",
+	"original_load_failed": "無法載入原文。",
+	"variant_simplified": "簡體中文",
+	"variant_traditional": "繁體中文"
 }

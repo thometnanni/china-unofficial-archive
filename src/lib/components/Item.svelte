@@ -1,6 +1,8 @@
 <script>
 	import { sanitize } from '#lib/utils/sanitize.js';
 	import { localizeHref } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { query } from '#lib/api.js';
 	import TextOutlined from '#lib/components/TextOutlined.svelte';
 	import { page } from '$app/state';
 	import { normalizeDescription } from '#lib/utils/normalize.js';
@@ -12,18 +14,65 @@
 			.toLowerCase()
 			.trim()
 	);
-	const description = $derived(normalizeDescription(item?.description));
+
+	let showOriginal = $state(false);
+	let original = $state(null);
+	let originalLoading = $state(false);
+	let originalFailed = $state(false);
+
+	// Reset the original-text state when navigating to another item
+	$effect(() => {
+		item?.id;
+		showOriginal = false;
+		original = null;
+		originalLoading = false;
+		originalFailed = false;
+	});
+
+	const shown = $derived(showOriginal && original ? original : item);
+	const description = $derived(normalizeDescription(shown?.description));
+	// Language of the text currently shown when it is the original (pre-conversion) version
+	const originalLang = $derived(
+		showOriginal && original ? (item?.convertedFrom === 'zh-hk' ? 'zh-HK' : 'zh-CN') : null
+	);
+
+	function variantLabel(code) {
+		return code === 'zh-hk' ? m.variant_traditional() : m.variant_simplified();
+	}
+
+	async function toggleOriginal() {
+		if (showOriginal) {
+			showOriginal = false;
+			return;
+		}
+		showOriginal = true;
+		if (original || originalLoading) return;
+
+		const id = item.id;
+		originalLoading = true;
+		originalFailed = false;
+		try {
+			const res = await query(`item/${id}`, window.fetch, item.convertedFrom);
+			if (!res.ok) throw new Error(res.statusText);
+			const data = await res.json();
+			if (item?.id === id) original = data;
+		} catch {
+			if (item?.id === id) originalFailed = true;
+		} finally {
+			if (item?.id === id) originalLoading = false;
+		}
+	}
 </script>
 
 {#if item}
 	<section class="m-auto flex max-w-210 flex-col gap-2 p-2 px-4" data-type={dataType}>
-		<h2 class="title z-10 mt-[-1em] mb-5 ml-0 text-3xl sm:text-5xl">
-			<TextOutlined>{item.title}</TextOutlined>
+		<h2 class="title z-10 mt-[-1em] mb-5 ml-0 text-3xl sm:text-5xl" lang={originalLang}>
+			<TextOutlined>{shown.title}</TextOutlined>
 		</h2>
 
-		{#if item.titleAlt?.length > 0}
-			<h3 class="title sm:text-2x mb-3 text-2xl">
-				<TextOutlined>{item.titleAlt}</TextOutlined>
+		{#if shown.titleAlt?.length > 0}
+			<h3 class="title sm:text-2x mb-3 text-2xl" lang={originalLang}>
+				<TextOutlined>{shown.titleAlt}</TextOutlined>
 			</h3>
 		{/if}
 
@@ -84,7 +133,29 @@
 			</TextOutlined>
 		</span>
 
-		<div class="item-container mt-8 flex flex-col gap-4 text-xl">
+		{#if item.convertedFrom != null}
+			<div
+				class="converted-note mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 self-start border border-brand bg-brand/10 px-1 text-base"
+			>
+				<span>{m.converted_note({ from: variantLabel(item.convertedFrom) })}</span>
+				<button
+					type="button"
+					class="underline"
+					aria-pressed={showOriginal}
+					onclick={toggleOriginal}
+				>
+					{showOriginal ? m.view_converted() : m.view_original()}
+				</button>
+				{#if originalLoading}
+					<span>{m.loading()}</span>
+				{/if}
+				{#if originalFailed}
+					<span role="alert">{m.original_load_failed()}</span>
+				{/if}
+			</div>
+		{/if}
+
+		<div class="item-container mt-8 flex flex-col gap-4 text-xl" lang={originalLang}>
 			{#each description as paragraph, i (i)}
 				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 				<p>{@html sanitize(paragraph)}</p>

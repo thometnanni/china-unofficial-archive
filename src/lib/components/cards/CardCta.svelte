@@ -1,6 +1,6 @@
 <script>
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
 
 	let { href = '#', stretch = false, target = '', title = '', image = '/hero.webp' } = $props();
 </script>

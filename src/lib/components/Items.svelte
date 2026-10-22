@@ -5,8 +5,8 @@
 
 <section class="itemsSection m-auto max-w-[1640px] pt-8 pb-10">
 	<div class="itemsList">
-		{#each items as item, i}
-			<Card {item} {i} />
+		{#each items as item (item.id)}
+			<Card {item} />
 		{/each}
 	</div>
 </section>

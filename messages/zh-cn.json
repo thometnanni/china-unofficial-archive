@@ -11,7 +11,7 @@
 	"slogan": "我们致力于收集、保存和传播被审查、被压制的中国民间历史",
 	"explore_archive": "浏览全部馆藏",
 	"claim": "中国民间档案馆致力于收集、保存和传播被审查、被压制的中国民间历史，馆藏内容为中国民间社会抢救、修复中国历史的努力成果，包括文字、影视、网络资料。",
-	"lang": "中文",
+	"lang": "简体",
 	"nav_explore": "全部馆藏",
 	"nav_about": "关于我们",
 	"nav_resources": "其他资源",
@@ -35,5 +35,11 @@
 	"share": "分享",
 	"link_copied": "链接已复制",
 	"siteby": "网站由",
-	"see_all_newsletters": "浏览更多简报内容"
+	"see_all_newsletters": "浏览更多简报内容",
+	"converted_note": "此文本由{from}自动转换。",
+	"view_original": "查看原文",
+	"view_converted": "查看转换版本",
+	"original_load_failed": "无法加载原文。",
+	"variant_simplified": "简体中文",
+	"variant_traditional": "繁体中文"
 }

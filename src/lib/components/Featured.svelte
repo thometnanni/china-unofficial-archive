@@ -1,21 +1,20 @@
 <script>
-	import { m } from '$lib/paraglide/messages';
-	import Card from '$lib/components/Card.svelte';
-	import CardCta from '$lib/components/cards/CardCta.svelte';
-	import NewsletterPanel from '$lib/components/NewsletterPanel.svelte';
-	import { localizeHref } from '$lib/paraglide/runtime';
-	import { page } from '$app/stores';
+	import { m } from '#lib/paraglide/messages.js';
+	import Card from '#lib/components/Card.svelte';
+	import CardCta from '#lib/components/cards/CardCta.svelte';
+	import NewsletterPanel from '#lib/components/NewsletterPanel.svelte';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
-	import { setupResize } from '$lib/resize';
-	import { browser } from '$app/environment';
+	import { setupResize } from '#lib/resize.js';
+	import { browser } from '$app/env';
 
-	let featuredItems = $derived($page.data.featured?.slice(0, 9));
-	let newItems = $derived($page.data.newItems?.slice(0, 11));
-	let newsletterItems = $derived($page.data.newsletters?.slice(0, 20));
+	let featuredItems = $derived(page.data.featured?.slice(0, 9));
+	let newItems = $derived(page.data.newItems?.slice(0, 11));
+	let newsletterItems = $derived(page.data.newsletters?.slice(0, 20));
 
 	let featureListRef;
 	let newsletterColRef;
-	let resizeCleanup;
 
 	function syncHeight() {
 		if (!browser) return;
@@ -34,7 +33,7 @@
 
 	onMount(() => {
 		if (!browser) return;
-		setupResize(featureListRef, syncHeight);
+		return setupResize(featureListRef, syncHeight);
 	});
 </script>
 
@@ -47,8 +46,8 @@
 			<p class="swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
 			<div class="featureList pb-10" bind:this={featureListRef}>
-				{#each featuredItems as item, i}
-					<Card {item} {i} />
+				{#each featuredItems as item (item.id)}
+					<Card {item} />
 				{/each}
 			</div>
 		</div>
@@ -74,7 +73,9 @@
 	</div>
 
 	<div class="space-y-6 pt-2 md:border-t md:border-brand">
-		<div class="archiveHeaderRow m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0">
+		<div
+			class="archiveHeaderRow m-0 flex w-full max-w-full items-baseline justify-between px-4 md:px-0"
+		>
 			<h2 class="w-full border-t border-brand pt-2 text-3xl md:border-t-0 md:pt-0">
 				{m.new()}
 			</h2>
@@ -82,8 +83,8 @@
 		<p class="archiveHeaderRow swipeHint px-4 md:px-0">{m.swipe_more_items()}</p>
 
 		<div class="newList">
-			{#each newItems as item, i}
-				<Card {item} {i} />
+			{#each newItems as item (item.id)}
+				<Card {item} />
 			{/each}
 			<CardCta
 				stretch="true"
@@ -109,7 +110,7 @@
 	}
 
 	.featureList {
-		@apply flex w-full flex-nowrap justify-start gap-8 overflow-x-auto pl-8 pr-0 pt-4;
+		@apply flex w-full flex-nowrap justify-start gap-8 overflow-x-auto pt-4 pr-0 pl-8;
 		scrollbar-width: thin;
 	}
 
@@ -131,7 +132,7 @@
 	}
 
 	.newList {
-		@apply flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto pl-8 pr-0 pt-4;
+		@apply flex w-full flex-nowrap items-center justify-start gap-8 overflow-x-auto pt-4 pr-0 pl-8;
 		scrollbar-width: thin;
 	}
 

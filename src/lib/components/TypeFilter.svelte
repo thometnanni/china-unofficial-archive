@@ -1,10 +1,10 @@
 <script>
-	import { m } from '$lib/paraglide/messages';
-	import { page } from '$app/stores';
+	import { m } from '#lib/paraglide/messages.js';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	const { objectCount, creatorCount } = $props();
 
-	// import { getLocale } from '$lib/paraglide/runtime';
+	// import { getLocale } from '#lib/paraglide/runtime.js';
 	// let { value = $bindable('all'), options = ['all', 'object', 'creator'] } = $props();
 	// let lang = $derived(getLocale());
 	// function labelFor(opt) {
@@ -17,15 +17,14 @@
 	// 	value = opt;
 	// }
 
-	let currentView = $derived($page.url.searchParams.get('view') || 'object');
+	let currentView = $derived(page.url.searchParams.get('view') || 'object');
 
 	function setView(view) {
-		const url = new URL($page.url);
+		const url = new URL(page.url.href);
 		url.searchParams.set('view', view);
 		goto(url, {
-			replaceState: true,
-			noScroll: true,
-			keepFocus: true
+			replace: true,
+			reset: false
 		});
 	}
 </script>

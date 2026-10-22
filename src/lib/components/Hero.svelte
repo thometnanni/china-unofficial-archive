@@ -1,7 +1,7 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { onDestroy } from 'svelte';
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
 	import { crossfade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
@@ -16,10 +16,10 @@
 	} = $props();
 
 	let index = $state(0);
-	let images = $derived(splashImages ?? $page.data.heroes ?? ['/hero.webp']);
+	let images = $derived(splashImages ?? page.data.heroes ?? ['/hero.webp']);
 
 	const heroHeight = () => {
-		const resolved = height ? height : $page.data.heroes ? '550px' : '350px';
+		const resolved = height ? height : page.data.heroes ? '550px' : '350px';
 		return resolved;
 	};
 
@@ -35,17 +35,17 @@
 </script>
 
 <svelte:head>
-	{#each images as src}
+	{#each images as src (src)}
 		<link rel="preload" as="image" href="{src}?imagesize=thumbnail" />
 	{/each}
 </svelte:head>
 
 <div
-	class={`hero-root pointer-events-none z-[-1] mb-[-100px] overflow-hidden`}
+	class="hero-root pointer-events-none z-[-1] -mb-25 overflow-hidden"
 	style={`--color-card-primary: var(--color-brand-purple); height:${heroHeight()}`}
 >
 	<div class="hero-slides">
-		{#each images as src, i}
+		{#each images as src, i (src)}
 			{#if i === index}
 				<div class="hero-slide" in:receive|local out:send|local>
 					<ImageFilter

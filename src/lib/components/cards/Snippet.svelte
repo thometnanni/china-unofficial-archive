@@ -1,23 +1,15 @@
 <script>
-	let { snippets = [], href = '#', searchTerm = '', objectType = '' } = $props();
+	import { highlightHtml } from '#lib/utils/highlight.js';
+	let { snippets = [], href = '#', objectType = '' } = $props();
 	const hasSnippets = $derived(Boolean(snippets?.length));
-
-	function escapeTerm(term) {
-		return term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-	}
-
-	function highlightSnippet({ term, snippet }) {
-		if (!term) return snippet;
-		const regex = new RegExp(`(${escapeTerm(term)})`, 'gi');
-		return snippet.replace(regex, '<mark>$1</mark>');
-	}
 </script>
 
 {#if hasSnippets}
 	<a {href} class="snippets bg-white" data-type={objectType}>
-		{#each snippets as snippet}
-			<p class="mb-2 line-clamp-4 text-base break-words opacity-80">
-				{@html highlightSnippet(snippet)}
+		{#each snippets as snippet, i (i)}
+			<p class="mb-2 line-clamp-4 text-base wrap-break-word opacity-80">
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html highlightHtml(snippet.snippet, snippet.term)}
 			</p>
 		{/each}
 	</a>

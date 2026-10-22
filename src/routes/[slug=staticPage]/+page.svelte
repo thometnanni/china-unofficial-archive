@@ -1,12 +1,12 @@
 <script>
-	import MenuBar from '$lib/components/MenuBar.svelte';
-	import StaticPage from '$lib/components/StaticPage.svelte';
-	import { page } from '$app/stores';
-	import Footer from '$lib/components/Footer.svelte';
-	import { m } from '$lib/paraglide/messages';
-	import Meta from '$lib/components/Meta.svelte';
-	import Hero from '$lib/components/Hero.svelte';
-	let slug = $derived($page.params.slug);
+	import MenuBar from '#lib/components/MenuBar.svelte';
+	import StaticPage from '#lib/components/StaticPage.svelte';
+	import { page } from '$app/state';
+	import Footer from '#lib/components/Footer.svelte';
+	import { m } from '#lib/paraglide/messages.js';
+	import Meta from '#lib/components/Meta.svelte';
+	import Hero from '#lib/components/Hero.svelte';
+	let slug = $derived(page.params.slug);
 	let { data } = $props();
 </script>
 

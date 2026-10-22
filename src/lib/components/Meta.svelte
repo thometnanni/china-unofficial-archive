@@ -1,21 +1,22 @@
 <script>
-	import { page } from '$app/stores';
-	import { m } from '$lib/paraglide/messages';
-	import { deLocalizeUrl, localizeUrl } from '$lib/paraglide/runtime';
+	import { page } from '$app/state';
+	import { m } from '#lib/paraglide/messages.js';
+	import { deLocalizeUrl, localizeUrl } from '#lib/paraglide/runtime.js';
 	let {
 		title = m.title(),
 		metaTitle = m.title(),
 		description = m.slogan(),
-		image = `${deLocalizeUrl($page.url.href)}cover.webp`,
+		image = `${deLocalizeUrl(page.url.href)}cover.webp`,
 		type = 'website',
 		noindex = false
 	} = $props();
-	const url = $derived($page.url.href);
+	const url = $derived(page.url.href);
 </script>
 
 <svelte:head>
 	<title>{title}</title>
-	<link rel="alternate" hreflang="zh" href={localizeUrl(url, { locale: 'zh' })} />
+	<link rel="alternate" hreflang="zh-cn" href={localizeUrl(url, { locale: 'zh-cn' })} />
+	<link rel="alternate" hreflang="zh-hk" href={localizeUrl(url, { locale: 'zh-hk' })} />
 	<link rel="alternate" hreflang="en" href={localizeUrl(url, { locale: 'en' })} />
 	<link rel="alternate" hreflang="x-default" href={deLocalizeUrl(url)} />
 	<meta name="description" content={description} />

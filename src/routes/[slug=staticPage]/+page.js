@@ -1,14 +1,12 @@
 import { error } from '@sveltejs/kit';
-import { query } from '$lib/api';
-import { extractText, summarize, firstImageSrc, absolutize } from '$lib/seo';
+import { query } from '#lib/api.js';
+import { extractText, summarize, firstImageSrc, absolutize } from '#lib/seo.js';
 
 export async function load({ params, fetch, url }) {
 	const res = await query(`page/${params.slug}`, fetch);
 
 	if (!res.ok) {
-		throw error(res.status, {
-			message: res.statusText
-		});
+		throw error(res.status, res.statusText);
 	}
 
 	const { html, title } = await res.json();

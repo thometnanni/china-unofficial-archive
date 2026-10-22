@@ -23,20 +23,19 @@
 		requestAnimationFrame(() => (programmaticScroll = false));
 	}
 
-	function onMouseover(e) {
+	function onMouseover() {
 		mousemoveEnabled = true;
 	}
 
-	function onScroll(e) {
+	function onScroll() {
 		if (!programmaticScroll) mousemoveEnabled = false;
 	}
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 <div
 	bind:this={outer}
-	class="outer w-[100%] overflow-x-auto scroll-smooth"
+	class="outer w-full overflow-x-auto scroll-smooth"
 	onmousemovecapture={onMousemove}
 	onmouseenter={onMouseover}
 	onscroll={onScroll}

@@ -1,14 +1,12 @@
 import { error } from '@sveltejs/kit';
-import { query } from '$lib/api';
-import { deriveSeoFromItem } from '$lib/seo';
+import { query } from '#lib/api.js';
+import { deriveSeoFromItem } from '#lib/seo.js';
 
 export async function load({ params, url, fetch }) {
 	const res = await query(`item/${params.id}`, fetch);
 
 	if (!res.ok) {
-		throw error(res.status, {
-			message: res.statusText
-		});
+		throw error(res.status, res.statusText);
 	}
 
 	const item = await res.json();

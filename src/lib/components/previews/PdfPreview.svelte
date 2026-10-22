@@ -1,6 +1,6 @@
 <script>
-	import { browser } from '$app/environment';
-	import { m } from '$lib/paraglide/messages';
+	import { browser } from '$app/env';
+	import { m } from '#lib/paraglide/messages.js';
 	let pdfjsLib = $state();
 
 	let canvas = $state();
@@ -11,7 +11,7 @@
 		// Lazy import to prevent SSR from choking
 		import('pdfjs-dist').then(async (mod) => {
 			pdfjsLib = mod;
-			pdfjsLib.GlobalWorkerOptions.workerSrc = `/workers/pdf.worker.js`;
+			pdfjsLib.GlobalWorkerOptions.workerSrc = `/workers/pdf.worker.mjs`;
 		});
 	}
 

@@ -18,7 +18,8 @@
 
 @theme {
 	--font-sans: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
-	--font-sans-zh: 'IBM Plex Sans', 'IBM Plex Sans SC', 'IBM Plex Sans TC', system-ui, sans-serif;
+	--font-sans-zh-cn: 'IBM Plex Sans', 'IBM Plex Sans SC', 'IBM Plex Sans TC', system-ui, sans-serif;
+	--font-sans-zh-hk: 'IBM Plex Sans', 'IBM Plex Sans TC', 'IBM Plex Sans SC', system-ui, sans-serif;
 
 	--color-brand-gray-50: #f3f3f3;
 	--color-brand-gray-100: #c6c6c6;
@@ -91,7 +92,10 @@ body {
 }
 :lang(zh) {
 	--lh-tight: 1.29;
-	--font-sans: var(--font-sans-zh);
+	--font-sans: var(--font-sans-zh-cn);
+}
+:lang(zh-hk) {
+	--font-sans: var(--font-sans-zh-hk);
 }
 
 h1,

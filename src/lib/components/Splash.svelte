@@ -1,13 +1,12 @@
 <script>
-	import { onMount } from 'svelte';
-	import { query } from '$lib/api';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import Hero from '$lib/components/Hero.svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import Hero from '#lib/components/Hero.svelte';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
 
 	let lang = $derived(getLocale());
-	let lines = $derived(lang === 'zh' ? ['zh', 'en'] : ['en', 'zh']);
+	let lines = $derived(lang === 'en' ? ['en', 'zh'] : ['zh', 'en']);
+	let zhLocale = $derived(lang === 'zh-hk' ? 'zh-hk' : 'zh-cn');
 	const splashImages = [
 		'intro/1fb378c2aa01bec8d45cdd0f3f218dd7a86b7624.webp',
 		'intro/58c4e5afa6ac1b19599eab1c4cf8726d40f13355.webp',
@@ -25,16 +24,16 @@
 </script>
 
 <section class="tilesSection" style="height:100dvh;">
-	<Hero height={'100dvh'} {splashImages} />
+	<Hero height="100dvh" {splashImages} />
 	{#key lang}
 		<div class="textContainer">
-			{#each lines as l, i}
+			{#each lines as l, i (i)}
 				{#if l === 'zh'}
 					<h2 class="line zhLine">
 						<!-- <TextOutlined
 							>唯一非营利性的 <span class="nowrap">中国独立思想档案库</span></TextOutlined
 						> -->
-						<span><TextOutlined>{m.slogan(null, { locale: 'zh' })}</TextOutlined></span>
+						<span><TextOutlined>{m.slogan(null, { locale: zhLocale })}</TextOutlined></span>
 					</h2>
 				{:else}
 					<h2 class="line enLine">
@@ -83,9 +82,6 @@
 	.line:nth-child(2) {
 		justify-self: end;
 		text-align: left;
-	}
-	.nowrap {
-		white-space: nowrap;
 	}
 	.enBg {
 		background: #f3f4f6;

@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # 1. Build stage  - install deps, compile assets
 # -------------------------------------------------
-FROM node:22-alpine AS builder
+FROM node:24.22.0-alpine AS builder
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ RUN npm run build
 # -------------------------------------------------
 # 2. Runtime stage  - smaller image for execution
 # -------------------------------------------------
-FROM node:22-alpine AS runners
+FROM node:24.22.0-alpine AS runners
 
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/package*.json ./

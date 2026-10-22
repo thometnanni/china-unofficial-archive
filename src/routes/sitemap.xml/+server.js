@@ -1,5 +1,5 @@
-import { query } from '$lib/api';
-import { baseLocale, locales } from '$lib/paraglide/runtime';
+import { query } from '#lib/api.js';
+import { baseLocale, locales } from '#lib/paraglide/runtime.js';
 
 export async function GET({ fetch, url }) {
 	const items = await query('ids', fetch).then((d) => d.json());

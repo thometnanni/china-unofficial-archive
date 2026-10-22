@@ -1,9 +1,8 @@
 <script>
-	import ImageFilter from '$lib/components/ImageFilter.svelte';
-	import TextOutlined from '$lib/components/TextOutlined.svelte';
-	import { page } from '$app/stores';
-	import Snippet from '$lib/components/cards/Snippet.svelte';
-	import { hoverable } from '$lib/actions/hoverable';
+	import ImageFilter from '#lib/components/ImageFilter.svelte';
+	import TextOutlined from '#lib/components/TextOutlined.svelte';
+	import Snippet from '#lib/components/cards/Snippet.svelte';
+	import { hoverable } from '#lib/actions/hoverable.js';
 
 	let { item, href } = $props();
 	let isPortrait = $state(true);
@@ -11,16 +10,12 @@
 		isPortrait = e.detail.isPortrait;
 	}
 	const objectType = $derived(item?.objectType?.[0]?.id || '');
-	const searchTerm = $derived(String($page.url.searchParams.get('search') || '').trim());
-	const titleClass = $derived(
-		isPortrait ? 'z-0 col-[2/4] row-[1/4] mb-2 ml-4 items-end' : 'z-0 col-[1/4] row-[3/4] ml-4'
-	);
 
 	let hovering = $state(false);
 </script>
 
 <section>
-	<div class={`col-span-3 row-span-3 grid grid-rows-[auto_1fr] `}>
+	<div class="col-span-3 row-span-3 grid grid-rows-[auto_1fr]">
 		<a
 			{href}
 			class="card group col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 gap-8"
@@ -44,8 +39,8 @@
 						disabled={hovering}
 					/>
 					{#if item.objectType}
-						<div class="absolute top-1 left-[calc(var(--spacing)_*_-4)] text-balance">
-							{#each item.objectType as objectType}
+						<div class="absolute top-1 -left-4 text-balance">
+							{#each item.objectType as objectType (objectType.id)}
 								<TextOutlined class="mb-1 text-card-primary">{objectType.title}</TextOutlined>
 							{/each}
 						</div>
@@ -58,13 +53,13 @@
 					as="h3"
 					class={isPortrait
 						? 'z-0 col-[2/4] row-[1/4] mb-2 ml-4 items-end'
-						: 'z-0 col-[1/4] row-[3/4] mt-[calc(var(--spacing)_*_-10)] ml-4'}
-					>{item.title}</TextOutlined
+						: 'z-0 col-[1/4] row-[3/4] -mt-10 ml-4'}>{item.title}</TextOutlined
 				>
 			{/if}
 		</a>
 	</div>
-	<Snippet snippets={item.snippets} {href} {searchTerm} {objectType} />
+
+	<Snippet snippets={item.snippets} {href} {objectType} />
 </section>
 
 <style>

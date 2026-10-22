@@ -17,14 +17,14 @@
 
 {#if showAllFilters}
 	<div class="flex flex-col gap-3 pt-2">
-		{#each expandedFilters as category}
+		{#each expandedFilters as category, i (i)}
 			{#if category.filters.length}
 				<div class="flex flex-col gap-1">
 					<div class="text-gray-500">
 						{category.label}
 					</div>
 					<div class="flex flex-wrap gap-2">
-						{#each category.filters as filter}
+						{#each category.filters as filter, i (i)}
 							{@const count = filter.count ?? 0}
 							{@const isActive = activeKeys?.has?.(`${filter.type}:${filter.id ?? filter.value}`)}
 							{@const isDisabled = loading || isActive || (hasScope && count === 0)}
